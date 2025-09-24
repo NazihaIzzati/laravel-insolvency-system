@@ -1,27 +1,91 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    .printable-area, .printable-area * {
+        visibility: visible;
+    }
+    .printable-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+    .no-print {
+        display: none !important;
+    }
+    .print-header {
+        text-align: center;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #000;
+        padding-bottom: 20px;
+    }
+    .print-form {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+    .print-field {
+        margin-bottom: 15px;
+        page-break-inside: avoid;
+    }
+    .print-label {
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 5px;
+    }
+    .print-value {
+        color: #000;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 2px;
+        min-height: 20px;
+    }
+}
+</style>
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900">
-                <!-- Header -->
-                <div class="flex justify-between items-center mb-6">
-                    <div>
-                        <h2 class="text-2xl font-bold text-gray-900">Edit Annulment Individual</h2>
-                        <p class="text-gray-600 mt-1">Update annulment individual profile information</p>
+                <!-- Printable Area -->
+                <div class="printable-area">
+                    <!-- Print Header -->
+                    <div class="print-header">
+                        <h1 class="text-3xl font-bold text-gray-900">EDIT ANNULMENT INDIVIDUAL FORM</h1>
+                        <p class="text-lg text-gray-600 mt-2">Insolvency Data System</p>
+                        <p class="text-sm text-gray-500 mt-1">Generated on: {{ now()->format('d/m/Y H:i:s') }}</p>
+                        <p class="text-sm text-gray-500 mt-1">Annulment Individual ID: {{ $annulmentIndv->annulment_indv_id }}</p>
                     </div>
-                    <a href="{{ route('annulment-indv.index') }}" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
-                        Back to Annulment Individual List
-                    </a>
-                </div>
 
-                <!-- Form -->
-                <form method="POST" action="{{ route('annulment-indv.update', $annulmentIndv) }}" class="space-y-6">
-                    @csrf
-                    @method('PUT')
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Screen Header -->
+                    <div class="no-print">
+                        <div class="flex justify-between items-center mb-6">
+                            <div>
+                                <h2 class="text-2xl font-bold text-gray-900">Edit Annulment Individual</h2>
+                                <p class="text-gray-600 mt-1">Update annulment individual profile information</p>
+                            </div>
+                            <div class="flex space-x-3">
+                                <button onclick="window.print()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
+                                    <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                                    </svg>
+                                    Print Form
+                                </button>
+                                <a href="{{ route('annulment-indv.index') }}" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
+                                    Back to Annulment Individual List
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form -->
+                    <form method="POST" action="{{ route('annulment-indv.update', $annulmentIndv) }}" class="space-y-6 print-form">
+                        @csrf
+                        @method('PUT')
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Annulment Individual ID -->
                         <div>
                             <label for="annulment_indv_id" class="block text-sm font-medium text-gray-700 mb-2">
@@ -183,16 +247,17 @@
 
                     </div>
 
-                    <!-- Submit Button -->
-                    <div class="flex justify-end space-x-4">
-                        <a href="{{ route('annulment-indv.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg transition duration-200">
-                            Cancel
-                        </a>
-                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
-                            Update Annulment Individual
-                        </button>
-                    </div>
-                </form>
+                        <!-- Submit Button -->
+                        <div class="flex justify-end space-x-4 no-print">
+                            <a href="{{ route('annulment-indv.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg transition duration-200">
+                                Cancel
+                            </a>
+                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
+                                Update Annulment Individual
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
