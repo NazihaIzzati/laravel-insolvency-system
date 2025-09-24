@@ -36,8 +36,8 @@
                                     Dashboard
                                 </a>
                                 
-                                <a href="{{ route('staff.index') }}" class="ml-6 text-sm font-medium {{ request()->routeIs('staff.*') ? 'text-blue-600' : 'text-gray-500' }} hover:text-gray-700">
-                                    Staff Management
+                                <a href="{{ route('annulment-indv.index') }}" class="ml-6 text-sm font-medium {{ request()->routeIs('annulment-indv.*') ? 'text-blue-600' : 'text-gray-500' }} hover:text-gray-700">
+                                    Annulment Individual Management
                                 </a>
                                 
                                 @if(auth()->user()->isAdmin())
@@ -83,8 +83,8 @@
                             Dashboard
                         </a>
                         
-                        <a href="{{ route('staff.index') }}" class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50">
-                            Staff Management
+                        <a href="{{ route('annulment-indv.index') }}" class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50">
+                            Annulment Individual Management
                         </a>
                         
                         @if(auth()->user()->isAdmin())

@@ -8,66 +8,67 @@
                 <!-- Header -->
                 <div class="flex justify-between items-center mb-6">
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-900">Add New Staff Member</h2>
-                        <p class="text-gray-600 mt-1">Create a new staff profile</p>
+                        <h2 class="text-2xl font-bold text-gray-900">Edit Annulment Individual</h2>
+                        <p class="text-gray-600 mt-1">Update annulment individual profile information</p>
                     </div>
-                    <a href="{{ route('staff.index') }}" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
-                        Back to Staff List
+                    <a href="{{ route('annulment-indv.index') }}" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
+                        Back to Annulment Individual List
                     </a>
                 </div>
 
                 <!-- Form -->
-                <form method="POST" action="{{ route('staff.store') }}" class="space-y-6">
+                <form method="POST" action="{{ route('annulment-indv.update', $annulmentIndv) }}" class="space-y-6">
                     @csrf
+                    @method('PUT')
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Staff ID -->
                         <div>
-                            <label for="staff_id" class="block text-sm font-medium text-gray-700 mb-2">
-                                Staff ID <span class="text-red-500">*</span>
+                            <label for="annulment_indv_id" class="block text-sm font-medium text-gray-700 mb-2">
+                                Annulment Individual ID <span class="text-red-500">*</span>
                             </label>
                             <input type="text" 
-                                   id="staff_id" 
-                                   name="staff_id" 
-                                   value="{{ old('staff_id') }}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('staff_id') border-red-500 @enderror"
+                                   id="annulment_indv_id" 
+                                   name="annulment_indv_id" 
+                                   value="{{ old('annulment_indv_id', $annulmentIndv->annulment_indv_id) }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('annulment_indv_id') border-red-500 @enderror"
                                    placeholder="e.g., 104081"
                                    required>
-                            @error('staff_id')
+                            @error('annulment_indv_id')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <!-- Staff Position -->
                         <div>
-                            <label for="staff_position" class="block text-sm font-medium text-gray-700 mb-2">
-                                Staff Position <span class="text-red-500">*</span>
+                            <label for="annulment_indv_position" class="block text-sm font-medium text-gray-700 mb-2">
+                                Annulment Individual Position <span class="text-red-500">*</span>
                             </label>
                             <input type="text" 
-                                   id="staff_position" 
-                                   name="staff_position" 
-                                   value="{{ old('staff_position') }}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('staff_position') border-red-500 @enderror"
+                                   id="annulment_indv_position" 
+                                   name="annulment_indv_position" 
+                                   value="{{ old('annulment_indv_position', $annulmentIndv->annulment_indv_position) }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('annulment_indv_position') border-red-500 @enderror"
                                    placeholder="e.g., Branch Manager"
                                    required>
-                            @error('staff_position')
+                            @error('annulment_indv_position')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <!-- Staff Branch -->
                         <div>
-                            <label for="staff_branch" class="block text-sm font-medium text-gray-700 mb-2">
-                                Staff Branch <span class="text-red-500">*</span>
+                            <label for="annulment_indv_branch" class="block text-sm font-medium text-gray-700 mb-2">
+                                Annulment Individual Branch <span class="text-red-500">*</span>
                             </label>
                             <input type="text" 
-                                   id="staff_branch" 
-                                   name="staff_branch" 
-                                   value="{{ old('staff_branch') }}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('staff_branch') border-red-500 @enderror"
+                                   id="annulment_indv_branch" 
+                                   name="annulment_indv_branch" 
+                                   value="{{ old('annulment_indv_branch', $annulmentIndv->annulment_indv_branch) }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('annulment_indv_branch') border-red-500 @enderror"
                                    placeholder="e.g., KUALA LUMPUR SALES HUB"
                                    required>
-                            @error('staff_branch')
+                            @error('annulment_indv_branch')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -80,7 +81,7 @@
                             <input type="text" 
                                    id="name" 
                                    name="name" 
-                                   value="{{ old('name') }}"
+                                   value="{{ old('name', $annulmentIndv->name) }}"
                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('name') border-red-500 @enderror"
                                    placeholder="e.g., John Doe">
                             @error('name')
@@ -96,7 +97,7 @@
                             <input type="email" 
                                    id="email" 
                                    name="email" 
-                                   value="{{ old('email') }}"
+                                   value="{{ old('email', $annulmentIndv->email) }}"
                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('email') border-red-500 @enderror"
                                    placeholder="e.g., john.doe@company.com">
                             @error('email')
@@ -112,7 +113,7 @@
                             <input type="text" 
                                    id="phone" 
                                    name="phone" 
-                                   value="{{ old('phone') }}"
+                                   value="{{ old('phone', $annulmentIndv->phone) }}"
                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('phone') border-red-500 @enderror"
                                    placeholder="e.g., +60123456789">
                             @error('phone')
@@ -123,11 +124,11 @@
 
                     <!-- Submit Button -->
                     <div class="flex justify-end space-x-4">
-                        <a href="{{ route('staff.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg transition duration-200">
+                        <a href="{{ route('annulment-indv.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg transition duration-200">
                             Cancel
                         </a>
                         <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
-                            Create Staff Member
+                            Update Annulment Individual
                         </button>
                     </div>
                 </form>

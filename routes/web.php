@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\StaffController;
+use App\Http\Controllers\AnnulmentIndvController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,8 +35,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     
-    // Staff management routes
-    Route::resource('staff', StaffController::class);
+    // Annulment Individual management routes
+    Route::resource('annulment-indv', AnnulmentIndvController::class);
 });
 
 // Admin routes
