@@ -100,10 +100,10 @@
                                         <div class="flex space-x-2">
                                             <a href="{{ route('annulment-indv.show', $member) }}" class="text-blue-600 hover:text-blue-900">View</a>
                                             <a href="{{ route('annulment-indv.edit', $member) }}" class="text-green-600 hover:text-green-900">Edit</a>
-                                            <form method="POST" action="{{ route('annulment-indv.destroy', $member) }}" class="inline" onsubmit="return confirm('Are you sure you want to deactivate this annulment individual?')">
+                                            <form method="POST" action="{{ route('annulment-indv.destroy', $member) }}" class="inline" onsubmit="return confirm('Are you sure you want to delete this annulment individual?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:text-red-900">Deactivate</button>
+                                                <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
                                             </form>
                                         </div>
                                     </td>

@@ -27,9 +27,6 @@ class AnnulmentIndvSeeder extends Seeder
                 'ao_date' => '2024-02-15',
                 'updated_date' => '2024-03-15',
                 'branch_name' => 'Kuala Lumpur Branch',
-                'email' => 'ahmad.rahman@company.com',
-                'phone' => '+60123456789',
-                'is_active' => true,
             ],
             [
                 'annulment_indv_id' => '104082',
@@ -44,9 +41,6 @@ class AnnulmentIndvSeeder extends Seeder
                 'ao_date' => '2024-02-20',
                 'updated_date' => '2024-03-20',
                 'branch_name' => 'Kuala Lumpur Branch',
-                'email' => 'siti.nurhaliza@company.com',
-                'phone' => '+60123456790',
-                'is_active' => true,
             ],
             [
                 'annulment_indv_id' => '104083',
@@ -61,9 +55,6 @@ class AnnulmentIndvSeeder extends Seeder
                 'ao_date' => '2024-02-25',
                 'updated_date' => '2024-03-25',
                 'branch_name' => 'Johor Bahru Branch',
-                'email' => 'muhammad.ali@company.com',
-                'phone' => '+60123456791',
-                'is_active' => true,
             ],
             [
                 'annulment_indv_id' => '104084',
@@ -78,9 +69,6 @@ class AnnulmentIndvSeeder extends Seeder
                 'ao_date' => '2024-02-28',
                 'updated_date' => '2024-03-30',
                 'branch_name' => 'Penang Branch',
-                'email' => 'fatimah.zahra@company.com',
-                'phone' => '+60123456792',
-                'is_active' => true,
             ],
             [
                 'annulment_indv_id' => '104085',
@@ -95,9 +83,6 @@ class AnnulmentIndvSeeder extends Seeder
                 'ao_date' => '2024-03-05',
                 'updated_date' => '2024-04-05',
                 'branch_name' => 'Sabah Branch',
-                'email' => 'abdul.rahman@company.com',
-                'phone' => '+60123456793',
-                'is_active' => true,
             ],
         ];
 

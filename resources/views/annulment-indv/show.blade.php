@@ -84,25 +84,6 @@
                             <p class="text-lg font-semibold text-gray-900">{{ $annulmentIndv->branch_name ?? 'Not provided' }}</p>
                         </div>
 
-                        <!-- Email -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-500 mb-1">Email Address</label>
-                            <p class="text-lg font-semibold text-gray-900">{{ $annulmentIndv->email ?? 'Not provided' }}</p>
-                        </div>
-
-                        <!-- Phone -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-500 mb-1">Phone Number</label>
-                            <p class="text-lg font-semibold text-gray-900">{{ $annulmentIndv->phone ?? 'Not provided' }}</p>
-                        </div>
-
-                        <!-- Status -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-500 mb-1">Status</label>
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $annulmentIndv->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                                {{ $annulmentIndv->is_active ? 'Active' : 'Inactive' }}
-                            </span>
-                        </div>
 
                         <!-- Created Date -->
                         <div>
@@ -117,11 +98,11 @@
                     <a href="{{ route('annulment-indv.edit', $annulmentIndv) }}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-200">
                         Edit Profile
                     </a>
-                    <form method="POST" action="{{ route('annulment-indv.destroy', $annulmentIndv) }}" class="inline" onsubmit="return confirm('Are you sure you want to deactivate this annulment individual?')">
+                    <form method="POST" action="{{ route('annulment-indv.destroy', $annulmentIndv) }}" class="inline" onsubmit="return confirm('Are you sure you want to delete this annulment individual?')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-lg transition duration-200">
-                            Deactivate Annulment Individual
+                            Delete Annulment Individual
                         </button>
                     </form>
                 </div>

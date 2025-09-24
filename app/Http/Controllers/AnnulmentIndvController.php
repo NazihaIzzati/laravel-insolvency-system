@@ -12,7 +12,7 @@ class AnnulmentIndvController extends Controller
      */
     public function index()
     {
-        $annulmentIndv = AnnulmentIndv::where('is_active', true)->orderBy('annulment_indv_id')->get();
+        $annulmentIndv = AnnulmentIndv::orderBy('annulment_indv_id')->get();
         return view('annulment-indv.index', compact('annulmentIndv'));
     }
 
@@ -42,8 +42,6 @@ class AnnulmentIndvController extends Controller
             'ao_date' => 'nullable|date',
             'updated_date' => 'nullable|date',
             'branch_name' => 'nullable|string',
-            'email' => 'nullable|email',
-            'phone' => 'nullable|string',
         ]);
 
         AnnulmentIndv::create($request->all());
@@ -86,8 +84,6 @@ class AnnulmentIndvController extends Controller
             'ao_date' => 'nullable|date',
             'updated_date' => 'nullable|date',
             'branch_name' => 'nullable|string',
-            'email' => 'nullable|email',
-            'phone' => 'nullable|string',
         ]);
 
         $annulmentIndv->update($request->all());
@@ -101,9 +97,9 @@ class AnnulmentIndvController extends Controller
      */
     public function destroy(AnnulmentIndv $annulmentIndv)
     {
-        $annulmentIndv->update(['is_active' => false]);
+        $annulmentIndv->delete();
 
         return redirect()->route('annulment-indv.index')
-            ->with('success', 'Annulment Individual deactivated successfully.');
+            ->with('success', 'Annulment Individual deleted successfully.');
     }
 }

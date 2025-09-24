@@ -23,14 +23,10 @@ class AnnulmentIndv extends Model
         'ro_date',
         'ao_date',
         'updated_date',
-        'branch_name',
-        'email',
-        'phone',
-        'is_active'
+        'branch_name'
     ];
 
     protected $casts = [
-        'is_active' => 'boolean',
         'ro_date' => 'date',
         'ao_date' => 'date',
         'updated_date' => 'date',
