@@ -36,6 +36,10 @@
                                     Dashboard
                                 </a>
                                 
+                                <a href="{{ route('staff.index') }}" class="ml-6 text-sm font-medium {{ request()->routeIs('staff.*') ? 'text-blue-600' : 'text-gray-500' }} hover:text-gray-700">
+                                    Staff Management
+                                </a>
+                                
                                 @if(auth()->user()->isAdmin())
                                     <a href="{{ route('admin.dashboard') }}" class="ml-6 text-sm font-medium text-gray-500 hover:text-gray-700">
                                         Admin Panel
@@ -77,6 +81,10 @@
                     <div class="pt-2 pb-3 space-y-1">
                         <a href="{{ route('dashboard') }}" class="block px-3 py-2 text-base font-medium text-blue-600 hover:text-blue-700 hover:bg-gray-50">
                             Dashboard
+                        </a>
+                        
+                        <a href="{{ route('staff.index') }}" class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50">
+                            Staff Management
                         </a>
                         
                         @if(auth()->user()->isAdmin())
