@@ -148,17 +148,20 @@
                 </div>
 
                 <!-- Action Buttons -->
-                <div class="mt-8 flex justify-center space-x-4 no-print">
+                <div class="mt-8 flex justify-center space-x-4">
                     <button onclick="window.print()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg transition duration-200">
                         <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
                         </svg>
                         Print
                     </button>
-                    <a href="{{ route('annulment-indv.edit', $annulmentIndv) }}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-200">
+                    <button onclick="alert('Print button clicked!')" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-6 rounded-lg transition duration-200">
+                        Test Print
+                    </button>
+                    <a href="{{ route('annulment-indv.edit', $annulmentIndv) }}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition duration-200 no-print">
                         Edit Profile
                     </a>
-                    <form method="POST" action="{{ route('annulment-indv.destroy', $annulmentIndv) }}" class="inline" onsubmit="return confirm('Are you sure you want to delete this annulment individual?')">
+                    <form method="POST" action="{{ route('annulment-indv.destroy', $annulmentIndv) }}" class="inline no-print" onsubmit="return confirm('Are you sure you want to delete this annulment individual?')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-lg transition duration-200">
