@@ -22,7 +22,7 @@
                     @method('PUT')
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Staff ID -->
+                        <!-- Annulment Individual ID -->
                         <div>
                             <label for="annulment_indv_id" class="block text-sm font-medium text-gray-700 mb-2">
                                 Annulment Individual ID <span class="text-red-500">*</span>
@@ -39,36 +39,18 @@
                             @enderror
                         </div>
 
-                        <!-- Staff Position -->
+                        <!-- No Involvency -->
                         <div>
-                            <label for="annulment_indv_position" class="block text-sm font-medium text-gray-700 mb-2">
-                                Annulment Individual Position <span class="text-red-500">*</span>
+                            <label for="no_involvency" class="block text-sm font-medium text-gray-700 mb-2">
+                                No Involvency
                             </label>
                             <input type="text" 
-                                   id="annulment_indv_position" 
-                                   name="annulment_indv_position" 
-                                   value="{{ old('annulment_indv_position', $annulmentIndv->annulment_indv_position) }}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('annulment_indv_position') border-red-500 @enderror"
-                                   placeholder="e.g., Branch Manager"
-                                   required>
-                            @error('annulment_indv_position')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <!-- Staff Branch -->
-                        <div>
-                            <label for="annulment_indv_branch" class="block text-sm font-medium text-gray-700 mb-2">
-                                Annulment Individual Branch <span class="text-red-500">*</span>
-                            </label>
-                            <input type="text" 
-                                   id="annulment_indv_branch" 
-                                   name="annulment_indv_branch" 
-                                   value="{{ old('annulment_indv_branch', $annulmentIndv->annulment_indv_branch) }}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('annulment_indv_branch') border-red-500 @enderror"
-                                   placeholder="e.g., KUALA LUMPUR SALES HUB"
-                                   required>
-                            @error('annulment_indv_branch')
+                                   id="no_involvency" 
+                                   name="no_involvency" 
+                                   value="{{ old('no_involvency', $annulmentIndv->no_involvency) }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('no_involvency') border-red-500 @enderror"
+                                   placeholder="e.g., INV001">
+                            @error('no_involvency')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -76,15 +58,125 @@
                         <!-- Name -->
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
-                                Full Name
+                                Name <span class="text-red-500">*</span>
                             </label>
                             <input type="text" 
                                    id="name" 
                                    name="name" 
                                    value="{{ old('name', $annulmentIndv->name) }}"
                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('name') border-red-500 @enderror"
-                                   placeholder="e.g., John Doe">
+                                   placeholder="e.g., Ahmad Rahman"
+                                   required>
                             @error('name')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- IC No -->
+                        <div>
+                            <label for="ic_no" class="block text-sm font-medium text-gray-700 mb-2">
+                                IC No
+                            </label>
+                            <input type="text" 
+                                   id="ic_no" 
+                                   name="ic_no" 
+                                   value="{{ old('ic_no', $annulmentIndv->ic_no) }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('ic_no') border-red-500 @enderror"
+                                   placeholder="e.g., 123456789012">
+                            @error('ic_no')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- IC No 2 -->
+                        <div>
+                            <label for="ic_no_2" class="block text-sm font-medium text-gray-700 mb-2">
+                                IC No 2
+                            </label>
+                            <input type="text" 
+                                   id="ic_no_2" 
+                                   name="ic_no_2" 
+                                   value="{{ old('ic_no_2', $annulmentIndv->ic_no_2) }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('ic_no_2') border-red-500 @enderror"
+                                   placeholder="e.g., 987654321098">
+                            @error('ic_no_2')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Court Case Number -->
+                        <div>
+                            <label for="court_case_number" class="block text-sm font-medium text-gray-700 mb-2">
+                                Court Case Number
+                            </label>
+                            <input type="text" 
+                                   id="court_case_number" 
+                                   name="court_case_number" 
+                                   value="{{ old('court_case_number', $annulmentIndv->court_case_number) }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('court_case_number') border-red-500 @enderror"
+                                   placeholder="e.g., CC2024001">
+                            @error('court_case_number')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- RO Date -->
+                        <div>
+                            <label for="ro_date" class="block text-sm font-medium text-gray-700 mb-2">
+                                RO Date
+                            </label>
+                            <input type="date" 
+                                   id="ro_date" 
+                                   name="ro_date" 
+                                   value="{{ old('ro_date', $annulmentIndv->ro_date?->format('Y-m-d')) }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('ro_date') border-red-500 @enderror">
+                            @error('ro_date')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- AO Date -->
+                        <div>
+                            <label for="ao_date" class="block text-sm font-medium text-gray-700 mb-2">
+                                AO Date
+                            </label>
+                            <input type="date" 
+                                   id="ao_date" 
+                                   name="ao_date" 
+                                   value="{{ old('ao_date', $annulmentIndv->ao_date?->format('Y-m-d')) }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('ao_date') border-red-500 @enderror">
+                            @error('ao_date')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Updated Date -->
+                        <div>
+                            <label for="updated_date" class="block text-sm font-medium text-gray-700 mb-2">
+                                Updated Date
+                            </label>
+                            <input type="date" 
+                                   id="updated_date" 
+                                   name="updated_date" 
+                                   value="{{ old('updated_date', $annulmentIndv->updated_date?->format('Y-m-d')) }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('updated_date') border-red-500 @enderror">
+                            @error('updated_date')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Branch Name -->
+                        <div>
+                            <label for="branch_name" class="block text-sm font-medium text-gray-700 mb-2">
+                                Branch Name
+                            </label>
+                            <input type="text" 
+                                   id="branch_name" 
+                                   name="branch_name" 
+                                   value="{{ old('branch_name', $annulmentIndv->branch_name) }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('branch_name') border-red-500 @enderror"
+                                   placeholder="e.g., Kuala Lumpur Branch">
+                            @error('branch_name')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>

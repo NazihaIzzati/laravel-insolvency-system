@@ -31,9 +31,17 @@ class AnnulmentIndvController extends Controller
     {
         $request->validate([
             'annulment_indv_id' => 'required|string|unique:annulment_indv,annulment_indv_id',
+            'no_involvency' => 'nullable|string',
             'annulment_indv_position' => 'required|string',
             'annulment_indv_branch' => 'required|string',
             'name' => 'nullable|string',
+            'ic_no' => 'nullable|string',
+            'ic_no_2' => 'nullable|string',
+            'court_case_number' => 'nullable|string',
+            'ro_date' => 'nullable|date',
+            'ao_date' => 'nullable|date',
+            'updated_date' => 'nullable|date',
+            'branch_name' => 'nullable|string',
             'email' => 'nullable|email',
             'phone' => 'nullable|string',
         ]);
@@ -67,9 +75,17 @@ class AnnulmentIndvController extends Controller
     {
         $request->validate([
             'annulment_indv_id' => 'required|string|unique:annulment_indv,annulment_indv_id,' . $annulmentIndv->id,
+            'no_involvency' => 'nullable|string',
             'annulment_indv_position' => 'required|string',
             'annulment_indv_branch' => 'required|string',
             'name' => 'nullable|string',
+            'ic_no' => 'nullable|string',
+            'ic_no_2' => 'nullable|string',
+            'court_case_number' => 'nullable|string',
+            'ro_date' => 'nullable|date',
+            'ao_date' => 'nullable|date',
+            'updated_date' => 'nullable|date',
+            'branch_name' => 'nullable|string',
             'email' => 'nullable|email',
             'phone' => 'nullable|string',
         ]);

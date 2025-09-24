@@ -30,22 +30,58 @@
                             <p class="text-lg font-semibold text-blue-600">{{ $annulmentIndv->annulment_indv_id }}</p>
                         </div>
 
-                        <!-- Annulment Individual Position -->
+                        <!-- No Involvency -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-500 mb-1">Annulment Individual Position</label>
-                            <p class="text-lg font-semibold text-gray-900">{{ $annulmentIndv->annulment_indv_position }}</p>
-                        </div>
-
-                        <!-- Annulment Individual Branch -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-500 mb-1">Annulment Individual Branch</label>
-                            <p class="text-lg font-semibold text-gray-900">{{ $annulmentIndv->annulment_indv_branch }}</p>
+                            <label class="block text-sm font-medium text-gray-500 mb-1">No Involvency</label>
+                            <p class="text-lg font-semibold text-gray-900">{{ $annulmentIndv->no_involvency ?? 'Not provided' }}</p>
                         </div>
 
                         <!-- Name -->
                         <div>
-                            <label class="block text-sm font-medium text-gray-500 mb-1">Full Name</label>
+                            <label class="block text-sm font-medium text-gray-500 mb-1">Name</label>
                             <p class="text-lg font-semibold text-gray-900">{{ $annulmentIndv->name ?? 'Not provided' }}</p>
+                        </div>
+
+                        <!-- IC No -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-500 mb-1">IC No</label>
+                            <p class="text-lg font-semibold text-gray-900">{{ $annulmentIndv->ic_no ?? 'Not provided' }}</p>
+                        </div>
+
+                        <!-- IC No 2 -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-500 mb-1">IC No 2</label>
+                            <p class="text-lg font-semibold text-gray-900">{{ $annulmentIndv->ic_no_2 ?? 'Not provided' }}</p>
+                        </div>
+
+                        <!-- Court Case Number -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-500 mb-1">Court Case Number</label>
+                            <p class="text-lg font-semibold text-gray-900">{{ $annulmentIndv->court_case_number ?? 'Not provided' }}</p>
+                        </div>
+
+                        <!-- RO Date -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-500 mb-1">RO Date</label>
+                            <p class="text-lg font-semibold text-gray-900">{{ $annulmentIndv->ro_date ? $annulmentIndv->ro_date->format('d/m/Y') : 'Not provided' }}</p>
+                        </div>
+
+                        <!-- AO Date -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-500 mb-1">AO Date</label>
+                            <p class="text-lg font-semibold text-gray-900">{{ $annulmentIndv->ao_date ? $annulmentIndv->ao_date->format('d/m/Y') : 'Not provided' }}</p>
+                        </div>
+
+                        <!-- Updated Date -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-500 mb-1">Updated Date</label>
+                            <p class="text-lg font-semibold text-gray-900">{{ $annulmentIndv->updated_date ? $annulmentIndv->updated_date->format('d/m/Y') : 'Not provided' }}</p>
+                        </div>
+
+                        <!-- Branch Name -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-500 mb-1">Branch Name</label>
+                            <p class="text-lg font-semibold text-gray-900">{{ $annulmentIndv->branch_name ?? 'Not provided' }}</p>
                         </div>
 
                         <!-- Email -->

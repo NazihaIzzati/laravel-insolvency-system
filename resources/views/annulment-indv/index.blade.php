@@ -32,19 +32,31 @@
                                     <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
                                 </th>
                                 <th class="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    ANNULMENT INDV ID
-                                </th>
-                                <th class="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    ANNULMENT INDV POSITION
-                                </th>
-                                <th class="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    ANNULMENT INDV BRANCH
+                                    NO INVOLVENCY
                                 </th>
                                 <th class="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     NAME
                                 </th>
                                 <th class="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    EMAIL
+                                    IC NO
+                                </th>
+                                <th class="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    IC NO 2
+                                </th>
+                                <th class="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    COURT CASE NUMBER
+                                </th>
+                                <th class="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    RO DATE
+                                </th>
+                                <th class="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    AO DATE
+                                </th>
+                                <th class="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    UPDATED DATE
+                                </th>
+                                <th class="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    BRANCH NAME
                                 </th>
                                 <th class="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     ACTIONS
@@ -58,19 +70,31 @@
                                         <input type="checkbox" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="text-sm font-medium text-blue-600">{{ $member->annulment_indv_id }}</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="text-sm text-gray-900">{{ $member->annulment_indv_position }}</span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="text-sm text-gray-900">{{ $member->annulment_indv_branch }}</span>
+                                        <span class="text-sm font-medium text-blue-600">{{ $member->no_involvency ?? 'N/A' }}</span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="text-sm text-gray-900">{{ $member->name ?? 'N/A' }}</span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="text-sm text-gray-900">{{ $member->email ?? 'N/A' }}</span>
+                                        <span class="text-sm text-gray-900">{{ $member->ic_no ?? 'N/A' }}</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="text-sm text-gray-900">{{ $member->ic_no_2 ?? 'N/A' }}</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="text-sm text-gray-900">{{ $member->court_case_number ?? 'N/A' }}</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="text-sm text-gray-900">{{ $member->ro_date ? $member->ro_date->format('d/m/Y') : 'N/A' }}</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="text-sm text-gray-900">{{ $member->ao_date ? $member->ao_date->format('d/m/Y') : 'N/A' }}</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="text-sm text-gray-900">{{ $member->updated_date ? $member->updated_date->format('d/m/Y') : 'N/A' }}</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="text-sm text-gray-900">{{ $member->branch_name ?? 'N/A' }}</span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                         <div class="flex space-x-2">
@@ -86,7 +110,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="px-6 py-4 text-center text-gray-500">
+                                    <td colspan="11" class="px-6 py-4 text-center text-gray-500">
                                         No annulment individuals found. <a href="{{ route('annulment-indv.create') }}" class="text-blue-600 hover:text-blue-800">Add the first annulment individual</a>
                                     </td>
                                 </tr>
