@@ -164,27 +164,26 @@ function testPrint() {
                 </div>
 
                 <!-- Action Buttons -->
-                <div class="mt-8 p-4 bg-yellow-100 border-2 border-yellow-400 rounded-lg">
-                    <h3 class="text-lg font-bold text-yellow-800 mb-4 text-center">Action Buttons</h3>
-                    <div class="flex justify-center space-x-4 flex-wrap">
-                        <button onclick="console.log('Print button clicked'); window.print();" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition duration-200 shadow-lg">
+                <div class="mt-8 p-6 bg-gray-50 border-2 border-gray-300 rounded-lg">
+                    <h3 class="text-xl font-bold text-gray-800 mb-6 text-center">Actions</h3>
+                    <div class="flex justify-center space-x-6">
+                        <!-- Print Button -->
+                        <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg transition duration-200 shadow-lg flex items-center">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                            </svg>
                             PRINT
                         </button>
-                        <button onclick="testPrint()" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-8 rounded-lg transition duration-200 shadow-lg">
-                            TEST PRINT
+                        
+                        <!-- Close Button -->
+                        <button onclick="history.back()" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-4 px-8 rounded-lg transition duration-200 shadow-lg flex items-center">
+                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                            CLOSE
                         </button>
-                        <a href="{{ route('annulment-indv.edit', $annulmentIndv) }}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition duration-200 shadow-lg no-print">
-                            EDIT PROFILE
-                        </a>
-                        <form method="POST" action="{{ route('annulment-indv.destroy', $annulmentIndv) }}" class="inline no-print" onsubmit="return confirm('Are you sure you want to delete this annulment individual?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg transition duration-200 shadow-lg">
-                                DELETE
-                            </button>
-                        </form>
                     </div>
-                    <p class="text-sm text-yellow-700 mt-2 text-center">If you can see this yellow box, the buttons should be visible above!</p>
+                    <p class="text-sm text-gray-600 mt-4 text-center">Click PRINT to print this page or CLOSE to close the window</p>
                 </div>
             </div>
         </div>
