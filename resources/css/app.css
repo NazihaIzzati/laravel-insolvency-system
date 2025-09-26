@@ -10,23 +10,23 @@
 
 @layer components {
     .btn {
-        @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors duration-200;
+        @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200;
     }
     
     .btn-primary {
-        @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500;
+        @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500 hover:shadow-lg transform hover:-translate-y-0.5;
     }
     
     .btn-secondary {
-        @apply btn bg-secondary-600 text-white hover:bg-secondary-700 focus:ring-secondary-500;
+        @apply btn bg-secondary-600 text-white hover:bg-secondary-700 focus:ring-secondary-500 hover:shadow-lg transform hover:-translate-y-0.5;
     }
     
     .btn-outline {
-        @apply btn border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:ring-primary-500;
+        @apply btn border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:ring-primary-500 hover:shadow-md transform hover:-translate-y-0.5;
     }
     
     .btn-danger {
-        @apply btn bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
+        @apply btn bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 hover:shadow-lg transform hover:-translate-y-0.5;
     }
     
     .form-input {
@@ -67,5 +67,355 @@
     
     .alert-info {
         @apply alert bg-blue-50 border border-blue-200 text-blue-800;
+    }
+    
+    /* Landing Page Specific Styles - Banking Theme */
+    .hero-gradient {
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1e293b 100%);
+    }
+    
+    .banking-gradient {
+        background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1e293b 100%);
+    }
+    
+    .feature-card {
+        @apply bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 p-8 border border-slate-200;
+    }
+    
+    .banking-card {
+        @apply bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-8 shadow-2xl;
+    }
+    
+    .security-badge {
+        @apply bg-slate-800 px-3 py-2 rounded-lg text-sm text-emerald-400 border border-slate-700;
+    }
+    
+    .stat-number {
+        @apply text-4xl font-bold text-emerald-600 mb-2;
+    }
+    
+    .banking-stat-card {
+        @apply text-center bg-slate-50 rounded-xl p-8 border border-slate-200;
+    }
+    
+    .section-padding {
+        @apply py-20;
+    }
+    
+    .container-max {
+        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    }
+    
+    /* Smooth scrolling */
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    /* Custom animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .animate-fade-in-up {
+        animation: fadeInUp 0.6s ease-out;
+    }
+    
+    /* Hover effects for feature icons */
+    .feature-icon {
+        @apply transition-all duration-300 group-hover:scale-110;
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+    }
+    
+    /* Abstract Background Animations */
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+            transform: translateY(-20px) rotate(180deg);
+        }
+    }
+    
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 0.2;
+            transform: scale(1);
+        }
+        50% {
+            opacity: 0.4;
+            transform: scale(1.1);
+        }
+    }
+    
+    @keyframes drift {
+        0% {
+            transform: translateX(0px) translateY(0px);
+        }
+        25% {
+            transform: translateX(10px) translateY(-10px);
+        }
+        50% {
+            transform: translateX(-5px) translateY(5px);
+        }
+        75% {
+            transform: translateX(5px) translateY(-5px);
+        }
+        100% {
+            transform: translateX(0px) translateY(0px);
+        }
+    }
+    
+    .floating-element {
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    .pulsing-element {
+        animation: pulse 4s ease-in-out infinite;
+    }
+    
+    .drifting-element {
+        animation: drift 8s ease-in-out infinite;
+    }
+    
+    .gradient-mesh {
+        background: 
+            radial-gradient(circle at 20% 80%, rgba(254, 80, 0, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(254, 80, 0, 0.08) 0%, transparent 50%),
+            radial-gradient(circle at 40% 40%, rgba(254, 80, 0, 0.06) 0%, transparent 50%);
+    }
+    
+    /* PDF Print Styles */
+    @media print {
+        .no-print {
+            display: none !important;
+        }
+        
+        .print-only {
+            display: block !important;
+        }
+        
+        /* Hide header and footer */
+        nav, header, footer {
+            display: none !important;
+        }
+        
+        body {
+            background: white !important;
+            color: #000 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            font-family: 'Arial', sans-serif !important;
+            font-size: 10px !important;
+            line-height: 1.2 !important;
+        }
+        
+        /* PDF Header Styling */
+        .pdf-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: flex-start !important;
+            margin-bottom: 10px !important;
+            padding-bottom: 8px !important;
+            border-bottom: 1px solid #000 !important;
+        }
+        
+        .pdf-logo-section {
+            flex: 1 !important;
+        }
+        
+        .pdf-company-name {
+            font-size: 14px !important;
+            font-weight: bold !important;
+            color: #000 !important;
+            margin: 0 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+        }
+        
+        .pdf-company-subtitle {
+            font-size: 8px !important;
+            color: #666 !important;
+            margin: 1px 0 0 0 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.3px !important;
+        }
+        
+        .pdf-document-info {
+            text-align: right !important;
+            flex: 1 !important;
+        }
+        
+        .pdf-document-title {
+            font-size: 12px !important;
+            font-weight: bold !important;
+            color: #000 !important;
+            margin: 0 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+        }
+        
+        /* PDF Content Styling */
+        .pdf-content {
+            background: white !important;
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+            margin: 0 !important;
+        }
+        
+        .pdf-record-grid {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 15px !important;
+            margin: 0 !important;
+        }
+        
+        .pdf-record-grid > div {
+            page-break-inside: avoid !important;
+            margin-bottom: 0 !important;
+        }
+        
+        .pdf-record-grid > div:not(:first-child) {
+            margin-top: 15px !important;
+        }
+        
+        /* Section Headers */
+        h3 {
+            font-size: 11px !important;
+            font-weight: bold !important;
+            color: #000 !important;
+            margin: 0 0 8px 0 !important;
+            padding: 4px 8px !important;
+            background: #f5f5f5 !important;
+            border-left: 3px solid #000 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.3px !important;
+        }
+        
+        /* Data Lists */
+        dl {
+            margin: 0 !important;
+        }
+        
+        dt {
+            font-size: 8px !important;
+            font-weight: bold !important;
+            color: #666 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.3px !important;
+            margin: 0 0 2px 0 !important;
+        }
+        
+        dd {
+            font-size: 9px !important;
+            color: #000 !important;
+            margin: 0 0 6px 0 !important;
+            padding: 2px 0 !important;
+            border-bottom: 1px dotted #ccc !important;
+        }
+        
+        /* Status Badge */
+        .inline-flex {
+            display: inline-block !important;
+        }
+        
+        .px-2\.5, .py-0\.5 {
+            padding: 2px 6px !important;
+        }
+        
+        .rounded-full {
+            border-radius: 3px !important;
+        }
+        
+        .text-xs {
+            font-size: 9px !important;
+        }
+        
+        .font-medium {
+            font-weight: bold !important;
+        }
+        
+        /* Remove all shadows and unnecessary styling */
+        .shadow, .rounded-lg {
+            box-shadow: none !important;
+            border-radius: 0 !important;
+        }
+        
+        .bg-gray-50 {
+            background: white !important;
+        }
+        
+        .text-gray-600 {
+            color: #000 !important;
+        }
+        
+        .text-gray-900 {
+            color: #000 !important;
+        }
+        
+        /* Layout adjustments */
+        .py-6 {
+            padding: 0 !important;
+        }
+        
+        .px-4, .py-5, .sm\:px-6, .sm\:p-6 {
+            padding: 8px !important;
+        }
+        
+        .max-w-7xl {
+            max-width: none !important;
+            margin: 0 !important;
+        }
+        
+        main {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        
+        /* Page breaks */
+        h1, h2, h3, h4, h5, h6 {
+            page-break-after: avoid !important;
+        }
+        
+        .pdf-record-grid > div {
+            page-break-inside: avoid !important;
+        }
+        
+        /* Set page margins and size */
+        @page {
+            margin: 0.5in;
+            size: A4;
+        }
+        
+        /* Ensure single column on very small screens */
+        @media print and (max-width: 600px) {
+            .pdf-record-grid {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+            }
+        }
     }
 }

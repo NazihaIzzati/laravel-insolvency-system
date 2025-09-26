@@ -14,8 +14,8 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans antialiased bg-gray-50">
-    <div class="min-h-screen">
+<body class="font-sans antialiased bg-gray-50 flex flex-col min-h-screen">
+    <div class="flex-1">
         <!-- Navigation -->
         @auth
             <nav class="bg-white border-t border-b border-gray-200">
@@ -144,6 +144,29 @@
             </div>
         </main>
     </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                    <div class="text-sm text-gray-500">
+                        © {{ date('Y') }} {{ config('app.name', 'Insolvency Data System') }}. All rights reserved.
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-6">
+                    <div class="text-sm text-gray-500">
+                        Version 1.0.0
+                    </div>
+                    <div class="text-sm text-gray-500">
+                        Last updated: {{ date('M d, Y') }}
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </footer>
 
     <script>
         function toggleMobileMenu() {
