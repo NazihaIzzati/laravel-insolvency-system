@@ -6,6 +6,7 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\BankruptcyController;
 use App\Http\Controllers\NonIndividualBankruptcyController;
+use App\Http\Controllers\ChangePasswordController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,6 +44,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     
+    // Change password routes
+    Route::get('/change-password', [ChangePasswordController::class, 'showChangePasswordForm'])->name('password.change');
+    Route::post('/change-password', [ChangePasswordController::class, 'updatePassword'])->name('password.update');
+    
     // Annulment Individual management routes
     Route::resource('annulment-indv', AnnulmentIndvController::class);
     
@@ -53,12 +58,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/bankruptcy/debug-import', [BankruptcyController::class, 'debugImport'])->name('bankruptcy.debug-import.process');
     Route::get('/bankruptcy/test-import', [BankruptcyController::class, 'testImport'])->name('bankruptcy.test-import');
     Route::get('/bankruptcy/template', [BankruptcyController::class, 'downloadTemplate'])->name('bankruptcy.template');
+    Route::get('/bankruptcy/download', [BankruptcyController::class, 'downloadRecords'])->name('bankruptcy.download');
     Route::resource('bankruptcy', BankruptcyController::class);
     
     // Non-Individual Bankruptcy management routes
     Route::get('/non-individual-bankruptcy/bulk-upload', [NonIndividualBankruptcyController::class, 'bulkUpload'])->name('non-individual-bankruptcy.bulk-upload');
     Route::post('/non-individual-bankruptcy/bulk-upload', [NonIndividualBankruptcyController::class, 'processBulkUpload'])->name('non-individual-bankruptcy.bulk-upload.process');
     Route::get('/non-individual-bankruptcy/template', [NonIndividualBankruptcyController::class, 'downloadTemplate'])->name('non-individual-bankruptcy.template');
+    Route::get('/non-individual-bankruptcy/download', [NonIndividualBankruptcyController::class, 'downloadRecords'])->name('non-individual-bankruptcy.download');
     Route::resource('non-individual-bankruptcy', NonIndividualBankruptcyController::class);
     
     // Search routes

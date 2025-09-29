@@ -3,23 +3,27 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
-<div class="space-y-6">
-    <!-- Admin Header -->
-    <div class="bg-gradient-to-r from-purple-600 to-purple-800 shadow rounded-lg text-white">
-        <div class="px-4 py-5 sm:p-6">
-            <div class="flex items-center">
-                <div class="flex-shrink-0">
-                    <svg class="h-8 w-8 text-purple-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                </div>
-                <div class="ml-3">
-                    <h1 class="text-2xl font-bold">Admin Dashboard</h1>
-                    <p class="text-purple-200">Manage users and system settings</p>
+<div class="min-h-screen bg-primary-50">
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Welcome Section -->
+        <div class="bg-gradient-to-r from-primary-900 to-accent-600 rounded-xl shadow-lg mb-8">
+            <div class="px-8 py-12">
+                <div class="flex items-center justify-between">
+                    <div class="text-white">
+                        <h1 class="text-4xl font-light mb-3">Admin Dashboard</h1>
+                        <p class="text-xl text-primary-100 mb-2">System administration panel</p>
+                        <p class="text-primary-200">Manage users and system settings</p>
+                    </div>
+                    <div class="text-right text-white">
+                        <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg px-6 py-4">
+                            <p class="text-sm text-primary-100 mb-1">Total Users</p>
+                            <p class="text-lg font-medium">{{ \App\Models\User::count() }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
     <!-- Admin Stats -->
     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">

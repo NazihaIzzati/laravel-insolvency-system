@@ -355,4 +355,59 @@ class NonIndividualBankruptcyController extends Controller
             }
         }, 'non_individual_bankruptcy_template.xlsx');
     }
+
+    /**
+     * Download all non-individual bankruptcy records as Excel file
+     */
+    public function downloadRecords()
+    {
+        try {
+            // Get all active non-individual bankruptcy records
+            $nonIndividualBankruptcies = NonIndividualBankruptcy::where('is_active', true)
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            // Prepare data for export
+            $exportData = [];
+            foreach ($nonIndividualBankruptcies as $nonIndividualBankruptcy) {
+                $exportData[] = [
+                    'Insolvency No' => $nonIndividualBankruptcy->insolvency_no,
+                    'Company Name' => $nonIndividualBankruptcy->company_name,
+                    'Company Registration No' => $nonIndividualBankruptcy->company_registration_no,
+                    'Others' => $nonIndividualBankruptcy->others ?? '',
+                    'Court Case No' => $nonIndividualBankruptcy->court_case_no ?? '',
+                    'Date of Winding Up/Resolution' => $nonIndividualBankruptcy->date_of_winding_up_resolution ? $nonIndividualBankruptcy->date_of_winding_up_resolution->format('Y-m-d') : '',
+                    'Updated Date' => $nonIndividualBankruptcy->updated_date ? $nonIndividualBankruptcy->updated_date->format('Y-m-d') : '',
+                    'Branch' => $nonIndividualBankruptcy->branch ?? ''
+                ];
+            }
+
+            $headers = [
+                'Insolvency No', 'Company Name', 'Company Registration No', 'Others', 'Court Case No',
+                'Date of Winding Up/Resolution', 'Updated Date', 'Branch'
+            ];
+
+            $fileName = 'non_individual_bankruptcy_records_' . now()->format('Y-m-d_H-i-s') . '.xlsx';
+
+            return Excel::download(new class($exportData, $headers) implements \Maatwebsite\Excel\Concerns\FromArray {
+                private $data;
+                private $headers;
+
+                public function __construct($data, $headers)
+                {
+                    $this->data = $data;
+                    $this->headers = $headers;
+                }
+
+                public function array(): array
+                {
+                    return array_merge([$this->headers], $this->data);
+                }
+            }, $fileName);
+
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'An error occurred while downloading records: ' . $e->getMessage());
+        }
+    }
 }

@@ -347,4 +347,60 @@ class BankruptcyController extends Controller
             }
         }, 'bankruptcy_template.xlsx');
     }
+
+    /**
+     * Download all bankruptcy records as Excel file
+     */
+    public function downloadRecords()
+    {
+        try {
+            // Get all active bankruptcy records
+            $bankruptcies = Bankruptcy::where('is_active', true)
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            // Prepare data for export
+            $exportData = [];
+            foreach ($bankruptcies as $bankruptcy) {
+                $exportData[] = [
+                    'insolvency_no' => $bankruptcy->insolvency_no,
+                    'name' => $bankruptcy->name,
+                    'ic_no' => $bankruptcy->ic_no,
+                    'others' => $bankruptcy->others ?? '',
+                    'court_case_no' => $bankruptcy->court_case_no ?? '',
+                    'ro_date' => $bankruptcy->ro_date ? $bankruptcy->ro_date->format('Y-m-d') : '',
+                    'ao_date' => $bankruptcy->ao_date ? $bankruptcy->ao_date->format('Y-m-d') : '',
+                    'updated_date' => $bankruptcy->updated_date ? $bankruptcy->updated_date->format('Y-m-d') : '',
+                    'branch' => $bankruptcy->branch ?? ''
+                ];
+            }
+
+            $headers = [
+                'insolvency_no', 'name', 'ic_no', 'others', 'court_case_no',
+                'ro_date', 'ao_date', 'updated_date', 'branch'
+            ];
+
+            $fileName = 'bankruptcy_records_' . now()->format('Y-m-d_H-i-s') . '.xlsx';
+
+            return Excel::download(new class($exportData, $headers) implements \Maatwebsite\Excel\Concerns\FromArray {
+                private $data;
+                private $headers;
+
+                public function __construct($data, $headers)
+                {
+                    $this->data = $data;
+                    $this->headers = $headers;
+                }
+
+                public function array(): array
+                {
+                    return array_merge([$this->headers], $this->data);
+                }
+            }, $fileName);
+
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'An error occurred while downloading records: ' . $e->getMessage());
+        }
+    }
 }

@@ -1,0 +1,323 @@
+{
+  "designSystem": {
+    "name": "Minimalist Dashboard Design System",
+    "version": "1.0.0",
+    "description": "Clean, minimalist design system inspired by Solar Gate dashboard with white background, subtle grays, and orange accents",
+    "created": "2024-01-15",
+    "inspiration": "Solar Gate Dashboard Interface"
+  },
+  "colorPalette": {
+    "primary": {
+      "white": "#ffffff",
+      "gray-50": "#f9fafb",
+      "gray-100": "#f3f4f6",
+      "gray-200": "#e5e7eb",
+      "gray-300": "#d1d5db",
+      "gray-400": "#9ca3af",
+      "gray-500": "#6b7280",
+      "gray-600": "#4b5563",
+      "gray-700": "#374151",
+      "gray-800": "#1f2937",
+      "gray-900": "#111827"
+    },
+    "accent": {
+      "orange-50": "#fff7ed",
+      "orange-100": "#ffedd5",
+      "orange-200": "#fed7aa",
+      "orange-300": "#fdba74",
+      "orange-400": "#fb923c",
+      "orange-500": "#f97316",
+      "orange-600": "#ea580c",
+      "orange-700": "#c2410c",
+      "orange-800": "#9a3412",
+      "orange-900": "#7c2d12"
+    },
+    "status": {
+      "success": "#10b981",
+      "warning": "#f59e0b",
+      "error": "#ef4444",
+      "info": "#3b82f6"
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "primary": "Figtree, system-ui, sans-serif",
+      "fallback": "system-ui, -apple-system, sans-serif"
+    },
+    "fontSizes": {
+      "xs": "0.75rem",
+      "sm": "0.875rem",
+      "base": "1rem",
+      "lg": "1.125rem",
+      "xl": "1.25rem",
+      "2xl": "1.5rem",
+      "3xl": "1.875rem"
+    },
+    "fontWeights": {
+      "light": "300",
+      "normal": "400",
+      "medium": "500",
+      "semibold": "600",
+      "bold": "700"
+    },
+    "lineHeights": {
+      "tight": "1.25",
+      "normal": "1.5",
+      "relaxed": "1.75"
+    }
+  },
+  "spacing": {
+    "scale": "0.25rem",
+    "values": {
+      "0": "0",
+      "1": "0.25rem",
+      "2": "0.5rem",
+      "3": "0.75rem",
+      "4": "1rem",
+      "5": "1.25rem",
+      "6": "1.5rem",
+      "8": "2rem",
+      "10": "2.5rem",
+      "12": "3rem",
+      "16": "4rem",
+      "20": "5rem",
+      "24": "6rem"
+    }
+  },
+  "layout": {
+    "container": {
+      "maxWidth": "1200px",
+      "padding": "1rem"
+    },
+    "grid": {
+      "columns": 12,
+      "gap": "1.5rem"
+    },
+    "breakpoints": {
+      "sm": "640px",
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1280px",
+      "2xl": "1536px"
+    }
+  },
+  "components": {
+    "card": {
+      "background": "#ffffff",
+      "border": "1px solid #e5e7eb",
+      "borderRadius": "0",
+      "padding": "1.5rem",
+      "shadow": "none",
+      "hover": {
+        "shadow": "none",
+        "borderColor": "#d1d5db"
+      }
+    },
+    "button": {
+      "primary": {
+        "background": "#111827",
+        "color": "#ffffff",
+        "border": "1px solid #111827",
+        "padding": "0.5rem 1rem",
+        "fontSize": "0.875rem",
+        "fontWeight": "500",
+        "borderRadius": "0",
+        "hover": {
+          "background": "#1f2937"
+        }
+      },
+      "secondary": {
+        "background": "#ffffff",
+        "color": "#374151",
+        "border": "1px solid #d1d5db",
+        "padding": "0.5rem 1rem",
+        "fontSize": "0.875rem",
+        "fontWeight": "500",
+        "borderRadius": "0",
+        "hover": {
+          "background": "#f9fafb"
+        }
+      },
+      "outline": {
+        "background": "transparent",
+        "color": "#6b7280",
+        "border": "1px solid #e5e7eb",
+        "padding": "0.5rem 1rem",
+        "fontSize": "0.875rem",
+        "fontWeight": "400",
+        "borderRadius": "0",
+        "hover": {
+          "background": "#f9fafb",
+          "color": "#374151"
+        }
+      }
+    },
+    "input": {
+      "background": "#ffffff",
+      "border": "none",
+      "borderBottom": "1px solid #d1d5db",
+      "padding": "0.5rem 0",
+      "fontSize": "0.875rem",
+      "color": "#111827",
+      "focus": {
+        "borderBottom": "1px solid #111827",
+        "outline": "none"
+      },
+      "placeholder": {
+        "color": "#9ca3af"
+      }
+    },
+    "badge": {
+      "background": "#f3f4f6",
+      "color": "#374151",
+      "padding": "0.25rem 0.5rem",
+      "fontSize": "0.75rem",
+      "fontWeight": "500",
+      "borderRadius": "0",
+      "variants": {
+        "primary": {
+          "background": "#f3f4f6",
+          "color": "#374151"
+        },
+        "success": {
+          "background": "#f3f4f6",
+          "color": "#374151"
+        },
+        "warning": {
+          "background": "#f3f4f6",
+          "color": "#374151"
+        },
+        "info": {
+          "background": "#f3f4f6",
+          "color": "#374151"
+        }
+      }
+    },
+    "sidebar": {
+      "background": "#ffffff",
+      "border": "1px solid #e5e7eb",
+      "width": "250px",
+      "padding": "1.5rem",
+      "active": {
+        "background": "#fff7ed",
+        "color": "#ea580c"
+      }
+    },
+    "navigation": {
+      "item": {
+        "padding": "0.75rem 1rem",
+        "fontSize": "0.875rem",
+        "fontWeight": "400",
+        "color": "#6b7280",
+        "hover": {
+          "color": "#374151",
+          "background": "#f9fafb"
+        }
+      }
+    }
+  },
+  "patterns": {
+    "dashboard": {
+      "layout": "3-column grid",
+      "sections": [
+        "sidebar",
+        "main-content",
+        "stats-cards",
+        "data-visualization",
+        "detail-cards"
+      ]
+    },
+    "dataDisplay": {
+      "statCard": {
+        "layout": "horizontal",
+        "elements": ["icon", "label", "value"],
+        "spacing": "1rem"
+      },
+      "listItem": {
+        "layout": "horizontal",
+        "elements": ["content", "badge", "action"],
+        "spacing": "0.75rem"
+      }
+    },
+    "forms": {
+      "search": {
+        "layout": "vertical",
+        "elements": ["input", "button"],
+        "spacing": "1rem"
+      }
+    }
+  },
+  "principles": {
+    "minimalism": {
+      "description": "Remove all non-essential elements",
+      "guidelines": [
+        "Use white backgrounds",
+        "Minimize color usage",
+        "Simple borders only",
+        "No shadows or gradients",
+        "Clean typography",
+        "Ample whitespace"
+      ]
+    },
+    "functionality": {
+      "description": "Focus on essential information and actions",
+      "guidelines": [
+        "Clear information hierarchy",
+        "Essential data only",
+        "Simple navigation",
+        "Minimal distractions",
+        "Fast loading",
+        "Accessible design"
+      ]
+    },
+    "consistency": {
+      "description": "Maintain uniform design patterns",
+      "guidelines": [
+        "Consistent spacing",
+        "Uniform typography",
+        "Standardized components",
+        "Predictable interactions",
+        "Cohesive color usage",
+        "Regular grid system"
+      ]
+    }
+  },
+  "usage": {
+    "dashboard": {
+      "background": "#ffffff",
+      "layout": "max-width container with padding",
+      "sections": "Clear visual separation with borders",
+      "typography": "Light weights for headings, regular for content"
+    },
+    "cards": {
+      "background": "#ffffff",
+      "border": "1px solid #e5e7eb",
+      "padding": "1.5rem",
+      "spacing": "1rem between cards"
+    },
+    "buttons": {
+      "primary": "Black background for main actions",
+      "secondary": "White background with gray border",
+      "outline": "Transparent with subtle border"
+    },
+    "inputs": {
+      "style": "Underline only, no borders",
+      "focus": "Black underline",
+      "placeholder": "Light gray text"
+    }
+  },
+  "accessibility": {
+    "contrast": {
+      "minimum": "4.5:1",
+      "enhanced": "7:1"
+    },
+    "focus": {
+      "visible": "Clear focus indicators",
+      "keyboard": "Full keyboard navigation"
+    },
+    "color": {
+      "independent": "Information not conveyed by color alone",
+      "sufficient": "High contrast ratios"
+    }
+  }
+}

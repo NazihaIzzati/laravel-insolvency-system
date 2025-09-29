@@ -29,6 +29,22 @@
         @apply btn bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 hover:shadow-lg transform hover:-translate-y-0.5;
     }
     
+    .btn-success {
+        @apply btn bg-green-600 text-white hover:bg-green-700 focus:ring-green-500 hover:shadow-lg transform hover:-translate-y-0.5;
+    }
+    
+    .btn-warning {
+        @apply btn bg-accent-600 text-white hover:bg-accent-700 focus:ring-accent-500;
+    }
+    
+    .btn-minimal {
+        @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500;
+    }
+    
+    .btn-minimal-outline {
+        @apply btn border-primary-300 text-primary-700 bg-white hover:bg-primary-50 focus:ring-primary-500;
+    }
+    
     .form-input {
         @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm;
     }
@@ -201,11 +217,230 @@
         animation: drift 8s ease-in-out infinite;
     }
     
-    .gradient-mesh {
-        background: 
-            radial-gradient(circle at 20% 80%, rgba(254, 80, 0, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(254, 80, 0, 0.08) 0%, transparent 50%),
-            radial-gradient(circle at 40% 40%, rgba(254, 80, 0, 0.06) 0%, transparent 50%);
+    /* Solar Gate Inspired Design System */
+    .solar-card {
+        @apply bg-white border border-primary-200 p-6;
+    }
+    
+    .solar-stat-card {
+        @apply bg-white border border-primary-200 p-4;
+    }
+    
+    .solar-stat-icon {
+        @apply w-8 h-8 flex items-center justify-center text-primary-500;
+    }
+    
+    .solar-welcome {
+        @apply bg-white border-b border-primary-200 pb-8 mb-8;
+    }
+    
+    .solar-section {
+        @apply bg-white border border-primary-200 mb-6;
+    }
+    
+    .solar-section-header {
+        @apply px-6 py-4 border-b border-primary-200;
+    }
+    
+    .solar-section-content {
+        @apply px-6 py-4;
+    }
+    
+    .solar-badge {
+        @apply inline-flex items-center px-2 py-1 text-xs font-medium bg-primary-100 text-primary-700;
+    }
+    
+    .solar-badge-primary {
+        @apply bg-primary-100 text-primary-700;
+    }
+    
+    .solar-badge-success {
+        @apply bg-green-100 text-green-700;
+    }
+    
+    .solar-badge-warning {
+        @apply bg-accent-100 text-accent-700;
+    }
+    
+    .solar-badge-info {
+        @apply bg-blue-100 text-blue-700;
+    }
+    
+    .solar-badge-danger {
+        @apply bg-red-100 text-red-700;
+    }
+    
+    .solar-input {
+        @apply block w-full border-0 border-b border-primary-300 focus:border-primary-900 focus:ring-0 text-sm bg-transparent;
+    }
+    
+    .solar-button {
+        @apply inline-flex items-center px-4 py-2 border border-primary-300 text-sm font-medium text-primary-700 bg-white hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500;
+    }
+    
+    .solar-button-primary {
+        @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium text-white bg-primary-900 hover:bg-primary-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500;
+    }
+    
+    .solar-button-accent {
+        @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium text-white bg-accent-500 hover:bg-accent-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-500;
+    }
+    
+    .solar-sidebar {
+        @apply bg-white border-r border-primary-200 w-64 p-6;
+    }
+    
+    .solar-nav-item {
+        @apply flex items-center px-3 py-2 text-sm font-medium text-primary-600 hover:text-primary-900 hover:bg-accent-50 rounded-md mb-1;
+    }
+    
+    .solar-nav-item-active {
+        @apply flex items-center px-3 py-2 text-sm font-medium text-accent-600 bg-accent-50 rounded-md mb-1;
+    }
+    
+    .solar-logo {
+        @apply text-xl font-light text-primary-900 mb-8;
+    }
+    
+    .solar-logo-accent {
+        @apply text-accent-500 font-medium;
+    }
+    
+    /* Enhanced Professional Dashboard Styles */
+    .professional-card {
+        @apply bg-white border border-primary-200 rounded-lg shadow-sm hover:shadow-md transition-all duration-200;
+    }
+    
+    .professional-stat-card {
+        @apply bg-white border border-primary-200 rounded-lg p-6 hover:shadow-md transition-all duration-200;
+    }
+    
+    .professional-stat-icon {
+        @apply w-10 h-10 flex items-center justify-center rounded-lg;
+    }
+    
+    .professional-stat-icon-primary {
+        @apply bg-accent-50 text-accent-600;
+    }
+    
+    .professional-stat-icon-success {
+        @apply bg-green-50 text-green-600;
+    }
+    
+    .professional-stat-icon-warning {
+        @apply bg-yellow-50 text-yellow-600;
+    }
+    
+    .professional-stat-icon-info {
+        @apply bg-blue-50 text-blue-600;
+    }
+    
+    .professional-section {
+        @apply bg-white border border-primary-200 rounded-lg shadow-sm mb-6;
+    }
+    
+    .professional-section-header {
+        @apply px-6 py-4 border-b border-primary-200 bg-primary-50 rounded-t-lg;
+    }
+    
+    .professional-section-content {
+        @apply px-6 py-6;
+    }
+    
+    .professional-badge {
+        @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+    }
+    
+    .professional-badge-primary {
+        @apply bg-primary-100 text-primary-800;
+    }
+    
+    .professional-badge-success {
+        @apply bg-green-100 text-green-800;
+    }
+    
+    .professional-badge-warning {
+        @apply bg-accent-100 text-accent-800;
+    }
+    
+    .professional-badge-info {
+        @apply bg-blue-100 text-blue-800;
+    }
+    
+    .professional-badge-danger {
+        @apply bg-red-100 text-red-800;
+    }
+    
+    .professional-input {
+        @apply block w-full border border-primary-300 rounded-md px-3 py-2 text-sm placeholder-primary-400 focus:border-accent-500 focus:ring-1 focus:ring-accent-500 bg-white;
+    }
+    
+    .professional-button {
+        @apply inline-flex items-center px-4 py-2 border border-primary-300 text-sm font-medium text-primary-700 bg-white hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-500 rounded-md transition-colors duration-200;
+    }
+    
+    .professional-button-primary {
+        @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium text-white bg-primary-900 hover:bg-primary-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 rounded-md transition-colors duration-200;
+    }
+    
+    .professional-button-accent {
+        @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium text-white bg-accent-500 hover:bg-accent-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-500 rounded-md transition-colors duration-200;
+    }
+    
+    .professional-sidebar {
+        @apply bg-white border-r border-primary-200 w-64 p-6 shadow-sm;
+    }
+    
+    .professional-nav-item {
+        @apply flex items-center px-3 py-2 text-sm font-medium text-primary-600 hover:text-primary-900 hover:bg-accent-50 rounded-md mb-1 transition-colors duration-200;
+    }
+    
+    .professional-nav-item-active {
+        @apply flex items-center px-3 py-2 text-sm font-medium text-accent-600 bg-accent-50 rounded-md mb-1;
+    }
+    
+    .professional-logo {
+        @apply text-xl font-light text-primary-900 mb-8;
+    }
+    
+    .professional-logo-accent {
+        @apply text-accent-500 font-medium;
+    }
+    
+    .professional-welcome {
+        @apply bg-gradient-to-r from-primary-50 to-accent-50 border-b border-primary-200 pb-8 mb-8;
+    }
+    
+    .professional-search-results {
+        @apply bg-primary-50 rounded-lg p-4 mt-4;
+    }
+    
+    .professional-result-item {
+        @apply flex items-center justify-between py-3 px-4 bg-white rounded-md border border-primary-200 hover:border-accent-300 hover:shadow-sm transition-all duration-200 mb-2;
+    }
+    
+    .professional-modal {
+        @apply fixed inset-0 bg-black bg-opacity-50 overflow-y-auto h-full w-full z-50;
+    }
+    
+    .professional-modal-content {
+        @apply relative top-20 mx-auto p-6 border w-11/12 md:w-2/3 lg:w-1/2 bg-white rounded-lg shadow-xl;
+    }
+    
+    .professional-progress-bar {
+        @apply w-full bg-primary-200 rounded-full h-2;
+    }
+    
+    .professional-progress-fill {
+        @apply bg-accent-500 h-2 rounded-full transition-all duration-300;
+    }
+    
+    .professional-tooltip {
+        @apply absolute z-10 px-3 py-2 text-sm text-white bg-primary-900 rounded-md shadow-lg opacity-0 pointer-events-none transition-opacity duration-200;
+    }
+    
+    .professional-loading {
+        @apply inline-flex items-center px-4 py-2 bg-white border border-primary-200 rounded-md shadow-sm;
     }
     
     /* PDF Print Styles */

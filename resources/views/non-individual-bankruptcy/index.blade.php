@@ -1,38 +1,65 @@
 @extends('layouts.app')
 
-@section('title', 'Non-Individual Bankruptcy Records')
+@section('title', 'Non-Individual Bankruptcy')
 
 @section('content')
-<div class="space-y-6">
-    <!-- Header -->
-    <div class="bg-white shadow rounded-lg">
-        <div class="px-4 py-5 sm:p-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h1 class="text-2xl font-bold text-gray-900">Non-Individual Bankruptcy Records</h1>
-                    <p class="mt-1 text-sm text-gray-600">Manage non-individual bankruptcy data (companies, organizations)</p>
-                </div>
-                <div class="flex space-x-3">
-                    <a href="{{ route('non-individual-bankruptcy.create') }}" class="btn-primary">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                        </svg>
-                        Upload New Data
-                    </a>
-                    <a href="{{ route('non-individual-bankruptcy.bulk-upload') }}" class="btn-secondary">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                        </svg>
-                        Bulk Upload
-                    </a>
+<div class="min-h-screen bg-primary-50">
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Welcome Section -->
+        <div class="bg-gradient-to-r from-primary-900 to-accent-600 rounded-xl shadow-lg mb-8">
+            <div class="px-8 py-12">
+                <div class="flex items-center justify-between">
+                    <div class="text-white">
+                        <h1 class="text-4xl font-light mb-3">Non-Individual Bankruptcy</h1>
+                        <p class="text-xl text-primary-100 mb-2">Manage company bankruptcy records</p>
+                        <p class="text-primary-200">Track and manage all company bankruptcy cases</p>
+                    </div>
+                    <div class="text-right text-white">
+                        <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg px-6 py-4">
+                            <p class="text-sm text-primary-100 mb-1">Total Records</p>
+                            <p class="text-lg font-medium">{{ $nonIndividualBankruptcies->count() }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Records Table -->
-    <div class="bg-white shadow rounded-lg">
-        <div class="px-4 py-5 sm:p-6">
+        <!-- Actions Section -->
+        <div class="professional-section mb-6">
+            <div class="professional-section-content">
+                <div class="flex flex-wrap gap-3">
+                    <a href="{{ route('non-individual-bankruptcy.create') }}" class="professional-button-primary">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4" />
+                        </svg>
+                        Add New Record
+                    </a>
+                    <a href="{{ route('non-individual-bankruptcy.bulk-upload') }}" class="professional-button">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                        </svg>
+                        Bulk Upload
+                    </a>
+                    @if($nonIndividualBankruptcies->count() > 0)
+                        <a href="{{ route('non-individual-bankruptcy.download') }}" class="professional-button">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                            </svg>
+                            Download Excel
+                        </a>
+                    @endif
+                </div>
+            </div>
+        </div>
+
+        <!-- Records Table -->
+        <div class="professional-section">
+            <div class="professional-section-header">
+                <h3 class="text-lg font-medium text-primary-900">Non-Individual Bankruptcy Records</h3>
+                <p class="text-sm text-primary-500 mt-1">All company and organization bankruptcy records</p>
+            </div>
+            <div class="professional-section-content">
             @if($nonIndividualBankruptcies->count() > 0)
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">

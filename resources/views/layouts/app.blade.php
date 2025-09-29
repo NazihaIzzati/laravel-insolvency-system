@@ -18,101 +18,65 @@
     <div class="flex-1">
         <!-- Navigation -->
         @auth
-            <nav class="bg-white border-t border-b border-gray-200">
+            <nav class="bg-white border-b border-primary-200 shadow-sm">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between items-center h-16">
-                        <!-- Left side - Logo and Navigation -->
-                        <div class="flex items-center space-x-8">
-                            <!-- Logo -->
-                            <div class="flex-shrink-0">
-                                <a href="{{ route('dashboard') }}" class="text-xl font-bold text-blue-600">
-                                    {{ config('app.name') }}
-                                </a>
-                            </div>
-
-                            <!-- Navigation Links -->
-                            <div class="hidden sm:flex sm:items-center">
-                                <a href="{{ route('dashboard') }}" class="text-sm font-medium text-blue-600 hover:text-blue-700 {{ request()->routeIs('dashboard') ? 'text-blue-600' : 'text-gray-500' }}">
-                                    Dashboard
-                                </a>
-                                
-                                <a href="{{ route('annulment-indv.index') }}" class="ml-6 text-sm font-medium {{ request()->routeIs('annulment-indv.*') ? 'text-blue-600' : 'text-gray-500' }} hover:text-gray-700">
-                                    Annulment Individual Management
-                                </a>
-                                
-                                @if(auth()->user()->isAdmin())
-                                    <a href="{{ route('admin.dashboard') }}" class="ml-6 text-sm font-medium text-gray-500 hover:text-gray-700">
-                                        Admin Panel
-                                    </a>
-                                @endif
-                            </div>
+                        <!-- Logo -->
+                        <div class="flex items-center">
+                            <h1 class="text-xl font-semibold text-primary-900">
+                                Insolvency <span class="text-accent-500">Data System</span>
+                            </h1>
                         </div>
 
-                        <!-- Right side - User info and actions -->
-                        <div class="flex items-center space-x-4">
-                            <span class="text-sm text-gray-600">
-                                Welcome, {{ auth()->user()->name }}
-                            </span>
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ auth()->user()->isAdmin() ? 'bg-purple-100 text-purple-800' : 'bg-green-100 text-green-800' }}">
-                                {{ ucfirst(auth()->user()->role) }}
-                            </span>
-                            <form method="POST" action="{{ route('logout') }}" class="inline">
-                                @csrf
-                                <button type="submit" class="inline-flex items-center px-3 py-1.5 border border-gray-300 text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                                    Logout
+                        <!-- User Menu -->
+                        <div class="flex items-center">
+                            <!-- User Profile Dropdown -->
+                            <div class="relative group">
+                                <button class="flex items-center space-x-2 px-2 py-2 rounded-lg hover:bg-primary-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-500">
+                                    <div class="w-8 h-8 bg-gradient-to-br from-accent-500 to-accent-600 rounded-full flex items-center justify-center shadow-sm">
+                                        <span class="text-sm font-semibold text-white">{{ substr(auth()->user()->name, 0, 1) }}</span>
+                                    </div>
+                                    <svg class="w-4 h-4 text-primary-400 group-hover:text-primary-600 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
                                 </button>
-                            </form>
-                        </div>
-
-                        <!-- Mobile menu button -->
-                        <div class="sm:hidden">
-                            <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" onclick="toggleMobileMenu()">
-                                <span class="sr-only">Open main menu</span>
-                                <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mobile menu -->
-                <div class="sm:hidden hidden" id="mobile-menu">
-                    <div class="pt-2 pb-3 space-y-1">
-                        <a href="{{ route('dashboard') }}" class="block px-3 py-2 text-base font-medium text-blue-600 hover:text-blue-700 hover:bg-gray-50">
-                            Dashboard
-                        </a>
-                        
-                        <a href="{{ route('annulment-indv.index') }}" class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50">
-                            Annulment Individual Management
-                        </a>
-                        
-                        @if(auth()->user()->isAdmin())
-                            <a href="{{ route('admin.dashboard') }}" class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50">
-                                Admin Panel
-                            </a>
-                        @endif
-                    </div>
-                    <div class="pt-4 pb-3 border-t border-gray-200">
-                        <div class="flex items-center px-3">
-                            <div class="flex-shrink-0">
-                                <div class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center">
-                                    <span class="text-white text-sm font-medium">{{ substr(auth()->user()->name, 0, 1) }}</span>
+                                
+                                <!-- Dropdown Menu -->
+                                <div class="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-primary-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                    <div class="p-3">
+                                        <div class="flex items-center space-x-3 mb-3">
+                                            <div class="w-8 h-8 bg-gradient-to-br from-accent-500 to-accent-600 rounded-full flex items-center justify-center">
+                                                <span class="text-sm font-semibold text-white">{{ substr(auth()->user()->name, 0, 1) }}</span>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium text-primary-900">{{ auth()->user()->name }}</p>
+                                                <p class="text-xs text-primary-500">{{ auth()->user()->email }}</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="border-t border-primary-100 my-2"></div>
+                                        
+                                        <a href="{{ route('password.change') }}" class="flex items-center px-3 py-2 text-sm text-primary-700 hover:bg-primary-50 rounded-lg transition-colors duration-200 mb-2">
+                                            <svg class="w-4 h-4 mr-3 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                                            </svg>
+                                            Change Password
+                                        </a>
+                                        
+                                        <form method="POST" action="{{ route('logout') }}" class="block">
+                                            @csrf
+                                            <button type="submit" class="flex items-center w-full px-3 py-2 text-sm text-primary-700 hover:bg-primary-50 rounded-lg transition-colors duration-200">
+                                                <svg class="w-4 h-4 mr-3 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                                </svg>
+                                                Logout
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="ml-3">
-                                <div class="text-base font-medium text-gray-800">{{ auth()->user()->name }}</div>
-                                <div class="text-sm text-gray-500">{{ auth()->user()->email }}</div>
-                            </div>
                         </div>
-                        <div class="mt-3 space-y-1">
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="block w-full text-left px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-50">
-                                    Logout
-                                </button>
-                            </form>
-                        </div>
+
                     </div>
                 </div>
             </nav>
@@ -167,12 +131,5 @@
             
         </div>
     </footer>
-
-    <script>
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
-    </script>
 </body>
 </html>
