@@ -155,7 +155,13 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Check file size (2MB limit)
             if (file.size > 2 * 1024 * 1024) {
-                alert('File size must be less than 2MB.');
+                Swal.fire({
+                    title: 'File Too Large!',
+                    text: 'File size must be less than 2MB.',
+                    icon: 'warning',
+                    confirmButtonColor: '#f59e0b',
+                    confirmButtonText: 'OK'
+                });
                 e.target.value = '';
                 return;
             }
@@ -168,7 +174,13 @@ document.addEventListener('DOMContentLoaded', function() {
             ];
             
             if (!allowedTypes.includes(file.type)) {
-                alert('Please select an Excel (.xlsx, .xls) or CSV file.');
+                Swal.fire({
+                    title: 'Invalid File Type!',
+                    text: 'Please select an Excel (.xlsx, .xls) or CSV file.',
+                    icon: 'warning',
+                    confirmButtonColor: '#f59e0b',
+                    confirmButtonText: 'OK'
+                });
                 e.target.value = '';
                 return;
             }
@@ -180,6 +192,17 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add success styling
             dropZone.classList.remove('border-gray-300');
             dropZone.classList.add('border-green-300', 'bg-green-50');
+            
+            // Show success notification
+            Swal.fire({
+                title: 'File Selected!',
+                text: `${fileName} (${fileSize} MB) is ready for upload.`,
+                icon: 'success',
+                confirmButtonColor: '#22c55e',
+                confirmButtonText: 'OK',
+                timer: 3000,
+                timerProgressBar: true
+            });
         }
     });
     

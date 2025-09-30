@@ -159,7 +159,7 @@
                                         <form method="POST" action="#" class="inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Are you sure?')">
+                                            <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirmDeleteUser(event)">
                                                 Delete
                                             </button>
                                         </form>
@@ -208,4 +208,25 @@
         </div>
     </div>
 </div>
+
+<script>
+function confirmDeleteUser(event) {
+    event.preventDefault();
+    
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "This user will be permanently deleted!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete user!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            event.target.closest('form').submit();
+        }
+    });
+}
+</script>
 @endsection

@@ -49,9 +49,7 @@ class NonIndividualBankruptcyController extends Controller
             if (!empty($data['date_of_winding_up_resolution'])) {
                 $data['date_of_winding_up_resolution'] = $this->convertDateFormat($data['date_of_winding_up_resolution']);
             }
-            if (!empty($data['updated_date'])) {
-                $data['updated_date'] = $this->convertDateFormat($data['updated_date']);
-            }
+            // Don't convert updated_date - let the model handle it with the boot method
             
             $nonIndividualBankruptcy = NonIndividualBankruptcy::create($data);
 
@@ -121,9 +119,7 @@ class NonIndividualBankruptcyController extends Controller
             if (!empty($data['date_of_winding_up_resolution'])) {
                 $data['date_of_winding_up_resolution'] = $this->convertDateFormat($data['date_of_winding_up_resolution']);
             }
-            if (!empty($data['updated_date'])) {
-                $data['updated_date'] = $this->convertDateFormat($data['updated_date']);
-            }
+            // Don't convert updated_date - let the model handle it with the boot method
             
             $nonIndividualBankruptcy->update($data);
 

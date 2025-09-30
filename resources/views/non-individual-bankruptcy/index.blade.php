@@ -28,27 +28,37 @@
         <!-- Actions Section -->
         <div class="professional-section mb-6">
             <div class="professional-section-content">
-                <div class="flex flex-wrap gap-3">
-                    <a href="{{ route('non-individual-bankruptcy.create') }}" class="professional-button-primary">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4" />
-                        </svg>
-                        Add New Record
-                    </a>
-                    <a href="{{ route('non-individual-bankruptcy.bulk-upload') }}" class="professional-button">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                        </svg>
-                        Bulk Upload
-                    </a>
-                    @if($nonIndividualBankruptcies->count() > 0)
-                        <a href="{{ route('non-individual-bankruptcy.download') }}" class="professional-button">
+                <div class="flex flex-wrap justify-between items-center gap-3">
+                    <div class="flex flex-wrap gap-3">
+                        <a href="{{ route('non-individual-bankruptcy.create') }}" class="professional-button-primary">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4" />
                             </svg>
-                            Download Excel
+                            Add New Record
                         </a>
-                    @endif
+                        <a href="{{ route('non-individual-bankruptcy.bulk-upload') }}" class="professional-button-accent">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                            </svg>
+                            Bulk Upload
+                        </a>
+                        @if($nonIndividualBankruptcies->count() > 0)
+                            <a href="{{ route('non-individual-bankruptcy.download') }}" class="professional-button-success">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                </svg>
+                                Download Excel
+                            </a>
+                        @endif
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="{{ route('dashboard') }}" class="professional-button">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                            </svg>
+                            Back to Dashboard
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -106,15 +116,7 @@
                                         @endif
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        @if($nonIndividualBankruptcy->updated_date && !empty(trim($nonIndividualBankruptcy->updated_date)))
-                                            @if(is_string($nonIndividualBankruptcy->updated_date))
-                                                {{ \Carbon\Carbon::parse($nonIndividualBankruptcy->updated_date)->format('d/m/Y g:i A') }}
-                                            @else
-                                                {{ $nonIndividualBankruptcy->updated_date->format('d/m/Y g:i A') }}
-                                            @endif
-                                        @else
-                                            N/A
-                                        @endif
+                                        {{ $nonIndividualBankruptcy->formatted_updated_date }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {{ $nonIndividualBankruptcy->branch ?? 'N/A' }}
@@ -130,7 +132,7 @@
                                                 Edit
                                             </a>
                                             <form method="POST" action="{{ route('non-individual-bankruptcy.destroy', $nonIndividualBankruptcy) }}" 
-                                                  class="inline" onsubmit="return confirm('Are you sure you want to deactivate this record?')">
+                                                  class="inline" onsubmit="return confirmDeactivate(event)">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="text-red-600 hover:text-red-900">
@@ -157,7 +159,7 @@
                     <h3 class="mt-2 text-sm font-medium text-gray-900">No non-individual bankruptcy records</h3>
                     <p class="mt-1 text-sm text-gray-500">Get started by uploading new data.</p>
                     <div class="mt-6">
-                        <a href="{{ route('non-individual-bankruptcy.create') }}" class="btn-primary">
+                        <a href="{{ route('non-individual-bankruptcy.create') }}" class="professional-button-primary">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                             </svg>
@@ -169,4 +171,25 @@
         </div>
     </div>
 </div>
+
+<script>
+function confirmDeactivate(event) {
+    event.preventDefault();
+    
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "This record will be deactivated and cannot be reverted!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, deactivate it!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            event.target.closest('form').submit();
+        }
+    });
+}
+</script>
 @endsection

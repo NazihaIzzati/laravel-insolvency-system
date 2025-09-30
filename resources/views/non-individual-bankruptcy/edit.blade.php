@@ -129,12 +129,12 @@
                                 </div>
 
                                 <div>
-                                    <label for="date_of_winding_up_resolution" class="form-label">Date of Winding Up/Resolution (DD/MM/YYYY)</label>
+                                    <label for="date_of_winding_up_resolution" class="form-label">Date of Winding Up/Resolution</label>
                                     <input type="text" 
                                            id="date_of_winding_up_resolution" 
                                            name="date_of_winding_up_resolution" 
                                            value="{{ old('date_of_winding_up_resolution', $nonIndividualBankruptcy->date_of_winding_up_resolution ? (is_string($nonIndividualBankruptcy->date_of_winding_up_resolution) ? \Carbon\Carbon::parse($nonIndividualBankruptcy->date_of_winding_up_resolution)->format('d/m/Y') : $nonIndividualBankruptcy->date_of_winding_up_resolution->format('d/m/Y')) : '') }}"
-                                           placeholder="DD/MM/YYYY"
+                                           placeholder="Select Date"
                                            class="form-input @error('date_of_winding_up_resolution') border-red-500 @enderror">
                                     @error('date_of_winding_up_resolution')
                                         <p class="form-error">{{ $message }}</p>
@@ -142,12 +142,12 @@
                                 </div>
 
                                 <div>
-                                    <label for="updated_date" class="form-label">Updated Date (DD/MM/YYYY HH:MM AM/PM)</label>
+                                    <label for="updated_date" class="form-label">Updated Date</label>
                                     <input type="text" 
                                            id="updated_date" 
                                            name="updated_date" 
-                                           value="{{ old('updated_date', $nonIndividualBankruptcy->updated_date ? (is_string($nonIndividualBankruptcy->updated_date) ? \Carbon\Carbon::parse($nonIndividualBankruptcy->updated_date)->format('d/m/Y g:i A') : $nonIndividualBankruptcy->updated_date->format('d/m/Y g:i A')) : '') }}"
-                                           placeholder="DD/MM/YYYY HH:MM AM/PM"
+                                           value="{{ old('updated_date', $nonIndividualBankruptcy->formatted_updated_date) }}"
+                                           placeholder="Select Date & Time"
                                            class="form-input @error('updated_date') border-red-500 @enderror">
                                     @error('updated_date')
                                         <p class="form-error">{{ $message }}</p>
@@ -171,4 +171,22 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Flatpickr for date fields
+    flatpickr("#date_of_winding_up_resolution", {
+        dateFormat: "d/m/Y",
+        allowInput: true,
+        placeholder: "Select Date"
+    });
+    
+    flatpickr("#updated_date", {
+        enableTime: true,
+        dateFormat: "d/m/Y h:i A",
+        allowInput: true,
+        placeholder: "Select Date & Time"
+    });
+});
+</script>
 @endsection

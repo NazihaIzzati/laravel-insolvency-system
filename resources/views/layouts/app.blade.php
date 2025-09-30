@@ -11,6 +11,15 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+    <!-- SweetAlert2 CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -23,9 +32,9 @@
                     <div class="flex justify-between items-center h-16">
                         <!-- Logo -->
                         <div class="flex items-center">
-                            <h1 class="text-xl font-semibold text-primary-900">
+                            <a href="{{ route('dashboard') }}" class="text-xl font-semibold text-primary-900 hover:text-primary-700 transition-colors duration-200">
                                 Insolvency <span class="text-accent-500">Data System</span>
-                            </h1>
+                            </a>
                         </div>
 
                         <!-- User Menu -->
@@ -85,24 +94,7 @@
         <!-- Page Content -->
         <main class="py-6">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <!-- Flash Messages -->
-                @if(session('success'))
-                    <div class="alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-
-                @if(session('error'))
-                    <div class="alert-error">
-                        {{ session('error') }}
-                    </div>
-                @endif
-
-                @if(session('info'))
-                    <div class="alert-info">
-                        {{ session('info') }}
-                    </div>
-                @endif
+                <!-- Flash Messages will be handled by SweetAlert2 -->
 
                 @yield('content')
             </div>
@@ -131,5 +123,44 @@
             
         </div>
     </footer>
+
+    <!-- SweetAlert2 Flash Messages -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if(session('success'))
+                Swal.fire({
+                    title: 'Success!',
+                    text: '{{ session('success') }}',
+                    icon: 'success',
+                    confirmButtonColor: '#22c55e',
+                    confirmButtonText: 'OK',
+                    timer: 5000,
+                    timerProgressBar: true
+                });
+            @endif
+
+            @if(session('error'))
+                Swal.fire({
+                    title: 'Error!',
+                    text: '{{ session('error') }}',
+                    icon: 'error',
+                    confirmButtonColor: '#ef4444',
+                    confirmButtonText: 'OK'
+                });
+            @endif
+
+            @if(session('info'))
+                Swal.fire({
+                    title: 'Information',
+                    text: '{{ session('info') }}',
+                    icon: 'info',
+                    confirmButtonColor: '#3b82f6',
+                    confirmButtonText: 'OK',
+                    timer: 4000,
+                    timerProgressBar: true
+                });
+            @endif
+        });
+    </script>
 </body>
 </html>

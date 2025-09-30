@@ -12,23 +12,69 @@ class AnnulmentIndv extends Model
     protected $table = 'annulment_indv';
 
     protected $fillable = [
-        'annulment_indv_id',
-        'no_involvency',
-        'annulment_indv_position',
-        'annulment_indv_branch',
-        'name',
-        'ic_no',
-        'ic_no_2',
-        'court_case_number',
-        'ro_date',
-        'ao_date',
-        'updated_date',
-        'branch_name'
+        'name',                    // Nama
+        'ic_no',                   // No. K/P Baru
+        'others',                  // No. Lain
+        'court_case_no',           // No. Kes Mahkamah
+        'release_date',            // Tarikh Pelepasan
+        'updated_date',            // Tarikh Kemaskini
+        'release_type',            // Jenis Pelepasan
+        'branch',                  // Nama Cawangan
+        'is_active'                // System field
     ];
 
     protected $casts = [
-        'ro_date' => 'date',
-        'ao_date' => 'date',
-        'updated_date' => 'date',
+        'release_date' => 'date',
+        'updated_date' => 'string', // Keep as string since it includes time
+        'is_active' => 'boolean',
     ];
+
+    /**
+     * Scope to get only active records
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
+    }
+
+    /**
+     * Boot method to automatically set updated_date
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->updated_date)) {
+                $model->updated_date = now()->format('d/m/Y h:i A');
+            }
+            if (empty($model->is_active)) {
+                $model->is_active = true;
+            }
+        });
+
+        static::updating(function ($model) {
+            $model->updated_date = now()->format('d/m/Y h:i A');
+        });
+    }
+
+    /**
+     * Get formatted updated date
+     */
+    public function getFormattedUpdatedDateAttribute()
+    {
+        if (empty($this->updated_date)) {
+            return 'N/A';
+        }
+
+        try {
+            if (is_string($this->updated_date)) {
+                return \Carbon\Carbon::createFromFormat('d/m/Y h:i A', $this->updated_date)->format('d/m/Y h:i A');
+            } else {
+                return $this->updated_date->format('d/m/Y h:i A');
+            }
+        } catch (\Exception $e) {
+            return $this->updated_date; // Return as-is if parsing fails
+        }
+    }
 }

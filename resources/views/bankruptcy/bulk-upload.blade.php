@@ -167,6 +167,17 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add success styling
             dropZone.classList.remove('border-gray-300');
             dropZone.classList.add('border-green-300', 'bg-green-50');
+            
+            // Show success notification
+            Swal.fire({
+                title: 'File Selected!',
+                text: `${fileName} (${fileSize} MB) is ready for upload.`,
+                icon: 'success',
+                confirmButtonColor: '#22c55e',
+                confirmButtonText: 'OK',
+                timer: 3000,
+                timerProgressBar: true
+            });
         }
     });
     

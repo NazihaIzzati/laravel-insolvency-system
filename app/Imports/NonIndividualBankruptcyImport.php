@@ -91,7 +91,7 @@ class NonIndividualBankruptcyImport implements ToCollection, SkipsOnError, Skips
                     'others' => !empty($row[3]) ? $row[3] : (!empty($row['Others']) ? $row['Others'] : ($row['others'] ?? null)),
                     'court_case_no' => !empty($row[4]) ? $row[4] : (!empty($row['Court Case No']) ? $row['Court Case No'] : ($row['court_case_no'] ?? null)),
                     'date_of_winding_up_resolution' => $windingUpDate,
-                    'updated_date' => $updatedDate,
+                    'updated_date' => $updatedDate ?: now()->format('d/m/Y h:i A'), // Use current timestamp if not provided
                     'branch' => !empty($row[7]) ? $row[7] : (!empty($row['Branch']) ? $row['Branch'] : ($row['branch'] ?? null)),
                     'is_active' => true,
                 ];

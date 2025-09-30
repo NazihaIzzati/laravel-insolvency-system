@@ -403,7 +403,13 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred while fetching details.');
+            Swal.fire({
+                title: 'Error!',
+                text: 'An error occurred while fetching details.',
+                icon: 'error',
+                confirmButtonColor: '#ef4444',
+                confirmButtonText: 'OK'
+            });
         });
     };
 

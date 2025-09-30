@@ -150,10 +150,11 @@
                                 <label for="ro_date" class="block text-sm font-medium text-gray-700 mb-2">
                                     RO Date
                                 </label>
-                                <input type="date" 
+                                <input type="text" 
                                        id="ro_date" 
                                        name="ro_date" 
                                        value="{{ old('ro_date', $bankruptcy->ro_date ? $bankruptcy->ro_date->format('Y-m-d') : '') }}"
+                                       placeholder="Select RO Date"
                                        class="form-input w-full @error('ro_date') border-red-500 @enderror">
                                 @error('ro_date')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -164,10 +165,11 @@
                                 <label for="ao_date" class="block text-sm font-medium text-gray-700 mb-2">
                                     AO Date
                                 </label>
-                                <input type="date" 
+                                <input type="text" 
                                        id="ao_date" 
                                        name="ao_date" 
                                        value="{{ old('ao_date', $bankruptcy->ao_date ? $bankruptcy->ao_date->format('Y-m-d') : '') }}"
+                                       placeholder="Select AO Date"
                                        class="form-input w-full @error('ao_date') border-red-500 @enderror">
                                 @error('ao_date')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -178,10 +180,11 @@
                                 <label for="updated_date" class="block text-sm font-medium text-gray-700 mb-2">
                                     Updated Date
                                 </label>
-                                <input type="date" 
+                                <input type="text" 
                                        id="updated_date" 
                                        name="updated_date" 
-                                       value="{{ old('updated_date', $bankruptcy->updated_date ? $bankruptcy->updated_date->format('Y-m-d') : '') }}"
+                                       value="{{ old('updated_date', $bankruptcy->formatted_updated_date) }}"
+                                       placeholder="Select Date & Time"
                                        class="form-input w-full @error('updated_date') border-red-500 @enderror">
                                 @error('updated_date')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -225,4 +228,28 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Flatpickr for date fields
+    flatpickr("#ro_date", {
+        dateFormat: "Y-m-d",
+        allowInput: true,
+        placeholder: "Select RO Date"
+    });
+    
+    flatpickr("#ao_date", {
+        dateFormat: "Y-m-d",
+        allowInput: true,
+        placeholder: "Select AO Date"
+    });
+    
+    flatpickr("#updated_date", {
+        enableTime: true,
+        dateFormat: "d/m/Y h:i A",
+        allowInput: true,
+        placeholder: "Select Date & Time"
+    });
+});
+</script>
 @endsection

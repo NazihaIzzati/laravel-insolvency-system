@@ -49,6 +49,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/change-password', [ChangePasswordController::class, 'updatePassword'])->name('password.update');
     
     // Annulment Individual management routes
+    Route::get('/annulment-indv/bulk-upload', [AnnulmentIndvController::class, 'bulkUpload'])->name('annulment-indv.bulk-upload');
+    Route::post('/annulment-indv/bulk-upload', [AnnulmentIndvController::class, 'processBulkUpload'])->name('annulment-indv.bulk-upload.process');
+    Route::get('/annulment-indv/template', [AnnulmentIndvController::class, 'downloadTemplate'])->name('annulment-indv.template');
+    Route::get('/annulment-indv/download', [AnnulmentIndvController::class, 'downloadRecords'])->name('annulment-indv.download');
     Route::resource('annulment-indv', AnnulmentIndvController::class);
     
     // Bankruptcy management routes

@@ -115,15 +115,7 @@
                         <div>
                             <dt class="text-sm font-medium text-gray-500">Updated Date</dt>
                             <dd class="mt-1 text-sm text-gray-900">
-                                @if($nonIndividualBankruptcy->updated_date)
-                                    @if(is_string($nonIndividualBankruptcy->updated_date))
-                                        {{ \Carbon\Carbon::parse($nonIndividualBankruptcy->updated_date)->format('d/m/Y g:i A') }}
-                                    @else
-                                        {{ $nonIndividualBankruptcy->updated_date->format('d/m/Y g:i A') }}
-                                    @endif
-                                @else
-                                    N/A
-                                @endif
+                                {{ $nonIndividualBankruptcy->formatted_updated_date }}
                             </dd>
                         </div>
                     </div>

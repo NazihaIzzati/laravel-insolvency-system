@@ -110,9 +110,9 @@
                     
                     <div>
                         <label for="ro_date" class="form-label">RO Date</label>
-                        <input type="date" id="ro_date" name="ro_date" 
+                        <input type="text" id="ro_date" name="ro_date" 
                                class="form-input @error('ro_date') border-red-300 @enderror"
-                               value="{{ old('ro_date') }}">
+                               value="{{ old('ro_date') }}" placeholder="Select date">
                         @error('ro_date')
                             <p class="form-error">{{ $message }}</p>
                         @enderror
@@ -120,9 +120,9 @@
 
                     <div>
                         <label for="ao_date" class="form-label">AO Date</label>
-                        <input type="date" id="ao_date" name="ao_date" 
+                        <input type="text" id="ao_date" name="ao_date" 
                                class="form-input @error('ao_date') border-red-300 @enderror"
-                               value="{{ old('ao_date') }}">
+                               value="{{ old('ao_date') }}" placeholder="Select date">
                         @error('ao_date')
                             <p class="form-error">{{ $message }}</p>
                         @enderror
@@ -130,9 +130,9 @@
 
                     <div>
                         <label for="updated_date" class="form-label">Updated Date</label>
-                        <input type="date" id="updated_date" name="updated_date" 
+                        <input type="text" id="updated_date" name="updated_date" 
                                class="form-input @error('updated_date') border-red-300 @enderror"
-                               value="{{ old('updated_date') }}">
+                               value="{{ old('updated_date') }}" placeholder="Select Date & Time">
                         @error('updated_date')
                             <p class="form-error">{{ $message }}</p>
                         @enderror
@@ -155,4 +155,28 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Flatpickr for date fields
+    flatpickr("#ro_date", {
+        dateFormat: "Y-m-d",
+        allowInput: true,
+        placeholder: "Select RO Date"
+    });
+    
+    flatpickr("#ao_date", {
+        dateFormat: "Y-m-d",
+        allowInput: true,
+        placeholder: "Select AO Date"
+    });
+    
+    flatpickr("#updated_date", {
+        enableTime: true,
+        dateFormat: "d/m/Y h:i A",
+        allowInput: true,
+        placeholder: "Select Date & Time"
+    });
+});
+</script>
 @endsection

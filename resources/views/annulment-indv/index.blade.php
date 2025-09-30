@@ -28,33 +28,40 @@
         <!-- Actions Section -->
         <div class="professional-section mb-6">
             <div class="professional-section-content">
-                <div class="flex flex-wrap gap-3">
-                    <a href="{{ route('annulment-indv.create') }}" class="professional-button-primary">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4" />
-                        </svg>
-                        Add New Record
-                    </a>
-                    <button onclick="window.print()" class="professional-button">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-                        </svg>
-                        Print Report
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Success Message -->
-        @if(session('success'))
-            <div class="professional-section mb-6">
-                <div class="professional-section-content">
-                    <div class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-md">
-                        {{ session('success') }}
+                <div class="flex flex-wrap justify-between items-center gap-3">
+                    <div class="flex flex-wrap gap-3">
+                        <a href="{{ route('annulment-indv.create') }}" class="professional-button-primary">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4" />
+                            </svg>
+                            Add New Record
+                        </a>
+                        <a href="{{ route('annulment-indv.bulk-upload') }}" class="professional-button-accent">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                            </svg>
+                            Bulk Upload
+                        </a>
+                        @if($annulmentIndv->count() > 0)
+                            <a href="{{ route('annulment-indv.download') }}" class="professional-button-success">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                Download Excel
+                            </a>
+                        @endif
+                    </div>
+                    <div class="flex gap-3">
+                        <a href="{{ route('dashboard') }}" class="professional-button">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                            </svg>
+                            Back to Dashboard
+                        </a>
                     </div>
                 </div>
             </div>
-        @endif
+        </div>
 
         <!-- Records Table -->
         <div class="professional-section">
@@ -64,58 +71,62 @@
             </div>
             <div class="professional-section-content">
                 <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-primary-200">
+                    <table class="min-w-full divide-y divide-primary-200" style="min-width: 1200px;">
                         <thead class="bg-primary-50">
                             <tr>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider">
-                                    No Involvency
-                                </th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider">
-                                    Name
-                                </th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider">
-                                    IC No
-                                </th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider">
-                                    Court Case
-                                </th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider">
-                                    RO Date
-                                </th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider">
-                                    Branch
-                                </th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider">
-                                    Actions
-                                </th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-48">Name</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-32">IC No</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-40">Others</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-40">Court Case</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-24">Release Date</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-32">Updated Date</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-40">Release Type</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-40">Branch</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-24">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-primary-200">
-                            @forelse($annulmentIndv as $member)
+                            @forelse($annulmentIndv as $annulment)
                                 <tr class="hover:bg-primary-50 transition-colors duration-200">
                                     <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm font-medium text-accent-600">{{ $member->no_involvency ?? 'N/A' }}</span>
+                                        <span class="text-sm text-primary-900">{{ $annulment->name ?? 'N/A' }}</span>
                                     </td>
                                     <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm text-primary-900">{{ $member->name ?? 'N/A' }}</span>
+                                        <span class="text-sm text-primary-600">{{ $annulment->ic_no ?? 'N/A' }}</span>
                                     </td>
                                     <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm text-primary-600">{{ $member->ic_no ?? 'N/A' }}</span>
+                                        <span class="text-sm text-primary-900">{{ $annulment->others ?? 'N/A' }}</span>
                                     </td>
                                     <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm text-primary-900">{{ $member->court_case_number ?? 'N/A' }}</span>
+                                        <span class="text-sm text-primary-900">{{ $annulment->court_case_no ?? 'N/A' }}</span>
                                     </td>
                                     <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm text-primary-900">{{ $member->ro_date ? $member->ro_date->format('d/m/Y') : 'N/A' }}</span>
+                                        <span class="text-sm text-primary-900">
+                                            @if($annulment->release_date)
+                                                @if(is_string($annulment->release_date))
+                                                    {{ \Carbon\Carbon::parse($annulment->release_date)->format('d/m/Y') }}
+                                                @else
+                                                    {{ $annulment->release_date->format('d/m/Y') }}
+                                                @endif
+                                            @else
+                                                N/A
+                                            @endif
+                                        </span>
                                     </td>
                                     <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm text-primary-900">{{ $member->branch_name ?? 'N/A' }}</span>
+                                        <span class="text-sm text-primary-900">{{ $annulment->formatted_updated_date }}</span>
+                                    </td>
+                                    <td class="px-4 py-3 whitespace-nowrap">
+                                        <span class="text-sm text-primary-900">{{ $annulment->release_type ?? 'N/A' }}</span>
+                                    </td>
+                                    <td class="px-4 py-3 whitespace-nowrap">
+                                        <span class="text-sm text-primary-900">{{ $annulment->branch ?? 'N/A' }}</span>
                                     </td>
                                     <td class="px-4 py-3 whitespace-nowrap text-sm font-medium">
                                         <div class="flex space-x-2">
-                                            <a href="{{ route('annulment-indv.show', $member) }}" class="text-accent-600 hover:text-accent-700 transition-colors duration-200">View</a>
-                                            <a href="{{ route('annulment-indv.edit', $member) }}" class="text-green-600 hover:text-green-700 transition-colors duration-200">Edit</a>
-                                            <form method="POST" action="{{ route('annulment-indv.destroy', $member) }}" class="inline" onsubmit="return confirm('Are you sure you want to delete this annulment individual?')">
+                                            <a href="{{ route('annulment-indv.show', $annulment) }}" class="text-accent-600 hover:text-accent-700 transition-colors duration-200">View</a>
+                                            <a href="{{ route('annulment-indv.edit', $annulment) }}" class="text-green-600 hover:text-green-700 transition-colors duration-200">Edit</a>
+                                            <form method="POST" action="{{ route('annulment-indv.destroy', $annulment) }}" class="inline" onsubmit="return confirmDeleteAnnulment(event)">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="text-red-600 hover:text-red-700 transition-colors duration-200">Delete</button>
@@ -145,4 +156,25 @@
         </div>
     </div>
 </div>
+
+<script>
+function confirmDeleteAnnulment(event) {
+    event.preventDefault();
+    
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this annulment record!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            event.target.closest('form').submit();
+        }
+    });
+}
+</script>
 @endsection
