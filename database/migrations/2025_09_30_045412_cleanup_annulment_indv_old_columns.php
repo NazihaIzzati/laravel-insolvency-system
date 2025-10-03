@@ -11,20 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('annulment_indv', function (Blueprint $table) {
-            // Drop old columns that are no longer needed
-            $table->dropColumn([
-                'annulment_indv_id',
-                'annulment_indv_position', 
-                'annulment_indv_branch',
-                'no_involvency',
-                'ic_no_2',
-                'court_case_number',
-                'ro_date',
-                'ao_date',
-                'branch_name'
-            ]);
-        });
+        // This migration was already handled in the previous migration
+        // Skip to avoid duplicate column drops
     }
 
     /**

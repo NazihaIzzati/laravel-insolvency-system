@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             AnnulmentIndvSeeder::class,
+            BankruptcySeeder::class,
+            NonIndividualBankruptcySeeder::class,
         ]);
     }
 }
