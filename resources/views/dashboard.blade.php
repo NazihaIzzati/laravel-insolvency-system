@@ -112,69 +112,124 @@
             </div>
 
             <!-- Quick Actions -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                <a href="{{ route('annulment-indv.index') }}" class="professional-section hover:shadow-lg transition-all duration-300 cursor-pointer group">
-                    <div class="professional-section-content text-center py-8">
-                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors duration-300">
-                            <i class="fas fa-user-check text-blue-600 text-2xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-primary-900 mb-2">Individual Annulment</h3>
-                        <p class="text-sm text-primary-500">Manage individual annulment records</p>
-                        <div class="mt-4 text-xs text-blue-600 font-medium">
-                            {{ \App\Models\AnnulmentIndv::where('is_active', true)->count() }} active records
-                        </div>
-                    </div>
-                </a>
-                
-                <a href="{{ route('annulment-non-indv.index') }}" class="professional-section hover:shadow-lg transition-all duration-300 cursor-pointer group">
-                    <div class="professional-section-content text-center py-8">
-                        <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-200 transition-colors duration-300">
-                            <i class="fas fa-building text-purple-600 text-2xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-primary-900 mb-2">Non-Individual Annulment</h3>
-                        <p class="text-sm text-primary-500">Manage company annulment records</p>
-                        <div class="mt-4 text-xs text-purple-600 font-medium">
-                            {{ \App\Models\AnnulmentNonIndv::where('is_active', true)->count() }} active records
-                        </div>
-                    </div>
-                </a>
-                
-                <a href="{{ route('bankruptcy.index') }}" class="professional-section hover:shadow-lg transition-all duration-300 cursor-pointer group">
-                    <div class="professional-section-content text-center py-8">
-                        <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-red-200 transition-colors duration-300">
-                            <i class="fas fa-file-invoice text-red-600 text-2xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-primary-900 mb-2">Individual Bankruptcy</h3>
-                        <p class="text-sm text-primary-500">Manage individual bankruptcy cases</p>
-                        <div class="mt-4 text-xs text-red-600 font-medium">
-                            {{ \App\Models\Bankruptcy::where('is_active', true)->count() }} active records
-                        </div>
-                    </div>
-                </a>
-                
-                <a href="{{ route('non-individual-bankruptcy.index') }}" class="professional-section hover:shadow-lg transition-all duration-300 cursor-pointer group">
-                    <div class="professional-section-content text-center py-8">
-                        <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-200 transition-colors duration-300">
-                            <i class="fas fa-industry text-orange-600 text-2xl"></i>
-                        </div>
-                        <h3 class="text-lg font-semibold text-primary-900 mb-2">Non-Individual Bankruptcy</h3>
-                        <p class="text-sm text-primary-500">Manage company bankruptcy cases</p>
-                        <div class="mt-4 text-xs text-orange-600 font-medium">
-                            {{ \App\Models\NonIndividualBankruptcy::where('is_active', true)->count() }} active records
-                        </div>
-                    </div>
-                </a>
-                
-                @if($user->isAdmin())
-                    <a href="{{ route('admin.dashboard') }}" class="professional-section hover:shadow-lg transition-all duration-300 cursor-pointer group sm:col-span-2 lg:col-span-1">
-                        <div class="professional-section-content text-center py-8">
-                            <div class="w-16 h-16 bg-accent-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-accent-200 transition-colors duration-300">
-                                <i class="fas fa-cog text-accent-600 text-2xl"></i>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+                <!-- Individual Annulment -->
+                <a href="{{ route('annulment-indv.index') }}" class="group relative overflow-hidden bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-2xl hover:shadow-blue-100/50 transition-all duration-500 transform hover:-translate-y-2">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-blue-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative p-8">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
+                                <i class="fas fa-user-check text-white text-xl"></i>
                             </div>
-                            <h3 class="text-lg font-semibold text-primary-900 mb-2">Admin Panel</h3>
-                            <p class="text-sm text-primary-500">System administration</p>
-                            <div class="mt-4 text-xs text-accent-600 font-medium">
-                                Administrative access
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
+                                    {{ \App\Models\AnnulmentIndv::where('is_active', true)->count() }}
+                                </div>
+                                <div class="text-xs text-gray-500 font-medium">Active Records</div>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">Individual Annulment</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">Manage and process individual annulment cases with comprehensive tracking and documentation.</p>
+                        <div class="flex items-center text-blue-600 text-sm font-semibold group-hover:text-blue-700 transition-colors duration-300">
+                            <span>Access Records</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Non-Individual Annulment -->
+                <a href="{{ route('annulment-non-indv.index') }}" class="group relative overflow-hidden bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-2xl hover:shadow-purple-100/50 transition-all duration-500 transform hover:-translate-y-2">
+                    <div class="absolute inset-0 bg-gradient-to-br from-purple-50 via-white to-purple-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative p-8">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
+                                <i class="fas fa-building text-white text-xl"></i>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-gray-900 group-hover:text-purple-600 transition-colors duration-300">
+                                    {{ \App\Models\AnnulmentNonIndv::where('is_active', true)->count() }}
+                                </div>
+                                <div class="text-xs text-gray-500 font-medium">Active Records</div>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors duration-300">Non-Individual Annulment</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">Handle corporate annulment proceedings with advanced case management and reporting tools.</p>
+                        <div class="flex items-center text-purple-600 text-sm font-semibold group-hover:text-purple-700 transition-colors duration-300">
+                            <span>Access Records</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Individual Bankruptcy -->
+                <a href="{{ route('bankruptcy.index') }}" class="group relative overflow-hidden bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-2xl hover:shadow-red-100/50 transition-all duration-500 transform hover:-translate-y-2">
+                    <div class="absolute inset-0 bg-gradient-to-br from-red-50 via-white to-red-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative p-8">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="w-14 h-14 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
+                                <i class="fas fa-file-invoice text-white text-xl"></i>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-gray-900 group-hover:text-red-600 transition-colors duration-300">
+                                    {{ \App\Models\Bankruptcy::where('is_active', true)->count() }}
+                                </div>
+                                <div class="text-xs text-gray-500 font-medium">Active Records</div>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors duration-300">Individual Bankruptcy</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">Process individual bankruptcy cases with detailed financial analysis and legal documentation.</p>
+                        <div class="flex items-center text-red-600 text-sm font-semibold group-hover:text-red-700 transition-colors duration-300">
+                            <span>Access Records</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Non-Individual Bankruptcy -->
+                <a href="{{ route('non-individual-bankruptcy.index') }}" class="group relative overflow-hidden bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-2xl hover:shadow-orange-100/50 transition-all duration-500 transform hover:-translate-y-2">
+                    <div class="absolute inset-0 bg-gradient-to-br from-orange-50 via-white to-orange-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative p-8">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
+                                <i class="fas fa-industry text-white text-xl"></i>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-gray-900 group-hover:text-orange-600 transition-colors duration-300">
+                                    {{ \App\Models\NonIndividualBankruptcy::where('is_active', true)->count() }}
+                                </div>
+                                <div class="text-xs text-gray-500 font-medium">Active Records</div>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors duration-300">Non-Individual Bankruptcy</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">Manage corporate bankruptcy proceedings with comprehensive asset tracking and creditor management.</p>
+                        <div class="flex items-center text-orange-600 text-sm font-semibold group-hover:text-orange-700 transition-colors duration-300">
+                            <span>Access Records</span>
+                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Admin Panel -->
+                @if($user->isAdmin())
+                    <a href="{{ route('admin.dashboard') }}" class="group relative overflow-hidden bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-2xl hover:shadow-indigo-100/50 transition-all duration-500 transform hover:-translate-y-2 sm:col-span-2 lg:col-span-1">
+                        <div class="absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-indigo-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative p-8">
+                            <div class="flex items-center justify-between mb-6">
+                                <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-300">
+                                    <i class="fas fa-cog text-white text-xl"></i>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-2xl font-bold text-gray-900 group-hover:text-indigo-600 transition-colors duration-300">
+                                        {{ \App\Models\User::where('role', 'admin')->count() }}
+                                    </div>
+                                    <div class="text-xs text-gray-500 font-medium">Admin Users</div>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors duration-300">Admin Panel</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-4">Access system administration tools, user management, and advanced configuration options.</p>
+                            <div class="flex items-center text-indigo-600 text-sm font-semibold group-hover:text-indigo-700 transition-colors duration-300">
+                                <span>Access Panel</span>
+                                <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
                             </div>
                         </div>
                     </a>
