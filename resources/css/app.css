@@ -34,7 +34,7 @@
     }
     
     .btn-warning {
-        @apply btn bg-accent-600 text-white hover:bg-accent-700 focus:ring-accent-500;
+        @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500;
     }
     
     .btn-minimal {
@@ -259,7 +259,7 @@
     }
     
     .solar-badge-warning {
-        @apply bg-accent-100 text-accent-700;
+        @apply bg-primary-100 text-primary-700;
     }
     
     .solar-badge-info {
@@ -283,7 +283,7 @@
     }
     
     .solar-button-accent {
-        @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium text-white bg-accent-500 hover:bg-accent-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-500;
+        @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium text-white bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500;
     }
     
     .solar-sidebar {
@@ -291,11 +291,11 @@
     }
     
     .solar-nav-item {
-        @apply flex items-center px-3 py-2 text-sm font-medium text-primary-600 hover:text-primary-900 hover:bg-accent-50 rounded-md mb-1;
+        @apply flex items-center px-3 py-2 text-sm font-medium text-primary-600 hover:text-primary-900 hover:bg-primary-50 rounded-md mb-1;
     }
     
     .solar-nav-item-active {
-        @apply flex items-center px-3 py-2 text-sm font-medium text-accent-600 bg-accent-50 rounded-md mb-1;
+        @apply flex items-center px-3 py-2 text-sm font-medium text-primary-600 bg-primary-50 rounded-md mb-1;
     }
     
     .solar-logo {
@@ -303,7 +303,7 @@
     }
     
     .solar-logo-accent {
-        @apply text-accent-500 font-medium;
+        @apply text-primary-500 font-medium;
     }
     
     /* Enhanced Professional Dashboard Styles */
@@ -320,7 +320,7 @@
     }
     
     .professional-stat-icon-primary {
-        @apply bg-accent-50 text-accent-600;
+        @apply bg-primary-50 text-primary-600;
     }
     
     .professional-stat-icon-success {
@@ -360,7 +360,7 @@
     }
     
     .professional-badge-warning {
-        @apply bg-accent-100 text-accent-800;
+        @apply bg-primary-100 text-primary-800;
     }
     
     .professional-badge-info {
@@ -372,11 +372,11 @@
     }
     
     .professional-input {
-        @apply block w-full border border-primary-300 rounded-md px-3 py-2 text-sm placeholder-primary-400 focus:border-accent-500 focus:ring-1 focus:ring-accent-500 bg-white;
+        @apply block w-full border border-primary-300 rounded-md px-3 py-2 text-sm placeholder-primary-400 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 bg-white;
     }
     
     .professional-button {
-        @apply inline-flex items-center px-6 py-3 border border-primary-200 text-sm font-semibold text-primary-700 bg-white hover:bg-primary-50 hover:border-primary-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-500 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md transform hover:-translate-y-0.5;
+        @apply inline-flex items-center px-6 py-3 border border-primary-200 text-sm font-semibold text-primary-700 bg-white hover:bg-primary-50 hover:border-primary-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md transform hover:-translate-y-0.5;
     }
     
     .professional-button-primary {
@@ -384,7 +384,7 @@
     }
     
     .professional-button-accent {
-        @apply inline-flex items-center px-6 py-3 border border-transparent text-sm font-semibold text-white bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-500 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+        @apply inline-flex items-center px-6 py-3 border border-transparent text-sm font-semibold text-white bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
     }
     
     .professional-button-success {
@@ -396,11 +396,11 @@
     }
     
     .professional-nav-item {
-        @apply flex items-center px-3 py-2 text-sm font-medium text-primary-600 hover:text-primary-900 hover:bg-accent-50 rounded-md mb-1 transition-colors duration-200;
+        @apply flex items-center px-3 py-2 text-sm font-medium text-primary-600 hover:text-primary-900 hover:bg-primary-50 rounded-md mb-1 transition-colors duration-200;
     }
     
     .professional-nav-item-active {
-        @apply flex items-center px-3 py-2 text-sm font-medium text-accent-600 bg-accent-50 rounded-md mb-1;
+        @apply flex items-center px-3 py-2 text-sm font-medium text-primary-600 bg-primary-50 rounded-md mb-1;
     }
     
     .professional-logo {
@@ -408,11 +408,11 @@
     }
     
     .professional-logo-accent {
-        @apply text-accent-500 font-medium;
+        @apply text-primary-500 font-medium;
     }
     
     .professional-welcome {
-        @apply bg-gradient-to-r from-primary-50 to-accent-50 border-b border-primary-200 pb-8 mb-8;
+        @apply bg-gradient-to-r from-primary-50 to-primary-50 border-b border-primary-200 pb-8 mb-8;
     }
     
     .professional-search-results {
@@ -420,7 +420,7 @@
     }
     
     .professional-result-item {
-        @apply flex items-center justify-between py-3 px-4 bg-white rounded-md border border-primary-200 hover:border-accent-300 hover:shadow-sm transition-all duration-200 mb-2;
+        @apply flex items-center justify-between py-3 px-4 bg-white rounded-md border border-primary-200 hover:border-primary-300 hover:shadow-sm transition-all duration-200 mb-2;
     }
     
     .professional-modal {
@@ -436,7 +436,7 @@
     }
     
     .professional-progress-fill {
-        @apply bg-accent-500 h-2 rounded-full transition-all duration-300;
+        @apply bg-primary-500 h-2 rounded-full transition-all duration-300;
     }
     
     .professional-tooltip {
