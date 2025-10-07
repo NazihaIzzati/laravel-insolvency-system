@@ -7,7 +7,7 @@
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Enhanced Welcome Section -->
-        <div class="relative overflow-hidden bg-primary-800 rounded-2xl shadow-2xl mb-8">
+        <div class="relative overflow-hidden bg-primary-800 rounded-xl mb-8">
             <!-- Background Pattern -->
             <div class="absolute inset-0 bg-black opacity-10">
                 <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.1"><circle cx="30" cy="30" r="2"/></g></svg>');"></div>
@@ -17,7 +17,7 @@
                 <div class="flex flex-col lg:flex-row items-center justify-between">
                     <div class="text-white mb-8 lg:mb-0">
                         <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mr-4">
+                            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mr-4">
                                 <i class="fas fa-chart-line text-2xl text-white"></i>
                             </div>
                             <div>
@@ -79,11 +79,11 @@
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Individual Annulment -->
-                <a href="{{ route('annulment-indv.index') }}" class="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden">
+                <a href="{{ route('annulment-indv.index') }}" class="group relative bg-white rounded-lg border border-gray-200 hover:border-primary-300 transition-all duration-300 overflow-hidden">
                     <div class="absolute inset-0 bg-primary-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
                     <div class="relative p-8">
                         <div class="flex items-center justify-between mb-6">
-                            <div class="w-16 h-16 bg-primary-500 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300">
+                            <div class="w-16 h-16 bg-primary-500 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                                 <i class="fas fa-user-check text-white text-2xl"></i>
                             </div>
                             <div class="text-right">
@@ -106,11 +106,11 @@
                 </a>
 
                 <!-- Non-Individual Annulment -->
-                <a href="{{ route('annulment-non-indv.index') }}" class="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden">
+                <a href="{{ route('annulment-non-indv.index') }}" class="group relative bg-white rounded-lg border border-gray-200 hover:border-purple-300 transition-all duration-300 overflow-hidden">
                     <div class="absolute inset-0 bg-purple-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
                     <div class="relative p-8">
                         <div class="flex items-center justify-between mb-6">
-                            <div class="w-16 h-16 bg-purple-500 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300">
+                            <div class="w-16 h-16 bg-purple-500 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                                 <i class="fas fa-building text-white text-2xl"></i>
                             </div>
                             <div class="text-right">
@@ -133,11 +133,11 @@
                 </a>
 
                 <!-- Individual Bankruptcy -->
-                <a href="{{ route('bankruptcy.index') }}" class="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden">
+                <a href="{{ route('bankruptcy.index') }}" class="group relative bg-white rounded-lg border border-gray-200 hover:border-red-300 transition-all duration-300 overflow-hidden">
                     <div class="absolute inset-0 bg-red-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
                     <div class="relative p-8">
                         <div class="flex items-center justify-between mb-6">
-                            <div class="w-16 h-16 bg-red-500 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300">
+                            <div class="w-16 h-16 bg-red-500 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                                 <i class="fas fa-file-invoice text-white text-2xl"></i>
                             </div>
                             <div class="text-right">
@@ -160,11 +160,11 @@
                 </a>
 
                 <!-- Non-Individual Bankruptcy -->
-                <a href="{{ route('non-individual-bankruptcy.index') }}" class="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden">
+                <a href="{{ route('non-individual-bankruptcy.index') }}" class="group relative bg-white rounded-lg border border-gray-200 hover:border-yellow-300 transition-all duration-300 overflow-hidden">
                     <div class="absolute inset-0 bg-yellow-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
                     <div class="relative p-8">
                         <div class="flex items-center justify-between mb-6">
-                            <div class="w-16 h-16 bg-yellow-500 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300">
+                            <div class="w-16 h-16 bg-yellow-500 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                                 <i class="fas fa-industry text-white text-2xl"></i>
                             </div>
                             <div class="text-right">
@@ -190,7 +190,7 @@
             <!-- Admin Panel (if user is admin) -->
             @if($user->isAdmin())
                 <div class="mt-8">
-                    <div class="bg-blue-500 rounded-2xl shadow-xl p-8 text-white">
+                    <div class="bg-blue-500 rounded-lg p-8 text-white">
                         <div class="flex items-center justify-between">
                             <div>
                                 <h3 class="text-2xl font-bold mb-2">Administration Panel</h3>
@@ -206,7 +206,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="{{ route('admin.dashboard') }}" class="group bg-white bg-opacity-20 hover:bg-opacity-30 rounded-xl px-6 py-4 transition-all duration-300 transform hover:scale-105">
+                            <a href="{{ route('admin.dashboard') }}" class="group bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg px-6 py-4 transition-all duration-300">
                                 <div class="flex items-center">
                                     <i class="fas fa-cog text-2xl mr-3 group-hover:rotate-90 transition-transform duration-300"></i>
                                     <div class="text-right">
@@ -222,10 +222,10 @@
         </div>
 
         <!-- Enhanced Search Section -->
-        <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+        <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
             <div class="bg-primary-500 px-8 py-6">
                 <div class="flex items-center">
-                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mr-4">
+                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mr-4">
                         <i class="fas fa-search text-white text-xl"></i>
                     </div>
                     <div>
@@ -284,7 +284,7 @@
                     </div>
                     
                     <div class="flex justify-end">
-                        <button type="submit" class="group inline-flex items-center px-8 py-4 text-lg font-semibold rounded-xl text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-200">
+                        <button type="submit" class="group inline-flex items-center px-8 py-4 text-lg font-semibold rounded-lg text-white transition-all duration-300 bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-200">
                             <i class="fas fa-search mr-3 group-hover:scale-110 transition-transform duration-300"></i>
                             Search Records
                         </button>
@@ -297,7 +297,7 @@
 </div>
 
 <!-- Enhanced Search Results -->
-<div id="searchResults" class="hidden bg-white rounded-xl border border-gray-200 mt-8 shadow-lg overflow-hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div id="searchResults" class="hidden bg-white rounded-lg border border-gray-200 mt-8 overflow-hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="bg-green-50 px-6 py-4 border-b border-gray-200">
         <div class="flex items-center justify-between">
             <div class="flex items-center">
@@ -334,11 +334,11 @@
 </div>
 
 <!-- Enhanced No Results -->
-<div id="noResults" class="hidden bg-white rounded-2xl border-2 border-gray-200 p-16 mt-8 shadow-2xl max-w-7xl mx-auto">
+<div id="noResults" class="hidden bg-white rounded-lg border border-gray-200 p-16 mt-8 max-w-7xl mx-auto">
     <div class="text-center max-w-2xl mx-auto">
         <!-- Animated Icon -->
         <div class="relative mb-8">
-            <div class="inline-flex items-center justify-center w-24 h-24 bg-red-100 rounded-full mb-4 shadow-lg">
+            <div class="inline-flex items-center justify-center w-24 h-24 bg-red-100 rounded-full mb-4">
                 <i class="fas fa-file-alt text-red-500 text-3xl animate-pulse"></i>
             </div>
             <!-- Decorative elements -->
@@ -351,7 +351,7 @@
         <p class="text-xl text-primary-600 mb-8 leading-relaxed">We couldn't find any records matching your search criteria.</p>
         
         <!-- Enhanced Search Suggestions -->
-        <div class="bg-blue-50 border-2 border-blue-200 rounded-2xl p-8 shadow-lg">
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-8">
             <div class="flex items-center justify-center mb-6">
                 <div class="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full mr-3">
                     <i class="fas fa-info-circle text-blue-600 text-lg"></i>
@@ -402,7 +402,7 @@
             </div>
             
             <!-- Additional Help -->
-            <div class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-xl">
+            <div class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                 <div class="flex items-center">
                     <i class="fas fa-exclamation-triangle text-yellow-600 mr-2"></i>
                     <span class="text-sm font-medium text-yellow-800">Tip: Try searching with fewer characters or different keywords</span>
@@ -412,7 +412,7 @@
         
         <!-- Action Button -->
         <div class="mt-8">
-            <button type="button" id="clearSearchFromNoResults" class="inline-flex items-center px-8 py-4 text-lg font-semibold text-white bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+            <button type="button" id="clearSearchFromNoResults" class="inline-flex items-center px-8 py-4 text-lg font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200 transition-all duration-300">
                 <i class="fas fa-redo mr-3"></i>
                 Try Different Search
             </button>
@@ -421,7 +421,7 @@
 </div>
 
 <!-- Enhanced Loading Spinner -->
-<div id="loadingSpinner" class="hidden bg-white rounded-xl border border-gray-200 p-12 mt-8 shadow-lg max-w-7xl mx-auto">
+<div id="loadingSpinner" class="hidden bg-white rounded-lg border border-gray-200 p-12 mt-8 max-w-7xl mx-auto">
     <div class="text-center">
         <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-6">
             <i class="fas fa-spinner fa-spin text-primary-600 text-2xl"></i>
