@@ -25,63 +25,7 @@
             </div>
         </div>
             <!-- Stats Cards -->
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-6 mb-8">
-                <!-- Individual Annulment Records -->
-                <div class="professional-stat-card">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm text-primary-500 uppercase tracking-wide font-medium">Individual Annulment</p>
-                            <p class="text-2xl font-light text-primary-900 mt-1">{{ \App\Models\AnnulmentIndv::where('is_active', true)->count() }}</p>
-                            <p class="text-xs text-blue-600 mt-1">Active cases</p>
-                        </div>
-                        <div class="professional-stat-icon professional-stat-icon-info">
-                            <i class="fas fa-user-check text-2xl"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Non-Individual Annulment Records -->
-                <div class="professional-stat-card">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm text-primary-500 uppercase tracking-wide font-medium">Non-Individual Annulment</p>
-                            <p class="text-2xl font-light text-primary-900 mt-1">{{ \App\Models\AnnulmentNonIndv::where('is_active', true)->count() }}</p>
-                            <p class="text-xs text-purple-600 mt-1">Company cases</p>
-                        </div>
-                        <div class="professional-stat-icon professional-stat-icon-info">
-                            <i class="fas fa-building text-2xl"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Individual Bankruptcy Records -->
-                <div class="professional-stat-card">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm text-primary-500 uppercase tracking-wide font-medium">Individual Bankruptcy</p>
-                            <p class="text-2xl font-light text-primary-900 mt-1">{{ \App\Models\Bankruptcy::where('is_active', true)->count() }}</p>
-                            <p class="text-xs text-red-600 mt-1">Bankruptcy cases</p>
-                        </div>
-                        <div class="professional-stat-icon professional-stat-icon-danger">
-                            <i class="fas fa-file-invoice text-2xl"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Non-Individual Bankruptcy Records -->
-                <div class="professional-stat-card">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm text-primary-500 uppercase tracking-wide font-medium">Non-Individual Bankruptcy</p>
-                            <p class="text-2xl font-light text-primary-900 mt-1">{{ \App\Models\NonIndividualBankruptcy::where('is_active', true)->count() }}</p>
-                            <p class="text-xs text-orange-600 mt-1">Company bankruptcies</p>
-                        </div>
-                        <div class="professional-stat-icon professional-stat-icon-warning">
-                            <i class="fas fa-industry text-2xl"></i>
-                        </div>
-                    </div>
-                </div>
-
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mb-8">
                 <!-- Total Records -->
                 <div class="professional-stat-card">
                     <div class="flex items-center justify-between">
@@ -96,16 +40,30 @@
                     </div>
                 </div>
 
-                <!-- System Status -->
+                <!-- Annulment Records (Combined) -->
                 <div class="professional-stat-card">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-sm text-primary-500 uppercase tracking-wide font-medium">System Status</p>
-                            <p class="text-2xl font-light text-primary-900 mt-1">Online</p>
-                            <p class="text-xs text-green-600 mt-1">All systems operational</p>
+                            <p class="text-sm text-primary-500 uppercase tracking-wide font-medium">Annulment Records</p>
+                            <p class="text-2xl font-light text-primary-900 mt-1">{{ \App\Models\AnnulmentIndv::where('is_active', true)->count() + \App\Models\AnnulmentNonIndv::where('is_active', true)->count() }}</p>
+                            <p class="text-xs text-blue-600 mt-1">Individual + Non-Individual</p>
                         </div>
-                        <div class="professional-stat-icon professional-stat-icon-success">
-                            <i class="fas fa-check-circle text-2xl"></i>
+                        <div class="professional-stat-icon professional-stat-icon-info">
+                            <i class="fas fa-user-check text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bankruptcy Records (Combined) -->
+                <div class="professional-stat-card">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-primary-500 uppercase tracking-wide font-medium">Bankruptcy Records</p>
+                            <p class="text-2xl font-light text-primary-900 mt-1">{{ \App\Models\Bankruptcy::where('is_active', true)->count() + \App\Models\NonIndividualBankruptcy::where('is_active', true)->count() }}</p>
+                            <p class="text-xs text-red-600 mt-1">Individual + Non-Individual</p>
+                        </div>
+                        <div class="professional-stat-icon professional-stat-icon-danger">
+                            <i class="fas fa-file-invoice text-2xl"></i>
                         </div>
                     </div>
                 </div>
