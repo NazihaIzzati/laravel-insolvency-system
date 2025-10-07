@@ -56,6 +56,55 @@ class BankruptcyController extends Controller
     }
 
     /**
+     * Search bankruptcy records
+     */
+    public function search(Request $request)
+    {
+        try {
+            $request->validate([
+                'search_input' => 'required|string'
+            ]);
+
+            $searchInput = trim($request->input('search_input'));
+
+            \Log::info('Bankruptcy search request received', [
+                'search_input' => $searchInput,
+                'all_input' => $request->all()
+            ]);
+
+            // Search bankruptcy records by IC number or Insolvency number
+            $bankruptcyResults = Bankruptcy::where(function($query) use ($searchInput) {
+                $query->where('ic_no', 'LIKE', '%' . $searchInput . '%')
+                      ->orWhere('insolvency_no', 'LIKE', '%' . $searchInput . '%')
+                      ->orWhere('name', 'LIKE', '%' . $searchInput . '%');
+            })
+            ->where('is_active', true)
+            ->get()
+            ->map(function($record) {
+                $recordArray = $record->toArray();
+                $recordArray['record_type'] = 'bankruptcy';
+                $recordArray['table_name'] = 'bankruptcy';
+                return $recordArray;
+            });
+
+            \Log::info('Bankruptcy search results', ['count' => $bankruptcyResults->count()]);
+
+            return response()->json([
+                'success' => true,
+                'results' => $bankruptcyResults->toArray(),
+                'search_input' => $searchInput,
+                'input_type' => 'bankruptcy_search',
+                'searched_types' => ['bankruptcy']
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
      * Display a listing of bankruptcies
      */
     public function index()

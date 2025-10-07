@@ -11,6 +11,9 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- SweetAlert2 CSS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
@@ -45,9 +48,7 @@
                                     <div class="w-8 h-8 bg-gradient-to-br from-accent-500 to-accent-600 rounded-full flex items-center justify-center shadow-sm">
                                         <span class="text-sm font-semibold text-white">{{ substr(auth()->user()->name, 0, 1) }}</span>
                                     </div>
-                                    <svg class="w-4 h-4 text-primary-400 group-hover:text-primary-600 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                    </svg>
+                                    <i class="fas fa-chevron-down text-primary-400 group-hover:text-primary-600 transition-colors duration-200"></i>
                                 </button>
                                 
                                 <!-- Dropdown Menu -->
@@ -66,18 +67,14 @@
                                         <div class="border-t border-primary-100 my-2"></div>
                                         
                                         <a href="{{ route('password.change') }}" class="flex items-center px-3 py-2 text-sm text-primary-700 hover:bg-primary-50 rounded-lg transition-colors duration-200 mb-2">
-                                            <svg class="w-4 h-4 mr-3 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-                                            </svg>
+                                            <i class="fas fa-key mr-3 text-primary-400"></i>
                                             Change Password
                                         </a>
                                         
                                         <form method="POST" action="{{ route('logout') }}" class="block">
                                             @csrf
                                             <button type="submit" class="flex items-center w-full px-3 py-2 text-sm text-primary-700 hover:bg-primary-50 rounded-lg transition-colors duration-200">
-                                                <svg class="w-4 h-4 mr-3 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                                                </svg>
+                                                <i class="fas fa-sign-out-alt mr-3 text-primary-400"></i>
                                                 Logout
                                             </button>
                                         </form>
