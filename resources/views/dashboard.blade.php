@@ -3,11 +3,11 @@
 @section('title', 'Dashboard')
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+<div class="min-h-screen bg-gradient-to-br from-orange-50 via-blue-50 to-purple-50">
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Enhanced Welcome Section -->
-        <div class="relative overflow-hidden bg-gradient-to-r from-indigo-900 via-purple-900 to-pink-900 rounded-2xl shadow-2xl mb-8">
+        <div class="relative overflow-hidden bg-gradient-to-r from-primary-800 via-secondary-800 to-tertiary-800 rounded-2xl shadow-2xl mb-8">
             <!-- Background Pattern -->
             <div class="absolute inset-0 bg-black opacity-10">
                 <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.1"><circle cx="30" cy="30" r="2"/></g></svg>');"></div>
@@ -21,13 +21,13 @@
                                 <i class="fas fa-chart-line text-2xl text-white"></i>
                             </div>
                             <div>
-                                <h1 class="text-5xl font-bold mb-2 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">Dashboard</h1>
-                                <p class="text-lg text-blue-100">Insolvency Data Management System</p>
+                                <h1 class="text-5xl font-bold mb-2 bg-gradient-to-r from-white to-orange-200 bg-clip-text text-transparent">Dashboard</h1>
+                                <p class="text-lg text-orange-100">Insolvency Data Management System</p>
                             </div>
                         </div>
                         <div class="mt-6">
                             <p class="text-2xl font-semibold text-white mb-2">Welcome back, {{ $user->name }}!</p>
-                            <p class="text-lg text-blue-200">Here's your comprehensive system overview</p>
+                            <p class="text-lg text-orange-200">Here's your comprehensive system overview</p>
                         </div>
                     </div>
                     
@@ -35,26 +35,26 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="bg-white bg-opacity-15 backdrop-blur-lg rounded-xl px-6 py-4 border border-white border-opacity-20">
                             <div class="flex items-center">
-                                <div class="w-10 h-10 bg-green-500 bg-opacity-20 rounded-lg flex items-center justify-center mr-3">
-                                    <i class="fas fa-clock text-green-300"></i>
+                                <div class="w-10 h-10 bg-success-500 bg-opacity-20 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-clock text-success-300"></i>
                                 </div>
                                 <div>
-                                    <p class="text-sm text-blue-200 mb-1">Last Updated</p>
+                                    <p class="text-sm text-orange-200 mb-1">Last Updated</p>
                                     <p class="text-lg font-semibold text-white">{{ now()->format('M d, Y') }}</p>
-                                    <p class="text-xs text-blue-300">{{ now()->format('H:i A') }}</p>
+                                    <p class="text-xs text-orange-300">{{ now()->format('H:i A') }}</p>
                                 </div>
                             </div>
                         </div>
                         
                         <div class="bg-white bg-opacity-15 backdrop-blur-lg rounded-xl px-6 py-4 border border-white border-opacity-20">
                             <div class="flex items-center">
-                                <div class="w-10 h-10 bg-blue-500 bg-opacity-20 rounded-lg flex items-center justify-center mr-3">
-                                    <i class="fas fa-server text-blue-300"></i>
+                                <div class="w-10 h-10 bg-secondary-500 bg-opacity-20 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-server text-secondary-300"></i>
                                 </div>
                                 <div>
-                                    <p class="text-sm text-blue-200 mb-1">System Status</p>
-                                    <p class="text-lg font-semibold text-green-300">Online</p>
-                                    <p class="text-xs text-blue-300">All systems operational</p>
+                                    <p class="text-sm text-orange-200 mb-1">System Status</p>
+                                    <p class="text-lg font-semibold text-success-300">Online</p>
+                                    <p class="text-xs text-orange-300">All systems operational</p>
                                 </div>
                             </div>
                         </div>
@@ -66,23 +66,23 @@
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-8">
             <!-- Individual Annulment Records -->
             <div class="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="absolute inset-0 bg-gradient-to-br from-primary-50 to-primary-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div class="relative p-6">
                     <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-lg">
                             <i class="fas fa-user-check text-white text-lg"></i>
                         </div>
                         <div class="text-right">
-                            <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                            <div class="w-3 h-3 bg-success-500 rounded-full animate-pulse"></div>
                         </div>
                     </div>
                     <div>
                         <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">Individual Annulment</p>
                         <p class="text-3xl font-bold text-gray-900 mb-1">{{ \App\Models\AnnulmentIndv::where('is_active', true)->count() }}</p>
-                        <p class="text-sm text-blue-600 font-medium">Active cases</p>
+                        <p class="text-sm text-primary-600 font-medium">Active cases</p>
                     </div>
                     <div class="mt-4 flex items-center text-xs text-gray-500">
-                        <i class="fas fa-arrow-up text-green-500 mr-1"></i>
+                        <i class="fas fa-arrow-up text-success-500 mr-1"></i>
                         <span>Recently updated</span>
                     </div>
                 </div>
@@ -90,23 +90,23 @@
 
             <!-- Non-Individual Annulment Records -->
             <div class="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-purple-50 to-pink-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="absolute inset-0 bg-gradient-to-br from-tertiary-50 to-tertiary-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div class="relative p-6">
                     <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 bg-gradient-to-br from-tertiary-500 to-tertiary-600 rounded-xl flex items-center justify-center shadow-lg">
                             <i class="fas fa-building text-white text-lg"></i>
                         </div>
                         <div class="text-right">
-                            <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                            <div class="w-3 h-3 bg-success-500 rounded-full animate-pulse"></div>
                         </div>
                     </div>
                     <div>
                         <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">Company Annulment</p>
                         <p class="text-3xl font-bold text-gray-900 mb-1">{{ \App\Models\AnnulmentNonIndv::where('is_active', true)->count() }}</p>
-                        <p class="text-sm text-purple-600 font-medium">Company cases</p>
+                        <p class="text-sm text-tertiary-600 font-medium">Company cases</p>
                     </div>
                     <div class="mt-4 flex items-center text-xs text-gray-500">
-                        <i class="fas fa-arrow-up text-green-500 mr-1"></i>
+                        <i class="fas fa-arrow-up text-success-500 mr-1"></i>
                         <span>Recently updated</span>
                     </div>
                 </div>
@@ -114,23 +114,23 @@
 
             <!-- Individual Bankruptcy Records -->
             <div class="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-red-50 to-orange-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="absolute inset-0 bg-gradient-to-br from-error-50 to-error-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div class="relative p-6">
                     <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 bg-gradient-to-br from-error-500 to-error-600 rounded-xl flex items-center justify-center shadow-lg">
                             <i class="fas fa-file-invoice text-white text-lg"></i>
                         </div>
                         <div class="text-right">
-                            <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                            <div class="w-3 h-3 bg-success-500 rounded-full animate-pulse"></div>
                         </div>
                     </div>
                     <div>
                         <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">Individual Bankruptcy</p>
                         <p class="text-3xl font-bold text-gray-900 mb-1">{{ \App\Models\Bankruptcy::where('is_active', true)->count() }}</p>
-                        <p class="text-sm text-red-600 font-medium">Bankruptcy cases</p>
+                        <p class="text-sm text-error-600 font-medium">Bankruptcy cases</p>
                     </div>
                     <div class="mt-4 flex items-center text-xs text-gray-500">
-                        <i class="fas fa-arrow-up text-green-500 mr-1"></i>
+                        <i class="fas fa-arrow-up text-success-500 mr-1"></i>
                         <span>Recently updated</span>
                     </div>
                 </div>
@@ -138,23 +138,23 @@
 
             <!-- Non-Individual Bankruptcy Records -->
             <div class="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-orange-50 to-yellow-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="absolute inset-0 bg-gradient-to-br from-warning-50 to-warning-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div class="relative p-6">
                     <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 bg-gradient-to-br from-warning-500 to-warning-600 rounded-xl flex items-center justify-center shadow-lg">
                             <i class="fas fa-industry text-white text-lg"></i>
                         </div>
                         <div class="text-right">
-                            <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                            <div class="w-3 h-3 bg-success-500 rounded-full animate-pulse"></div>
                         </div>
                     </div>
                     <div>
                         <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">Company Bankruptcy</p>
                         <p class="text-3xl font-bold text-gray-900 mb-1">{{ \App\Models\NonIndividualBankruptcy::where('is_active', true)->count() }}</p>
-                        <p class="text-sm text-orange-600 font-medium">Company bankruptcies</p>
+                        <p class="text-sm text-warning-600 font-medium">Company bankruptcies</p>
                     </div>
                     <div class="mt-4 flex items-center text-xs text-gray-500">
-                        <i class="fas fa-arrow-up text-green-500 mr-1"></i>
+                        <i class="fas fa-arrow-up text-success-500 mr-1"></i>
                         <span>Recently updated</span>
                     </div>
                 </div>
@@ -164,12 +164,12 @@
         <!-- Summary Stats Row -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             <!-- Total Records Summary -->
-            <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl shadow-xl p-8 text-white">
+            <div class="bg-gradient-to-r from-primary-500 to-secondary-600 rounded-2xl shadow-xl p-8 text-white">
                 <div class="flex items-center justify-between">
                     <div>
                         <h3 class="text-lg font-semibold mb-2">Total Records</h3>
                         <p class="text-4xl font-bold mb-2">{{ \App\Models\AnnulmentIndv::where('is_active', true)->count() + \App\Models\AnnulmentNonIndv::where('is_active', true)->count() + \App\Models\Bankruptcy::where('is_active', true)->count() + \App\Models\NonIndividualBankruptcy::where('is_active', true)->count() }}</p>
-                        <p class="text-indigo-200">Across all systems</p>
+                        <p class="text-orange-200">Across all systems</p>
                     </div>
                     <div class="w-16 h-16 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center">
                         <i class="fas fa-database text-3xl"></i>
@@ -178,7 +178,7 @@
             </div>
 
             <!-- System Health -->
-            <div class="bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl shadow-xl p-8 text-white">
+            <div class="bg-gradient-to-r from-success-500 to-success-600 rounded-2xl shadow-xl p-8 text-white">
                 <div class="flex items-center justify-between">
                     <div>
                         <h3 class="text-lg font-semibold mb-2">System Health</h3>
@@ -208,25 +208,25 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Individual Annulment -->
                 <a href="{{ route('annulment-indv.index') }}" class="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-600 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-500 to-primary-600 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
                     <div class="relative p-8">
                         <div class="flex items-center justify-between mb-6">
-                            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300">
+                            <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300">
                                 <i class="fas fa-user-check text-white text-2xl"></i>
                             </div>
                             <div class="text-right">
-                                <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                                <div class="w-3 h-3 bg-success-500 rounded-full animate-pulse"></div>
                             </div>
                         </div>
                         <div>
                             <h3 class="text-xl font-bold text-gray-900 mb-2">Individual Annulment</h3>
                             <p class="text-gray-600 mb-4">Manage individual annulment records</p>
                             <div class="flex items-center justify-between">
-                                <div class="text-3xl font-bold text-blue-600">{{ \App\Models\AnnulmentIndv::where('is_active', true)->count() }}</div>
+                                <div class="text-3xl font-bold text-primary-600">{{ \App\Models\AnnulmentIndv::where('is_active', true)->count() }}</div>
                                 <div class="text-sm text-gray-500">records</div>
                             </div>
                         </div>
-                        <div class="mt-6 flex items-center text-sm text-blue-600 font-medium group-hover:text-blue-700">
+                        <div class="mt-6 flex items-center text-sm text-primary-600 font-medium group-hover:text-primary-700">
                             <span>Access Records</span>
                             <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
                         </div>
@@ -235,25 +235,25 @@
 
                 <!-- Non-Individual Annulment -->
                 <a href="{{ route('annulment-non-indv.index') }}" class="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-purple-500 to-purple-600 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-tertiary-500 to-tertiary-600 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
                     <div class="relative p-8">
                         <div class="flex items-center justify-between mb-6">
-                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300">
+                            <div class="w-16 h-16 bg-gradient-to-br from-tertiary-500 to-tertiary-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300">
                                 <i class="fas fa-building text-white text-2xl"></i>
                             </div>
                             <div class="text-right">
-                                <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                                <div class="w-3 h-3 bg-success-500 rounded-full animate-pulse"></div>
                             </div>
                         </div>
                         <div>
                             <h3 class="text-xl font-bold text-gray-900 mb-2">Company Annulment</h3>
                             <p class="text-gray-600 mb-4">Manage company annulment records</p>
                             <div class="flex items-center justify-between">
-                                <div class="text-3xl font-bold text-purple-600">{{ \App\Models\AnnulmentNonIndv::where('is_active', true)->count() }}</div>
+                                <div class="text-3xl font-bold text-tertiary-600">{{ \App\Models\AnnulmentNonIndv::where('is_active', true)->count() }}</div>
                                 <div class="text-sm text-gray-500">records</div>
                             </div>
                         </div>
-                        <div class="mt-6 flex items-center text-sm text-purple-600 font-medium group-hover:text-purple-700">
+                        <div class="mt-6 flex items-center text-sm text-tertiary-600 font-medium group-hover:text-tertiary-700">
                             <span>Access Records</span>
                             <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
                         </div>
@@ -262,25 +262,25 @@
 
                 <!-- Individual Bankruptcy -->
                 <a href="{{ route('bankruptcy.index') }}" class="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-red-500 to-red-600 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-error-500 to-error-600 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
                     <div class="relative p-8">
                         <div class="flex items-center justify-between mb-6">
-                            <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300">
+                            <div class="w-16 h-16 bg-gradient-to-br from-error-500 to-error-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300">
                                 <i class="fas fa-file-invoice text-white text-2xl"></i>
                             </div>
                             <div class="text-right">
-                                <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                                <div class="w-3 h-3 bg-success-500 rounded-full animate-pulse"></div>
                             </div>
                         </div>
                         <div>
                             <h3 class="text-xl font-bold text-gray-900 mb-2">Individual Bankruptcy</h3>
                             <p class="text-gray-600 mb-4">Manage individual bankruptcy records</p>
                             <div class="flex items-center justify-between">
-                                <div class="text-3xl font-bold text-red-600">{{ \App\Models\Bankruptcy::where('is_active', true)->count() }}</div>
+                                <div class="text-3xl font-bold text-error-600">{{ \App\Models\Bankruptcy::where('is_active', true)->count() }}</div>
                                 <div class="text-sm text-gray-500">records</div>
                             </div>
                         </div>
-                        <div class="mt-6 flex items-center text-sm text-red-600 font-medium group-hover:text-red-700">
+                        <div class="mt-6 flex items-center text-sm text-error-600 font-medium group-hover:text-error-700">
                             <span>Access Records</span>
                             <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
                         </div>
@@ -289,25 +289,25 @@
 
                 <!-- Non-Individual Bankruptcy -->
                 <a href="{{ route('non-individual-bankruptcy.index') }}" class="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-br from-orange-500 to-orange-600 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-warning-500 to-warning-600 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
                     <div class="relative p-8">
                         <div class="flex items-center justify-between mb-6">
-                            <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300">
+                            <div class="w-16 h-16 bg-gradient-to-br from-warning-500 to-warning-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300">
                                 <i class="fas fa-industry text-white text-2xl"></i>
                             </div>
                             <div class="text-right">
-                                <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                                <div class="w-3 h-3 bg-success-500 rounded-full animate-pulse"></div>
                             </div>
                         </div>
                         <div>
                             <h3 class="text-xl font-bold text-gray-900 mb-2">Company Bankruptcy</h3>
                             <p class="text-gray-600 mb-4">Manage company bankruptcy records</p>
                             <div class="flex items-center justify-between">
-                                <div class="text-3xl font-bold text-orange-600">{{ \App\Models\NonIndividualBankruptcy::where('is_active', true)->count() }}</div>
+                                <div class="text-3xl font-bold text-warning-600">{{ \App\Models\NonIndividualBankruptcy::where('is_active', true)->count() }}</div>
                                 <div class="text-sm text-gray-500">records</div>
                             </div>
                         </div>
-                        <div class="mt-6 flex items-center text-sm text-orange-600 font-medium group-hover:text-orange-700">
+                        <div class="mt-6 flex items-center text-sm text-warning-600 font-medium group-hover:text-warning-700">
                             <span>Access Records</span>
                             <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
                         </div>
@@ -318,18 +318,18 @@
             <!-- Admin Panel (if user is admin) -->
             @if($user->isAdmin())
                 <div class="mt-8">
-                    <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl shadow-xl p-8 text-white">
+                    <div class="bg-gradient-to-r from-secondary-500 to-tertiary-600 rounded-2xl shadow-xl p-8 text-white">
                         <div class="flex items-center justify-between">
                             <div>
                                 <h3 class="text-2xl font-bold mb-2">Administration Panel</h3>
-                                <p class="text-indigo-200 mb-4">Manage system settings and user accounts</p>
+                                <p class="text-blue-200 mb-4">Manage system settings and user accounts</p>
                                 <div class="flex items-center space-x-4">
                                     <div class="text-sm">
-                                        <span class="text-indigo-200">Admin Users:</span>
+                                        <span class="text-blue-200">Admin Users:</span>
                                         <span class="font-semibold">{{ \App\Models\User::where('role', 'admin')->count() }}</span>
                                     </div>
                                     <div class="text-sm">
-                                        <span class="text-indigo-200">Total Users:</span>
+                                        <span class="text-blue-200">Total Users:</span>
                                         <span class="font-semibold">{{ \App\Models\User::count() }}</span>
                                     </div>
                                 </div>
@@ -339,7 +339,7 @@
                                     <i class="fas fa-cog text-2xl mr-3 group-hover:rotate-90 transition-transform duration-300"></i>
                                     <div class="text-right">
                                         <div class="font-semibold">Access Panel</div>
-                                        <div class="text-xs text-indigo-200">Click to enter</div>
+                                        <div class="text-xs text-blue-200">Click to enter</div>
                                     </div>
                                 </div>
                             </a>
@@ -351,14 +351,14 @@
 
         <!-- Enhanced Search Section -->
         <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-            <div class="bg-gradient-to-r from-indigo-500 to-purple-600 px-8 py-6">
+            <div class="bg-gradient-to-r from-primary-500 to-secondary-600 px-8 py-6">
                 <div class="flex items-center">
                     <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mr-4">
                         <i class="fas fa-search text-white text-xl"></i>
                     </div>
                     <div>
                         <h3 class="text-2xl font-bold text-white">Universal Search</h3>
-                        <p class="text-indigo-200 mt-1">Find records across all databases instantly</p>
+                        <p class="text-orange-200 mt-1">Find records across all databases instantly</p>
                     </div>
                 </div>
             </div>
@@ -368,7 +368,7 @@
                     @csrf
                     <div>
                         <label for="search_input" class="block text-lg font-semibold text-gray-900 mb-4">
-                            <i class="fas fa-search mr-2 text-indigo-600"></i>
+                            <i class="fas fa-search mr-2 text-primary-600"></i>
                             Search Records
                         </label>
                         <div class="relative">
@@ -378,7 +378,7 @@
                             <input type="text" 
                                    id="search_input" 
                                    name="search_input" 
-                                   class="block w-full pl-12 pr-16 py-4 border-2 border-gray-200 rounded-xl text-lg placeholder-gray-400 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 focus:outline-none transition-all duration-300 bg-gray-50 hover:bg-white" 
+                                   class="block w-full pl-12 pr-16 py-4 border-2 border-gray-200 rounded-xl text-lg placeholder-gray-400 focus:border-primary-500 focus:ring-4 focus:ring-primary-100 focus:outline-none transition-all duration-300 bg-gray-50 hover:bg-white" 
                                    placeholder="Enter IC number, company registration number, or name..."
                                    required>
                             <button type="button" 
@@ -412,7 +412,7 @@
                     </div>
                     
                     <div class="flex justify-end">
-                        <button type="submit" class="group inline-flex items-center px-8 py-4 text-lg font-semibold rounded-xl text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-4 focus:ring-indigo-200">
+                        <button type="submit" class="group inline-flex items-center px-8 py-4 text-lg font-semibold rounded-xl text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 focus:outline-none focus:ring-4 focus:ring-primary-200">
                             <i class="fas fa-search mr-3 group-hover:scale-110 transition-transform duration-300"></i>
                             Search Records
                         </button>
