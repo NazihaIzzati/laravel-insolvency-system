@@ -16,18 +16,18 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                // Primary Orange Palette (#FE5000)
+                // Primary Orange Palette (#FE8000)
                 primary: {
                     50: '#fff7ed',
                     100: '#ffedd5',
                     200: '#fed7aa',
                     300: '#fdba74',
                     400: '#fb923c',
-                    500: '#FE5000', // Your primary color
-                    600: '#CC4000', // Darker shade
-                    700: '#B83600', // Even darker
-                    800: '#9A2E00', // Darkest
-                    900: '#7C2500', // Very dark
+                    500: '#FE8000', // Your primary color
+                    600: '#E67300', // Darker shade
+                    700: '#CC6600', // Even darker
+                    800: '#B35900', // Darkest
+                    900: '#994D00', // Very dark
                 },
                 // Secondary Blue Palette
                 secondary: {
