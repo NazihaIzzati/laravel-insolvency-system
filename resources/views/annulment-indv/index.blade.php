@@ -65,6 +65,146 @@
             </div>
         </div>
 
+        <!-- Quick Search Section - Completely separate from cards -->
+        <div class="bg-gradient-to-r from-accent-50 to-primary-50 p-8 mb-6 border-l-4 border-accent-500">
+            <div class="flex items-center mb-6">
+                <div class="flex items-center justify-center w-12 h-12 bg-accent-100 rounded-full mr-4">
+                    <i class="fas fa-search text-accent-600 text-xl"></i>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold text-gray-900">Quick Search</h4>
+                    <p class="text-sm text-gray-600 mt-1">Find annulment records instantly</p>
+                </div>
+            </div>
+            
+            <form id="annulmentSearchForm" class="space-y-6">
+                @csrf
+                <div>
+                    <label for="annulment_search_input" class="block text-sm font-semibold text-gray-700 mb-3">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Search Records
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-400 text-lg"></i>
+                        </div>
+                        <input type="text" 
+                               id="annulment_search_input" 
+                               name="search_input" 
+                               class="block w-full pl-12 pr-16 py-4 border-2 border-gray-200 rounded-xl text-base placeholder-gray-400 focus:border-accent-500 focus:ring-4 focus:ring-accent-100 focus:outline-none transition-all duration-300 bg-white shadow-sm hover:shadow-md" 
+                               placeholder="Enter IC number, name, court case number, or other reference..."
+                               required>
+                        <button type="button" id="clearAnnulmentSearchBtn" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-all duration-200 p-2 rounded-full hover:bg-gray-100 cursor-pointer z-10" style="display: none;" title="Clear search">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            IC Numbers
+                        </span>
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            <i class="fas fa-user mr-2"></i>
+                            Names
+                        </span>
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                            <i class="fas fa-gavel mr-2"></i>
+                            Court Cases
+                        </span>
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                            <i class="fas fa-tag mr-2"></i>
+                            References
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="flex justify-end mt-6">
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-blue-200">
+                        <i class="fas fa-search mr-2"></i>
+                        Search Records
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Enhanced Loading Spinner -->
+        <div id="annulmentLoadingSpinner" class="hidden bg-gray-50 p-12 mb-6">
+            <div class="text-center">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-accent-100 to-primary-100 rounded-full mb-6">
+                    <i class="fas fa-spinner fa-spin text-accent-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Searching Records</h3>
+                <p class="text-gray-600 mb-4">Please wait while we search for matching annulment records...</p>
+                <div class="w-full bg-gray-200 rounded-full h-2">
+                    <div class="bg-gradient-to-r from-accent-500 to-primary-500 h-2 rounded-full animate-pulse" style="width: 60%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Enhanced Search Results -->
+        <div id="annulmentSearchResults" class="hidden bg-white mb-6">
+            <div class="bg-gradient-to-r from-green-50 to-emerald-50 px-8 py-6 border-l-4 border-green-500">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="flex items-center justify-center w-12 h-12 bg-green-100 rounded-full mr-4">
+                            <i class="fas fa-check-circle text-green-600 text-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Search Results</h3>
+                            <p class="text-sm text-gray-600 mt-1">Matching annulment records found</p>
+                        </div>
+                    </div>
+                    <button type="button" id="clearAnnulmentSearchResultsBtn" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-all duration-200">
+                        <i class="fas fa-times mr-2"></i>
+                        Clear Results
+                    </button>
+                </div>
+            </div>
+            <div class="overflow-x-auto bg-gray-50 px-8 py-6">
+                <table class="w-full divide-y divide-gray-200" style="min-width: 1000px;">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-48">Name</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-32">IC No</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-32">Others</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-32">Court Case</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-24">Release Date</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-32">Release Type</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-32">Branch</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-24">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="annulmentSearchResultsBody" class="bg-white divide-y divide-gray-200">
+                        <!-- Results will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Enhanced No Results -->
+        <div id="annulmentNoResults" class="hidden bg-gray-50 p-16 mb-6">
+            <div class="text-center max-w-2xl mx-auto">
+                <!-- Animated Icon -->
+                <div class="relative mb-8">
+                    <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-red-100 to-pink-100 rounded-full mb-4 shadow-lg">
+                        <svg class="w-12 h-12 text-red-500 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                    </div>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">No Records Found</h3>
+                <p class="text-gray-600 mb-6">We couldn't find any annulment records matching your search criteria.</p>
+                <div class="space-y-3">
+                    <p class="text-sm text-gray-500">Try adjusting your search terms:</p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Check for typos in IC numbers or names</li>
+                        <li>• Try searching with partial information</li>
+                        <li>• Use different keywords or references</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <!-- Records Table -->
         <div class="professional-section">
             <div class="professional-section-header">
@@ -72,72 +212,9 @@
                 <p class="text-sm text-primary-500 mt-1">All annulment individual profiles</p>
             </div>
             <div class="professional-section-content">
-                <!-- Enhanced Search Form -->
-                <div class="bg-gradient-to-r from-accent-50 to-primary-50 rounded-xl border border-accent-200 p-8 mb-8 shadow-lg">
-                    <div class="flex items-center mb-6">
-                        <div class="flex items-center justify-center w-12 h-12 bg-accent-100 rounded-full mr-4">
-                            <i class="fas fa-search text-accent-600 text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-bold text-gray-900">Quick Search</h4>
-                            <p class="text-sm text-gray-600 mt-1">Find annulment records instantly</p>
-                        </div>
-                    </div>
-                    
-                    <form id="annulmentSearchForm" class="space-y-6">
-                        @csrf
-                        <div>
-                            <label for="annulment_search_input" class="block text-sm font-semibold text-gray-700 mb-3">
-                                <i class="fas fa-info-circle mr-2"></i>
-                                Search Records
-                            </label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                    <i class="fas fa-search text-gray-400 text-lg"></i>
-                                </div>
-                                <input type="text" 
-                                       id="annulment_search_input" 
-                                       name="search_input" 
-                                       class="block w-full pl-12 pr-16 py-4 border-2 border-gray-200 rounded-xl text-base placeholder-gray-400 focus:border-accent-500 focus:ring-4 focus:ring-accent-100 focus:outline-none transition-all duration-300 bg-white shadow-sm hover:shadow-md" 
-                                       placeholder="Enter IC number, name, court case number, or other reference..."
-                                       required>
-                                <button type="button" id="clearAnnulmentSearchBtn" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-all duration-200 p-2 rounded-full hover:bg-gray-100 cursor-pointer z-10" style="display: none;" title="Clear search">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                            <div class="mt-3 flex flex-wrap gap-2">
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                    <i class="fas fa-check-circle mr-2"></i>
-                                    IC Numbers
-                                </span>
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                    <i class="fas fa-user mr-2"></i>
-                                    Names
-                                </span>
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                                    <i class="fas fa-gavel mr-2"></i>
-                                    Court Cases
-                                </span>
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
-                                    <i class="fas fa-tag mr-2"></i>
-                                    References
-                                </span>
-                            </div>
-                        </div>
-                        
-                        <div class="flex justify-end">
-                            <button type="submit" class="inline-flex items-center px-8 py-4 border border-transparent text-base font-semibold rounded-xl text-white bg-gradient-to-r from-accent-600 to-accent-700 hover:from-accent-700 hover:to-accent-800 focus:outline-none focus:ring-4 focus:ring-accent-200 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                                <i class="fas fa-search mr-3"></i>
-                                Search Records
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- Enhanced Loading Spinner -->
-                <div id="annulmentLoadingSpinner" class="hidden bg-white rounded-xl border border-gray-200 p-12 mb-8 shadow-lg">
-                    <div class="text-center">
-                        <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-accent-100 to-primary-100 rounded-full mb-6">
+                <!-- Main Records Table -->
+                <div id="mainAnnulmentRecordsTable">
+                <div class="overflow-x-auto">
                             <i class="fas fa-spinner fa-spin text-accent-600 text-2xl"></i>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Searching Records</h3>
