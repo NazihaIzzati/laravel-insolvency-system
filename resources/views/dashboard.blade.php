@@ -25,49 +25,7 @@
             </div>
         </div>
             <!-- Stats Cards -->
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5 mb-8">
-                <!-- Total Users -->
-                <div class="professional-stat-card">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm text-primary-500 uppercase tracking-wide font-medium">Total Users</p>
-                            <p class="text-2xl font-light text-primary-900 mt-1">{{ \App\Models\User::count() }}</p>
-                            <p class="text-xs text-green-600 mt-1">+2 this month</p>
-                        </div>
-                        <div class="professional-stat-icon professional-stat-icon-primary">
-                            <i class="fas fa-users text-2xl"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Active Users -->
-                <div class="professional-stat-card">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm text-primary-500 uppercase tracking-wide font-medium">Active Users</p>
-                            <p class="text-2xl font-light text-primary-900 mt-1">{{ \App\Models\User::where('is_active', true)->count() }}</p>
-                            <p class="text-xs text-green-600 mt-1">All systems operational</p>
-                        </div>
-                        <div class="professional-stat-icon professional-stat-icon-success">
-                            <i class="fas fa-check-circle text-2xl"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Admin Users -->
-                <div class="professional-stat-card">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm text-primary-500 uppercase tracking-wide font-medium">Admin Users</p>
-                            <p class="text-2xl font-light text-primary-900 mt-1">{{ \App\Models\User::where('role', 'admin')->count() }}</p>
-                            <p class="text-xs text-primary-500 mt-1">Administrative access</p>
-                        </div>
-                        <div class="professional-stat-icon professional-stat-icon-warning">
-                            <i class="fas fa-shield-alt text-2xl"></i>
-                        </div>
-                    </div>
-                </div>
-
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-6 mb-8">
                 <!-- Individual Annulment Records -->
                 <div class="professional-stat-card">
                     <div class="flex items-center justify-between">
@@ -95,85 +53,117 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Main Content Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Account Information -->
-                <div class="professional-section">
-                    <div class="professional-section-header">
-                        <h3 class="text-lg font-medium text-primary-900">Account Information</h3>
-                        <p class="text-sm text-primary-500 mt-1">Your profile details and status</p>
-                    </div>
-                    <div class="professional-section-content">
-                        <dl class="space-y-4">
-                            <div class="flex items-center justify-between py-2">
-                                <dt class="text-sm text-primary-500">Full Name</dt>
-                                <dd class="text-sm font-medium text-primary-900">{{ $user->name }}</dd>
-                            </div>
-                            <div class="flex items-center justify-between py-2">
-                                <dt class="text-sm text-primary-500">Email Address</dt>
-                                <dd class="text-sm font-medium text-primary-900">{{ $user->email }}</dd>
-                            </div>
-                            <div class="flex items-center justify-between py-2">
-                                <dt class="text-sm text-primary-500">Role</dt>
-                                <dd class="text-sm">
-                                    <span class="professional-badge {{ $user->isAdmin() ? 'professional-badge-warning' : 'professional-badge-success' }}">
-                                        {{ ucfirst($user->role) }}
-                                    </span>
-                                </dd>
-                            </div>
-                            <div class="flex items-center justify-between py-2">
-                                <dt class="text-sm text-primary-500">Account Status</dt>
-                                <dd class="text-sm">
-                                    <span class="professional-badge {{ $user->is_active ? 'professional-badge-success' : 'professional-badge-danger' }}">
-                                        {{ $user->is_active ? 'Active' : 'Inactive' }}
-                                    </span>
-                                </dd>
-                            </div>
-                            <div class="flex items-center justify-between py-2">
-                                <dt class="text-sm text-primary-500">Member Since</dt>
-                                <dd class="text-sm font-medium text-primary-900">{{ $user->created_at->format('M d, Y') }}</dd>
-                            </div>
-                        </dl>
+                <!-- Individual Bankruptcy Records -->
+                <div class="professional-stat-card">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-primary-500 uppercase tracking-wide font-medium">Individual Bankruptcy</p>
+                            <p class="text-2xl font-light text-primary-900 mt-1">{{ \App\Models\Bankruptcy::where('is_active', true)->count() }}</p>
+                            <p class="text-xs text-red-600 mt-1">Bankruptcy cases</p>
+                        </div>
+                        <div class="professional-stat-icon professional-stat-icon-danger">
+                            <i class="fas fa-file-invoice text-2xl"></i>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Quick Actions -->
-                <div class="professional-section">
-                    <div class="professional-section-header">
-                        <h3 class="text-lg font-medium text-primary-900">Quick Actions</h3>
-                        <p class="text-sm text-primary-500 mt-1">Access your most used features</p>
-                    </div>
-                    <div class="professional-section-content">
-                        <div class="space-y-3">
-                            <a href="{{ route('annulment-indv.index') }}" class="professional-button w-full justify-center">
-                                <i class="fas fa-user-check mr-2"></i>
-                                Manage Annulment Records
-                            </a>
-                            
-                            <a href="{{ route('annulment-non-indv.index') }}" class="professional-button w-full justify-center">
-                                <i class="fas fa-building mr-2"></i>
-                                Manage Annulment Non-Individual Records
-                            </a>
-                            
-                            <a href="{{ route('bankruptcy.index') }}" class="professional-button w-full justify-center">
-                                <i class="fas fa-file-invoice mr-2"></i>
-                                Individual Bankruptcy
-                            </a>
-                            
-                            <a href="{{ route('non-individual-bankruptcy.index') }}" class="professional-button w-full justify-center">
-                                <i class="fas fa-industry mr-2"></i>
-                                Non-Individual Bankruptcy
-                            </a>
-                            
-                            @if($user->isAdmin())
-                                <a href="{{ route('admin.dashboard') }}" class="professional-button-accent w-full justify-center">
-                                    <i class="fas fa-cog mr-2"></i>
-                                    Admin Panel
-                                </a>
-                            @endif
+                <!-- Non-Individual Bankruptcy Records -->
+                <div class="professional-stat-card">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-primary-500 uppercase tracking-wide font-medium">Non-Individual Bankruptcy</p>
+                            <p class="text-2xl font-light text-primary-900 mt-1">{{ \App\Models\NonIndividualBankruptcy::where('is_active', true)->count() }}</p>
+                            <p class="text-xs text-orange-600 mt-1">Company bankruptcies</p>
                         </div>
+                        <div class="professional-stat-icon professional-stat-icon-warning">
+                            <i class="fas fa-industry text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Records -->
+                <div class="professional-stat-card">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-primary-500 uppercase tracking-wide font-medium">Total Records</p>
+                            <p class="text-2xl font-light text-primary-900 mt-1">{{ \App\Models\AnnulmentIndv::where('is_active', true)->count() + \App\Models\AnnulmentNonIndv::where('is_active', true)->count() + \App\Models\Bankruptcy::where('is_active', true)->count() + \App\Models\NonIndividualBankruptcy::where('is_active', true)->count() }}</p>
+                            <p class="text-xs text-green-600 mt-1">All systems</p>
+                        </div>
+                        <div class="professional-stat-icon professional-stat-icon-success">
+                            <i class="fas fa-database text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Status -->
+                <div class="professional-stat-card">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-primary-500 uppercase tracking-wide font-medium">System Status</p>
+                            <p class="text-2xl font-light text-primary-900 mt-1">Online</p>
+                            <p class="text-xs text-green-600 mt-1">All systems operational</p>
+                        </div>
+                        <div class="professional-stat-icon professional-stat-icon-success">
+                            <i class="fas fa-check-circle text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Summary -->
+            <div class="bg-gradient-to-r from-primary-50 to-accent-50 rounded-xl border border-primary-200 p-6 mb-8">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-full flex items-center justify-center shadow-md">
+                            <span class="text-lg font-bold text-white">{{ substr($user->name, 0, 1) }}</span>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-primary-900">Welcome back, {{ $user->name }}</h3>
+                            <p class="text-sm text-primary-600">{{ $user->role_display }} • {{ $user->is_active ? 'Active' : 'Inactive' }}</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-primary-500">Last updated</p>
+                        <p class="text-sm font-medium text-primary-900">{{ now()->format('M d, Y H:i') }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="professional-section mb-8">
+                <div class="professional-section-header">
+                    <h3 class="text-lg font-medium text-primary-900">Quick Actions</h3>
+                    <p class="text-sm text-primary-500 mt-1">Access your most used features</p>
+                </div>
+                <div class="professional-section-content">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <a href="{{ route('annulment-indv.index') }}" class="professional-button w-full justify-center">
+                            <i class="fas fa-user-check mr-2"></i>
+                            Manage Annulment Records
+                        </a>
+                        
+                        <a href="{{ route('annulment-non-indv.index') }}" class="professional-button w-full justify-center">
+                            <i class="fas fa-building mr-2"></i>
+                            Manage Annulment Non-Individual Records
+                        </a>
+                        
+                        <a href="{{ route('bankruptcy.index') }}" class="professional-button w-full justify-center">
+                            <i class="fas fa-file-invoice mr-2"></i>
+                            Individual Bankruptcy
+                        </a>
+                        
+                        <a href="{{ route('non-individual-bankruptcy.index') }}" class="professional-button w-full justify-center">
+                            <i class="fas fa-industry mr-2"></i>
+                            Non-Individual Bankruptcy
+                        </a>
+                        
+                        @if($user->isAdmin())
+                            <a href="{{ route('admin.dashboard') }}" class="professional-button-accent w-full justify-center sm:col-span-2 lg:col-span-4">
+                                <i class="fas fa-cog mr-2"></i>
+                                Admin Panel
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>

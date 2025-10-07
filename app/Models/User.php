@@ -85,4 +85,29 @@ class User extends Authenticatable
     {
         return $this->name;
     }
+
+    /**
+     * Get the user's role display name.
+     *
+     * @return string
+     */
+    public function getRoleDisplayAttribute()
+    {
+        return match($this->role) {
+            'admin' => 'Administrator',
+            'user' => 'User',
+            'staff' => 'Staff',
+            default => 'User'
+        };
+    }
+
+    /**
+     * Get the user's status badge color.
+     *
+     * @return string
+     */
+    public function getStatusColorAttribute()
+    {
+        return $this->is_active ? 'green' : 'red';
+    }
 }
