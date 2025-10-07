@@ -111,61 +111,74 @@
                 </div>
             </div>
 
-            <!-- User Summary -->
-            <div class="bg-gradient-to-r from-primary-50 to-accent-50 rounded-xl border border-primary-200 p-6 mb-8">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-full flex items-center justify-center shadow-md">
-                            <span class="text-lg font-bold text-white">{{ substr($user->name, 0, 1) }}</span>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold text-primary-900">Welcome back, {{ $user->name }}</h3>
-                            <p class="text-sm text-primary-600">{{ $user->role_display }} • {{ $user->is_active ? 'Active' : 'Inactive' }}</p>
-                        </div>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-sm text-primary-500">Last updated</p>
-                        <p class="text-sm font-medium text-primary-900">{{ now()->format('M d, Y H:i') }}</p>
-                    </div>
-                </div>
-            </div>
-
             <!-- Quick Actions -->
-            <div class="professional-section mb-8">
-                <div class="professional-section-header">
-                    <h3 class="text-lg font-medium text-primary-900">Quick Actions</h3>
-                    <p class="text-sm text-primary-500 mt-1">Access your most used features</p>
-                </div>
-                <div class="professional-section-content">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <a href="{{ route('annulment-indv.index') }}" class="professional-button w-full justify-center">
-                            <i class="fas fa-user-check mr-2"></i>
-                            Manage Annulment Records
-                        </a>
-                        
-                        <a href="{{ route('annulment-non-indv.index') }}" class="professional-button w-full justify-center">
-                            <i class="fas fa-building mr-2"></i>
-                            Manage Annulment Non-Individual Records
-                        </a>
-                        
-                        <a href="{{ route('bankruptcy.index') }}" class="professional-button w-full justify-center">
-                            <i class="fas fa-file-invoice mr-2"></i>
-                            Individual Bankruptcy
-                        </a>
-                        
-                        <a href="{{ route('non-individual-bankruptcy.index') }}" class="professional-button w-full justify-center">
-                            <i class="fas fa-industry mr-2"></i>
-                            Non-Individual Bankruptcy
-                        </a>
-                        
-                        @if($user->isAdmin())
-                            <a href="{{ route('admin.dashboard') }}" class="professional-button-accent w-full justify-center sm:col-span-2 lg:col-span-4">
-                                <i class="fas fa-cog mr-2"></i>
-                                Admin Panel
-                            </a>
-                        @endif
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <a href="{{ route('annulment-indv.index') }}" class="professional-section hover:shadow-lg transition-all duration-300 cursor-pointer group">
+                    <div class="professional-section-content text-center py-8">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-200 transition-colors duration-300">
+                            <i class="fas fa-user-check text-blue-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-primary-900 mb-2">Individual Annulment</h3>
+                        <p class="text-sm text-primary-500">Manage individual annulment records</p>
+                        <div class="mt-4 text-xs text-blue-600 font-medium">
+                            {{ \App\Models\AnnulmentIndv::where('is_active', true)->count() }} active records
+                        </div>
                     </div>
-                </div>
+                </a>
+                
+                <a href="{{ route('annulment-non-indv.index') }}" class="professional-section hover:shadow-lg transition-all duration-300 cursor-pointer group">
+                    <div class="professional-section-content text-center py-8">
+                        <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-200 transition-colors duration-300">
+                            <i class="fas fa-building text-purple-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-primary-900 mb-2">Non-Individual Annulment</h3>
+                        <p class="text-sm text-primary-500">Manage company annulment records</p>
+                        <div class="mt-4 text-xs text-purple-600 font-medium">
+                            {{ \App\Models\AnnulmentNonIndv::where('is_active', true)->count() }} active records
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="{{ route('bankruptcy.index') }}" class="professional-section hover:shadow-lg transition-all duration-300 cursor-pointer group">
+                    <div class="professional-section-content text-center py-8">
+                        <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-red-200 transition-colors duration-300">
+                            <i class="fas fa-file-invoice text-red-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-primary-900 mb-2">Individual Bankruptcy</h3>
+                        <p class="text-sm text-primary-500">Manage individual bankruptcy cases</p>
+                        <div class="mt-4 text-xs text-red-600 font-medium">
+                            {{ \App\Models\Bankruptcy::where('is_active', true)->count() }} active records
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="{{ route('non-individual-bankruptcy.index') }}" class="professional-section hover:shadow-lg transition-all duration-300 cursor-pointer group">
+                    <div class="professional-section-content text-center py-8">
+                        <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-200 transition-colors duration-300">
+                            <i class="fas fa-industry text-orange-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-primary-900 mb-2">Non-Individual Bankruptcy</h3>
+                        <p class="text-sm text-primary-500">Manage company bankruptcy cases</p>
+                        <div class="mt-4 text-xs text-orange-600 font-medium">
+                            {{ \App\Models\NonIndividualBankruptcy::where('is_active', true)->count() }} active records
+                        </div>
+                    </div>
+                </a>
+                
+                @if($user->isAdmin())
+                    <a href="{{ route('admin.dashboard') }}" class="professional-section hover:shadow-lg transition-all duration-300 cursor-pointer group sm:col-span-2 lg:col-span-1">
+                        <div class="professional-section-content text-center py-8">
+                            <div class="w-16 h-16 bg-accent-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-accent-200 transition-colors duration-300">
+                                <i class="fas fa-cog text-accent-600 text-2xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-primary-900 mb-2">Admin Panel</h3>
+                            <p class="text-sm text-primary-500">System administration</p>
+                            <div class="mt-4 text-xs text-accent-600 font-medium">
+                                Administrative access
+                            </div>
+                        </div>
+                    </a>
+                @endif
             </div>
 
             <!-- Enhanced Search Section -->
