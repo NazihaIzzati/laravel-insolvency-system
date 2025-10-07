@@ -77,11 +77,11 @@
                         </div>
                     </div>
                     <div>
-                        <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">Individual Annulment</p>
-                        <p class="text-3xl font-bold text-gray-900 mb-1">{{ \App\Models\AnnulmentIndv::where('is_active', true)->count() }}</p>
+                        <p class="text-sm font-semibold text-primary-700 uppercase tracking-wide mb-2">Individual Annulment</p>
+                        <p class="text-3xl font-bold text-primary-900 mb-1">{{ \App\Models\AnnulmentIndv::where('is_active', true)->count() }}</p>
                         <p class="text-sm text-primary-600 font-medium">Active cases</p>
                     </div>
-                    <div class="mt-4 flex items-center text-xs text-gray-500">
+                    <div class="mt-4 flex items-center text-xs text-primary-500">
                         <i class="fas fa-arrow-up text-success-500 mr-1"></i>
                         <span>Recently updated</span>
                     </div>
@@ -101,11 +101,11 @@
                         </div>
                     </div>
                     <div>
-                        <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">Company Annulment</p>
-                        <p class="text-3xl font-bold text-gray-900 mb-1">{{ \App\Models\AnnulmentNonIndv::where('is_active', true)->count() }}</p>
+                        <p class="text-sm font-semibold text-tertiary-700 uppercase tracking-wide mb-2">Company Annulment</p>
+                        <p class="text-3xl font-bold text-tertiary-900 mb-1">{{ \App\Models\AnnulmentNonIndv::where('is_active', true)->count() }}</p>
                         <p class="text-sm text-tertiary-600 font-medium">Company cases</p>
                     </div>
-                    <div class="mt-4 flex items-center text-xs text-gray-500">
+                    <div class="mt-4 flex items-center text-xs text-tertiary-500">
                         <i class="fas fa-arrow-up text-success-500 mr-1"></i>
                         <span>Recently updated</span>
                     </div>
@@ -125,11 +125,11 @@
                         </div>
                     </div>
                     <div>
-                        <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">Individual Bankruptcy</p>
-                        <p class="text-3xl font-bold text-gray-900 mb-1">{{ \App\Models\Bankruptcy::where('is_active', true)->count() }}</p>
+                        <p class="text-sm font-semibold text-error-700 uppercase tracking-wide mb-2">Individual Bankruptcy</p>
+                        <p class="text-3xl font-bold text-error-900 mb-1">{{ \App\Models\Bankruptcy::where('is_active', true)->count() }}</p>
                         <p class="text-sm text-error-600 font-medium">Bankruptcy cases</p>
                     </div>
-                    <div class="mt-4 flex items-center text-xs text-gray-500">
+                    <div class="mt-4 flex items-center text-xs text-error-500">
                         <i class="fas fa-arrow-up text-success-500 mr-1"></i>
                         <span>Recently updated</span>
                     </div>
@@ -149,11 +149,11 @@
                         </div>
                     </div>
                     <div>
-                        <p class="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">Company Bankruptcy</p>
-                        <p class="text-3xl font-bold text-gray-900 mb-1">{{ \App\Models\NonIndividualBankruptcy::where('is_active', true)->count() }}</p>
+                        <p class="text-sm font-semibold text-warning-700 uppercase tracking-wide mb-2">Company Bankruptcy</p>
+                        <p class="text-3xl font-bold text-warning-900 mb-1">{{ \App\Models\NonIndividualBankruptcy::where('is_active', true)->count() }}</p>
                         <p class="text-sm text-warning-600 font-medium">Company bankruptcies</p>
                     </div>
-                    <div class="mt-4 flex items-center text-xs text-gray-500">
+                    <div class="mt-4 flex items-center text-xs text-warning-500">
                         <i class="fas fa-arrow-up text-success-500 mr-1"></i>
                         <span>Recently updated</span>
                     </div>
@@ -196,10 +196,10 @@
         <div class="mb-8">
             <div class="flex items-center justify-between mb-6">
                 <div>
-                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Quick Actions</h2>
-                    <p class="text-gray-600">Access your most used features instantly</p>
+                    <h2 class="text-3xl font-bold text-primary-900 mb-2">Quick Actions</h2>
+                    <p class="text-primary-600">Access your most used features instantly</p>
                 </div>
-                <div class="hidden lg:flex items-center space-x-2 text-sm text-gray-500">
+                <div class="hidden lg:flex items-center space-x-2 text-sm text-primary-500">
                     <i class="fas fa-mouse-pointer"></i>
                     <span>Click any card to access</span>
                 </div>
@@ -219,11 +219,11 @@
                             </div>
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-2">Individual Annulment</h3>
-                            <p class="text-gray-600 mb-4">Manage individual annulment records</p>
+                            <h3 class="text-xl font-bold text-primary-900 mb-2">Individual Annulment</h3>
+                            <p class="text-primary-600 mb-4">Manage individual annulment records</p>
                             <div class="flex items-center justify-between">
                                 <div class="text-3xl font-bold text-primary-600">{{ \App\Models\AnnulmentIndv::where('is_active', true)->count() }}</div>
-                                <div class="text-sm text-gray-500">records</div>
+                                <div class="text-sm text-primary-500">records</div>
                             </div>
                         </div>
                         <div class="mt-6 flex items-center text-sm text-primary-600 font-medium group-hover:text-primary-700">
@@ -246,11 +246,11 @@
                             </div>
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-2">Company Annulment</h3>
-                            <p class="text-gray-600 mb-4">Manage company annulment records</p>
+                            <h3 class="text-xl font-bold text-tertiary-900 mb-2">Company Annulment</h3>
+                            <p class="text-tertiary-600 mb-4">Manage company annulment records</p>
                             <div class="flex items-center justify-between">
                                 <div class="text-3xl font-bold text-tertiary-600">{{ \App\Models\AnnulmentNonIndv::where('is_active', true)->count() }}</div>
-                                <div class="text-sm text-gray-500">records</div>
+                                <div class="text-sm text-tertiary-500">records</div>
                             </div>
                         </div>
                         <div class="mt-6 flex items-center text-sm text-tertiary-600 font-medium group-hover:text-tertiary-700">
@@ -273,11 +273,11 @@
                             </div>
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-2">Individual Bankruptcy</h3>
-                            <p class="text-gray-600 mb-4">Manage individual bankruptcy records</p>
+                            <h3 class="text-xl font-bold text-error-900 mb-2">Individual Bankruptcy</h3>
+                            <p class="text-error-600 mb-4">Manage individual bankruptcy records</p>
                             <div class="flex items-center justify-between">
                                 <div class="text-3xl font-bold text-error-600">{{ \App\Models\Bankruptcy::where('is_active', true)->count() }}</div>
-                                <div class="text-sm text-gray-500">records</div>
+                                <div class="text-sm text-error-500">records</div>
                             </div>
                         </div>
                         <div class="mt-6 flex items-center text-sm text-error-600 font-medium group-hover:text-error-700">
@@ -300,11 +300,11 @@
                             </div>
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-2">Company Bankruptcy</h3>
-                            <p class="text-gray-600 mb-4">Manage company bankruptcy records</p>
+                            <h3 class="text-xl font-bold text-warning-900 mb-2">Company Bankruptcy</h3>
+                            <p class="text-warning-600 mb-4">Manage company bankruptcy records</p>
                             <div class="flex items-center justify-between">
                                 <div class="text-3xl font-bold text-warning-600">{{ \App\Models\NonIndividualBankruptcy::where('is_active', true)->count() }}</div>
-                                <div class="text-sm text-gray-500">records</div>
+                                <div class="text-sm text-warning-500">records</div>
                             </div>
                         </div>
                         <div class="mt-6 flex items-center text-sm text-warning-600 font-medium group-hover:text-warning-700">
@@ -322,14 +322,14 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <h3 class="text-2xl font-bold mb-2">Administration Panel</h3>
-                                <p class="text-blue-200 mb-4">Manage system settings and user accounts</p>
+                                <p class="text-secondary-200 mb-4">Manage system settings and user accounts</p>
                                 <div class="flex items-center space-x-4">
                                     <div class="text-sm">
-                                        <span class="text-blue-200">Admin Users:</span>
+                                        <span class="text-secondary-200">Admin Users:</span>
                                         <span class="font-semibold">{{ \App\Models\User::where('role', 'admin')->count() }}</span>
                                     </div>
                                     <div class="text-sm">
-                                        <span class="text-blue-200">Total Users:</span>
+                                        <span class="text-secondary-200">Total Users:</span>
                                         <span class="font-semibold">{{ \App\Models\User::count() }}</span>
                                     </div>
                                 </div>
@@ -339,7 +339,7 @@
                                     <i class="fas fa-cog text-2xl mr-3 group-hover:rotate-90 transition-transform duration-300"></i>
                                     <div class="text-right">
                                         <div class="font-semibold">Access Panel</div>
-                                        <div class="text-xs text-blue-200">Click to enter</div>
+                                        <div class="text-xs text-secondary-200">Click to enter</div>
                                     </div>
                                 </div>
                             </a>
@@ -367,7 +367,7 @@
                 <form id="searchForm" class="space-y-6">
                     @csrf
                     <div>
-                        <label for="search_input" class="block text-lg font-semibold text-gray-900 mb-4">
+                        <label for="search_input" class="block text-lg font-semibold text-primary-900 mb-4">
                             <i class="fas fa-search mr-2 text-primary-600"></i>
                             Search Records
                         </label>
@@ -392,19 +392,19 @@
                         
                         <!-- Search Tags -->
                         <div class="mt-4 flex flex-wrap gap-3">
-                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-blue-100 text-blue-800 border border-blue-200">
+                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-primary-100 text-primary-800 border border-primary-200">
                                 <i class="fas fa-id-card mr-2"></i>
                                 IC Numbers
                             </span>
-                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-green-100 text-green-800 border border-green-200">
+                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-success-100 text-success-800 border border-success-200">
                                 <i class="fas fa-user mr-2"></i>
                                 Names
                             </span>
-                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-purple-100 text-purple-800 border border-purple-200">
+                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-tertiary-100 text-tertiary-800 border border-tertiary-200">
                                 <i class="fas fa-building mr-2"></i>
                                 Companies
                             </span>
-                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-orange-100 text-orange-800 border border-orange-200">
+                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-warning-100 text-warning-800 border border-warning-200">
                                 <i class="fas fa-tag mr-2"></i>
                                 References
                             </span>
@@ -433,8 +433,8 @@
                     <i class="fas fa-check-circle text-green-600 text-lg"></i>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold text-gray-900">Search Results</h3>
-                    <p class="text-sm text-gray-600 mt-1">Matching records found</p>
+                    <h3 class="text-xl font-bold text-primary-900">Search Results</h3>
+                    <p class="text-sm text-primary-600 mt-1">Matching records found</p>
                 </div>
             </div>
             <button type="button" id="clearDashboardSearchResultsBtn" class="inline-flex items-center px-4 py-2 text-sm font-semibold text-white rounded-lg transition-all duration-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5" style="background: linear-gradient(to right, #ef4444, #dc2626); border: none; outline: none;" onmouseover="this.style.background='linear-gradient(to right, #dc2626, #b91c1c)'" onmouseout="this.style.background='linear-gradient(to right, #ef4444, #dc2626)'">
@@ -447,11 +447,11 @@
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider" style="width: 35%;">Name/Company</th>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider" style="width: 20%;">IC/Registration No</th>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider" style="width: 15%;">Type</th>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider" style="width: 20%;">Release Type</th>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider" style="width: 10%;">Actions</th>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-primary-700 uppercase tracking-wider" style="width: 35%;">Name/Company</th>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-primary-700 uppercase tracking-wider" style="width: 20%;">IC/Registration No</th>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-primary-700 uppercase tracking-wider" style="width: 15%;">Type</th>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-primary-700 uppercase tracking-wider" style="width: 20%;">Release Type</th>
+                    <th class="px-6 py-3 text-left text-xs font-bold text-primary-700 uppercase tracking-wider" style="width: 10%;">Actions</th>
                 </tr>
             </thead>
             <tbody id="searchResultsBody" class="bg-white divide-y divide-gray-200">
@@ -475,8 +475,8 @@
         </div>
         
         <!-- Main Message -->
-        <h3 class="text-3xl font-black text-gray-900 mb-4 tracking-tight">No Records Found</h3>
-        <p class="text-xl text-gray-600 mb-8 leading-relaxed">We couldn't find any records matching your search criteria.</p>
+        <h3 class="text-3xl font-black text-primary-900 mb-4 tracking-tight">No Records Found</h3>
+        <p class="text-xl text-primary-600 mb-8 leading-relaxed">We couldn't find any records matching your search criteria.</p>
         
         <!-- Enhanced Search Suggestions -->
         <div class="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 border-2 border-blue-200 rounded-2xl p-8 shadow-lg">
@@ -554,8 +554,8 @@
         <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-accent-100 to-primary-100 rounded-full mb-6">
             <i class="fas fa-spinner fa-spin text-accent-600 text-2xl"></i>
         </div>
-        <h3 class="text-xl font-bold text-gray-900 mb-3">Searching Records</h3>
-        <p class="text-gray-600 mb-4">Please wait while we search for matching records...</p>
+        <h3 class="text-xl font-bold text-primary-900 mb-3">Searching Records</h3>
+        <p class="text-primary-600 mb-4">Please wait while we search for matching records...</p>
         <div class="w-full bg-gray-200 rounded-full h-2">
             <div class="bg-gradient-to-r from-accent-500 to-primary-500 h-2 rounded-full animate-pulse" style="width: 60%"></div>
         </div>
