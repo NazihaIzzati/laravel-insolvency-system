@@ -161,36 +161,6 @@
             </div>
         </div>
 
-        <!-- Summary Stats Row -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <!-- Total Records Summary -->
-            <div class="bg-primary-500 rounded-2xl shadow-xl p-8 text-white">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h3 class="text-lg font-semibold mb-2">Total Records</h3>
-                        <p class="text-4xl font-bold mb-2">{{ \App\Models\AnnulmentIndv::where('is_active', true)->count() + \App\Models\AnnulmentNonIndv::where('is_active', true)->count() + \App\Models\Bankruptcy::where('is_active', true)->count() + \App\Models\NonIndividualBankruptcy::where('is_active', true)->count() }}</p>
-                        <p class="text-primary-200">Across all systems</p>
-                    </div>
-                    <div class="w-16 h-16 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center">
-                        <i class="fas fa-database text-3xl"></i>
-                    </div>
-                </div>
-            </div>
-
-            <!-- System Health -->
-            <div class="bg-green-500 rounded-2xl shadow-xl p-8 text-white">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h3 class="text-lg font-semibold mb-2">System Health</h3>
-                        <p class="text-4xl font-bold mb-2">100%</p>
-                        <p class="text-green-200">All systems operational</p>
-                    </div>
-                    <div class="w-16 h-16 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center">
-                        <i class="fas fa-heartbeat text-3xl"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Enhanced Quick Actions -->
         <div class="mb-8">
