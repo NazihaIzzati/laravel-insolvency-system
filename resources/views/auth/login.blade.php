@@ -3,18 +3,18 @@
 @section('title', 'Login')
 
 @section('content')
-<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+<div class="min-h-screen flex items-center justify-center bg-white-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
         <div>
-            <div class="mx-auto h-12 w-12 flex items-center justify-center rounded-full" style="background-color: rgba(254, 80, 0, 0.1);">
-                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="color: #FE5000;">
+            <div class="mx-auto h-12 w-12 flex items-center justify-center rounded-full bg-neutral-100">
+                <svg class="h-6 w-6 text-neutral-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
             </div>
-            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            <h2 class="mt-6 text-center text-3xl font-extrabold text-neutral-900">
                 Sign in to your account
             </h2>
-            <p class="mt-2 text-center text-sm text-gray-600">
+            <p class="mt-2 text-center text-sm text-neutral-800">
                 Access your secure insolvency data management platform
             </p>
         </div>
@@ -26,8 +26,7 @@
                 <div>
                     <label for="email" class="sr-only">Email address</label>
                     <input id="email" name="email" type="email" autocomplete="email" required 
-                           class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:z-10 sm:text-sm @error('email') border-red-300 @enderror" 
-                           style="focus:ring-color: #FE5000; focus:border-color: #FE5000;"
+                           class="appearance-none rounded-none relative block w-full px-3 py-2 border border-neutral-300 placeholder-neutral-500 text-neutral-900 rounded-t-md focus:outline-none focus:z-10 sm:text-sm focus:ring-neutral-500 focus:border-neutral-500 @error('email') border-red-300 @enderror"
                            placeholder="Email address" 
                            value="{{ old('email') }}">
                     @error('email')
@@ -38,8 +37,7 @@
                 <div>
                     <label for="password" class="sr-only">Password</label>
                     <input id="password" name="password" type="password" autocomplete="current-password" required 
-                           class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:z-10 sm:text-sm @error('password') border-red-300 @enderror" 
-                           style="focus:ring-color: #FE5000; focus:border-color: #FE5000;"
+                           class="appearance-none rounded-none relative block w-full px-3 py-2 border border-neutral-300 placeholder-neutral-500 text-neutral-900 rounded-b-md focus:outline-none focus:z-10 sm:text-sm focus:ring-neutral-500 focus:border-neutral-500 @error('password') border-red-300 @enderror"
                            placeholder="Password">
                     @error('password')
                         <p class="form-error">{{ $message }}</p>
@@ -50,28 +48,21 @@
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
                     <input id="remember" name="remember" type="checkbox" 
-                           class="h-4 w-4 border-gray-300 rounded" 
-                           style="color: #FE5000; focus:ring-color: #FE5000;">
-                    <label for="remember" class="ml-2 block text-sm text-gray-900">
+                           class="h-4 w-4 border-neutral-300 rounded text-neutral-800 focus:ring-neutral-500">
+                    <label for="remember" class="ml-2 block text-sm text-neutral-900">
                         Remember me
                     </label>
                 </div>
 
                 <div class="text-sm">
-                    <a href="#" class="font-medium transition-colors duration-200" 
-                       style="color: #FE5000;" 
-                       onmouseover="this.style.color='#E04500'" 
-                       onmouseout="this.style.color='#FE5000'">
+                    <a href="#" class="font-medium text-neutral-800 hover:text-neutral-700 transition-colors duration-200">
                         Forgot your password?
                     </a>
                 </div>
             </div>
 
             <div>
-                <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white transition-colors duration-200" 
-                        style="background-color: #FE5000;" 
-                        onmouseover="this.style.backgroundColor='#E04500'" 
-                        onmouseout="this.style.backgroundColor='#FE5000'">
+                <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-neutral-500 hover:bg-neutral-500 transition-colors duration-200">
                     <span class="absolute left-0 inset-y-0 flex items-center pl-3">
                         <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" style="color: rgba(255, 255, 255, 0.7);">
                             <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />

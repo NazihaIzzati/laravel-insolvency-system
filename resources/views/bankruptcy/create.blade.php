@@ -9,8 +9,8 @@
         <div class="px-4 py-5 sm:p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-2xl font-bold text-gray-900">Upload Bankruptcy Data</h1>
-                    <p class="mt-1 text-sm text-gray-600">Add new bankruptcy person information to the database</p>
+                    <h1 class="text-2xl font-bold text-neutral-900">Upload Bankruptcy Data</h1>
+                    <p class="mt-1 text-sm text-neutral-800">Add new bankruptcy person information to the database</p>
                 </div>
                 <a href="{{ route('bankruptcy.index') }}" class="btn-outline">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -31,7 +31,7 @@
                 <!-- Required Fields -->
                 <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                     <div class="sm:col-span-2">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Required Information</h3>
+                        <h3 class="text-lg font-medium text-neutral-900 mb-4">Required Information</h3>
                     </div>
                     
                     <div>
@@ -78,7 +78,7 @@
                 <!-- Case Information -->
                 <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
                     <div class="sm:col-span-2">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Case Information</h3>
+                        <h3 class="text-lg font-medium text-neutral-900 mb-4">Case Information</h3>
                     </div>
                     
                     <div>
@@ -105,7 +105,7 @@
                 <!-- Dates -->
                 <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
                     <div class="sm:col-span-3">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Important Dates</h3>
+                        <h3 class="text-lg font-medium text-neutral-900 mb-4">Important Dates</h3>
                     </div>
                     
                     <div>

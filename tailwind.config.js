@@ -16,46 +16,46 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                // Primary Orange Palette (#FE8000)
+                // Primary Orange Palette - Refined
                 primary: {
                     50: '#fff7ed',
                     100: '#ffedd5',
                     200: '#fed7aa',
                     300: '#fdba74',
                     400: '#fb923c',
-                    500: '#FE8000', // Your primary color
-                    600: '#E67300', // Darker shade
-                    700: '#CC6600', // Even darker
-                    800: '#B35900', // Darkest
-                    900: '#994D00', // Very dark
+                    500: '#f97316', // Main orange
+                    600: '#ea580c', // Darker orange
+                    700: '#c2410c', // Even darker
+                    800: '#9a3412', // Darkest
+                    900: '#7c2d12', // Very dark
                 },
-                // Secondary Blue Palette
-                secondary: {
-                    50: '#eff6ff',
-                    100: '#dbeafe',
-                    200: '#bfdbfe',
-                    300: '#93c5fd',
-                    400: '#60a5fa',
-                    500: '#3b82f6',
-                    600: '#2563EB', // Main secondary
-                    700: '#1d4ed8',
-                    800: '#1e40af',
-                    900: '#1e3a8a',
+                // White and Light Grays - Primary background
+                white: {
+                    50: '#ffffff',
+                    100: '#fefefe',
+                    200: '#fdfdfd',
+                    300: '#fcfcfc',
+                    400: '#fafafa',
+                    500: '#f8f8f8',
+                    600: '#f5f5f5',
+                    700: '#f0f0f0',
+                    800: '#e8e8e8',
+                    900: '#e0e0e0',
                 },
-                // Tertiary Purple Palette
-                tertiary: {
-                    50: '#faf5ff',
-                    100: '#f3e8ff',
-                    200: '#e9d5ff',
-                    300: '#d8b4fe',
-                    400: '#c084fc',
-                    500: '#a855f7',
-                    600: '#7C3AED', // Main tertiary
-                    700: '#6d28d9',
-                    800: '#5b21b6',
-                    900: '#4c1d95',
+                // Neutral Grays - Minimal
+                neutral: {
+                    50: '#fafafa',
+                    100: '#f5f5f5',
+                    200: '#e5e5e5',
+                    300: '#d4d4d4',
+                    400: '#a3a3a3',
+                    500: '#737373', // Main neutral
+                    600: '#525252',
+                    700: '#404040',
+                    800: '#262626',
+                    900: '#171717',
                 },
-                // Success Green
+                // Success - Subtle green
                 success: {
                     50: '#f0fdf4',
                     100: '#dcfce7',
@@ -63,25 +63,12 @@ export default {
                     300: '#86efac',
                     400: '#4ade80',
                     500: '#22c55e',
-                    600: '#059669', // Main success
+                    600: '#16a34a',
                     700: '#15803d',
                     800: '#166534',
                     900: '#14532d',
                 },
-                // Warning Yellow
-                warning: {
-                    50: '#fffbeb',
-                    100: '#fef3c7',
-                    200: '#fde68a',
-                    300: '#fcd34d',
-                    400: '#fbbf24',
-                    500: '#F59E0B', // Main warning
-                    600: '#d97706',
-                    700: '#b45309',
-                    800: '#92400e',
-                    900: '#78350f',
-                },
-                // Error Red
+                // Error - Subtle red
                 error: {
                     50: '#fef2f2',
                     100: '#fee2e2',
@@ -89,23 +76,10 @@ export default {
                     300: '#fca5a5',
                     400: '#f87171',
                     500: '#ef4444',
-                    600: '#DC2626', // Main error
+                    600: '#dc2626',
                     700: '#b91c1c',
                     800: '#991b1b',
                     900: '#7f1d1d',
-                },
-                // Neutral Gray
-                neutral: {
-                    50: '#f8fafc',
-                    100: '#f1f5f9',
-                    200: '#e2e8f0',
-                    300: '#cbd5e1',
-                    400: '#94a3b8',
-                    500: '#6B7280', // Main neutral
-                    600: '#475569',
-                    700: '#334155',
-                    800: '#1e293b',
-                    900: '#0f172a',
                 }
             }
         },

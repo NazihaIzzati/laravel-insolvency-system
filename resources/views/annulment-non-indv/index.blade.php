@@ -3,11 +3,11 @@
 @section('title', 'Non-Individual Annulment Records')
 
 @section('content')
-<div class="min-h-screen bg-primary-50">
+<div class="min-h-screen bg-neutral-50">
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Welcome Section -->
-        <div class="bg-gradient-to-r from-primary-900 to-accent-600 rounded-xl shadow-lg mb-8">
+        <div class="bg-gradient-to-r from-neutral-900 to-accent-600 rounded-xl shadow-lg mb-8">
             <div class="px-8 py-12">
                 <div class="flex items-center justify-between">
                     <div class="text-white">
@@ -47,7 +47,7 @@
                     </div>
                     <div class="flex gap-3 items-center">
                         <div class="flex items-center gap-2">
-                            <label for="per_page" class="text-sm font-medium text-primary-700">Records per page:</label>
+                            <label for="per_page" class="text-sm font-medium text-neutral-700">Records per page:</label>
                             <select id="per_page" name="per_page" class="professional-input py-1 px-2 text-sm" onchange="changePerPage(this.value)">
                                 <option value="5" {{ $perPage == 5 ? 'selected' : '' }}>5</option>
                                 <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>10</option>
@@ -67,35 +67,35 @@
 
         <!-- Records Table -->
         <!-- Quick Search Section - Completely separate from cards -->
-        <div class="bg-gradient-to-r from-accent-50 to-primary-50 p-8 mb-6 border-l-4 border-accent-500">
+        <div class="bg-gradient-to-r from-neutral-50 to-neutral-50 p-8 mb-6 border-l-4 border-neutral-500">
             <div class="flex items-center mb-6">
                 <div class="flex items-center justify-center w-12 h-12 bg-accent-100 rounded-full mr-4">
-                    <i class="fas fa-search text-accent-600 text-xl"></i>
+                    <i class="fas fa-search text-neutral-800 text-xl"></i>
                 </div>
                 <div>
-                    <h4 class="text-xl font-bold text-gray-900">Quick Search</h4>
-                    <p class="text-sm text-gray-600 mt-1">Find non-individual annulment records instantly</p>
+                    <h4 class="text-xl font-bold text-neutral-900">Quick Search</h4>
+                    <p class="text-sm text-neutral-800 mt-1">Find non-individual annulment records instantly</p>
                 </div>
             </div>
             
             <form id="annulmentNonIndvSearchForm" class="space-y-6">
                 @csrf
                 <div>
-                    <label for="annulment_non_indv_search_input" class="block text-sm font-semibold text-gray-700 mb-3">
+                    <label for="annulment_non_indv_search_input" class="block text-sm font-semibold text-neutral-700 mb-3">
                         <i class="fas fa-info-circle mr-2"></i>
                         Search Records
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <i class="fas fa-search text-gray-400 text-lg"></i>
+                            <i class="fas fa-search text-gray-800 text-lg"></i>
                         </div>
                         <input type="text" 
                                id="annulment_non_indv_search_input" 
                                name="search_input" 
-                               class="block w-full pl-12 pr-16 py-4 border-2 border-gray-200 rounded-xl text-base placeholder-gray-400 focus:border-accent-500 focus:ring-4 focus:ring-accent-100 focus:outline-none transition-all duration-300 bg-white shadow-sm hover:shadow-md" 
+                               class="block w-full pl-12 pr-16 py-4 border-2 border-neutral-200 rounded-xl text-base placeholder-gray-500 focus:border-neutral-500 focus:ring-4 focus:ring-neutral-100 focus:outline-none transition-all duration-300 bg-white shadow-sm hover:shadow-md" 
                                placeholder="Enter company name, registration no, court case number, or other reference..."
                                required>
-                        <button type="button" id="clearAnnulmentNonIndvSearchBtn" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-all duration-200 p-2 rounded-full hover:bg-gray-100 cursor-pointer z-10" style="display: none;" title="Clear search">
+                        <button type="button" id="clearAnnulmentNonIndvSearchBtn" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-800 hover:text-neutral-800 transition-all duration-200 p-2 rounded-full hover:bg-gray-100 cursor-pointer z-10" style="display: none;" title="Clear search">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
@@ -112,7 +112,7 @@
                             <i class="fas fa-gavel mr-2"></i>
                             Court Cases
                         </span>
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-neutral-100 text-neutral-800">
                             <i class="fas fa-tag mr-2"></i>
                             References
                         </span>
@@ -132,12 +132,12 @@
         <div id="annulmentNonIndvLoadingSpinner" class="hidden bg-white p-8 mb-6 border-l-4 border-blue-500">
             <div class="text-center">
                 <div class="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-accent-100 to-primary-100 rounded-full mb-4">
-                    <i class="fas fa-spinner fa-spin text-accent-600 text-lg"></i>
+                    <i class="fas fa-spinner fa-spin text-neutral-800 text-lg"></i>
                 </div>
-                <h3 class="text-lg font-bold text-gray-900 mb-2">Searching Records</h3>
-                <p class="text-sm text-gray-600 mb-4">Please wait while we search for matching non-individual annulment records...</p>
+                <h3 class="text-lg font-bold text-neutral-900 mb-2">Searching Records</h3>
+                <p class="text-sm text-neutral-800 mb-4">Please wait while we search for matching non-individual annulment records...</p>
                 <div class="w-full bg-gray-200 rounded-full h-2">
-                    <div class="bg-gradient-to-r from-accent-500 to-primary-500 h-2 rounded-full animate-pulse" style="width: 60%"></div>
+                    <div class="bg-gradient-to-r from-neutral-500 to-neutral-500 h-2 rounded-full animate-pulse" style="width: 60%"></div>
                 </div>
             </div>
         </div>
@@ -151,28 +151,28 @@
                             <i class="fas fa-check-circle text-green-600 text-lg"></i>
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold text-gray-900">Search Results</h3>
-                            <p class="text-sm text-gray-600 mt-1">Matching non-individual annulment records found</p>
+                            <h3 class="text-xl font-bold text-neutral-900">Search Results</h3>
+                            <p class="text-sm text-neutral-800 mt-1">Matching non-individual annulment records found</p>
                         </div>
                     </div>
-                    <button type="button" id="clearAnnulmentNonIndvSearchResultsBtn" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-all duration-200">
+                    <button type="button" id="clearAnnulmentNonIndvSearchResultsBtn" class="inline-flex items-center px-4 py-2 text-sm font-medium text-neutral-800 hover:text-gray-800 bg-white border border-neutral-300 rounded-lg hover:bg-white-50 transition-all duration-200">
                         <i class="fas fa-times mr-2"></i>
                         Clear Results
                     </button>
                 </div>
             </div>
-            <div class="overflow-x-auto bg-gray-50 px-8 py-6">
+            <div class="overflow-x-auto bg-white-50 px-8 py-6">
                 <table class="w-full divide-y divide-gray-200" style="min-width: 1000px;">
                     <thead class="bg-gray-100">
                         <tr>
-                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-48">Company Name</th>
-                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-32">Registration No</th>
-                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-32">Others</th>
-                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-32">Court Case</th>
-                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-24">Release Date</th>
-                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-32">Release Type</th>
-                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-32">Branch</th>
-                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-24">Actions</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-neutral-800 uppercase tracking-wider w-48">Company Name</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-neutral-800 uppercase tracking-wider w-32">Registration No</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-neutral-800 uppercase tracking-wider w-32">Others</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-neutral-800 uppercase tracking-wider w-32">Court Case</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-neutral-800 uppercase tracking-wider w-24">Release Date</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-neutral-800 uppercase tracking-wider w-32">Release Type</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-neutral-800 uppercase tracking-wider w-32">Branch</th>
+                            <th class="px-6 py-4 text-left text-xs font-bold text-neutral-800 uppercase tracking-wider w-24">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="annulmentNonIndvSearchResultsBody" class="bg-white divide-y divide-gray-200">
@@ -186,11 +186,11 @@
         <div id="annulmentNonIndvNoResults" class="hidden bg-white p-8 mb-6 border-l-4 border-gray-400">
             <div class="text-center">
                 <div class="inline-flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full mb-4">
-                    <i class="fas fa-search text-gray-400 text-lg"></i>
+                    <i class="fas fa-search text-gray-800 text-lg"></i>
                 </div>
-                <h3 class="text-lg font-bold text-gray-900 mb-2">No Results Found</h3>
-                <p class="text-sm text-gray-600 mb-4">We couldn't find any records matching your search criteria.</p>
-                <button id="clearAnnulmentNonIndvNoResultsBtn" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-accent-600 rounded hover:bg-accent-700 transition-colors duration-200">
+                <h3 class="text-lg font-bold text-neutral-900 mb-2">No Results Found</h3>
+                <p class="text-sm text-neutral-800 mb-4">We couldn't find any records matching your search criteria.</p>
+                <button id="clearAnnulmentNonIndvNoResultsBtn" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-neutral-600 rounded hover:bg-neutral-700 transition-colors duration-200">
                     <i class="fas fa-arrow-left mr-2"></i>
                     Try Different Search
                 </button>
@@ -198,13 +198,13 @@
         </div>
 
         <!-- Divider between search and main content -->
-        <div class="border-t border-gray-200 mb-8"></div>
+        <div class="border-t border-neutral-200 mb-8"></div>
 
         <!-- Main Content Card -->
         <div class="professional-section">
             <div class="professional-section-header">
-                <h3 class="text-lg font-medium text-primary-900">Non-Individual Annulment Records</h3>
-                <p class="text-sm text-primary-500 mt-1">All non-individual annulment company profiles</p>
+                <h3 class="text-lg font-medium text-neutral-900">Non-Individual Annulment Records</h3>
+                <p class="text-sm text-neutral-700 mt-1">All non-individual annulment company profiles</p>
             </div>
             <div class="professional-section-content">
 
@@ -220,36 +220,36 @@
                                 z-index: 10;
                             }
                         </style>
-                        <thead class="bg-primary-50">
+                        <thead class="bg-neutral-50">
                             <tr>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-48">Company Name</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-40">Registration No</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-40">Others</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-40">Court Case</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-24">Release Date</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-32">Updated Date</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-40">Release Type</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-40">Branch</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-40 action-buttons">Actions</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider w-48">Company Name</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider w-40">Registration No</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider w-40">Others</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider w-40">Court Case</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider w-24">Release Date</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider w-32">Updated Date</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider w-40">Release Type</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider w-40">Branch</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider w-40 action-buttons">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-primary-200">
                             @forelse($annulmentNonIndv as $annulment)
-                                <tr class="hover:bg-primary-50 transition-colors duration-200">
+                                <tr class="hover:bg-neutral-50 transition-colors duration-200">
                                     <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm text-primary-900">{{ $annulment->company_name ?? 'N/A' }}</span>
+                                        <span class="text-sm text-neutral-900">{{ $annulment->company_name ?? 'N/A' }}</span>
                                     </td>
                                     <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm text-primary-900">{{ $annulment->company_registration_no ?? 'N/A' }}</span>
+                                        <span class="text-sm text-neutral-900">{{ $annulment->company_registration_no ?? 'N/A' }}</span>
                                     </td>
                                     <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm text-primary-900">{{ $annulment->others ?? 'N/A' }}</span>
+                                        <span class="text-sm text-neutral-900">{{ $annulment->others ?? 'N/A' }}</span>
                                     </td>
                                     <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm text-primary-900">{{ $annulment->court_case_no ?? 'N/A' }}</span>
+                                        <span class="text-sm text-neutral-900">{{ $annulment->court_case_no ?? 'N/A' }}</span>
                                     </td>
                                     <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm text-primary-900">
+                                        <span class="text-sm text-neutral-900">
                                             @if($annulment->release_date)
                                                 @if(is_string($annulment->release_date))
                                                     {{ \Carbon\Carbon::parse($annulment->release_date)->format('d/m/Y') }}
@@ -262,13 +262,13 @@
                                         </span>
                                     </td>
                                     <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm text-primary-900">{{ $annulment->formatted_updated_date }}</span>
+                                        <span class="text-sm text-neutral-900">{{ $annulment->formatted_updated_date }}</span>
                                     </td>
                                     <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm text-primary-900">{{ $annulment->release_type ?? 'N/A' }}</span>
+                                        <span class="text-sm text-neutral-900">{{ $annulment->release_type ?? 'N/A' }}</span>
                                     </td>
                                     <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm text-primary-900">{{ $annulment->branch ?? 'N/A' }}</span>
+                                        <span class="text-sm text-neutral-900">{{ $annulment->branch ?? 'N/A' }}</span>
                                     </td>
                                     <td class="px-4 py-3 whitespace-nowrap text-sm font-medium action-buttons">
                                         <div class="flex flex-col space-y-1">
@@ -293,14 +293,14 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="9" class="px-4 py-8 text-center text-primary-500">
+                                    <td colspan="9" class="px-4 py-8 text-center text-neutral-700">
                                         <div class="flex flex-col items-center">
                                             <svg class="mx-auto h-12 w-12 text-primary-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                                             </svg>
                                             <p class="text-sm font-medium">No non-individual annulment records found</p>
                                             <p class="text-xs text-primary-400 mt-1">
-                                                <a href="{{ route('annulment-non-indv.create') }}" class="text-accent-600 hover:text-accent-700">Add the first record</a>
+                                                <a href="{{ route('annulment-non-indv.create') }}" class="text-neutral-800 hover:text-neutral-700">Add the first record</a>
                                             </p>
                                         </div>
                                     </td>
@@ -313,7 +313,7 @@
                 <!-- Pagination -->
                 @if($annulmentNonIndv->hasPages())
                     <div class="mt-6 flex items-center justify-between">
-                        <div class="text-sm text-primary-600">
+                        <div class="text-sm text-neutral-800">
                             Showing {{ $annulmentNonIndv->firstItem() }} to {{ $annulmentNonIndv->lastItem() }} of {{ $annulmentNonIndv->total() }} results
                         </div>
                         <div class="flex items-center space-x-2">
@@ -460,7 +460,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (index % 2 === 0) {
                 row.classList.add('bg-white');
             } else {
-                row.classList.add('bg-gray-50');
+                row.classList.add('bg-white-50');
             }
             
             row.innerHTML = `
@@ -472,38 +472,38 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         </div>
                         <div class="ml-3">
-                            <div class="text-sm font-bold text-gray-900">${result.company_name || 'N/A'}</div>
-                            <div class="text-xs text-gray-500">Non-Individual Annulment</div>
+                            <div class="text-sm font-bold text-neutral-900">${result.company_name || 'N/A'}</div>
+                            <div class="text-xs text-neutral-700">Non-Individual Annulment</div>
                         </div>
                     </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900 bg-blue-50 px-2 py-1 rounded inline-block">${result.company_registration_no || 'N/A'}</div>
+                    <div class="text-sm text-neutral-900 bg-blue-50 px-2 py-1 rounded inline-block">${result.company_registration_no || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">${result.others || 'N/A'}</div>
+                    <div class="text-sm text-neutral-900">${result.others || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm font-medium text-gray-900 bg-purple-50 px-2 py-1 rounded inline-block">${result.court_case_no || 'N/A'}</div>
+                    <div class="text-sm font-medium text-neutral-900 bg-purple-50 px-2 py-1 rounded inline-block">${result.court_case_no || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">
+                    <div class="text-sm text-neutral-900">
                         ${result.release_date ? 
                             `<span class="bg-green-50 text-green-800 px-2 py-1 rounded text-xs font-medium">${new Date(result.release_date).toLocaleDateString()}</span>` : 
-                            '<span class="text-gray-400">N/A</span>'
+                            '<span class="text-gray-800">N/A</span>'
                         }
                     </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">
+                    <div class="text-sm text-neutral-900">
                         ${result.release_type ? 
-                            `<span class="bg-orange-50 text-orange-800 px-2 py-1 rounded text-xs font-medium">${result.release_type}</span>` : 
-                            '<span class="text-gray-400">N/A</span>'
+                            `<span class="bg-neutral-50 text-neutral-800 px-2 py-1 rounded text-xs font-medium">${result.release_type}</span>` : 
+                            '<span class="text-gray-800">N/A</span>'
                         }
                     </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">${result.branch || 'N/A'}</div>
+                    <div class="text-sm text-neutral-900">${result.branch || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <div class="flex flex-col space-y-1">

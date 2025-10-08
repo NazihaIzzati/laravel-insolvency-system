@@ -3,15 +3,15 @@
 @section('title', 'Add New Annulment Record')
 
 @section('content')
-<div class="min-h-screen bg-primary-50">
+<div class="min-h-screen bg-neutral-50">
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Header -->
         <div class="mb-8">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-primary-900">Add New Annulment Record</h1>
-                    <p class="text-primary-600 mt-2">Create a new annulment individual record</p>
+                    <h1 class="text-3xl font-bold text-neutral-900">Add New Annulment Record</h1>
+                    <p class="text-neutral-800 mt-2">Create a new annulment individual record</p>
                 </div>
                 <a href="{{ route('annulment-indv.index') }}" class="professional-button">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -25,8 +25,8 @@
         <!-- Form -->
         <div class="professional-section">
             <div class="professional-section-header">
-                <h3 class="text-lg font-medium text-primary-900">Annulment Information</h3>
-                <p class="text-sm text-primary-500 mt-1">Enter the annulment details</p>
+                <h3 class="text-lg font-medium text-neutral-900">Annulment Information</h3>
+                <p class="text-sm text-neutral-700 mt-1">Enter the annulment details</p>
             </div>
             <div class="professional-section-content">
                 <form method="POST" action="{{ route('annulment-indv.store') }}" class="space-y-6">
@@ -34,7 +34,7 @@
                     
                     <!-- Basic Information -->
                     <div>
-                        <h4 class="text-md font-medium text-primary-800 mb-4">Basic Information</h4>
+                        <h4 class="text-md font-medium text-neutral-800 mb-4">Basic Information</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label for="name" class="form-label">Name <span class="text-red-500">*</span></label>
@@ -94,7 +94,7 @@
 
                     <!-- Dates and Additional Information -->
                     <div>
-                        <h4 class="text-md font-medium text-primary-800 mb-4">Dates and Additional Information</h4>
+                        <h4 class="text-md font-medium text-neutral-800 mb-4">Dates and Additional Information</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label for="release_date" class="form-label">Release Date</label>

@@ -9,8 +9,8 @@
         <div class="px-4 py-5 sm:p-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-2xl font-bold text-gray-900">Debug Excel Import</h1>
-                    <p class="mt-1 text-sm text-gray-600">Analyze your Excel file structure to identify import issues</p>
+                    <h1 class="text-2xl font-bold text-neutral-900">Debug Excel Import</h1>
+                    <p class="mt-1 text-sm text-neutral-800">Analyze your Excel file structure to identify import issues</p>
                 </div>
                 <a href="{{ route('bankruptcy.bulk-upload') }}" class="btn-outline">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -31,19 +31,19 @@
                 <!-- File Upload -->
                 <div>
                     <label for="excel_file" class="form-label">Upload Your Excel File</label>
-                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:border-gray-400 transition-colors duration-200">
+                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-neutral-300 border-dashed rounded-md hover:border-gray-400 transition-colors duration-200">
                         <div class="space-y-1 text-center">
-                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                            <svg class="mx-auto h-12 w-12 text-gray-800" stroke="currentColor" fill="none" viewBox="0 0 48 48">
                                 <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
-                            <div class="flex text-sm text-gray-600">
+                            <div class="flex text-sm text-neutral-800">
                                 <label for="excel_file" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                                     <span>Upload a file</span>
                                     <input id="excel_file" name="excel_file" type="file" class="sr-only" accept=".xlsx,.xls,.csv" required>
                                 </label>
                                 <p class="pl-1">or drag and drop</p>
                             </div>
-                            <p class="text-xs text-gray-500">Excel files up to 10MB</p>
+                            <p class="text-xs text-neutral-700">Excel files up to 10MB</p>
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
     <!-- Results -->
     <div id="results" class="hidden bg-white shadow rounded-lg">
         <div class="px-4 py-5 sm:p-6">
-            <h3 class="text-lg font-medium text-gray-900 mb-4">File Analysis Results</h3>
+            <h3 class="text-lg font-medium text-neutral-900 mb-4">File Analysis Results</h3>
             <div id="resultsContent"></div>
         </div>
     </div>
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const label = dropZone.querySelector('label span');
             label.textContent = fileName + ' (' + fileSize + ' MB)';
             
-            dropZone.classList.remove('border-gray-300');
+            dropZone.classList.remove('border-neutral-300');
             dropZone.classList.add('border-green-300', 'bg-green-50');
         }
     });
@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (missingHeaders.length > 0) {
             html += `
-                <div class="bg-yellow-50 border border-yellow-200 rounded-md p-4">
+                <div class="bg-neutral-50 border border-neutral-200 rounded-md p-4">
                     <h4 class="text-sm font-medium text-yellow-800 mb-2">Missing Required Headers</h4>
                     <ul class="text-sm text-yellow-700 space-y-1">
                         ${missingHeaders.map(h => `<li>• ${h}</li>`).join('')}
@@ -227,9 +227,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (extraHeaders.length > 0) {
             html += `
-                <div class="bg-gray-50 border border-gray-200 rounded-md p-4">
+                <div class="bg-white-50 border border-neutral-200 rounded-md p-4">
                     <h4 class="text-sm font-medium text-gray-800 mb-2">Extra Headers (will be ignored)</h4>
-                    <ul class="text-sm text-gray-700 space-y-1">
+                    <ul class="text-sm text-neutral-700 space-y-1">
                         ${extraHeaders.map(h => `<li>• ${h}</li>`).join('')}
                     </ul>
                 </div>
@@ -237,9 +237,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         html += `
-                <div class="bg-gray-50 border border-gray-200 rounded-md p-4">
+                <div class="bg-white-50 border border-neutral-200 rounded-md p-4">
                     <h4 class="text-sm font-medium text-gray-800 mb-2">Sample Data (First Row)</h4>
-                    <div class="text-sm text-gray-700">
+                    <div class="text-sm text-neutral-700">
                         <pre class="bg-gray-100 p-3 rounded overflow-x-auto">${JSON.stringify(data.first_row, null, 2)}</pre>
                     </div>
                 </div>

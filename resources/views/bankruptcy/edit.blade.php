@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-gray-50 py-6">
+<div class="bg-white-50 py-6">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
         <div class="mb-8">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Edit Bankruptcy Record</h1>
-                    <p class="mt-2 text-gray-600">Update the bankruptcy record information</p>
+                    <h1 class="text-3xl font-bold text-neutral-900">Edit Bankruptcy Record</h1>
+                    <p class="mt-2 text-neutral-800">Update the bankruptcy record information</p>
                 </div>
                 <div class="flex space-x-3">
                     <a href="{{ route('bankruptcy.show', $bankruptcy) }}" 
@@ -39,10 +39,10 @@
                     
                     <!-- Basic Information Section -->
                     <div>
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Basic Information</h3>
+                        <h3 class="text-lg font-medium text-neutral-900 mb-4">Basic Information</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="insolvency_no" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="insolvency_no" class="block text-sm font-medium text-neutral-700 mb-2">
                                     Insolvency Number <span class="text-red-500">*</span>
                                 </label>
                                 <input type="text" 
@@ -58,7 +58,7 @@
                             </div>
 
                             <div>
-                                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="name" class="block text-sm font-medium text-neutral-700 mb-2">
                                     Full Name <span class="text-red-500">*</span>
                                 </label>
                                 <input type="text" 
@@ -74,7 +74,7 @@
                             </div>
 
                             <div>
-                                <label for="ic_no" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="ic_no" class="block text-sm font-medium text-neutral-700 mb-2">
                                     IC Number <span class="text-red-500">*</span>
                                 </label>
                                 <input type="text" 
@@ -90,7 +90,7 @@
                             </div>
 
                             <div>
-                                <label for="others" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="others" class="block text-sm font-medium text-neutral-700 mb-2">
                                     Others
                                 </label>
                                 <input type="text" 
@@ -108,10 +108,10 @@
 
                     <!-- Case Information Section -->
                     <div>
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Case Information</h3>
+                        <h3 class="text-lg font-medium text-neutral-900 mb-4">Case Information</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="court_case_no" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="court_case_no" class="block text-sm font-medium text-neutral-700 mb-2">
                                     Court Case Number
                                 </label>
                                 <input type="text" 
@@ -126,7 +126,7 @@
                             </div>
 
                             <div>
-                                <label for="branch" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="branch" class="block text-sm font-medium text-neutral-700 mb-2">
                                     Branch
                                 </label>
                                 <input type="text" 
@@ -144,10 +144,10 @@
 
                     <!-- Dates Section -->
                     <div>
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Important Dates</h3>
+                        <h3 class="text-lg font-medium text-neutral-900 mb-4">Important Dates</h3>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div>
-                                <label for="ro_date" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="ro_date" class="block text-sm font-medium text-neutral-700 mb-2">
                                     RO Date
                                 </label>
                                 <input type="text" 
@@ -162,7 +162,7 @@
                             </div>
 
                             <div>
-                                <label for="ao_date" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="ao_date" class="block text-sm font-medium text-neutral-700 mb-2">
                                     AO Date
                                 </label>
                                 <input type="text" 
@@ -177,7 +177,7 @@
                             </div>
 
                             <div>
-                                <label for="updated_date" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="updated_date" class="block text-sm font-medium text-neutral-700 mb-2">
                                     Updated Date
                                 </label>
                                 <input type="text" 
@@ -195,23 +195,23 @@
 
                     <!-- Status Section -->
                     <div>
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Status</h3>
+                        <h3 class="text-lg font-medium text-neutral-900 mb-4">Status</h3>
                         <div class="flex items-center">
                             <input type="checkbox" 
                                    id="is_active" 
                                    name="is_active" 
                                    value="1"
                                    {{ old('is_active', $bankruptcy->is_active) ? 'checked' : '' }}
-                                   class="h-4 w-4 text-orange-600 focus:ring-orange-500 border-gray-300 rounded">
-                            <label for="is_active" class="ml-2 block text-sm text-gray-900">
+                                   class="h-4 w-4 text-neutral-800 focus:ring-neutral-500 border-neutral-300 rounded">
+                            <label for="is_active" class="ml-2 block text-sm text-neutral-900">
                                 Active Record
                             </label>
                         </div>
-                        <p class="mt-1 text-sm text-gray-500">Uncheck to deactivate this record</p>
+                        <p class="mt-1 text-sm text-neutral-700">Uncheck to deactivate this record</p>
                     </div>
 
                     <!-- Action Buttons -->
-                    <div class="flex justify-end space-x-3 pt-6 border-t border-gray-200">
+                    <div class="flex justify-end space-x-3 pt-6 border-t border-neutral-200">
                         <a href="{{ route('bankruptcy.show', $bankruptcy) }}" 
                            class="btn-secondary">
                             Cancel

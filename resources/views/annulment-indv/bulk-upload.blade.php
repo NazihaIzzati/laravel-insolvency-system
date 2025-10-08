@@ -3,15 +3,15 @@
 @section('title', 'Bulk Upload Annulment Records')
 
 @section('content')
-<div class="min-h-screen bg-primary-50">
+<div class="min-h-screen bg-neutral-50">
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Header -->
         <div class="mb-8">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-primary-900">Bulk Upload Annulment Records</h1>
-                    <p class="text-primary-600 mt-2">Upload multiple annulment records from Excel file</p>
+                    <h1 class="text-3xl font-bold text-neutral-900">Bulk Upload Annulment Records</h1>
+                    <p class="text-neutral-800 mt-2">Upload multiple annulment records from Excel file</p>
                 </div>
                 <a href="{{ route('annulment-indv.index') }}" class="professional-button">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -25,8 +25,8 @@
         <!-- Upload Form -->
         <div class="professional-section">
             <div class="professional-section-header">
-                <h3 class="text-lg font-medium text-primary-900">Upload Excel File</h3>
-                <p class="text-sm text-primary-500 mt-1">Select an Excel file containing annulment records</p>
+                <h3 class="text-lg font-medium text-neutral-900">Upload Excel File</h3>
+                <p class="text-sm text-neutral-700 mt-1">Select an Excel file containing annulment records</p>
             </div>
             <div class="professional-section-content">
                 <form method="POST" action="{{ route('annulment-indv.bulk-upload') }}" enctype="multipart/form-data" class="space-y-6">
@@ -35,19 +35,19 @@
                     <!-- File Upload -->
                     <div>
                         <label for="file" class="form-label">Excel File <span class="text-red-500">*</span></label>
-                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:border-primary-400 transition-colors duration-200">
+                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-neutral-300 border-dashed rounded-md hover:border-neutral-500 transition-colors duration-200">
                             <div class="space-y-1 text-center">
-                                <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                                <svg class="mx-auto h-12 w-12 text-gray-800" stroke="currentColor" fill="none" viewBox="0 0 48 48">
                                     <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
-                                <div class="flex text-sm text-gray-600">
-                                    <label for="file" class="relative cursor-pointer bg-white rounded-md font-medium text-primary-600 hover:text-primary-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary-500">
+                                <div class="flex text-sm text-neutral-800">
+                                    <label for="file" class="relative cursor-pointer bg-white rounded-md font-medium text-neutral-800 hover:text-neutral-700 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-neutral-500">
                                         <span>Upload a file</span>
                                         <input id="file" name="file" type="file" class="sr-only" accept=".xlsx,.xls,.csv" required onchange="handleFileSelect(event)">
                                     </label>
                                     <p class="pl-1">or drag and drop</p>
                                 </div>
-                                <p class="text-xs text-gray-500">Excel files up to 50MB</p>
+                                <p class="text-xs text-neutral-700">Excel files up to 50MB</p>
                             </div>
                         </div>
                         @error('file')
@@ -101,39 +101,39 @@
                     </div>
 
                     <!-- Expected Columns -->
-                    <div class="bg-gray-50 border border-gray-200 rounded-md p-4">
+                    <div class="bg-white-50 border border-neutral-200 rounded-md p-4">
                         <h4 class="text-sm font-medium text-gray-800 mb-3">Expected Excel Columns:</h4>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-600">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-neutral-800">
                             <div>
-                                <p class="font-medium text-gray-700">Column A:</p>
+                                <p class="font-medium text-neutral-700">Column A:</p>
                                 <p>• name (Nama)</p>
                             </div>
                             <div>
-                                <p class="font-medium text-gray-700">Column B:</p>
+                                <p class="font-medium text-neutral-700">Column B:</p>
                                 <p>• ic_no (No. K/P Baru)</p>
                             </div>
                             <div>
-                                <p class="font-medium text-gray-700">Column C:</p>
+                                <p class="font-medium text-neutral-700">Column C:</p>
                                 <p>• others (No. Lain)</p>
                             </div>
                             <div>
-                                <p class="font-medium text-gray-700">Column D:</p>
+                                <p class="font-medium text-neutral-700">Column D:</p>
                                 <p>• court_case_no (No. Kes Mahkamah)</p>
                             </div>
                             <div>
-                                <p class="font-medium text-gray-700">Column E:</p>
+                                <p class="font-medium text-neutral-700">Column E:</p>
                                 <p>• release_date (Tarikh Pelepasan)</p>
                             </div>
                             <div>
-                                <p class="font-medium text-gray-700">Column F:</p>
+                                <p class="font-medium text-neutral-700">Column F:</p>
                                 <p>• updated_date (Tarikh Kemaskini)</p>
                             </div>
                             <div>
-                                <p class="font-medium text-gray-700">Column G:</p>
+                                <p class="font-medium text-neutral-700">Column G:</p>
                                 <p>• release_type (Jenis Pelepasan)</p>
                             </div>
                             <div>
-                                <p class="font-medium text-gray-700">Column H:</p>
+                                <p class="font-medium text-neutral-700">Column H:</p>
                                 <p>• branch (Nama Cawangan)</p>
                             </div>
                         </div>

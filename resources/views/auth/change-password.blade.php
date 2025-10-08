@@ -6,8 +6,8 @@
 <div class="max-w-md mx-auto">
     <div class="professional-card">
         <div class="professional-section-header">
-            <h2 class="text-lg font-semibold text-primary-900">Change Password</h2>
-            <p class="text-sm text-primary-600 mt-1">Update your account password</p>
+            <h2 class="text-lg font-semibold text-neutral-900">Change Password</h2>
+            <p class="text-sm text-neutral-800 mt-1">Update your account password</p>
         </div>
         
         <div class="professional-section-content">
@@ -16,7 +16,7 @@
                 
                 <!-- Current Password -->
                 <div>
-                    <label for="current_password" class="block text-sm font-medium text-primary-700 mb-2">
+                    <label for="current_password" class="block text-sm font-medium text-neutral-700 mb-2">
                         Current Password
                     </label>
                     <input 
@@ -35,7 +35,7 @@
 
                 <!-- New Password -->
                 <div>
-                    <label for="password" class="block text-sm font-medium text-primary-700 mb-2">
+                    <label for="password" class="block text-sm font-medium text-neutral-700 mb-2">
                         New Password
                     </label>
                     <input 
@@ -54,7 +54,7 @@
 
                 <!-- Confirm Password -->
                 <div>
-                    <label for="password_confirmation" class="block text-sm font-medium text-primary-700 mb-2">
+                    <label for="password_confirmation" class="block text-sm font-medium text-neutral-700 mb-2">
                         Confirm New Password
                     </label>
                     <input 
@@ -69,9 +69,9 @@
                 </div>
 
                 <!-- Password Requirements -->
-                <div class="bg-primary-50 border border-primary-200 rounded-lg p-4">
-                    <h4 class="text-sm font-medium text-primary-900 mb-2">Password Requirements:</h4>
-                    <ul class="text-xs text-primary-600 space-y-1">
+                <div class="bg-neutral-50 border border-neutral-200 rounded-lg p-4">
+                    <h4 class="text-sm font-medium text-neutral-900 mb-2">Password Requirements:</h4>
+                    <ul class="text-xs text-neutral-800 space-y-1">
                         <li class="flex items-center">
                             <i class="fas fa-check mr-2 text-primary-400"></i>
                             At least 8 characters long

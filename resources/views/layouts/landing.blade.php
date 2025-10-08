@@ -16,43 +16,43 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased bg-white">
-    <!-- Navigation - Banking Style -->
-    <nav class="bg-white/95 backdrop-blur-lg shadow-lg border-b border-slate-200 fixed w-full top-0 z-50">
+    <!-- Navigation - Clean White Style -->
+    <nav class="bg-white shadow-sm border-b border-neutral-200 fixed w-full top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex-shrink-0">
-                    <a href="{{ route('landing') }}" class="text-2xl font-bold" style="color: #FE5000;">
+                    <a href="{{ route('landing') }}" class="text-2xl font-bold text-neutral-800">
                         {{ config('app.name') }}
                     </a>
                 </div>
 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#features" class="text-slate-600 transition-colors duration-200 font-medium" onmouseover="this.style.color='#FE5000'" onmouseout="this.style.color='#64748b'">
+                    <a href="#features" class="text-neutral-800 hover:text-neutral-800 transition-colors duration-200 font-medium">
                         Security Features
                     </a>
-                    <a href="#about" class="text-slate-600 transition-colors duration-200 font-medium" onmouseover="this.style.color='#FE5000'" onmouseout="this.style.color='#64748b'">
+                    <a href="#about" class="text-neutral-800 hover:text-neutral-800 transition-colors duration-200 font-medium">
                         Enterprise Solutions
                     </a>
-                    <a href="#contact" class="text-slate-600 transition-colors duration-200 font-medium" onmouseover="this.style.color='#FE5000'" onmouseout="this.style.color='#64748b'">
+                    <a href="#contact" class="text-neutral-800 hover:text-neutral-800 transition-colors duration-200 font-medium">
                         Support
                     </a>
                 </div>
 
                 <!-- Auth Buttons -->
                 <div class="hidden md:flex items-center space-x-4">
-                    <a href="{{ route('login') }}" class="text-slate-600 transition-colors duration-200 font-medium" onmouseover="this.style.color='#FE5000'" onmouseout="this.style.color='#64748b'">
+                    <a href="{{ route('login') }}" class="text-neutral-800 hover:text-neutral-800 transition-colors duration-200 font-medium">
                         Login
                     </a>
-                    <a href="{{ route('register') }}" class="btn text-white px-6 py-2 shadow-lg hover:shadow-xl transition-all duration-300" style="background-color: #FE5000;" onmouseover="this.style.backgroundColor='#E04500'" onmouseout="this.style.backgroundColor='#FE5000'">
+                    <a href="{{ route('register') }}" class="btn-primary px-6 py-2">
                         Enterprise Trial
                     </a>
                 </div>
 
                 <!-- Mobile menu button -->
                 <div class="md:hidden">
-                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-slate-500 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-inset" style="focus:ring-color: #FE5000;" onclick="toggleMobileMenu()">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-neutral-800 hover:text-neutral-700 hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-inset" onclick="toggleMobileMenu()">
                         <span class="sr-only">Open main menu</span>
                         <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -64,21 +64,21 @@
 
         <!-- Mobile menu -->
         <div class="md:hidden hidden" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 bg-white/95 backdrop-blur-lg border-t border-slate-200">
-                <a href="#features" class="block px-3 py-2 text-base font-medium text-slate-600 hover:bg-slate-50" onmouseover="this.style.color='#FE5000'" onmouseout="this.style.color='#64748b'">
+            <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-neutral-200">
+                <a href="#features" class="block px-3 py-2 text-base font-medium text-neutral-800 hover:text-neutral-800 hover:bg-neutral-50">
                     Security Features
                 </a>
-                <a href="#about" class="block px-3 py-2 text-base font-medium text-slate-600 hover:bg-slate-50" onmouseover="this.style.color='#FE5000'" onmouseout="this.style.color='#64748b'">
+                <a href="#about" class="block px-3 py-2 text-base font-medium text-neutral-800 hover:text-neutral-800 hover:bg-neutral-50">
                     Enterprise Solutions
                 </a>
-                <a href="#contact" class="block px-3 py-2 text-base font-medium text-slate-600 hover:bg-slate-50" onmouseover="this.style.color='#FE5000'" onmouseout="this.style.color='#64748b'">
+                <a href="#contact" class="block px-3 py-2 text-base font-medium text-neutral-800 hover:text-neutral-800 hover:bg-neutral-50">
                     Support
                 </a>
-                <div class="border-t border-slate-200 pt-4">
-                    <a href="{{ route('login') }}" class="block px-3 py-2 text-base font-medium text-slate-600" onmouseover="this.style.color='#FE5000'" onmouseout="this.style.color='#64748b'">
+                <div class="border-t border-neutral-200 pt-4">
+                    <a href="{{ route('login') }}" class="block px-3 py-2 text-base font-medium text-neutral-800 hover:text-neutral-800">
                         Login
                     </a>
-                    <a href="{{ route('register') }}" class="block px-3 py-2 text-base font-medium" style="color: #FE5000;" onmouseover="this.style.color='#E04500'" onmouseout="this.style.color='#FE5000'">
+                    <a href="{{ route('register') }}" class="block px-3 py-2 text-base font-medium text-neutral-800 hover:text-neutral-700">
                         Enterprise Trial
                     </a>
                 </div>

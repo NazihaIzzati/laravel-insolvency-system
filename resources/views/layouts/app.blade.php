@@ -26,17 +26,17 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans antialiased bg-gray-50 flex flex-col min-h-screen">
+<body class="font-sans antialiased bg-white-50 flex flex-col min-h-screen">
     <div class="flex-1">
         <!-- Navigation -->
         @auth
-            <nav class="bg-white border-b border-primary-200 shadow-sm">
+            <nav class="bg-white border-b border-neutral-200 shadow-sm">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between items-center h-16">
                         <!-- Logo -->
                         <div class="flex items-center">
-                            <a href="{{ route('dashboard') }}" class="text-xl font-semibold text-primary-900 hover:text-primary-700 transition-colors duration-200">
-                                Insolvency <span class="text-accent-500">Data System</span>
+                            <a href="{{ route('dashboard') }}" class="text-xl font-semibold text-neutral-900 hover:text-neutral-700 transition-colors duration-200">
+                                Insolvency <span class="text-neutral-800">Data System</span>
                             </a>
                         </div>
 
@@ -44,60 +44,60 @@
                         <div class="flex items-center">
                             <!-- User Profile Dropdown -->
                             <div class="relative group">
-                                <button class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-primary-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-500">
-                                    <div class="w-8 h-8 bg-gradient-to-br from-accent-500 to-accent-600 rounded-full flex items-center justify-center shadow-sm">
+                                <button class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-neutral-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-neutral-500">
+                                    <div class="w-8 h-8 bg-gradient-to-br from-neutral-500 to-neutral-600 rounded-full flex items-center justify-center shadow-sm">
                                         <span class="text-sm font-semibold text-white">{{ substr(auth()->user()->name, 0, 1) }}</span>
                                     </div>
                                     <div class="hidden sm:block text-left">
-                                        <p class="text-sm font-medium text-primary-900">{{ auth()->user()->name }}</p>
-                                        <p class="text-xs text-primary-500">{{ auth()->user()->role_display }}</p>
+                                        <p class="text-sm font-medium text-neutral-900">{{ auth()->user()->name }}</p>
+                                        <p class="text-xs text-neutral-700">{{ auth()->user()->role_display }}</p>
                                     </div>
-                                    <i class="fas fa-chevron-down text-primary-400 group-hover:text-primary-600 transition-colors duration-200"></i>
+                                    <i class="fas fa-chevron-down text-neutral-800 group-hover:text-neutral-800 transition-colors duration-200"></i>
                                 </button>
                                 
                                 <!-- Dropdown Menu -->
-                                <div class="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg border border-primary-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                <div class="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg border border-neutral-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                                     <div class="p-4">
                                         <!-- Profile Header -->
                                         <div class="flex items-center space-x-3 mb-4">
-                                            <div class="w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-full flex items-center justify-center shadow-md">
+                                            <div class="w-12 h-12 bg-gradient-to-br from-neutral-500 to-neutral-600 rounded-full flex items-center justify-center shadow-md">
                                                 <span class="text-lg font-bold text-white">{{ substr(auth()->user()->name, 0, 1) }}</span>
                                             </div>
                                             <div class="flex-1">
-                                                <p class="text-base font-semibold text-primary-900">{{ auth()->user()->name }}</p>
-                                                <p class="text-sm text-primary-500">{{ auth()->user()->email }}</p>
+                                                <p class="text-base font-semibold text-neutral-900">{{ auth()->user()->name }}</p>
+                                                <p class="text-sm text-neutral-700">{{ auth()->user()->email }}</p>
                                             </div>
                                         </div>
                                         
                                         <!-- Profile Information -->
-                                        <div class="bg-gray-50 rounded-lg p-3 mb-4">
+                                        <div class="bg-neutral-50 rounded-lg p-3 mb-4">
                                             <div class="grid grid-cols-2 gap-3 text-xs">
                                                 <div class="flex items-center space-x-2">
-                                                    <i class="fas fa-user-tag text-primary-400"></i>
+                                                    <i class="fas fa-user-tag text-neutral-800"></i>
                                                     <div>
-                                                        <p class="text-gray-500">Role</p>
-                                                        <p class="font-medium text-primary-900">{{ auth()->user()->role_display }}</p>
+                                                        <p class="text-neutral-700">Role</p>
+                                                        <p class="font-medium text-neutral-900">{{ auth()->user()->role_display }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="flex items-center space-x-2">
                                                     <i class="fas fa-circle text-{{ auth()->user()->is_active ? 'green' : 'red' }}-400"></i>
                                                     <div>
-                                                        <p class="text-gray-500">Status</p>
-                                                        <p class="font-medium text-primary-900">{{ auth()->user()->is_active ? 'Active' : 'Inactive' }}</p>
+                                                        <p class="text-neutral-700">Status</p>
+                                                        <p class="font-medium text-neutral-900">{{ auth()->user()->is_active ? 'Active' : 'Inactive' }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="flex items-center space-x-2">
-                                                    <i class="fas fa-calendar text-primary-400"></i>
+                                                    <i class="fas fa-calendar text-neutral-800"></i>
                                                     <div>
-                                                        <p class="text-gray-500">Member Since</p>
-                                                        <p class="font-medium text-primary-900">{{ auth()->user()->created_at->format('M Y') }}</p>
+                                                        <p class="text-neutral-700">Member Since</p>
+                                                        <p class="font-medium text-neutral-900">{{ auth()->user()->created_at->format('M Y') }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="flex items-center space-x-2">
-                                                    <i class="fas fa-clock text-primary-400"></i>
+                                                    <i class="fas fa-clock text-neutral-800"></i>
                                                     <div>
-                                                        <p class="text-gray-500">Last Login</p>
-                                                        <p class="font-medium text-primary-900">{{ auth()->user()->updated_at->diffForHumans() }}</p>
+                                                        <p class="text-neutral-700">Last Login</p>
+                                                        <p class="font-medium text-neutral-900">{{ auth()->user()->updated_at->diffForHumans() }}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -107,13 +107,13 @@
                                         
                                         <!-- Action Buttons -->
                                         <div class="space-y-1">
-                                            <a href="{{ route('password.change') }}" class="flex items-center px-3 py-2 text-sm text-primary-700 hover:bg-primary-50 rounded-lg transition-colors duration-200">
+                                            <a href="{{ route('password.change') }}" class="flex items-center px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 rounded-lg transition-colors duration-200">
                                                 <i class="fas fa-key mr-3 text-primary-400"></i>
                                                 Change Password
                                             </a>
                                             
                                             @if(auth()->user()->isAdmin())
-                                                <a href="{{ route('admin.dashboard') }}" class="flex items-center px-3 py-2 text-sm text-primary-700 hover:bg-primary-50 rounded-lg transition-colors duration-200">
+                                                <a href="{{ route('admin.dashboard') }}" class="flex items-center px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50 rounded-lg transition-colors duration-200">
                                                     <i class="fas fa-cog mr-3 text-primary-400"></i>
                                                     Admin Panel
                                                 </a>
@@ -148,20 +148,20 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-auto">
+    <footer class="bg-white border-t border-neutral-200 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center space-x-4 mb-4 md:mb-0">
-                    <div class="text-sm text-gray-500">
+                    <div class="text-sm text-neutral-700">
                         © {{ date('Y') }} {{ config('app.name', 'Insolvency Data System') }}. All rights reserved.
                     </div>
                 </div>
                 
                 <div class="flex items-center space-x-6">
-                    <div class="text-sm text-gray-500">
+                    <div class="text-sm text-neutral-700">
                         Version 1.0.0
                     </div>
-                    <div class="text-sm text-gray-500">
+                    <div class="text-sm text-neutral-700">
                         Last updated: {{ date('M d, Y') }}
                     </div>
                 </div>

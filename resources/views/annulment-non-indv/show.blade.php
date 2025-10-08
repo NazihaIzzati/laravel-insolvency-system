@@ -3,10 +3,10 @@
 @section('title', 'Non-Individual Annulment Record Details')
 
 @section('content')
-<div class="min-h-screen bg-primary-50">
+<div class="min-h-screen bg-neutral-50">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Header -->
-        <div class="bg-gradient-to-r from-primary-900 to-accent-600 rounded-xl shadow-lg mb-8">
+        <div class="bg-gradient-to-r from-neutral-900 to-accent-600 rounded-xl shadow-lg mb-8">
             <div class="px-8 py-12">
                 <div class="flex items-center justify-between">
                     <div class="text-white">
@@ -27,8 +27,8 @@
         <!-- Details -->
         <div class="professional-section mb-6">
             <div class="professional-section-header">
-                <h3 class="text-lg font-medium text-primary-900">Company Information</h3>
-                <p class="text-sm text-primary-500 mt-1">Complete company and annulment details</p>
+                <h3 class="text-lg font-medium text-neutral-900">Company Information</h3>
+                <p class="text-sm text-neutral-700 mt-1">Complete company and annulment details</p>
             </div>
             <div class="professional-section-content">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -38,9 +38,9 @@
                             <div class="flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full mr-3">
                                 <i class="fas fa-building text-blue-600"></i>
                             </div>
-                            <h4 class="text-lg font-semibold text-gray-900">Company Name</h4>
+                            <h4 class="text-lg font-semibold text-neutral-900">Company Name</h4>
                         </div>
-                        <p class="text-gray-700 font-medium">{{ $annulmentNonIndv->company_name ?? 'N/A' }}</p>
+                        <p class="text-neutral-700 font-medium">{{ $annulmentNonIndv->company_name ?? 'N/A' }}</p>
                     </div>
 
                     <!-- Insolvency Number -->
@@ -49,9 +49,9 @@
                             <div class="flex items-center justify-center w-10 h-10 bg-green-100 rounded-full mr-3">
                                 <i class="fas fa-file-alt text-green-600"></i>
                             </div>
-                            <h4 class="text-lg font-semibold text-gray-900">Insolvency Number</h4>
+                            <h4 class="text-lg font-semibold text-neutral-900">Insolvency Number</h4>
                         </div>
-                        <p class="text-gray-700 font-medium">{{ $annulmentNonIndv->insolvency_no ?? 'N/A' }}</p>
+                        <p class="text-neutral-700 font-medium">{{ $annulmentNonIndv->insolvency_no ?? 'N/A' }}</p>
                     </div>
 
                     <!-- Company Registration Number -->
@@ -60,20 +60,20 @@
                             <div class="flex items-center justify-center w-10 h-10 bg-purple-100 rounded-full mr-3">
                                 <i class="fas fa-certificate text-purple-600"></i>
                             </div>
-                            <h4 class="text-lg font-semibold text-gray-900">Registration Number</h4>
+                            <h4 class="text-lg font-semibold text-neutral-900">Registration Number</h4>
                         </div>
-                        <p class="text-gray-700 font-medium">{{ $annulmentNonIndv->company_registration_no ?? 'N/A' }}</p>
+                        <p class="text-neutral-700 font-medium">{{ $annulmentNonIndv->company_registration_no ?? 'N/A' }}</p>
                     </div>
 
                     <!-- Others -->
-                    <div class="bg-gradient-to-r from-orange-50 to-yellow-50 rounded-xl p-6 border border-orange-200">
+                    <div class="bg-gradient-to-r from-neutral-50 to-neutral-100 rounded-xl p-6 border border-neutral-200">
                         <div class="flex items-center mb-3">
-                            <div class="flex items-center justify-center w-10 h-10 bg-orange-100 rounded-full mr-3">
-                                <i class="fas fa-tag text-orange-600"></i>
+                            <div class="flex items-center justify-center w-10 h-10 bg-neutral-100 rounded-full mr-3">
+                                <i class="fas fa-tag text-neutral-800"></i>
                             </div>
-                            <h4 class="text-lg font-semibold text-gray-900">Others</h4>
+                            <h4 class="text-lg font-semibold text-neutral-900">Others</h4>
                         </div>
-                        <p class="text-gray-700 font-medium">{{ $annulmentNonIndv->others ?? 'N/A' }}</p>
+                        <p class="text-neutral-700 font-medium">{{ $annulmentNonIndv->others ?? 'N/A' }}</p>
                     </div>
 
                     <!-- Court Case Number -->
@@ -82,9 +82,9 @@
                             <div class="flex items-center justify-center w-10 h-10 bg-red-100 rounded-full mr-3">
                                 <i class="fas fa-gavel text-red-600"></i>
                             </div>
-                            <h4 class="text-lg font-semibold text-gray-900">Court Case Number</h4>
+                            <h4 class="text-lg font-semibold text-neutral-900">Court Case Number</h4>
                         </div>
-                        <p class="text-gray-700 font-medium">{{ $annulmentNonIndv->court_case_no ?? 'N/A' }}</p>
+                        <p class="text-neutral-700 font-medium">{{ $annulmentNonIndv->court_case_no ?? 'N/A' }}</p>
                     </div>
 
                     <!-- Release Date -->
@@ -93,9 +93,9 @@
                             <div class="flex items-center justify-center w-10 h-10 bg-teal-100 rounded-full mr-3">
                                 <i class="fas fa-calendar text-teal-600"></i>
                             </div>
-                            <h4 class="text-lg font-semibold text-gray-900">Release Date</h4>
+                            <h4 class="text-lg font-semibold text-neutral-900">Release Date</h4>
                         </div>
-                        <p class="text-gray-700 font-medium">
+                        <p class="text-neutral-700 font-medium">
                             @if($annulmentNonIndv->release_date)
                                 @if(is_string($annulmentNonIndv->release_date))
                                     {{ \Carbon\Carbon::parse($annulmentNonIndv->release_date)->format('d/m/Y') }}
@@ -114,20 +114,20 @@
                             <div class="flex items-center justify-center w-10 h-10 bg-indigo-100 rounded-full mr-3">
                                 <i class="fas fa-list text-indigo-600"></i>
                             </div>
-                            <h4 class="text-lg font-semibold text-gray-900">Release Type</h4>
+                            <h4 class="text-lg font-semibold text-neutral-900">Release Type</h4>
                         </div>
-                        <p class="text-gray-700 font-medium">{{ $annulmentNonIndv->release_type ?? 'N/A' }}</p>
+                        <p class="text-neutral-700 font-medium">{{ $annulmentNonIndv->release_type ?? 'N/A' }}</p>
                     </div>
 
                     <!-- Branch -->
-                    <div class="bg-gradient-to-r from-gray-50 to-slate-50 rounded-xl p-6 border border-gray-200">
+                    <div class="bg-gradient-to-r from-gray-50 to-slate-50 rounded-xl p-6 border border-neutral-200">
                         <div class="flex items-center mb-3">
                             <div class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full mr-3">
-                                <i class="fas fa-map-marker-alt text-gray-600"></i>
+                                <i class="fas fa-map-marker-alt text-neutral-800"></i>
                             </div>
-                            <h4 class="text-lg font-semibold text-gray-900">Branch</h4>
+                            <h4 class="text-lg font-semibold text-neutral-900">Branch</h4>
                         </div>
-                        <p class="text-gray-700 font-medium">{{ $annulmentNonIndv->branch ?? 'N/A' }}</p>
+                        <p class="text-neutral-700 font-medium">{{ $annulmentNonIndv->branch ?? 'N/A' }}</p>
                     </div>
                 </div>
             </div>
@@ -136,8 +136,8 @@
         <!-- System Information -->
         <div class="professional-section mb-6">
             <div class="professional-section-header">
-                <h3 class="text-lg font-medium text-primary-900">System Information</h3>
-                <p class="text-sm text-primary-500 mt-1">Record metadata and timestamps</p>
+                <h3 class="text-lg font-medium text-neutral-900">System Information</h3>
+                <p class="text-sm text-neutral-700 mt-1">Record metadata and timestamps</p>
             </div>
             <div class="professional-section-content">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -145,22 +145,22 @@
                     <div class="bg-gradient-to-r from-slate-50 to-gray-50 rounded-xl p-6 border border-slate-200">
                         <div class="flex items-center mb-3">
                             <div class="flex items-center justify-center w-10 h-10 bg-slate-100 rounded-full mr-3">
-                                <i class="fas fa-clock text-slate-600"></i>
+                                <i class="fas fa-clock text-slate-800"></i>
                             </div>
-                            <h4 class="text-lg font-semibold text-gray-900">Last Updated</h4>
+                            <h4 class="text-lg font-semibold text-neutral-900">Last Updated</h4>
                         </div>
-                        <p class="text-gray-700 font-medium">{{ $annulmentNonIndv->formatted_updated_date }}</p>
+                        <p class="text-neutral-700 font-medium">{{ $annulmentNonIndv->formatted_updated_date }}</p>
                     </div>
 
                     <!-- Created Date -->
                     <div class="bg-gradient-to-r from-slate-50 to-gray-50 rounded-xl p-6 border border-slate-200">
                         <div class="flex items-center mb-3">
                             <div class="flex items-center justify-center w-10 h-10 bg-slate-100 rounded-full mr-3">
-                                <i class="fas fa-plus text-slate-600"></i>
+                                <i class="fas fa-plus text-slate-800"></i>
                             </div>
-                            <h4 class="text-lg font-semibold text-gray-900">Created Date</h4>
+                            <h4 class="text-lg font-semibold text-neutral-900">Created Date</h4>
                         </div>
-                        <p class="text-gray-700 font-medium">{{ $annulmentNonIndv->created_at->format('d/m/Y h:i A') }}</p>
+                        <p class="text-neutral-700 font-medium">{{ $annulmentNonIndv->created_at->format('d/m/Y h:i A') }}</p>
                     </div>
                 </div>
             </div>

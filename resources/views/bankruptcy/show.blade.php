@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-gray-50 py-6">
+<div class="bg-white-50 py-6">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Print Header (only visible when printing) -->
         <div class="print-only" style="display: none;">
@@ -22,8 +22,8 @@
         <div class="mb-8 no-print">
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Bankruptcy Record Details</h1>
-                    <p class="mt-2 text-gray-600">View detailed information about the bankruptcy record</p>
+                    <h1 class="text-3xl font-bold text-neutral-900">Bankruptcy Record Details</h1>
+                    <p class="mt-2 text-neutral-800">View detailed information about the bankruptcy record</p>
                 </div>
                 <div class="flex flex-col sm:flex-row gap-3">
                     <a href="{{ route('bankruptcy.index') }}" 
@@ -43,41 +43,41 @@
                 <div class="pdf-record-grid">
                     <!-- Basic Information -->
                     <div>
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Basic Information</h3>
+                        <h3 class="text-lg font-medium text-neutral-900 mb-4">Basic Information</h3>
                         <dl class="space-y-3">
                             <div>
-                                <dt class="text-sm font-medium text-gray-500">Insolvency Number</dt>
-                                <dd class="mt-1 text-sm text-gray-900 font-mono">{{ $bankruptcy->insolvency_no }}</dd>
+                                <dt class="text-sm font-medium text-neutral-700">Insolvency Number</dt>
+                                <dd class="mt-1 text-sm text-neutral-900 font-mono">{{ $bankruptcy->insolvency_no }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500">Full Name</dt>
-                                <dd class="mt-1 text-sm text-gray-900">{{ $bankruptcy->name }}</dd>
+                                <dt class="text-sm font-medium text-neutral-700">Full Name</dt>
+                                <dd class="mt-1 text-sm text-neutral-900">{{ $bankruptcy->name }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500">IC Number</dt>
-                                <dd class="mt-1 text-sm text-gray-900 font-mono">{{ $bankruptcy->ic_no }}</dd>
+                                <dt class="text-sm font-medium text-neutral-700">IC Number</dt>
+                                <dd class="mt-1 text-sm text-neutral-900 font-mono">{{ $bankruptcy->ic_no }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500">Others</dt>
-                                <dd class="mt-1 text-sm text-gray-900">{{ $bankruptcy->others ?? 'N/A' }}</dd>
+                                <dt class="text-sm font-medium text-neutral-700">Others</dt>
+                                <dd class="mt-1 text-sm text-neutral-900">{{ $bankruptcy->others ?? 'N/A' }}</dd>
                             </div>
                         </dl>
                     </div>
 
                     <!-- Case Information -->
                     <div class="mt-8">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Case Information</h3>
+                        <h3 class="text-lg font-medium text-neutral-900 mb-4">Case Information</h3>
                         <dl class="space-y-3">
                             <div>
-                                <dt class="text-sm font-medium text-gray-500">Court Case Number</dt>
-                                <dd class="mt-1 text-sm text-gray-900">{{ $bankruptcy->court_case_no ?? 'N/A' }}</dd>
+                                <dt class="text-sm font-medium text-neutral-700">Court Case Number</dt>
+                                <dd class="mt-1 text-sm text-neutral-900">{{ $bankruptcy->court_case_no ?? 'N/A' }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500">Branch</dt>
-                                <dd class="mt-1 text-sm text-gray-900">{{ $bankruptcy->branch ?? 'N/A' }}</dd>
+                                <dt class="text-sm font-medium text-neutral-700">Branch</dt>
+                                <dd class="mt-1 text-sm text-neutral-900">{{ $bankruptcy->branch ?? 'N/A' }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500">Status</dt>
+                                <dt class="text-sm font-medium text-neutral-700">Status</dt>
                                 <dd class="mt-1">
                                     @if($bankruptcy->is_active)
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
@@ -96,11 +96,11 @@
 
                 <!-- Dates Section -->
                 <div class="mt-8">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4">Important Dates</h3>
+                    <h3 class="text-lg font-medium text-neutral-900 mb-4">Important Dates</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
-                            <dt class="text-sm font-medium text-gray-500">RO Date</dt>
-                            <dd class="mt-1 text-sm text-gray-900">
+                            <dt class="text-sm font-medium text-neutral-700">RO Date</dt>
+                            <dd class="mt-1 text-sm text-neutral-900">
                                 @if($bankruptcy->ro_date)
                                     @if(is_string($bankruptcy->ro_date))
                                         {{ \Carbon\Carbon::parse($bankruptcy->ro_date)->format('d/m/Y') }}
@@ -113,8 +113,8 @@
                             </dd>
                         </div>
                         <div>
-                            <dt class="text-sm font-medium text-gray-500">AO Date</dt>
-                            <dd class="mt-1 text-sm text-gray-900">
+                            <dt class="text-sm font-medium text-neutral-700">AO Date</dt>
+                            <dd class="mt-1 text-sm text-neutral-900">
                                 @if($bankruptcy->ao_date)
                                     @if(is_string($bankruptcy->ao_date))
                                         {{ \Carbon\Carbon::parse($bankruptcy->ao_date)->format('d/m/Y') }}
@@ -127,8 +127,8 @@
                             </dd>
                         </div>
                         <div>
-                            <dt class="text-sm font-medium text-gray-500">Updated Date</dt>
-                            <dd class="mt-1 text-sm text-gray-900">
+                            <dt class="text-sm font-medium text-neutral-700">Updated Date</dt>
+                            <dd class="mt-1 text-sm text-neutral-900">
                                 {{ $bankruptcy->formatted_updated_date }}
                             </dd>
                         </div>
@@ -137,7 +137,7 @@
 
 
                 <!-- Action Buttons -->
-                <div class="mt-8 pt-6 border-t border-gray-200 no-print">
+                <div class="mt-8 pt-6 border-t border-neutral-200 no-print">
                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
                         <!-- Left side buttons -->
                         <div class="flex flex-col sm:flex-row gap-3">

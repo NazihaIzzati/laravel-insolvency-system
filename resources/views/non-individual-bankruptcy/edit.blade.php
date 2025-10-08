@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-gray-50 py-6">
+<div class="bg-white-50 py-6">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
         <div class="mb-8">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Edit Non-Individual Bankruptcy Record</h1>
-                    <p class="mt-2 text-gray-600">Update the non-individual bankruptcy record information</p>
+                    <h1 class="text-3xl font-bold text-neutral-900">Edit Non-Individual Bankruptcy Record</h1>
+                    <p class="mt-2 text-neutral-800">Update the non-individual bankruptcy record information</p>
                 </div>
                 <div class="flex space-x-3">
                     <a href="{{ route('non-individual-bankruptcy.show', $nonIndividualBankruptcy) }}" 
@@ -40,7 +40,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Basic Information -->
                         <div>
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">Basic Information</h3>
+                            <h3 class="text-lg font-medium text-neutral-900 mb-4">Basic Information</h3>
                             <div class="space-y-4">
                                 <div>
                                     <label for="insolvency_no" class="form-label">Insolvency Number *</label>
@@ -100,7 +100,7 @@
 
                         <!-- Case Information -->
                         <div>
-                            <h3 class="text-lg font-medium text-gray-900 mb-4">Case Information</h3>
+                            <h3 class="text-lg font-medium text-neutral-900 mb-4">Case Information</h3>
                             <div class="space-y-4">
                                 <div>
                                     <label for="court_case_no" class="form-label">Court Case Number</label>
@@ -158,7 +158,7 @@
                     </div>
 
                     <!-- Submit Button -->
-                    <div class="mt-8 pt-6 border-t border-gray-200 flex justify-end">
+                    <div class="mt-8 pt-6 border-t border-neutral-200 flex justify-end">
                         <button type="submit" class="btn-primary">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />

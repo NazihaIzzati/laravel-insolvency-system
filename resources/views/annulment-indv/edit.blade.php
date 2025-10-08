@@ -3,15 +3,15 @@
 @section('title', 'Edit Annulment Record')
 
 @section('content')
-<div class="min-h-screen bg-primary-50">
+<div class="min-h-screen bg-neutral-50">
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Header -->
         <div class="mb-8">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-primary-900">Edit Annulment Record</h1>
-                    <p class="text-primary-600 mt-2">Update annulment individual record information</p>
+                    <h1 class="text-3xl font-bold text-neutral-900">Edit Annulment Record</h1>
+                    <p class="text-neutral-800 mt-2">Update annulment individual record information</p>
                 </div>
                 <div class="flex space-x-3">
                     <a href="{{ route('annulment-indv.show', $annulmentIndv) }}" class="professional-button">
@@ -34,8 +34,8 @@
         <!-- Form -->
         <div class="professional-section">
             <div class="professional-section-header">
-                <h3 class="text-lg font-medium text-primary-900">Annulment Information</h3>
-                <p class="text-sm text-primary-500 mt-1">Update the annulment details</p>
+                <h3 class="text-lg font-medium text-neutral-900">Annulment Information</h3>
+                <p class="text-sm text-neutral-700 mt-1">Update the annulment details</p>
             </div>
             <div class="professional-section-content">
                 <form method="POST" action="{{ route('annulment-indv.update', $annulmentIndv) }}" class="space-y-6">
@@ -44,10 +44,10 @@
                     
                     <!-- Basic Information -->
                     <div>
-                        <h4 class="text-md font-medium text-primary-800 mb-4">Basic Information</h4>
+                        <h4 class="text-md font-medium text-neutral-800 mb-4">Basic Information</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="name" class="block text-sm font-medium text-neutral-700 mb-2">
                                     Name <span class="text-red-500">*</span>
                                 </label>
                                 <input type="text" 
@@ -63,7 +63,7 @@
                             </div>
 
                             <div>
-                                <label for="ic_no" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="ic_no" class="block text-sm font-medium text-neutral-700 mb-2">
                                     IC No <span class="text-red-500">*</span>
                                 </label>
                                 <input type="text" 
@@ -79,7 +79,7 @@
                             </div>
 
                             <div>
-                                <label for="others" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="others" class="block text-sm font-medium text-neutral-700 mb-2">
                                     Others
                                 </label>
                                 <input type="text" 
@@ -94,7 +94,7 @@
                             </div>
 
                             <div>
-                                <label for="court_case_no" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="court_case_no" class="block text-sm font-medium text-neutral-700 mb-2">
                                     Court Case No
                                 </label>
                                 <input type="text" 
@@ -112,10 +112,10 @@
 
                     <!-- Dates and Additional Information -->
                     <div>
-                        <h4 class="text-md font-medium text-primary-800 mb-4">Dates and Additional Information</h4>
+                        <h4 class="text-md font-medium text-neutral-800 mb-4">Dates and Additional Information</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label for="release_date" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="release_date" class="block text-sm font-medium text-neutral-700 mb-2">
                                     Release Date
                                 </label>
                                 <input type="text" 
@@ -130,7 +130,7 @@
                             </div>
 
                             <div>
-                                <label for="updated_date" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="updated_date" class="block text-sm font-medium text-neutral-700 mb-2">
                                     Updated Date
                                 </label>
                                 <input type="text" 
@@ -145,7 +145,7 @@
                             </div>
 
                             <div>
-                                <label for="release_type" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="release_type" class="block text-sm font-medium text-neutral-700 mb-2">
                                     Release Type
                                 </label>
                                 <input type="text" 
@@ -160,7 +160,7 @@
                             </div>
 
                             <div>
-                                <label for="branch" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label for="branch" class="block text-sm font-medium text-neutral-700 mb-2">
                                     Branch
                                 </label>
                                 <input type="text" 

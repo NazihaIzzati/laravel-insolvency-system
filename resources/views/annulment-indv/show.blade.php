@@ -3,15 +3,15 @@
 @section('title', 'View Annulment Record')
 
 @section('content')
-<div class="min-h-screen bg-primary-50">
+<div class="min-h-screen bg-neutral-50">
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Header -->
         <div class="mb-8">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-primary-900">Annulment Record Details</h1>
-                    <p class="text-primary-600 mt-2">View annulment individual record information</p>
+                    <h1 class="text-3xl font-bold text-neutral-900">Annulment Record Details</h1>
+                    <p class="text-neutral-800 mt-2">View annulment individual record information</p>
                 </div>
                 <div class="flex space-x-3">
                     <a href="{{ route('annulment-indv.edit', $annulmentIndv) }}" class="professional-button-primary">
@@ -36,37 +36,37 @@
                 <div class="pdf-record-grid">
                     <!-- Basic Information -->
                     <div>
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Basic Information</h3>
+                        <h3 class="text-lg font-medium text-neutral-900 mb-4">Basic Information</h3>
                         <dl class="space-y-3">
                             <div>
-                                <dt class="text-sm font-medium text-gray-500">Name</dt>
-                                <dd class="mt-1 text-sm text-gray-900">{{ $annulmentIndv->name }}</dd>
+                                <dt class="text-sm font-medium text-neutral-700">Name</dt>
+                                <dd class="mt-1 text-sm text-neutral-900">{{ $annulmentIndv->name }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500">IC Number</dt>
-                                <dd class="mt-1 text-sm text-gray-900 font-mono">{{ $annulmentIndv->ic_no }}</dd>
+                                <dt class="text-sm font-medium text-neutral-700">IC Number</dt>
+                                <dd class="mt-1 text-sm text-neutral-900 font-mono">{{ $annulmentIndv->ic_no }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500">Others</dt>
-                                <dd class="mt-1 text-sm text-gray-900">{{ $annulmentIndv->others ?? 'N/A' }}</dd>
+                                <dt class="text-sm font-medium text-neutral-700">Others</dt>
+                                <dd class="mt-1 text-sm text-neutral-900">{{ $annulmentIndv->others ?? 'N/A' }}</dd>
                             </div>
                         </dl>
                     </div>
 
                     <!-- Case Information -->
                     <div class="mt-8">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4">Case Information</h3>
+                        <h3 class="text-lg font-medium text-neutral-900 mb-4">Case Information</h3>
                         <dl class="space-y-3">
                             <div>
-                                <dt class="text-sm font-medium text-gray-500">Court Case Number</dt>
-                                <dd class="mt-1 text-sm text-gray-900">{{ $annulmentIndv->court_case_no ?? 'N/A' }}</dd>
+                                <dt class="text-sm font-medium text-neutral-700">Court Case Number</dt>
+                                <dd class="mt-1 text-sm text-neutral-900">{{ $annulmentIndv->court_case_no ?? 'N/A' }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500">Branch</dt>
-                                <dd class="mt-1 text-sm text-gray-900">{{ $annulmentIndv->branch ?? 'N/A' }}</dd>
+                                <dt class="text-sm font-medium text-neutral-700">Branch</dt>
+                                <dd class="mt-1 text-sm text-neutral-900">{{ $annulmentIndv->branch ?? 'N/A' }}</dd>
                             </div>
                             <div>
-                                <dt class="text-sm font-medium text-gray-500">Status</dt>
+                                <dt class="text-sm font-medium text-neutral-700">Status</dt>
                                 <dd class="mt-1">
                                     @if($annulmentIndv->is_active)
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
@@ -85,11 +85,11 @@
 
                 <!-- Dates Section -->
                 <div class="mt-8">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4">Important Dates</h3>
+                    <h3 class="text-lg font-medium text-neutral-900 mb-4">Important Dates</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
-                            <dt class="text-sm font-medium text-gray-500">Release Date</dt>
-                            <dd class="mt-1 text-sm text-gray-900">
+                            <dt class="text-sm font-medium text-neutral-700">Release Date</dt>
+                            <dd class="mt-1 text-sm text-neutral-900">
                                 @if($annulmentIndv->release_date)
                                     @if(is_string($annulmentIndv->release_date))
                                         {{ \Carbon\Carbon::parse($annulmentIndv->release_date)->format('d/m/Y') }}
@@ -102,20 +102,20 @@
                             </dd>
                         </div>
                         <div>
-                            <dt class="text-sm font-medium text-gray-500">Updated Date</dt>
-                            <dd class="mt-1 text-sm text-gray-900">
+                            <dt class="text-sm font-medium text-neutral-700">Updated Date</dt>
+                            <dd class="mt-1 text-sm text-neutral-900">
                                 {{ $annulmentIndv->formatted_updated_date }}
                             </dd>
                         </div>
                         <div>
-                            <dt class="text-sm font-medium text-gray-500">Release Type</dt>
-                            <dd class="mt-1 text-sm text-gray-900">{{ $annulmentIndv->release_type ?? 'N/A' }}</dd>
+                            <dt class="text-sm font-medium text-neutral-700">Release Type</dt>
+                            <dd class="mt-1 text-sm text-neutral-900">{{ $annulmentIndv->release_type ?? 'N/A' }}</dd>
                         </div>
                     </div>
                 </div>
 
                 <!-- Action Buttons -->
-                <div class="mt-8 pt-6 border-t border-gray-200 no-print">
+                <div class="mt-8 pt-6 border-t border-neutral-200 no-print">
                     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
                         <!-- Left side buttons -->
                         <div class="flex flex-col sm:flex-row gap-3">

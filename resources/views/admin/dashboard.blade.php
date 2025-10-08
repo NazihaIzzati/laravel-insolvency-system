@@ -3,17 +3,17 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
-<div class="min-h-screen bg-primary-50">
+<div class="min-h-screen bg-white-50">
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Welcome Section -->
-        <div class="bg-gradient-to-r from-primary-900 to-accent-600 rounded-xl shadow-lg mb-8">
+        <div class="bg-gradient-to-r from-neutral-500 to-neutral-600 rounded-xl shadow-sm mb-8">
             <div class="px-8 py-12">
                 <div class="flex items-center justify-between">
                     <div class="text-white">
                         <h1 class="text-4xl font-light mb-3">Admin Dashboard</h1>
                         <p class="text-xl text-primary-100 mb-2">System administration panel</p>
-                        <p class="text-primary-200">Manage users and system settings</p>
+                        <p class="text-primary-100">Manage users and system settings</p>
                     </div>
                     <div class="text-right text-white">
                         <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg px-6 py-4">
@@ -28,7 +28,7 @@
     <!-- Admin Stats -->
     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <!-- Total Users -->
-        <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="bg-white overflow-hidden shadow-sm rounded-lg border border-neutral-200">
             <div class="p-5">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
@@ -38,8 +38,8 @@
                     </div>
                     <div class="ml-5 w-0 flex-1">
                         <dl>
-                            <dt class="text-sm font-medium text-gray-500 truncate">Total Users</dt>
-                            <dd class="text-lg font-medium text-gray-900">{{ \App\Models\User::count() }}</dd>
+                            <dt class="text-sm font-medium text-neutral-700 truncate">Total Users</dt>
+                            <dd class="text-lg font-medium text-neutral-900">{{ \App\Models\User::count() }}</dd>
                         </dl>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
         </div>
 
         <!-- Active Users -->
-        <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="bg-white overflow-hidden shadow-sm rounded-lg border border-neutral-200">
             <div class="p-5">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
@@ -57,8 +57,8 @@
                     </div>
                     <div class="ml-5 w-0 flex-1">
                         <dl>
-                            <dt class="text-sm font-medium text-gray-500 truncate">Active Users</dt>
-                            <dd class="text-lg font-medium text-gray-900">{{ \App\Models\User::where('is_active', true)->count() }}</dd>
+                            <dt class="text-sm font-medium text-neutral-700 truncate">Active Users</dt>
+                            <dd class="text-lg font-medium text-neutral-900">{{ \App\Models\User::where('is_active', true)->count() }}</dd>
                         </dl>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
         </div>
 
         <!-- Admin Users -->
-        <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="bg-white overflow-hidden shadow-sm rounded-lg border border-neutral-200">
             <div class="p-5">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
@@ -76,8 +76,8 @@
                     </div>
                     <div class="ml-5 w-0 flex-1">
                         <dl>
-                            <dt class="text-sm font-medium text-gray-500 truncate">Admin Users</dt>
-                            <dd class="text-lg font-medium text-gray-900">{{ \App\Models\User::where('role', 'admin')->count() }}</dd>
+                            <dt class="text-sm font-medium text-neutral-700 truncate">Admin Users</dt>
+                            <dd class="text-lg font-medium text-neutral-900">{{ \App\Models\User::where('role', 'admin')->count() }}</dd>
                         </dl>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
         </div>
 
         <!-- Inactive Users -->
-        <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="bg-white overflow-hidden shadow-sm rounded-lg border border-neutral-200">
             <div class="p-5">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
@@ -95,8 +95,8 @@
                     </div>
                     <div class="ml-5 w-0 flex-1">
                         <dl>
-                            <dt class="text-sm font-medium text-gray-500 truncate">Inactive Users</dt>
-                            <dd class="text-lg font-medium text-gray-900">{{ \App\Models\User::where('is_active', false)->count() }}</dd>
+                            <dt class="text-sm font-medium text-neutral-700 truncate">Inactive Users</dt>
+                            <dd class="text-lg font-medium text-neutral-900">{{ \App\Models\User::where('is_active', false)->count() }}</dd>
                         </dl>
                     </div>
                 </div>
@@ -105,31 +105,31 @@
     </div>
 
     <!-- Users Management -->
-    <div class="bg-white shadow rounded-lg">
+    <div class="bg-white shadow-sm rounded-lg border border-neutral-200">
         <div class="px-4 py-5 sm:p-6">
-            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">
+            <h3 class="text-lg leading-6 font-medium text-neutral-900 mb-4">
                 User Management
             </h3>
             
             <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
+                <table class="min-w-full divide-y divide-neutral-200">
+                    <thead class="bg-neutral-50">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">Email</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">Role</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">Created</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
+                    <tbody class="bg-white divide-y divide-neutral-200">
                         @foreach(\App\Models\User::orderBy('created_at', 'desc')->get() as $user)
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-neutral-900">
                                 {{ $user->name }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral-700">
                                 {{ $user->email }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -142,7 +142,7 @@
                                     {{ $user->is_active ? 'Active' : 'Inactive' }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral-700">
                                 {{ $user->created_at->format('M d, Y') }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -164,7 +164,7 @@
                                             </button>
                                         </form>
                                     @else
-                                        <span class="text-gray-400">Current User</span>
+                                        <span class="text-gray-800">Current User</span>
                                     @endif
                                 </div>
                             </td>
@@ -179,7 +179,7 @@
     <!-- Quick Actions -->
     <div class="bg-white shadow rounded-lg">
         <div class="px-4 py-5 sm:p-6">
-            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">
+            <h3 class="text-lg leading-6 font-medium text-neutral-900 mb-4">
                 Quick Actions
             </h3>
             <div class="flex flex-wrap gap-3">

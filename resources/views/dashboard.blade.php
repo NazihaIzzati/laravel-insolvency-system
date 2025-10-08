@@ -6,256 +6,208 @@
 <div class="min-h-screen bg-gray-50">
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Enhanced Welcome Section -->
-        <div class="relative overflow-hidden bg-primary-800 rounded-xl mb-8">
-            <!-- Background Pattern -->
-            <div class="absolute inset-0 bg-black opacity-10">
-                <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.1"><circle cx="30" cy="30" r="2"/></g></svg>');"></div>
-            </div>
-            
-            <div class="relative px-8 py-16">
-                <div class="flex flex-col lg:flex-row items-center justify-between">
-                    <div class="text-white mb-8 lg:mb-0">
-                        <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mr-4">
-                                <i class="fas fa-chart-line text-2xl text-white"></i>
-                            </div>
-                            <div>
-                                <h1 class="text-5xl font-bold mb-2 text-white">Dashboard</h1>
-                                <p class="text-lg text-primary-100">Insolvency Data Management System</p>
-                            </div>
-                        </div>
-                        <div class="mt-6">
-                            <p class="text-2xl font-semibold text-white mb-2">Welcome back, {{ $user->name }}!</p>
-                            <p class="text-lg text-primary-200">Here's your comprehensive system overview</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Enhanced Status Cards -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="bg-white bg-opacity-15 backdrop-blur-lg rounded-xl px-6 py-4 border border-white border-opacity-20">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 bg-success-500 bg-opacity-20 rounded-lg flex items-center justify-center mr-3">
-                                    <i class="fas fa-clock text-success-300"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm text-primary-200 mb-1">Last Updated</p>
-                                    <p class="text-lg font-semibold text-white">{{ now()->format('M d, Y') }}</p>
-                                    <p class="text-xs text-primary-300">{{ now()->format('H:i A') }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-white bg-opacity-15 backdrop-blur-lg rounded-xl px-6 py-4 border border-white border-opacity-20">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 bg-blue-500 bg-opacity-20 rounded-lg flex items-center justify-center mr-3">
-                                    <i class="fas fa-server text-blue-300"></i>
-                                </div>
-                                <div>
-                                    <p class="text-sm text-primary-200 mb-1">System Status</p>
-                                    <p class="text-lg font-semibold text-success-300">Online</p>
-                                    <p class="text-xs text-primary-300">All systems operational</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Enhanced Quick Actions -->
+        
+        <!-- Header Section -->
         <div class="mb-8">
-            <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center justify-between">
                 <div>
-                    <h2 class="text-3xl font-bold text-primary-900 mb-2">Quick Actions</h2>
-                    <p class="text-primary-600">Access your most used features instantly</p>
+                    <h1 class="text-3xl font-bold text-gray-900">Welcome back, {{ $user->name }}</h1>
+                    <p class="text-gray-600 mt-1">Here's what's happening with your insolvency data system today.</p>
                 </div>
-                <div class="hidden lg:flex items-center space-x-2 text-sm text-primary-500">
-                    <i class="fas fa-mouse-pointer"></i>
-                    <span>Click any card to access</span>
+                <div class="flex items-center space-x-4">
+                    <div class="hidden lg:flex items-center space-x-2 text-sm text-gray-500">
+                        <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span>System Online</span>
+                    </div>
+                    <div class="text-sm text-gray-500">{{ now()->format('M d, Y') }}</div>
                 </div>
             </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Individual Annulment -->
-                <a href="{{ route('annulment-indv.index') }}" class="group relative bg-white rounded-lg border border-gray-200 hover:border-primary-300 transition-all duration-300 overflow-hidden">
-                    <div class="absolute inset-0 bg-primary-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
-                    <div class="relative p-8">
-                        <div class="flex items-center justify-between mb-6">
-                            <div class="w-16 h-16 bg-primary-500 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-                                <i class="fas fa-user-check text-white text-2xl"></i>
-                            </div>
-                            <div class="text-right">
-                                <div class="w-3 h-3 bg-success-500 rounded-full animate-pulse"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-primary-900 mb-2">Individual Annulment</h3>
-                            <p class="text-primary-600 mb-4">Manage individual annulment records</p>
-                            <div class="flex items-center justify-between">
-                                <div class="text-3xl font-bold text-primary-600">{{ \App\Models\AnnulmentIndv::where('is_active', true)->count() }}</div>
-                                <div class="text-sm text-primary-500">records</div>
-                            </div>
-                        </div>
-                        <div class="mt-6 flex items-center text-sm text-primary-600 font-medium group-hover:text-primary-700">
-                            <span>Access Records</span>
-                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Non-Individual Annulment -->
-                <a href="{{ route('annulment-non-indv.index') }}" class="group relative bg-white rounded-lg border border-gray-200 hover:border-primary-300 transition-all duration-300 overflow-hidden">
-                    <div class="absolute inset-0 bg-primary-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
-                    <div class="relative p-8">
-                        <div class="flex items-center justify-between mb-6">
-                            <div class="w-16 h-16 bg-primary-500 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-                                <i class="fas fa-building text-white text-2xl"></i>
-                            </div>
-                            <div class="text-right">
-                                <div class="w-3 h-3 bg-success-500 rounded-full animate-pulse"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-primary-900 mb-2">Company Annulment</h3>
-                            <p class="text-primary-600 mb-4">Manage company annulment records</p>
-                            <div class="flex items-center justify-between">
-                                <div class="text-3xl font-bold text-primary-600">{{ \App\Models\AnnulmentNonIndv::where('is_active', true)->count() }}</div>
-                                <div class="text-sm text-primary-500">records</div>
-                            </div>
-                        </div>
-                        <div class="mt-6 flex items-center text-sm text-primary-600 font-medium group-hover:text-primary-700">
-                            <span>Access Records</span>
-                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Individual Bankruptcy -->
-                <a href="{{ route('bankruptcy.index') }}" class="group relative bg-white rounded-lg border border-gray-200 hover:border-primary-300 transition-all duration-300 overflow-hidden">
-                    <div class="absolute inset-0 bg-primary-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
-                    <div class="relative p-8">
-                        <div class="flex items-center justify-between mb-6">
-                            <div class="w-16 h-16 bg-primary-500 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-                                <i class="fas fa-file-invoice text-white text-2xl"></i>
-                            </div>
-                            <div class="text-right">
-                                <div class="w-3 h-3 bg-success-500 rounded-full animate-pulse"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-primary-900 mb-2">Individual Bankruptcy</h3>
-                            <p class="text-primary-600 mb-4">Manage individual bankruptcy records</p>
-                            <div class="flex items-center justify-between">
-                                <div class="text-3xl font-bold text-primary-600">{{ \App\Models\Bankruptcy::where('is_active', true)->count() }}</div>
-                                <div class="text-sm text-primary-500">records</div>
-                            </div>
-                        </div>
-                        <div class="mt-6 flex items-center text-sm text-primary-600 font-medium group-hover:text-primary-700">
-                            <span>Access Records</span>
-                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Non-Individual Bankruptcy -->
-                <a href="{{ route('non-individual-bankruptcy.index') }}" class="group relative bg-white rounded-lg border border-gray-200 hover:border-primary-300 transition-all duration-300 overflow-hidden">
-                    <div class="absolute inset-0 bg-primary-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
-                    <div class="relative p-8">
-                        <div class="flex items-center justify-between mb-6">
-                            <div class="w-16 h-16 bg-primary-500 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-                                <i class="fas fa-industry text-white text-2xl"></i>
-                            </div>
-                            <div class="text-right">
-                                <div class="w-3 h-3 bg-success-500 rounded-full animate-pulse"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-primary-900 mb-2">Company Bankruptcy</h3>
-                            <p class="text-primary-600 mb-4">Manage company bankruptcy records</p>
-                            <div class="flex items-center justify-between">
-                                <div class="text-3xl font-bold text-primary-600">{{ \App\Models\NonIndividualBankruptcy::where('is_active', true)->count() }}</div>
-                                <div class="text-sm text-primary-500">records</div>
-                            </div>
-                        </div>
-                        <div class="mt-6 flex items-center text-sm text-primary-600 font-medium group-hover:text-primary-700">
-                            <span>Access Records</span>
-                            <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform duration-300"></i>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <!-- Admin Panel (if user is admin) -->
-            @if($user->isAdmin())
-                <div class="mt-8">
-                    <div class="bg-primary-500 rounded-lg p-8 text-white">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <h3 class="text-2xl font-bold mb-2">Administration Panel</h3>
-                                <p class="text-primary-200 mb-4">Manage system settings and user accounts</p>
-                                <div class="flex items-center space-x-4">
-                                    <div class="text-sm">
-                                        <span class="text-primary-200">Admin Users:</span>
-                                        <span class="font-semibold">{{ \App\Models\User::where('role', 'admin')->count() }}</span>
-                                    </div>
-                                    <div class="text-sm">
-                                        <span class="text-primary-200">Total Users:</span>
-                                        <span class="font-semibold">{{ \App\Models\User::count() }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="{{ route('admin.dashboard') }}" class="group bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg px-6 py-4 transition-all duration-300">
-                                <div class="flex items-center">
-                                    <i class="fas fa-cog text-2xl mr-3 group-hover:rotate-90 transition-transform duration-300"></i>
-                                    <div class="text-right">
-                                        <div class="font-semibold">Access Panel</div>
-                                        <div class="text-xs text-primary-200">Click to enter</div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            @endif
         </div>
 
-        <!-- Enhanced Search Section -->
-        <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
-            <div class="bg-primary-500 px-8 py-6">
-                <div class="flex items-center">
-                    <div class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center mr-4">
-                        <i class="fas fa-search text-white text-xl"></i>
-                    </div>
+        <!-- Stats Overview -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Total Records -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                <div class="flex items-center justify-between">
                     <div>
-                        <h3 class="text-2xl font-bold text-white">Universal Search</h3>
-                        <p class="text-primary-200 mt-1">Find records across all databases instantly</p>
+                        <p class="text-sm font-medium text-gray-600">Total Records</p>
+                        <p class="text-3xl font-bold text-gray-900">{{ \App\Models\AnnulmentIndv::count() + \App\Models\AnnulmentNonIndv::count() + \App\Models\Bankruptcy::count() + \App\Models\NonIndividualBankruptcy::count() }}</p>
+                    </div>
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-database text-orange-600 text-xl"></i>
+                    </div>
+                </div>
+                <div class="mt-4 flex items-center">
+                    <span class="text-sm text-green-600 font-medium">+12%</span>
+                    <span class="text-sm text-gray-500 ml-2">from last month</span>
+                </div>
+            </div>
+
+            <!-- Active Records -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Active Records</p>
+                        <p class="text-3xl font-bold text-gray-900">{{ \App\Models\AnnulmentIndv::where('is_active', true)->count() + \App\Models\AnnulmentNonIndv::where('is_active', true)->count() + \App\Models\Bankruptcy::where('is_active', true)->count() + \App\Models\NonIndividualBankruptcy::where('is_active', true)->count() }}</p>
+                    </div>
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-check-circle text-green-600 text-xl"></i>
+                    </div>
+                </div>
+                <div class="mt-4 flex items-center">
+                    <span class="text-sm text-green-600 font-medium">+8%</span>
+                    <span class="text-sm text-gray-500 ml-2">from last month</span>
+                </div>
+            </div>
+
+            <!-- Individual Records -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Individual Records</p>
+                        <p class="text-3xl font-bold text-gray-900">{{ \App\Models\AnnulmentIndv::where('is_active', true)->count() + \App\Models\Bankruptcy::where('is_active', true)->count() }}</p>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-user text-blue-600 text-xl"></i>
+                    </div>
+                </div>
+                <div class="mt-4 flex items-center">
+                    <span class="text-sm text-green-600 font-medium">+5%</span>
+                    <span class="text-sm text-gray-500 ml-2">from last month</span>
+                </div>
+            </div>
+
+            <!-- Company Records -->
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Company Records</p>
+                        <p class="text-3xl font-bold text-gray-900">{{ \App\Models\AnnulmentNonIndv::where('is_active', true)->count() + \App\Models\NonIndividualBankruptcy::where('is_active', true)->count() }}</p>
+                    </div>
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-building text-purple-600 text-xl"></i>
+                    </div>
+                </div>
+                <div class="mt-4 flex items-center">
+                    <span class="text-sm text-green-600 font-medium">+3%</span>
+                    <span class="text-sm text-gray-500 ml-2">from last month</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-900">Quick Actions</h2>
+                <p class="text-sm text-gray-600 mt-1">Access your most used features</p>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <a href="{{ route('annulment-indv.index') }}" class="group flex items-center p-4 rounded-lg border border-gray-200 hover:border-orange-200 hover:shadow-md transition-all duration-200">
+                        <div class="w-12 h-12 bg-orange-50 rounded-lg flex items-center justify-center mr-4 group-hover:bg-orange-100 transition-colors duration-200">
+                            <i class="fas fa-user-check text-orange-600 text-lg"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-sm font-semibold text-gray-900 group-hover:text-orange-600 transition-colors duration-200">Individual Annulment</h3>
+                            <p class="text-xs text-gray-500 mt-1">Manage individual annulment records</p>
+                            <div class="mt-2 text-xs text-gray-400">{{ \App\Models\AnnulmentIndv::where('is_active', true)->count() }} active records</div>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400 group-hover:text-orange-600 transition-colors duration-200"></i>
+                    </a>
+
+                    <a href="{{ route('annulment-non-indv.index') }}" class="group flex items-center p-4 rounded-lg border border-gray-200 hover:border-orange-200 hover:shadow-md transition-all duration-200">
+                        <div class="w-12 h-12 bg-orange-50 rounded-lg flex items-center justify-center mr-4 group-hover:bg-orange-100 transition-colors duration-200">
+                            <i class="fas fa-building text-orange-600 text-lg"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-sm font-semibold text-gray-900 group-hover:text-orange-600 transition-colors duration-200">Company Annulment</h3>
+                            <p class="text-xs text-gray-500 mt-1">Manage company annulment records</p>
+                            <div class="mt-2 text-xs text-gray-400">{{ \App\Models\AnnulmentNonIndv::where('is_active', true)->count() }} active records</div>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400 group-hover:text-orange-600 transition-colors duration-200"></i>
+                    </a>
+
+                    <a href="{{ route('bankruptcy.index') }}" class="group flex items-center p-4 rounded-lg border border-gray-200 hover:border-orange-200 hover:shadow-md transition-all duration-200">
+                        <div class="w-12 h-12 bg-orange-50 rounded-lg flex items-center justify-center mr-4 group-hover:bg-orange-100 transition-colors duration-200">
+                            <i class="fas fa-file-invoice text-orange-600 text-lg"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-sm font-semibold text-gray-900 group-hover:text-orange-600 transition-colors duration-200">Individual Bankruptcy</h3>
+                            <p class="text-xs text-gray-500 mt-1">Manage individual bankruptcy records</p>
+                            <div class="mt-2 text-xs text-gray-400">{{ \App\Models\Bankruptcy::where('is_active', true)->count() }} active records</div>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400 group-hover:text-orange-600 transition-colors duration-200"></i>
+                    </a>
+
+                    <a href="{{ route('non-individual-bankruptcy.index') }}" class="group flex items-center p-4 rounded-lg border border-gray-200 hover:border-orange-200 hover:shadow-md transition-all duration-200">
+                        <div class="w-12 h-12 bg-orange-50 rounded-lg flex items-center justify-center mr-4 group-hover:bg-orange-100 transition-colors duration-200">
+                            <i class="fas fa-industry text-orange-600 text-lg"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-sm font-semibold text-gray-900 group-hover:text-orange-600 transition-colors duration-200">Company Bankruptcy</h3>
+                            <p class="text-xs text-gray-500 mt-1">Manage company bankruptcy records</p>
+                            <div class="mt-2 text-xs text-gray-400">{{ \App\Models\NonIndividualBankruptcy::where('is_active', true)->count() }} active records</div>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400 group-hover:text-orange-600 transition-colors duration-200"></i>
+                    </a>
+
+                    @if($user->isAdmin())
+                    <a href="{{ route('admin.dashboard') }}" class="group flex items-center p-4 rounded-lg border border-gray-200 hover:border-orange-200 hover:shadow-md transition-all duration-200">
+                        <div class="w-12 h-12 bg-orange-50 rounded-lg flex items-center justify-center mr-4 group-hover:bg-orange-100 transition-colors duration-200">
+                            <i class="fas fa-cog text-orange-600 text-lg"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-sm font-semibold text-gray-900 group-hover:text-orange-600 transition-colors duration-200">Admin Panel</h3>
+                            <p class="text-xs text-gray-500 mt-1">Manage system settings and users</p>
+                            <div class="mt-2 text-xs text-gray-400">{{ \App\Models\User::count() }} total users</div>
+                        </div>
+                        <i class="fas fa-arrow-right text-gray-400 group-hover:text-orange-600 transition-colors duration-200"></i>
+                    </a>
+                    @endif
+                </div>
+            </div>
+        </div>
+
+        <!-- Universal Search -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-search text-orange-600"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-900">Universal Search</h2>
+                            <p class="text-sm text-gray-500">Find records across all databases</p>
+                        </div>
+                    </div>
+                    <div class="hidden lg:flex items-center space-x-2 text-sm text-gray-500">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Search by IC number, name, or company registration</span>
                     </div>
                 </div>
             </div>
             
-            <div class="p-8">
-                <form id="searchForm" class="space-y-6">
+            <div class="p-6">
+                <form id="searchForm" class="space-y-4">
                     @csrf
                     <div>
-                        <label for="search_input" class="block text-lg font-semibold text-primary-900 mb-4">
-                            <i class="fas fa-search mr-2 text-primary-600"></i>
+                        <label for="search_input" class="block text-sm font-medium text-gray-700 mb-2">
                             Search Records
                         </label>
                         <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <i class="fas fa-search text-gray-400 text-lg"></i>
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-search text-gray-400"></i>
                             </div>
                             <input type="text" 
                                    id="search_input" 
                                    name="search_input" 
-                                   class="block w-full pl-12 pr-16 py-4 border-2 border-gray-200 rounded-xl text-lg placeholder-gray-400 focus:border-primary-500 focus:ring-4 focus:ring-primary-100 focus:outline-none transition-all duration-300 bg-gray-50 hover:bg-white" 
+                                   class="block w-full pl-10 pr-12 py-3 border border-gray-200 rounded-lg text-sm placeholder-gray-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200" 
                                    placeholder="Enter IC number, company registration number, or name..."
                                    required>
                             <button type="button" 
                                     id="clearSearchBtn" 
-                                    class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-all duration-200 p-2 rounded-full hover:bg-gray-100 cursor-pointer" 
+                                    class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200" 
                                     style="display: none;" 
                                     title="Clear search">
                                 <i class="fas fa-times"></i>
@@ -263,174 +215,110 @@
                         </div>
                         
                         <!-- Search Tags -->
-                        <div class="mt-4 flex flex-wrap gap-3">
-                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-primary-100 text-primary-800 border border-primary-200">
-                                <i class="fas fa-id-card mr-2"></i>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
+                                <i class="fas fa-id-card mr-1"></i>
                                 IC Numbers
                             </span>
-                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-success-100 text-success-800 border border-success-200">
-                                <i class="fas fa-user mr-2"></i>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
+                                <i class="fas fa-user mr-1"></i>
                                 Names
                             </span>
-                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-purple-100 text-purple-800 border border-purple-200">
-                                <i class="fas fa-building mr-2"></i>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
+                                <i class="fas fa-building mr-1"></i>
                                 Companies
                             </span>
-                            <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-warning-100 text-warning-800 border border-warning-200">
-                                <i class="fas fa-tag mr-2"></i>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
+                                <i class="fas fa-tag mr-1"></i>
                                 References
                             </span>
                         </div>
                     </div>
                     
                     <div class="flex justify-end">
-                        <button type="submit" class="group inline-flex items-center px-8 py-4 text-lg font-semibold rounded-lg text-white transition-all duration-300 bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-200">
-                            <i class="fas fa-search mr-3 group-hover:scale-110 transition-transform duration-300"></i>
+                        <button type="submit" class="inline-flex items-center px-6 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-100 transition-all duration-200">
+                            <i class="fas fa-search mr-2"></i>
                             Search Records
                         </button>
                     </div>
                 </form>
             </div>
         </div>
-        </div>
-    </div>
-</div>
 
-<!-- Enhanced Search Results -->
-<div id="searchResults" class="hidden bg-white rounded-lg border border-gray-200 mt-8 overflow-hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="bg-primary-50 px-6 py-4 border-b border-gray-200">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center">
-                <div class="flex items-center justify-center w-10 h-10 bg-primary-100 rounded-full mr-4">
-                    <i class="fas fa-check-circle text-primary-600 text-lg"></i>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold text-primary-900">Search Results</h3>
-                    <p class="text-sm text-primary-600 mt-1">Matching records found</p>
-                </div>
-            </div>
-            <button type="button" id="clearDashboardSearchResultsBtn" class="inline-flex items-center px-4 py-2 text-sm font-semibold text-white rounded-lg transition-all duration-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5" style="background: linear-gradient(to right, #ef4444, #dc2626); border: none; outline: none;" onmouseover="this.style.background='linear-gradient(to right, #dc2626, #b91c1c)'" onmouseout="this.style.background='linear-gradient(to right, #ef4444, #dc2626)'">
-                <i class="fas fa-times mr-2"></i>
-                Clear Results
-            </button>
-        </div>
-    </div>
-    <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-primary-700 uppercase tracking-wider" style="width: 35%;">Name/Company</th>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-primary-700 uppercase tracking-wider" style="width: 20%;">IC/Registration No</th>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-primary-700 uppercase tracking-wider" style="width: 15%;">Type</th>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-primary-700 uppercase tracking-wider" style="width: 20%;">Release Type</th>
-                    <th class="px-6 py-3 text-left text-xs font-bold text-primary-700 uppercase tracking-wider" style="width: 10%;">Actions</th>
-                </tr>
-            </thead>
-            <tbody id="searchResultsBody" class="bg-white divide-y divide-gray-200">
-                <!-- Results will be populated here -->
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<!-- Enhanced No Results -->
-<div id="noResults" class="hidden bg-white rounded-lg border border-gray-200 p-16 mt-8 max-w-7xl mx-auto">
-    <div class="text-center max-w-2xl mx-auto">
-        <!-- Animated Icon -->
-        <div class="relative mb-8">
-            <div class="inline-flex items-center justify-center w-24 h-24 bg-red-100 rounded-full mb-4">
-                <i class="fas fa-file-alt text-red-500 text-3xl animate-pulse"></i>
-            </div>
-            <!-- Decorative elements -->
-            <div class="absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full animate-bounce"></div>
-            <div class="absolute -bottom-2 -left-2 w-4 h-4 bg-blue-400 rounded-full animate-bounce" style="animation-delay: 0.5s;"></div>
-        </div>
-        
-        <!-- Main Message -->
-        <h3 class="text-3xl font-black text-primary-900 mb-4 tracking-tight">No Records Found</h3>
-        <p class="text-xl text-primary-600 mb-8 leading-relaxed">We couldn't find any records matching your search criteria.</p>
-        
-        <!-- Enhanced Search Suggestions -->
-        <div class="bg-primary-50 border border-primary-200 rounded-lg p-8">
-            <div class="flex items-center justify-center mb-6">
-                <div class="flex items-center justify-center w-12 h-12 bg-primary-100 rounded-full mr-3">
-                    <i class="fas fa-info-circle text-primary-600 text-lg"></i>
-                </div>
-                <h4 class="text-2xl font-bold text-primary-900">Try searching with:</h4>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="flex items-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-blue-100">
-                    <div class="flex items-center justify-center w-10 h-10 bg-green-100 rounded-full mr-4">
-                        <i class="fas fa-check-circle text-green-600 text-sm"></i>
+        <!-- Search Results -->
+        <div id="searchResults" class="hidden bg-white rounded-xl shadow-sm border border-gray-200 mb-8 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-check-circle text-orange-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Search Results</h3>
+                            <p class="text-sm text-gray-500">Matching records found</p>
+                        </div>
                     </div>
-                    <div>
-                        <div class="text-sm font-bold text-gray-900">Different Keywords</div>
-                        <div class="text-xs text-gray-500">Try alternative terms</div>
+                    <button type="button" id="clearDashboardSearchResultsBtn" class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors duration-200">
+                        <i class="fas fa-times mr-2"></i>
+                        Clear Results
+                    </button>
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name/Company</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">IC/Registration No</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Release Type</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="searchResultsBody" class="bg-white divide-y divide-gray-200">
+                        <!-- Results will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- No Results -->
+        <div id="noResults" class="hidden bg-white rounded-xl shadow-sm border border-gray-200 p-12 mb-8">
+            <div class="text-center max-w-2xl mx-auto">
+                <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-search text-gray-400 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">No Records Found</h3>
+                <p class="text-gray-500 mb-6">We couldn't find any records matching your search criteria.</p>
+                
+                <div class="bg-gray-50 rounded-lg p-6">
+                    <h4 class="text-sm font-medium text-gray-900 mb-4">Try searching with:</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-600">
+                        <div>• Different keywords</div>
+                        <div>• Check for typos</div>
+                        <div>• Partial matches</div>
+                        <div>• Different formats</div>
                     </div>
                 </div>
                 
-                <div class="flex items-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-blue-100">
-                    <div class="flex items-center justify-center w-10 h-10 bg-purple-100 rounded-full mr-4">
-                        <i class="fas fa-file-alt text-purple-600 text-sm"></i>
-                    </div>
-                    <div>
-                        <div class="text-sm font-bold text-gray-900">Check for Typos</div>
-                        <div class="text-xs text-gray-500">Verify names or numbers</div>
-                    </div>
-                </div>
-                
-                <div class="flex items-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-blue-100">
-                    <div class="flex items-center justify-center w-10 h-10 bg-primary-100 rounded-full mr-4">
-                        <i class="fas fa-user text-primary-600 text-sm"></i>
-                    </div>
-                    <div>
-                        <div class="text-sm font-bold text-gray-900">Partial Matches</div>
-                        <div class="text-xs text-gray-500">Use "John" instead of "John Smith"</div>
-                    </div>
-                </div>
-                
-                <div class="flex items-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-blue-100">
-                    <div class="flex items-center justify-center w-10 h-10 bg-pink-100 rounded-full mr-4">
-                        <i class="fas fa-tag text-pink-600 text-sm"></i>
-                    </div>
-                    <div>
-                        <div class="text-sm font-bold text-gray-900">Different Formats</div>
-                        <div class="text-xs text-gray-500">Try with or without dashes</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Additional Help -->
-            <div class="mt-6 p-4 bg-primary-50 border border-primary-200 rounded-lg">
-                <div class="flex items-center">
-                    <i class="fas fa-exclamation-triangle text-primary-600 mr-2"></i>
-                    <span class="text-sm font-medium text-primary-800">Tip: Try searching with fewer characters or different keywords</span>
-                </div>
+                <button type="button" id="clearSearchFromNoResults" class="mt-6 inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors duration-200">
+                    <i class="fas fa-redo mr-2"></i>
+                    Try Different Search
+                </button>
             </div>
         </div>
-        
-        <!-- Action Button -->
-        <div class="mt-8">
-            <button type="button" id="clearSearchFromNoResults" class="inline-flex items-center px-8 py-4 text-lg font-semibold text-white bg-primary-600 rounded-lg hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-200 transition-all duration-300">
-                <i class="fas fa-redo mr-3"></i>
-                Try Different Search
-            </button>
-        </div>
-    </div>
-</div>
 
-<!-- Enhanced Loading Spinner -->
-<div id="loadingSpinner" class="hidden bg-white rounded-lg border border-gray-200 p-12 mt-8 max-w-7xl mx-auto">
-    <div class="text-center">
-        <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-6">
-            <i class="fas fa-spinner fa-spin text-primary-600 text-2xl"></i>
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="hidden bg-white rounded-xl shadow-sm border border-gray-200 p-12 mb-8">
+            <div class="text-center">
+                <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-spinner fa-spin text-orange-500 text-xl"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Searching Records</h3>
+                <p class="text-gray-500">Please wait while we search for matching records...</p>
+            </div>
         </div>
-        <h3 class="text-xl font-bold text-primary-900 mb-3">Searching Records</h3>
-        <p class="text-primary-600 mb-4">Please wait while we search for matching records...</p>
-        <div class="w-full bg-gray-200 rounded-full h-2">
-            <div class="bg-primary-500 h-2 rounded-full animate-pulse" style="width: 60%"></div>
-        </div>
+
     </div>
 </div>
 
@@ -439,8 +327,8 @@
     <div class="professional-modal-content">
         <div class="mt-3">
             <div class="flex items-center justify-between mb-6">
-                <h3 class="text-xl font-medium text-primary-900">Record Details</h3>
-                <button id="closeModal" class="text-primary-400 hover:text-primary-600 transition-colors duration-200">
+                <h3 class="text-xl font-semibold text-gray-900">Record Details</h3>
+                <button id="closeModal" class="text-gray-400 hover:text-gray-600 transition-colors duration-200">
                     <i class="fas fa-times text-xl"></i>
                 </button>
             </div>
@@ -449,8 +337,8 @@
                 <!-- Content will be populated here -->
             </div>
             
-            <div class="flex justify-end mt-6 pt-4 border-t border-primary-200">
-                <button id="closeModalBtn" class="professional-button">
+            <div class="flex justify-end mt-6 pt-4 border-t border-gray-200">
+                <button id="closeModalBtn" class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors duration-200">
                     Close
                 </button>
             </div>
@@ -492,7 +380,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Search both bankruptcy and annulment records
         Promise.all([
-        fetch('{{ route("search") }}', {
+            fetch('{{ route("search") }}', {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -501,13 +389,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }),
             fetch('{{ route("search.annulment") }}', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        })
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
         ])
         .then(responses => Promise.all(responses.map(response => response.json())))
         .then(([bankruptcyData, annulmentData]) => {
@@ -554,12 +442,8 @@ document.addEventListener('DOMContentLoaded', function() {
         clearDashboardSearchResultsBtn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            console.log('Clear dashboard search results button clicked');
             clearDashboardSearch();
         });
-        console.log('Clear dashboard search results button event listener added');
-    } else {
-        console.error('Clear dashboard search results button not found');
     }
 
     // Clear search from no results button functionality
@@ -568,7 +452,6 @@ document.addEventListener('DOMContentLoaded', function() {
         clearSearchFromNoResults.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            console.log('Clear search from no results button clicked');
             clearDashboardSearch();
         });
     }
@@ -595,7 +478,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function clearDashboardSearch() {
-        console.log('Clear dashboard search function called');
         try {
             if (searchInput) {
                 searchInput.value = '';
@@ -604,7 +486,6 @@ document.addEventListener('DOMContentLoaded', function() {
             searchResults.classList.add('hidden');
             noResults.classList.add('hidden');
             loadingSpinner.classList.add('hidden');
-            console.log('Clear dashboard search completed successfully');
         } catch (error) {
             console.error('Error in clearDashboardSearch:', error);
         }
@@ -628,14 +509,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         results.forEach((result, index) => {
             const row = document.createElement('tr');
-            row.className = 'hover:bg-blue-50 transition-all duration-300 border-b border-gray-100';
-            
-            // Add alternating row colors
-            if (index % 2 === 0) {
-                row.classList.add('bg-white');
-            } else {
-                row.classList.add('bg-gray-50');
-            }
+            row.className = 'hover:bg-gray-50 transition-colors duration-200';
             
             let identifier, name, type, releaseType, typeColor, typeBg;
             
@@ -646,10 +520,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 releaseType = result.release_type || 'N/A';
                 
                 if (type === 'Annulment') {
-                    typeColor = 'text-green-800';
+                    typeColor = 'text-green-700';
                     typeBg = 'bg-green-100';
                 } else {
-                    typeColor = 'text-red-800';
+                    typeColor = 'text-red-700';
                     typeBg = 'bg-red-100';
                 }
             } else if (result.company_registration_no) {
@@ -657,51 +531,51 @@ document.addEventListener('DOMContentLoaded', function() {
                 name = result.company_name || 'N/A';
                 type = 'Non-Individual Bankruptcy';
                 releaseType = 'N/A';
-                typeColor = 'text-primary-800';
-                typeBg = 'bg-primary-100';
+                typeColor = 'text-gray-700';
+                typeBg = 'bg-gray-100';
             } else {
                 identifier = 'N/A';
                 name = 'N/A';
                 type = 'Unknown';
                 releaseType = 'N/A';
-                typeColor = 'text-gray-800';
+                typeColor = 'text-gray-700';
                 typeBg = 'bg-gray-100';
             }
             
             row.innerHTML = `
                 <td class="px-6 py-4 whitespace-nowrap">
                     <div class="flex items-center">
-                        <div class="flex-shrink-0 h-10 w-10">
-                            <div class="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center">
-                                <span class="text-sm font-bold text-white">${(name || 'N/A').charAt(0).toUpperCase()}</span>
+                        <div class="flex-shrink-0 h-8 w-8">
+                            <div class="h-8 w-8 rounded-full bg-orange-100 flex items-center justify-center">
+                                <span class="text-xs font-medium text-orange-600">${(name || 'N/A').charAt(0).toUpperCase()}</span>
                             </div>
                         </div>
-                        <div class="ml-4">
-                            <div class="text-sm font-bold text-gray-900">${name}</div>
+                        <div class="ml-3">
+                            <div class="text-sm font-medium text-gray-900">${name}</div>
                             <div class="text-xs text-gray-500">${type} Record</div>
                         </div>
                     </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm font-medium text-gray-900 bg-blue-50 px-3 py-1 rounded-lg inline-block">${identifier}</div>
+                    <div class="text-sm text-gray-900 bg-gray-50 px-2 py-1 rounded-md inline-block">${identifier}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${typeBg} ${typeColor}">
+                    <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium ${typeBg} ${typeColor}">
                         ${type}
                     </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     <div class="text-sm text-gray-900">
                         ${releaseType !== 'N/A' ? 
-                            `<span class="bg-primary-50 text-primary-800 px-3 py-1 rounded-lg text-xs font-medium">${releaseType}</span>` : 
+                            `<span class="bg-gray-100 text-gray-700 px-2 py-1 rounded-md text-xs">${releaseType}</span>` : 
                             '<span class="text-gray-400">N/A</span>'
                         }
                     </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <button onclick="showDetails(${result.id}, '${result.table_name || ''}')" class="inline-flex items-center px-3 py-2 text-xs font-medium text-white rounded-lg transition-all duration-200 shadow-sm hover:shadow-md" style="background: linear-gradient(to right, #3b82f6, #2563eb); border: none; outline: none;" onmouseover="this.style.background='linear-gradient(to right, #2563eb, #1d4ed8)'" onmouseout="this.style.background='linear-gradient(to right, #3b82f6, #2563eb)'">
-                        <i class="fas fa-eye mr-2"></i>
-                        View Details
+                    <button onclick="showDetails(${result.id}, '${result.table_name || ''}')" class="inline-flex items-center px-3 py-1 text-xs font-medium text-orange-600 bg-orange-50 rounded-md hover:bg-orange-100 transition-colors duration-200">
+                        <i class="fas fa-eye mr-1"></i>
+                        View
                     </button>
                 </td>
             `;
@@ -718,10 +592,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Global function for showing details
     window.showDetails = function(id, tableName = '') {
-        // Ensure modal is hidden first
         detailsModal.classList.add('hidden');
         
-        // Build URL with table parameter if provided
         let url = `{{ route('search.details', '') }}/${id}`;
         if (tableName) {
             url += `?table=${encodeURIComponent(tableName)}`;
@@ -748,193 +620,122 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function displayModal(record) {
         let recordType = record.record_type || 'unknown';
-        
-        // Debug logging
-        console.log('Record type detected:', recordType);
-        console.log('Record data:', record);
-        
         let modalContentHTML = '';
         
         if (recordType === 'non-individual-bankruptcy' || (record.company_name && record.company_registration_no)) {
-            // Non-Individual Bankruptcy
             modalContentHTML = `
-                <div class="space-y-6">
+                <div class="space-y-4">
                     <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                        <h4 class="text-lg font-semibold text-blue-900 mb-4">Non-Individual Bankruptcy Details</h4>
-                        <div class="space-y-3">
+                        <h4 class="text-lg font-semibold text-blue-900 mb-3">Non-Individual Bankruptcy Details</h4>
+                        <div class="space-y-2 text-sm">
                             <div class="flex justify-between">
-                                <span class="text-sm text-blue-700 font-medium">Insolvency No:</span>
-                                <span class="text-sm text-blue-900 font-medium">${record.insolvency_no || 'N/A'}</span>
+                                <span class="text-blue-700 font-medium">Insolvency No:</span>
+                                <span class="text-blue-900">${record.insolvency_no || 'N/A'}</span>
                             </div>
                             <div class="flex justify-between">
-                                <span class="text-sm text-blue-700 font-medium">Company Name:</span>
-                                <span class="text-sm text-blue-900 font-medium">${record.company_name || 'N/A'}</span>
+                                <span class="text-blue-700 font-medium">Company Name:</span>
+                                <span class="text-blue-900">${record.company_name || 'N/A'}</span>
                             </div>
                             <div class="flex justify-between">
-                                <span class="text-sm text-blue-700 font-medium">Company Registration No:</span>
-                                <span class="text-sm text-blue-900 font-medium">${record.company_registration_no || 'N/A'}</span>
+                                <span class="text-blue-700 font-medium">Company Registration No:</span>
+                                <span class="text-blue-900">${record.company_registration_no || 'N/A'}</span>
                             </div>
                             <div class="flex justify-between">
-                                <span class="text-sm text-blue-700 font-medium">Others:</span>
-                                <span class="text-sm text-blue-900 font-medium">${record.others || 'N/A'}</span>
+                                <span class="text-blue-700 font-medium">Court Case No:</span>
+                                <span class="text-blue-900">${record.court_case_no || 'N/A'}</span>
                             </div>
                             <div class="flex justify-between">
-                                <span class="text-sm text-blue-700 font-medium">Court Case No:</span>
-                                <span class="text-sm text-blue-900 font-medium">${record.court_case_no || 'N/A'}</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-sm text-blue-700 font-medium">Date of Winding Up/Resolution:</span>
-                                <span class="text-sm text-blue-900 font-medium">${record.date_of_winding_up_resolution ? new Date(record.date_of_winding_up_resolution).toLocaleDateString() : 'N/A'}</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-sm text-blue-700 font-medium">Updated Date:</span>
-                                <span class="text-sm text-blue-900 font-medium">${record.updated_date ? new Date(record.updated_date).toLocaleDateString() : 'N/A'}</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span class="text-sm text-blue-700 font-medium">Branch:</span>
-                                <span class="text-sm text-blue-900 font-medium">${record.branch || 'N/A'}</span>
+                                <span class="text-blue-700 font-medium">Branch:</span>
+                                <span class="text-blue-900">${record.branch || 'N/A'}</span>
                             </div>
                         </div>
                     </div>
                 </div>
             `;
-        } else if (recordType === 'bankruptcy' || recordType === 'annulment' || record.ic_no) {
-            // Individual records - show details based on actual record type
-            if (recordType === 'bankruptcy' || record.insolvency_no || record.ro_date || record.ao_date) {
-                // Show bankruptcy details only
-                modalContentHTML = `
-                    <div class="space-y-6">
-                        <div class="bg-red-50 border border-red-200 rounded-lg p-4">
-                            <h4 class="text-lg font-semibold text-red-900 mb-4">Bankruptcy Details</h4>
-                            <div class="space-y-3">
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-red-700 font-medium">Insolvency No:</span>
-                                    <span class="text-sm text-red-900 font-medium">${record.insolvency_no || 'N/A'}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-red-700 font-medium">Name:</span>
-                                    <span class="text-sm text-red-900 font-medium">${record.name || 'N/A'}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-red-700 font-medium">IC Number:</span>
-                                    <span class="text-sm text-red-900 font-medium">${record.ic_no || 'N/A'}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-red-700 font-medium">Others:</span>
-                                    <span class="text-sm text-red-900 font-medium">${record.others || 'N/A'}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-red-700 font-medium">Court Case No:</span>
-                                    <span class="text-sm text-red-900 font-medium">${record.court_case_no || 'N/A'}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-red-700 font-medium">Branch:</span>
-                                    <span class="text-sm text-red-900 font-medium">${record.branch || 'N/A'}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-red-700 font-medium">Status:</span>
-                                    <span class="text-sm text-red-900 font-medium">${record.is_active ? 'Active' : 'Inactive'}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-red-700 font-medium">RO Date:</span>
-                                    <span class="text-sm text-red-900 font-medium">${record.ro_date ? new Date(record.ro_date).toLocaleDateString() : 'N/A'}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-red-700 font-medium">AO Date:</span>
-                                    <span class="text-sm text-red-900 font-medium">${record.ao_date ? new Date(record.ao_date).toLocaleDateString() : 'N/A'}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-red-700 font-medium">Updated Date:</span>
-                                    <span class="text-sm text-red-900 font-medium">${record.updated_date || 'N/A'}</span>
-                                </div>
+        } else if (recordType === 'bankruptcy' || record.insolvency_no || record.ro_date || record.ao_date) {
+            modalContentHTML = `
+                <div class="space-y-4">
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                        <h4 class="text-lg font-semibold text-red-900 mb-3">Bankruptcy Details</h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-red-700 font-medium">Insolvency No:</span>
+                                <span class="text-red-900">${record.insolvency_no || 'N/A'}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-red-700 font-medium">Name:</span>
+                                <span class="text-red-900">${record.name || 'N/A'}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-red-700 font-medium">IC Number:</span>
+                                <span class="text-red-900">${record.ic_no || 'N/A'}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-red-700 font-medium">Court Case No:</span>
+                                <span class="text-red-900">${record.court_case_no || 'N/A'}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-red-700 font-medium">Branch:</span>
+                                <span class="text-red-900">${record.branch || 'N/A'}</span>
                             </div>
                         </div>
                     </div>
-                `;
-            } else if (recordType === 'annulment' || record.release_date || record.release_type) {
-                // Show annulment details only
-                modalContentHTML = `
-                    <div class="space-y-6">
-                        <div class="bg-green-50 border border-green-200 rounded-lg p-4">
-                            <h4 class="text-lg font-semibold text-green-900 mb-4">Annulment Details</h4>
-                            <div class="space-y-3">
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-green-700 font-medium">Name:</span>
-                                    <span class="text-sm text-green-900 font-medium">${record.name || 'N/A'}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-green-700 font-medium">IC Number:</span>
-                                    <span class="text-sm text-green-900 font-medium">${record.ic_no || 'N/A'}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-green-700 font-medium">Others:</span>
-                                    <span class="text-sm text-green-900 font-medium">${record.others || 'N/A'}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-green-700 font-medium">Court Case No:</span>
-                                    <span class="text-sm text-green-900 font-medium">${record.court_case_no || 'N/A'}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-green-700 font-medium">Release Date:</span>
-                                    <span class="text-sm text-green-900 font-medium">${record.release_date ? new Date(record.release_date).toLocaleDateString() : 'N/A'}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-green-700 font-medium">Updated Date:</span>
-                                    <span class="text-sm text-green-900 font-medium">${record.updated_date || 'N/A'}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-green-700 font-medium">Release Type:</span>
-                                    <span class="text-sm text-green-900 font-medium">${record.release_type || 'N/A'}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-green-700 font-medium">Branch:</span>
-                                    <span class="text-sm text-green-900 font-medium">${record.branch || 'N/A'}</span>
-                                </div>
+                </div>
+            `;
+        } else if (recordType === 'annulment' || record.release_date || record.release_type) {
+            modalContentHTML = `
+                <div class="space-y-4">
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <h4 class="text-lg font-semibold text-green-900 mb-3">Annulment Details</h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-green-700 font-medium">Name:</span>
+                                <span class="text-green-900">${record.name || 'N/A'}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-green-700 font-medium">IC Number:</span>
+                                <span class="text-green-900">${record.ic_no || 'N/A'}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-green-700 font-medium">Court Case No:</span>
+                                <span class="text-green-900">${record.court_case_no || 'N/A'}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-green-700 font-medium">Release Date:</span>
+                                <span class="text-green-900">${record.release_date ? new Date(record.release_date).toLocaleDateString() : 'N/A'}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-green-700 font-medium">Release Type:</span>
+                                <span class="text-green-900">${record.release_type || 'N/A'}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-green-700 font-medium">Branch:</span>
+                                <span class="text-green-900">${record.branch || 'N/A'}</span>
                             </div>
                         </div>
                     </div>
-                `;
-            } else {
-                // Fallback - show basic details
-                modalContentHTML = `
-                    <div class="space-y-6">
-                        <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-                            <h4 class="text-lg font-semibold text-gray-900 mb-4">Record Details</h4>
-                            <div class="space-y-3">
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-gray-700 font-medium">Name:</span>
-                                    <span class="text-sm text-gray-900 font-medium">${record.name || 'N/A'}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-gray-700 font-medium">IC Number:</span>
-                                    <span class="text-sm text-gray-900 font-medium">${record.ic_no || 'N/A'}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-sm text-gray-700 font-medium">Court Case No:</span>
-                                    <span class="text-sm text-gray-900 font-medium">${record.court_case_no || 'N/A'}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
+                </div>
+            `;
         } else {
-            // Fallback for unknown types
             modalContentHTML = `
                 <div class="space-y-4">
                     <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-                        <h4 class="text-lg font-semibold text-gray-900 mb-4">Record Details</h4>
-                        <div class="space-y-3">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-3">Record Details</h4>
+                        <div class="space-y-2 text-sm">
                             <div class="flex justify-between">
-                                <span class="text-sm text-gray-700 font-medium">ID:</span>
-                                <span class="text-sm text-gray-900 font-medium">${record.id || 'N/A'}</span>
+                                <span class="text-gray-700 font-medium">Name:</span>
+                                <span class="text-gray-900">${record.name || 'N/A'}</span>
                             </div>
                             <div class="flex justify-between">
-                                <span class="text-sm text-gray-700 font-medium">Type:</span>
-                                <span class="text-sm text-gray-900 font-medium">${recordType}</span>
+                                <span class="text-gray-700 font-medium">IC Number:</span>
+                                <span class="text-gray-900">${record.ic_no || 'N/A'}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-700 font-medium">Court Case No:</span>
+                                <span class="text-gray-900">${record.court_case_no || 'N/A'}</span>
                             </div>
                         </div>
-            </div>
+                    </div>
                 </div>
             `;
         }
