@@ -37,20 +37,38 @@ class SearchController extends Controller
                 // Search individual bankruptcy records by IC number
                 $bankruptcyResults = \App\Models\Bankruptcy::where('ic_no', 'LIKE', '%' . $searchInput . '%')
                     ->where('is_active', true)
-                    ->get();
+                    ->get()
+                    ->map(function($record) {
+                        $recordArray = $record->toArray();
+                        $recordArray['record_type'] = 'bankruptcy';
+                        $recordArray['table_name'] = 'bankruptcy';
+                        return $recordArray;
+                    });
                 $results = $results->merge($bankruptcyResults);
 
                 // Search annulment records by IC number
                 $annulmentResults = AnnulmentIndv::where('ic_no', 'LIKE', '%' . $searchInput . '%')
                     ->where('is_active', true)
-                    ->get();
+                    ->get()
+                    ->map(function($record) {
+                        $recordArray = $record->toArray();
+                        $recordArray['record_type'] = 'annulment';
+                        $recordArray['table_name'] = 'annulment_indv';
+                        return $recordArray;
+                    });
                 $results = $results->merge($annulmentResults);
 
             } elseif ($isCompanyRegistration) {
                 // Search non-individual bankruptcy records by company registration number
                 $nonIndividualResults = \App\Models\NonIndividualBankruptcy::where('company_registration_no', 'LIKE', '%' . $searchInput . '%')
                     ->where('is_active', true)
-                    ->get();
+                    ->get()
+                    ->map(function($record) {
+                        $recordArray = $record->toArray();
+                        $recordArray['record_type'] = 'non-individual-bankruptcy';
+                        $recordArray['table_name'] = 'non_individual_bankruptcies';
+                        return $recordArray;
+                    });
                 $results = $results->merge($nonIndividualResults);
 
             } else {
@@ -68,6 +86,59 @@ class SearchController extends Controller
                 'search_input' => $searchInput,
                 'input_type' => $isCompanyRegistration ? 'company_registration' : ($isICNumber ? 'ic_number' : 'unknown'),
                 'searched_types' => $isICNumber ? ['individual_bankruptcy', 'annulment'] : ['non_individual_bankruptcy']
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Search only annulment records
+     */
+    public function searchAnnulment(Request $request)
+    {
+        try {
+            $request->validate([
+                'search_input' => 'required|string'
+            ]);
+
+            $searchInput = trim($request->input('search_input'));
+
+            \Log::info('Annulment search request received', [
+                'search_input' => $searchInput,
+                'all_input' => $request->all()
+            ]);
+
+            // Check if input is a valid IC number
+            if (!$this->isICNumber($searchInput)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Please enter a valid IC number (12 digits) for annulment search.'
+                ], 400);
+            }
+
+            // Search only annulment records by IC number
+            $annulmentResults = AnnulmentIndv::where('ic_no', 'LIKE', '%' . $searchInput . '%')
+                ->where('is_active', true)
+                ->get()
+                ->map(function($record) {
+                    $recordArray = $record->toArray();
+                    $recordArray['record_type'] = 'annulment';
+                    $recordArray['table_name'] = 'annulment_indv';
+                    return $recordArray;
+                });
+
+            \Log::info('Annulment search results', ['count' => $annulmentResults->count()]);
+
+            return response()->json([
+                'success' => true,
+                'results' => $annulmentResults->toArray(),
+                'search_input' => $searchInput,
+                'input_type' => 'ic_number',
+                'searched_types' => ['annulment']
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -98,55 +169,76 @@ class SearchController extends Controller
         return preg_match('/^(19|20)\d{2}\d{6,8}$/', $cleaned);
     }
 
-    public function getDetails($id)
+    public function getDetails(Request $request, $id)
     {
         try {
-            // Search all tables and collect all matches
-            $records = [];
+            $tableName = $request->get('table');
+            $record = null;
+            $recordType = null;
             
-            // Try Bankruptcy table
-            $bankruptcyRecord = \App\Models\Bankruptcy::where('id', $id)->where('is_active', true)->first();
-            if ($bankruptcyRecord) {
-                $records[] = ['record' => $bankruptcyRecord, 'type' => 'bankruptcy'];
+            // Search specific table based on table name parameter
+            switch ($tableName) {
+                case 'bankruptcy':
+                    $record = \App\Models\Bankruptcy::where('id', $id)->where('is_active', true)->first();
+                    $recordType = 'bankruptcy';
+                    break;
+                    
+                case 'annulment_indv':
+                    $record = AnnulmentIndv::where('id', $id)->where('is_active', true)->first();
+                    $recordType = 'annulment';
+                    break;
+                    
+                case 'non_individual_bankruptcies':
+                    $record = \App\Models\NonIndividualBankruptcy::where('id', $id)->where('is_active', true)->first();
+                    $recordType = 'non-individual-bankruptcy';
+                    break;
+                    
+                default:
+                    // Fallback: search all tables (old behavior for backward compatibility)
+                    $records = [];
+                    
+                    // Try Bankruptcy table
+                    $bankruptcyRecord = \App\Models\Bankruptcy::where('id', $id)->where('is_active', true)->first();
+                    if ($bankruptcyRecord) {
+                        $records[] = ['record' => $bankruptcyRecord, 'type' => 'bankruptcy'];
+                    }
+                    
+                    // Try AnnulmentIndv table
+                    $annulmentRecord = AnnulmentIndv::where('id', $id)->where('is_active', true)->first();
+                    if ($annulmentRecord) {
+                        $records[] = ['record' => $annulmentRecord, 'type' => 'annulment'];
+                    }
+                    
+                    // Try NonIndividualBankruptcy table
+                    $nonIndividualRecord = \App\Models\NonIndividualBankruptcy::where('id', $id)->where('is_active', true)->first();
+                    if ($nonIndividualRecord) {
+                        $records[] = ['record' => $nonIndividualRecord, 'type' => 'non-individual-bankruptcy'];
+                    }
+                    
+                    if (empty($records)) {
+                        return response()->json([
+                            'success' => false,
+                            'message' => 'Record not found'
+                        ], 404);
+                    }
+                    
+                    // Use the first record found
+                    $selectedRecord = $records[0];
+                    $record = $selectedRecord['record'];
+                    $recordType = $selectedRecord['type'];
+                    break;
             }
             
-            // Try AnnulmentIndv table
-            $annulmentRecord = AnnulmentIndv::where('id', $id)->where('is_active', true)->first();
-            if ($annulmentRecord) {
-                $records[] = ['record' => $annulmentRecord, 'type' => 'annulment'];
-            }
-            
-            // Try NonIndividualBankruptcy table
-            $nonIndividualRecord = \App\Models\NonIndividualBankruptcy::where('id', $id)->where('is_active', true)->first();
-            if ($nonIndividualRecord) {
-                $records[] = ['record' => $nonIndividualRecord, 'type' => 'non-individual-bankruptcy'];
-            }
-            
-            if (empty($records)) {
+            if (!$record) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Record not found'
                 ], 404);
             }
             
-            // If multiple records found, prioritize based on field content
-            // Non-individual bankruptcy records have company_name field
-            $selectedRecord = null;
-            foreach ($records as $recordData) {
-                if ($recordData['type'] === 'non-individual-bankruptcy' && isset($recordData['record']->company_name)) {
-                    $selectedRecord = $recordData;
-                    break;
-                }
-            }
-            
-            // If no non-individual bankruptcy found, use the first record
-            if (!$selectedRecord) {
-                $selectedRecord = $records[0];
-            }
-            
             // Add record type to the response
-            $recordArray = $selectedRecord['record']->toArray();
-            $recordArray['record_type'] = $selectedRecord['type'];
+            $recordArray = $record->toArray();
+            $recordArray['record_type'] = $recordType;
             
             return response()->json([
                 'success' => true,

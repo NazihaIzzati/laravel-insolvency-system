@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\AnnulmentIndvController;
+use App\Http\Controllers\AnnulmentNonIndvController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\BankruptcyController;
@@ -53,7 +54,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/annulment-indv/bulk-upload', [AnnulmentIndvController::class, 'processBulkUpload'])->name('annulment-indv.bulk-upload.process');
     Route::get('/annulment-indv/template', [AnnulmentIndvController::class, 'downloadTemplate'])->name('annulment-indv.template');
     Route::get('/annulment-indv/download', [AnnulmentIndvController::class, 'downloadRecords'])->name('annulment-indv.download');
+    Route::post('/annulment-indv/search', [AnnulmentIndvController::class, 'search'])->name('annulment-indv.search');
     Route::resource('annulment-indv', AnnulmentIndvController::class);
+    
+    // Annulment Non-Individual management routes
+    Route::get('/annulment-non-indv/bulk-upload', [AnnulmentNonIndvController::class, 'bulkUpload'])->name('annulment-non-indv.bulk-upload');
+    Route::post('/annulment-non-indv/bulk-upload', [AnnulmentNonIndvController::class, 'processBulkUpload'])->name('annulment-non-indv.bulk-upload.process');
+    Route::get('/annulment-non-indv/template', [AnnulmentNonIndvController::class, 'downloadTemplate'])->name('annulment-non-indv.template');
+    Route::get('/annulment-non-indv/download', [AnnulmentNonIndvController::class, 'downloadRecords'])->name('annulment-non-indv.download');
+    Route::post('/annulment-non-indv/search', [AnnulmentNonIndvController::class, 'search'])->name('annulment-non-indv.search');
+    Route::resource('annulment-non-indv', AnnulmentNonIndvController::class);
     
     // Bankruptcy management routes
     Route::get('/bankruptcy/bulk-upload', [BankruptcyController::class, 'bulkUpload'])->name('bankruptcy.bulk-upload');
@@ -63,6 +73,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/bankruptcy/test-import', [BankruptcyController::class, 'testImport'])->name('bankruptcy.test-import');
     Route::get('/bankruptcy/template', [BankruptcyController::class, 'downloadTemplate'])->name('bankruptcy.template');
     Route::get('/bankruptcy/download', [BankruptcyController::class, 'downloadRecords'])->name('bankruptcy.download');
+    Route::post('/bankruptcy/search', [BankruptcyController::class, 'search'])->name('bankruptcy.search');
     Route::resource('bankruptcy', BankruptcyController::class);
     
     // Non-Individual Bankruptcy management routes
@@ -70,10 +81,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/non-individual-bankruptcy/bulk-upload', [NonIndividualBankruptcyController::class, 'processBulkUpload'])->name('non-individual-bankruptcy.bulk-upload.process');
     Route::get('/non-individual-bankruptcy/template', [NonIndividualBankruptcyController::class, 'downloadTemplate'])->name('non-individual-bankruptcy.template');
     Route::get('/non-individual-bankruptcy/download', [NonIndividualBankruptcyController::class, 'downloadRecords'])->name('non-individual-bankruptcy.download');
+    Route::post('/non-individual-bankruptcy/search', [NonIndividualBankruptcyController::class, 'search'])->name('non-individual-bankruptcy.search');
     Route::resource('non-individual-bankruptcy', NonIndividualBankruptcyController::class);
     
     // Search routes
     Route::post('/search', [SearchController::class, 'search'])->name('search');
+    Route::post('/search/annulment', [SearchController::class, 'searchAnnulment'])->name('search.annulment');
     Route::get('/search/details/{id}', [SearchController::class, 'getDetails'])->name('search.details');
 });
 

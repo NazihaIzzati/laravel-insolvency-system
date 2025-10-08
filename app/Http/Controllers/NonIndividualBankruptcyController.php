@@ -75,6 +75,49 @@ class NonIndividualBankruptcyController extends Controller
     }
 
     /**
+     * Search non-individual bankruptcy records
+     */
+    public function search(Request $request)
+    {
+        try {
+            $searchValue = $request->input('search_input');
+            
+            if (empty($searchValue)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Please enter a search value.'
+                ]);
+            }
+
+            $results = NonIndividualBankruptcy::where('is_active', true)
+                ->where(function($query) use ($searchValue) {
+                    $query->where('insolvency_no', 'LIKE', "%{$searchValue}%")
+                          ->orWhere('company_name', 'LIKE', "%{$searchValue}%")
+                          ->orWhere('company_registration_no', 'LIKE', "%{$searchValue}%")
+                          ->orWhere('court_case_no', 'LIKE', "%{$searchValue}%");
+                })
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+            return response()->json([
+                'success' => true,
+                'results' => $results
+            ]);
+
+        } catch (\Exception $e) {
+            \Log::error('Non-individual bankruptcy search error:', [
+                'message' => $e->getMessage(),
+                'search_value' => $request->input('search_input')
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while searching. Please try again.'
+            ]);
+        }
+    }
+
+    /**
      * Display the specified non-individual bankruptcy
      */
     public function show(NonIndividualBankruptcy $nonIndividualBankruptcy)

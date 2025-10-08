@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AnnulmentIndv;
-use App\Imports\AnnulmentIndvImport;
+use App\Models\AnnulmentNonIndv;
+use App\Imports\AnnulmentNonIndvImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Log;
 
-class AnnulmentIndvController extends Controller
+class AnnulmentNonIndvController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,12 +23,12 @@ class AnnulmentIndvController extends Controller
             $perPage = 10;
         }
         
-        $annulmentIndv = AnnulmentIndv::active()
-            ->orderBy('name')
+        $annulmentNonIndv = AnnulmentNonIndv::active()
+            ->orderBy('company_name')
             ->paginate($perPage)
             ->withQueryString(); // Preserve query parameters in pagination links
             
-        return view('annulment-indv.index', compact('annulmentIndv', 'perPage'));
+        return view('annulment-non-indv.index', compact('annulmentNonIndv', 'perPage'));
     }
 
     /**
@@ -50,10 +50,11 @@ class AnnulmentIndvController extends Controller
                 ]);
             }
 
-            $results = AnnulmentIndv::where('is_active', true)
+            $results = AnnulmentNonIndv::where('is_active', true)
                 ->where(function($query) use ($searchValue) {
-                    $query->where('ic_no', 'LIKE', "%{$searchValue}%")
-                          ->orWhere('name', 'LIKE', "%{$searchValue}%")
+                    $query->where('insolvency_no', 'LIKE', "%{$searchValue}%")
+                          ->orWhere('company_name', 'LIKE', "%{$searchValue}%")
+                          ->orWhere('company_registration_no', 'LIKE', "%{$searchValue}%")
                           ->orWhere('court_case_no', 'LIKE', "%{$searchValue}%")
                           ->orWhere('others', 'LIKE', "%{$searchValue}%");
                 })
@@ -66,7 +67,7 @@ class AnnulmentIndvController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            \Log::error('Annulment search error:', [
+            \Log::error('Annulment non-indv search error:', [
                 'message' => $e->getMessage(),
                 'search_value' => $request->input('search_input')
             ]);
@@ -83,7 +84,7 @@ class AnnulmentIndvController extends Controller
      */
     public function create()
     {
-        return view('annulment-indv.create');
+        return view('annulment-non-indv.create');
     }
 
     /**
@@ -92,8 +93,9 @@ class AnnulmentIndvController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'ic_no' => 'required|string|max:20|unique:annulment_indv,ic_no',
+            'insolvency_no' => 'required|string|max:255|unique:annulment_non_indv,insolvency_no',
+            'company_name' => 'required|string|max:255',
+            'company_registration_no' => 'required|string|max:255',
             'others' => 'nullable|string|max:255',
             'court_case_no' => 'nullable|string|max:255',
             'release_date' => 'nullable|date',
@@ -102,36 +104,37 @@ class AnnulmentIndvController extends Controller
             'branch' => 'nullable|string|max:255',
         ]);
 
-        AnnulmentIndv::create($request->all());
+        AnnulmentNonIndv::create($request->all());
 
-        return redirect()->route('annulment-indv.index')
+        return redirect()->route('annulment-non-indv.index')
             ->with('success', 'Annulment record created successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(AnnulmentIndv $annulmentIndv)
+    public function show(AnnulmentNonIndv $annulmentNonIndv)
     {
-        return view('annulment-indv.show', compact('annulmentIndv'));
+        return view('annulment-non-indv.show', compact('annulmentNonIndv'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(AnnulmentIndv $annulmentIndv)
+    public function edit(AnnulmentNonIndv $annulmentNonIndv)
     {
-        return view('annulment-indv.edit', compact('annulmentIndv'));
+        return view('annulment-non-indv.edit', compact('annulmentNonIndv'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, AnnulmentIndv $annulmentIndv)
+    public function update(Request $request, AnnulmentNonIndv $annulmentNonIndv)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'ic_no' => 'required|string|max:20|unique:annulment_indv,ic_no,' . $annulmentIndv->id,
+            'insolvency_no' => 'required|string|max:255|unique:annulment_non_indv,insolvency_no,' . $annulmentNonIndv->id,
+            'company_name' => 'required|string|max:255',
+            'company_registration_no' => 'required|string|max:255',
             'others' => 'nullable|string|max:255',
             'court_case_no' => 'nullable|string|max:255',
             'release_date' => 'nullable|date',
@@ -140,20 +143,20 @@ class AnnulmentIndvController extends Controller
             'branch' => 'nullable|string|max:255',
         ]);
 
-        $annulmentIndv->update($request->all());
+        $annulmentNonIndv->update($request->all());
 
-        return redirect()->route('annulment-indv.index')
+        return redirect()->route('annulment-non-indv.index')
             ->with('success', 'Annulment record updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AnnulmentIndv $annulmentIndv)
+    public function destroy(AnnulmentNonIndv $annulmentNonIndv)
     {
-        $annulmentIndv->delete();
+        $annulmentNonIndv->delete();
 
-        return redirect()->route('annulment-indv.index')
+        return redirect()->route('annulment-non-indv.index')
             ->with('success', 'Annulment record deleted successfully.');
     }
 
@@ -163,10 +166,10 @@ class AnnulmentIndvController extends Controller
     public function bulkUpload()
     {
         try {
-            return view('annulment-indv.bulk-upload-simple');
+            return view('annulment-non-indv.bulk-upload-simple');
         } catch (\Exception $e) {
             Log::error('Bulk upload view error: ' . $e->getMessage());
-            return redirect()->route('annulment-indv.index')
+            return redirect()->route('annulment-non-indv.index')
                 ->with('error', 'Error loading bulk upload page: ' . $e->getMessage());
         }
     }
@@ -185,7 +188,7 @@ class AnnulmentIndvController extends Controller
             ini_set('memory_limit', '1024M'); // Increased to 1GB
             ini_set('max_execution_time', 600); // Increased to 10 minutes
 
-            $import = new AnnulmentIndvImport();
+            $import = new AnnulmentNonIndvImport();
             
             // Use queue for files larger than 5MB to avoid memory issues
             $fileSize = $request->file('file')->getSize();
@@ -203,7 +206,7 @@ class AnnulmentIndvController extends Controller
                     $message .= " {$skippedDuplicates} duplicate records were skipped.";
                 }
 
-                return redirect()->route('annulment-indv.index')
+                return redirect()->route('annulment-non-indv.index')
                     ->with('success', $message);
             }
 
@@ -222,7 +225,7 @@ class AnnulmentIndvController extends Controller
     private function processLargeFile($file)
     {
         try {
-            $import = new AnnulmentIndvImport();
+            $import = new AnnulmentNonIndvImport();
             
             // Process the file in smaller chunks
             $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
@@ -242,7 +245,7 @@ class AnnulmentIndvController extends Controller
                 
                 for ($row = $startRow; $row <= $endRow; $row++) {
                     $rowData = [];
-                    for ($col = 'A'; $col <= 'H'; $col++) {
+                    for ($col = 'A'; $col <= 'I'; $col++) {
                         $rowData[] = $worksheet->getCell($col . $row)->getValue();
                     }
                     
@@ -251,7 +254,7 @@ class AnnulmentIndvController extends Controller
                     
                     if (empty($errors)) {
                         try {
-                            AnnulmentIndv::create($mappedData);
+                            AnnulmentNonIndv::create($mappedData);
                             $processed++;
                         } catch (\Exception $e) {
                             $skipped++;
@@ -271,7 +274,7 @@ class AnnulmentIndvController extends Controller
                 $message .= " {$skipped} records were skipped.";
             }
             
-            return redirect()->route('annulment-indv.index')
+            return redirect()->route('annulment-non-indv.index')
                 ->with('success', $message);
                 
         } catch (\Exception $e) {
@@ -288,17 +291,17 @@ class AnnulmentIndvController extends Controller
     public function downloadTemplate()
     {
         $headers = [
-            'Nama',
-            'No. K/P Baru', 
-            'No. Lain',
-            'No. Kes Mahkamah',
-            'Tarikh Pelepasan',
-            'Tarikh Kemaskini',
-            'Jenis Pelepasan',
-            'Nama Cawangan'
+            'Company Name',
+            'Company Registration No', 
+            'Others',
+            'Court Case No',
+            'Date Update',
+            'Release type',
+            'Stay Order Date',
+            'Branch'
         ];
 
-        $filename = 'annulment_indv_template_' . date('Y-m-d') . '.xlsx';
+        $filename = 'annulment_non_indv_template_' . date('Y-m-d') . '.xlsx';
         
         return Excel::download(new class($headers) implements \Maatwebsite\Excel\Concerns\FromArray {
             private $headers;
@@ -318,11 +321,11 @@ class AnnulmentIndvController extends Controller
      */
     public function downloadRecords()
     {
-        $annulmentIndv = AnnulmentIndv::active()->orderBy('name')->get();
+        $annulmentNonIndv = AnnulmentNonIndv::active()->orderBy('company_name')->get();
         
-        $filename = 'annulment_indv_records_' . date('Y-m-d') . '.xlsx';
+        $filename = 'annulment_non_indv_records_' . date('Y-m-d') . '.xlsx';
         
-        return Excel::download(new class($annulmentIndv) implements \Maatwebsite\Excel\Concerns\FromCollection {
+        return Excel::download(new class($annulmentNonIndv) implements \Maatwebsite\Excel\Concerns\FromCollection {
             private $records;
             
             public function __construct($records) {
@@ -332,14 +335,14 @@ class AnnulmentIndvController extends Controller
             public function collection() {
                 return $this->records->map(function ($record) {
                     return [
-                        'Nama' => $record->name,
-                        'No. K/P Baru' => $record->ic_no,
-                        'No. Lain' => $record->others,
-                        'No. Kes Mahkamah' => $record->court_case_no,
-                        'Tarikh Pelepasan' => $record->release_date ? $record->release_date->format('d/m/Y') : '',
-                        'Tarikh Kemaskini' => $record->formatted_updated_date,
-                        'Jenis Pelepasan' => $record->release_type,
-                        'Nama Cawangan' => $record->branch,
+                        'Company Name' => $record->company_name,
+                        'Company Registration No' => $record->company_registration_no,
+                        'Others' => $record->others,
+                        'Court Case No' => $record->court_case_no,
+                        'Date Update' => $record->formatted_updated_date,
+                        'Release type' => $record->release_type,
+                        'Stay Order Date' => $record->release_date ? $record->release_date->format('d/m/Y') : '',
+                        'Branch' => $record->branch,
                     ];
                 });
             }

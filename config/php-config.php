@@ -26,8 +26,9 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
 ini_set('log_errors', 1);
 ini_set('error_log', __DIR__ . '/storage/logs/php_errors.log');
 
-echo "PHP Configuration loaded successfully!\n";
-echo "Memory limit: " . ini_get('memory_limit') . "\n";
-echo "Max execution time: " . ini_get('max_execution_time') . " seconds\n";
-echo "Upload max filesize: " . ini_get('upload_max_filesize') . "\n";
-echo "Post max size: " . ini_get('post_max_size') . "\n";
+// Configuration loaded silently
+// echo "PHP Configuration loaded successfully!\n";
+// echo "Memory limit: " . ini_get('memory_limit') . "\n";
+// echo "Max execution time: " . ini_get('max_execution_time') . " seconds\n";
+// echo "Upload max filesize: " . ini_get('upload_max_filesize') . "\n";
+// echo "Post max size: " . ini_get('post_max_size') . "\n";
