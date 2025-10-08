@@ -65,16 +65,46 @@ class AuthController extends BaseApiController
 
     public function user(Request $request): JsonResponse
     {
+        $user = auth('sanctum')->user();
+        if (!$user) {
+            return $this->errorResponse('Authentication required', null, 401);
+        }
+
         return $this->successResponse(
-            $request->user()->only(['id', 'name', 'email', 'role', 'is_active', 'created_at'])
+            $user->only(['id', 'name', 'email', 'role', 'is_active', 'created_at'])
         );
     }
 
     public function logout(Request $request): JsonResponse
     {
-        $user = $request->user();
-
-        $request->user()->currentAccessToken()->delete();
+        // Extract token from Authorization header
+        $authHeader = $request->header('Authorization');
+        $token = $authHeader ? str_replace('Bearer ', '', $authHeader) : null;
+        
+        if (!$token) {
+            return $this->errorResponse('Token required', null, 401);
+        }
+        
+        // Find and authenticate user using token
+        $user = auth('sanctum')->user();
+        if (!$user) {
+            return $this->errorResponse('Invalid token', null, 401);
+        }
+        
+        // Manually find and delete the token
+        $tokenParts = explode('|', $token);
+        if (count($tokenParts) === 2) {
+            $tokenId = $tokenParts[0];
+            $tokenValue = $tokenParts[1];
+            $hashedToken = hash('sha256', $tokenValue);
+            
+            // Delete the token from database
+            \Illuminate\Support\Facades\DB::table('personal_access_tokens')
+                ->where('id', $tokenId)
+                ->where('token', $hashedToken)
+                ->delete();
+        }
+        
         Log::info('API logout', ['user_id' => $user->id, 'ip' => $request->ip()]);
 
         return $this->successResponse(null, 'Logged out successfully');
@@ -82,8 +112,18 @@ class AuthController extends BaseApiController
 
     public function refresh(Request $request): JsonResponse
     {
-        $user = $request->user();
-        $request->user()->currentAccessToken()->delete();
+        $user = auth('sanctum')->user();
+        if (!$user) {
+            return $this->errorResponse('Authentication required', null, 401);
+        }
+
+        // Delete current token
+        $currentToken = $user->currentAccessToken();
+        if ($currentToken) {
+            $currentToken->delete();
+        }
+        
+        // Create new token
         $token = $user->createToken('API Token', ['*'])->plainTextToken;
 
         return $this->successResponse([
