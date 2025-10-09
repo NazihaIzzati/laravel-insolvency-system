@@ -8,6 +8,8 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\BankruptcyController;
 use App\Http\Controllers\NonIndividualBankruptcyController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\AuditLogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -95,4 +97,29 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
+});
+
+// User Management routes (Admin only)
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/user-management', [UserManagementController::class, 'index'])->name('user-management.index');
+    Route::get('/user-management/create', [UserManagementController::class, 'create'])->name('user-management.create');
+    Route::post('/user-management', [UserManagementController::class, 'store'])->name('user-management.store');
+    Route::get('/user-management/{user}', [UserManagementController::class, 'show'])->name('user-management.show');
+    Route::get('/user-management/{user}/edit', [UserManagementController::class, 'edit'])->name('user-management.edit');
+    Route::put('/user-management/{user}', [UserManagementController::class, 'update'])->name('user-management.update');
+    Route::delete('/user-management/{user}', [UserManagementController::class, 'destroy'])->name('user-management.destroy');
+    Route::post('/user-management/{id}/restore', [UserManagementController::class, 'restore'])->name('user-management.restore');
+    Route::delete('/user-management/{id}/force-delete', [UserManagementController::class, 'forceDelete'])->name('user-management.force-delete');
+    Route::post('/user-management/{user}/change-password', [UserManagementController::class, 'changePassword'])->name('user-management.change-password');
+    
+    // Bulk operations
+    Route::get('/user-management/bulk-upload', [UserManagementController::class, 'bulkUpload'])->name('user-management.bulk-upload');
+    Route::post('/user-management/bulk-upload', [UserManagementController::class, 'processBulkUpload'])->name('user-management.bulk-upload.process');
+    Route::get('/user-management/template', [UserManagementController::class, 'downloadTemplate'])->name('user-management.template');
+    Route::get('/user-management/download', [UserManagementController::class, 'downloadUsers'])->name('user-management.download');
+    
+    // Audit Logs
+    Route::get('/audit-logs', [AuditLogController::class, 'index'])->name('audit-logs.index');
+    Route::get('/audit-logs/{auditLog}', [AuditLogController::class, 'show'])->name('audit-logs.show');
+    Route::get('/audit-logs/export', [AuditLogController::class, 'export'])->name('audit-logs.export');
 });

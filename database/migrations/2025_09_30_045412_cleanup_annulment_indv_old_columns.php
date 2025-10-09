@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('annulment_indv', function (Blueprint $table) {
-            // Drop old columns that are no longer needed
-            $table->dropColumn([
+            // Drop old columns that are no longer needed (only if they exist)
+            $columnsToDrop = [
                 'annulment_indv_id',
                 'annulment_indv_position', 
                 'annulment_indv_branch',
@@ -23,7 +23,13 @@ return new class extends Migration
                 'ro_date',
                 'ao_date',
                 'branch_name'
-            ]);
+            ];
+            
+            foreach ($columnsToDrop as $column) {
+                if (Schema::hasColumn('annulment_indv', $column)) {
+                    $table->dropColumn($column);
+                }
+            }
         });
     }
 

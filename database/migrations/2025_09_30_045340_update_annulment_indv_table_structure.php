@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('annulment_indv', function (Blueprint $table) {
-            // Drop old columns that are no longer needed
-            $table->dropColumn([
+            // Drop old columns that are no longer needed (only if they exist)
+            $columnsToDrop = [
                 'annulment_indv_id',
                 'annulment_indv_position', 
                 'annulment_indv_branch',
@@ -23,15 +23,33 @@ return new class extends Migration
                 'ro_date',
                 'ao_date',
                 'branch_name'
-            ]);
+            ];
             
-            // Add new columns
-            $table->string('others')->nullable()->after('ic_no');
-            $table->string('court_case_no')->nullable()->after('others');
-            $table->date('release_date')->nullable()->after('court_case_no');
-            $table->string('release_type')->nullable()->after('updated_date');
-            $table->string('branch')->nullable()->after('release_type');
-            $table->boolean('is_active')->default(true)->after('branch');
+            foreach ($columnsToDrop as $column) {
+                if (Schema::hasColumn('annulment_indv', $column)) {
+                    $table->dropColumn($column);
+                }
+            }
+            
+            // Add new columns only if they don't exist
+            if (!Schema::hasColumn('annulment_indv', 'others')) {
+                $table->string('others')->nullable()->after('ic_no');
+            }
+            if (!Schema::hasColumn('annulment_indv', 'court_case_no')) {
+                $table->string('court_case_no')->nullable()->after('others');
+            }
+            if (!Schema::hasColumn('annulment_indv', 'release_date')) {
+                $table->date('release_date')->nullable()->after('court_case_no');
+            }
+            if (!Schema::hasColumn('annulment_indv', 'release_type')) {
+                $table->string('release_type')->nullable()->after('updated_date');
+            }
+            if (!Schema::hasColumn('annulment_indv', 'branch')) {
+                $table->string('branch')->nullable()->after('release_type');
+            }
+            if (!Schema::hasColumn('annulment_indv', 'is_active')) {
+                $table->boolean('is_active')->default(true)->after('branch');
+            }
         });
     }
 

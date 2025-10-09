@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -43,6 +44,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'is_active' => 'boolean',
+        'deleted_at' => 'datetime',
+        'last_login_at' => 'datetime',
     ];
 
     /**
@@ -57,6 +60,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if user is superuser.
+     *
+     * @return bool
+     */
+    public function isSuperUser()
+    {
+        return $this->role === 'superuser';
+    }
+
+    /**
      * Check if user is admin.
      *
      * @return bool
@@ -64,6 +77,36 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->role === 'admin';
+    }
+
+    /**
+     * Check if user is ID management.
+     *
+     * @return bool
+     */
+    public function isIdManagement()
+    {
+        return $this->role === 'id_management';
+    }
+
+    /**
+     * Check if user is staff.
+     *
+     * @return bool
+     */
+    public function isStaff()
+    {
+        return $this->role === 'staff';
+    }
+
+    /**
+     * Check if user has admin privileges (superuser or admin).
+     *
+     * @return bool
+     */
+    public function hasAdminPrivileges()
+    {
+        return in_array($this->role, ['superuser', 'admin']);
     }
 
     /**
@@ -94,10 +137,11 @@ class User extends Authenticatable
     public function getRoleDisplayAttribute()
     {
         return match($this->role) {
+            'superuser' => 'Super User',
             'admin' => 'Administrator',
-            'user' => 'User',
+            'id_management' => 'ID Management',
             'staff' => 'Staff',
-            default => 'User'
+            default => 'Staff'
         };
     }
 

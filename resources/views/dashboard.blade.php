@@ -151,14 +151,14 @@
                         <i class="fas fa-arrow-right text-gray-400 group-hover:text-orange-600 transition-colors duration-200"></i>
                     </a>
 
-                    @if($user->isAdmin())
-                    <a href="{{ route('admin.dashboard') }}" class="group flex items-center p-4 rounded-lg border border-gray-200 hover:border-orange-200 hover:shadow-md transition-all duration-200">
+                    @if($user->hasAdminPrivileges())
+                    <a href="{{ route('user-management.index') }}" class="group flex items-center p-4 rounded-lg border border-gray-200 hover:border-orange-200 hover:shadow-md transition-all duration-200">
                         <div class="w-12 h-12 bg-orange-50 rounded-lg flex items-center justify-center mr-4 group-hover:bg-orange-100 transition-colors duration-200">
-                            <i class="fas fa-cog text-orange-600 text-lg"></i>
+                            <i class="fas fa-users text-orange-600 text-lg"></i>
                         </div>
                         <div class="flex-1">
-                            <h3 class="text-sm font-semibold text-gray-900 group-hover:text-orange-600 transition-colors duration-200">Admin Panel</h3>
-                            <p class="text-xs text-gray-500 mt-1">Manage system settings and users</p>
+                            <h3 class="text-sm font-semibold text-gray-900 group-hover:text-orange-600 transition-colors duration-200">User Management</h3>
+                            <p class="text-xs text-gray-500 mt-1">Manage system users and permissions</p>
                             <div class="mt-2 text-xs text-gray-400">{{ \App\Models\User::count() }} total users</div>
                         </div>
                         <i class="fas fa-arrow-right text-gray-400 group-hover:text-orange-600 transition-colors duration-200"></i>
@@ -236,7 +236,7 @@
                     </div>
                     
                     <div class="flex justify-end">
-                        <button type="submit" class="inline-flex items-center px-6 py-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-100 transition-all duration-200">
+                        <button type="submit" class="inline-flex items-center px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors duration-200">
                             <i class="fas fa-search mr-2"></i>
                             Search Records
                         </button>
@@ -265,14 +265,14 @@
                 </div>
             </div>
             <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
+                <table class="min-w-full divide-y divide-gray-200" style="min-width: 1000px;">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name/Company</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">IC/Registration No</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Release Type</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-48">Name/Company</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40">IC/Registration No</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Type</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40">Release Type</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="searchResultsBody" class="bg-white divide-y divide-gray-200">

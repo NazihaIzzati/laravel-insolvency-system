@@ -6,40 +6,24 @@
 <div class="min-h-screen bg-neutral-50">
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Welcome Section -->
-        <div class="bg-gradient-to-r from-neutral-900 to-accent-600 rounded-xl shadow-lg mb-8">
-            <div class="px-8 py-12">
-                <div class="flex items-center justify-between">
-                    <div class="text-white">
-                        <h1 class="text-4xl font-light mb-3">Non-Individual Bankruptcy</h1>
-                        <p class="text-xl text-primary-100 mb-2">Manage company bankruptcy records</p>
-                        <p class="text-primary-200">Track and manage all company bankruptcy cases</p>
-                    </div>
-                    <div class="text-right text-white">
-                        <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg px-6 py-4">
-                            <p class="text-sm text-primary-100 mb-1">Total Records</p>
-                            <p class="text-lg font-medium">{{ $nonIndividualBankruptcies->count() }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Actions Section -->
         <div class="professional-section mb-6">
             <div class="professional-section-content">
                 <div class="flex flex-wrap justify-between items-center gap-3">
                     <div class="flex flex-wrap gap-3">
-                        <a href="{{ route('non-individual-bankruptcy.create') }}" class="professional-button-primary">
+                        <a href="{{ route('non-individual-bankruptcy.create') }}" class="inline-flex items-center px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors duration-200">
                             <i class="fas fa-plus mr-2"></i>
                             Add New Record
                         </a>
-                        <a href="{{ route('non-individual-bankruptcy.bulk-upload') }}" class="professional-button-accent">
+                        
+                        <a href="{{ route('non-individual-bankruptcy.bulk-upload') }}" class="inline-flex items-center px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
                             <i class="fas fa-upload mr-2"></i>
                             Bulk Upload
                         </a>
+                        
                         @if($nonIndividualBankruptcies->count() > 0)
-                            <a href="{{ route('non-individual-bankruptcy.download') }}" class="professional-button-success">
+                            <a href="{{ route('non-individual-bankruptcy.download') }}" class="inline-flex items-center px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
                                 <i class="fas fa-download mr-2"></i>
                                 Download Excel
                             </a>
@@ -55,74 +39,115 @@
             </div>
         </div>
 
-        <!-- Records Table -->
-        <div class="professional-section">
-            <div class="professional-section-header">
-                <h3 class="text-lg font-medium text-neutral-900">Non-Individual Bankruptcy Records</h3>
-                <p class="text-sm text-neutral-700 mt-1">All company and organization bankruptcy records</p>
-            </div>
-            <div class="professional-section-content">
-                <!-- Search Form -->
-                <div class="bg-white rounded-lg border border-neutral-200 p-6 mb-6 shadow-sm">
-                    <div class="flex items-center mb-4">
-                        <i class="fas fa-search text-neutral-800 mr-2"></i>
-                        <h4 class="text-lg font-semibold text-neutral-900">Quick Search</h4>
-                    </div>
-                    
-                    <form id="nonIndividualBankruptcySearchForm" class="space-y-4">
-                        @csrf
-                        <div>
-                            <label for="non_individual_bankruptcy_search_input" class="block text-sm font-medium text-neutral-700 mb-2">
-                                Search Records
-                            </label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-search text-gray-800"></i>
-                                </div>
-                                <input type="text" 
-                                       id="non_individual_bankruptcy_search_input" 
-                                       name="search_input" 
-                                       class="block w-full pl-10 pr-12 py-3 border border-neutral-300 rounded-lg text-sm placeholder-gray-500 focus:border-neutral-500 focus:ring-2 focus:ring-neutral-200 focus:outline-none transition-colors duration-200 bg-white" 
-                                       placeholder="Company name, registration number, insolvency number, or court case number"
-                                       required>
-                                <button type="button" id="clearNonIndividualSearchBtn" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-800 hover:text-neutral-800 transition-colors duration-200 p-1 rounded-full hover:bg-gray-100 cursor-pointer z-10" style="display: none;" title="Clear search">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                            <p class="mt-2 text-xs text-neutral-700">
-                                Search across company names, registration numbers, insolvency numbers, and court case numbers
-                            </p>
+        <!-- Quick Search Section -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-search text-orange-600"></i>
                         </div>
-                        
-                        <div class="flex justify-end">
-                            <button type="submit" class="inline-flex items-center px-6 py-3 border border-transparent text-sm font-medium rounded-lg text-white bg-neutral-600 hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-500 transition-colors duration-200 shadow-sm">
-                                <i class="fas fa-search mr-2"></i>
-                                Search Records
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-900">Quick Search</h2>
+                            <p class="text-sm text-gray-500">Find non-individual bankruptcy records instantly</p>
+                        </div>
+                    </div>
+                    <div class="hidden lg:flex items-center space-x-2 text-sm text-gray-500">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Search by company name, registration number, or insolvency number</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-6">
+                <form id="nonIndividualBankruptcySearchForm" class="space-y-4">
+                    @csrf
+                    <div>
+                        <label for="non_individual_bankruptcy_search_input" class="block text-sm font-medium text-gray-700 mb-2">
+                            Search Records
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-search text-gray-400"></i>
+                            </div>
+                            <input type="text" 
+                                   id="non_individual_bankruptcy_search_input" 
+                                   name="search_input" 
+                                   class="block w-full pl-10 pr-12 py-3 border border-gray-200 rounded-lg text-sm placeholder-gray-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200" 
+                                   placeholder="Enter company name, registration number, insolvency number, or court case number..."
+                                   required>
+                            <button type="button" 
+                                    id="clearNonIndividualSearchBtn" 
+                                    class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200" 
+                                    style="display: none;" 
+                                    title="Clear search">
+                                <i class="fas fa-times"></i>
                             </button>
                         </div>
-                    </form>
-                </div>
+                        
+                        <!-- Search Tags -->
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
+                                <i class="fas fa-building mr-1"></i>
+                                Company Names
+                            </span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
+                                <i class="fas fa-certificate mr-1"></i>
+                                Registration Numbers
+                            </span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
+                                <i class="fas fa-file-invoice mr-1"></i>
+                                Insolvency Numbers
+                            </span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
+                                <i class="fas fa-gavel mr-1"></i>
+                                Court Cases
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-end">
+                        <button type="submit" class="inline-flex items-center px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors duration-200">
+                            <i class="fas fa-search mr-2"></i>
+                            Search Records
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Records Table -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 mb-8 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">Records</h3>
+            </div>
+            <div class="p-6">
 
                 <!-- Loading Spinner -->
-                <div id="nonIndividualBankruptcyLoadingSpinner" class="hidden bg-white rounded-lg border border-neutral-200 p-8 mb-6 shadow-sm">
+                <div id="nonIndividualBankruptcyLoadingSpinner" class="hidden bg-white rounded-xl shadow-sm border border-gray-200 p-12 mb-6">
                     <div class="text-center">
-                        <div class="inline-flex items-center justify-center w-12 h-12 bg-accent-100 rounded-full mb-4">
-                            <i class="fas fa-spinner fa-spin text-neutral-800 text-lg"></i>
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-orange-100 rounded-full mb-4">
+                            <i class="fas fa-spinner fa-spin text-orange-600 text-xl"></i>
                         </div>
-                        <h3 class="text-lg font-medium text-neutral-900 mb-2">Searching Records</h3>
-                        <p class="text-sm text-neutral-700">Please wait while we search for matching records...</p>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Searching Records</h3>
+                        <p class="text-gray-500">Please wait while we search for matching records...</p>
                     </div>
                 </div>
 
                 <!-- Search Results -->
-                <div id="nonIndividualBankruptcySearchResults" class="hidden bg-white rounded-lg border border-neutral-200 mb-6 shadow-sm">
-                    <div class="px-6 py-4 border-b border-neutral-200">
+                <div id="nonIndividualBankruptcySearchResults" class="hidden bg-white rounded-xl shadow-sm border border-gray-200 mb-6 overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-200">
                         <div class="flex items-center justify-between">
-                            <div>
-                                <h3 class="text-lg font-semibold text-neutral-900">Search Results</h3>
-                                <p class="text-sm text-neutral-700 mt-1">Matching records found</p>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-check-circle text-orange-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-900">Search Results</h3>
+                                    <p class="text-sm text-gray-500">Matching records found</p>
+                                </div>
                             </div>
-                            <button type="button" id="clearSearchResultsBtn" class="text-sm text-neutral-700 hover:text-neutral-700 flex items-center">
+                            <button type="button" id="clearSearchResultsBtn" class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors duration-200">
                                 <i class="fas fa-times mr-2"></i>
                                 Clear Results
                             </button>
@@ -171,38 +196,38 @@
             @if($nonIndividualBankruptcies->count() > 0)
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-white-50">
+                        <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">Insolvency No</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">Company Name</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">Company Registration No</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">Others</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">Court Case No</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">Date of Winding Up/Resolution</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">Updated Date</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">Branch</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-neutral-700 uppercase tracking-wider">Actions</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Insolvency No</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Company Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Company Registration No</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Others</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Court Case No</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date of Winding Up/Resolution</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Updated Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Branch</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @foreach($nonIndividualBankruptcies as $nonIndividualBankruptcy)
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-mono text-neutral-900">
+                                <tr class="hover:bg-gray-50 transition-colors duration-200">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {{ $nonIndividualBankruptcy->insolvency_no }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral-900">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {{ $nonIndividualBankruptcy->company_name }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-mono text-neutral-900">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {{ $nonIndividualBankruptcy->company_registration_no }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral-900">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {{ $nonIndividualBankruptcy->others ?? 'N/A' }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral-900">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {{ $nonIndividualBankruptcy->court_case_no ?? 'N/A' }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral-900">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         @if($nonIndividualBankruptcy->date_of_winding_up_resolution && !empty(trim($nonIndividualBankruptcy->date_of_winding_up_resolution)))
                                             @if(is_string($nonIndividualBankruptcy->date_of_winding_up_resolution))
                                                 {{ \Carbon\Carbon::parse($nonIndividualBankruptcy->date_of_winding_up_resolution)->format('d/m/Y') }}
@@ -213,20 +238,20 @@
                                             N/A
                                         @endif
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral-900">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {{ $nonIndividualBankruptcy->formatted_updated_date }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral-900">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {{ $nonIndividualBankruptcy->branch ?? 'N/A' }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                         <div class="flex space-x-2">
                                             <a href="{{ route('non-individual-bankruptcy.show', $nonIndividualBankruptcy) }}" 
-                                               class="text-indigo-600 hover:text-indigo-900">
+                                               class="text-orange-600 hover:text-orange-900">
                                                 View
                                             </a>
                                             <a href="{{ route('non-individual-bankruptcy.edit', $nonIndividualBankruptcy) }}" 
-                                               class="text-yellow-600 hover:text-yellow-900">
+                                               class="text-green-600 hover:text-green-900">
                                                 Edit
                                             </a>
                                             <form method="POST" action="{{ route('non-individual-bankruptcy.destroy', $nonIndividualBankruptcy) }}" 

@@ -26,7 +26,7 @@ class AdminMiddleware
 
         $user = Auth::user();
 
-        if (!$user->isAdmin()) {
+        if (!$user->hasAdminPrivileges()) {
             if ($request->expectsJson()) {
                 return response()->json(['message' => 'Access denied. Admin privileges required.'], 403);
             }

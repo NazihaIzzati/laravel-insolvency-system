@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\AuthService;
+use App\Services\AuditService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -61,6 +62,9 @@ class AuthController extends Controller
             
             if ($user) {
                 $request->session()->regenerate();
+                
+                // Log the login
+                AuditService::logLogin($user, $request);
                 
                 return redirect()->intended(route('dashboard'))
                     ->with('success', 'Welcome back, ' . $user->name . '!');
@@ -136,6 +140,13 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
+        $user = Auth::user();
+        
+        // Log the logout before clearing the session
+        if ($user) {
+            AuditService::logLogout($user, $request);
+        }
+        
         Auth::logout();
         
         $request->session()->invalidate();
