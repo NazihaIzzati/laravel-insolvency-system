@@ -3,7 +3,7 @@
 @section('title', 'User Details')
 
 @section('content')
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen bg-white">
     <!-- Main Content -->
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
@@ -15,11 +15,11 @@
                     <p class="text-gray-600 mt-1">View detailed information about {{ $user->name }}</p>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="{{ route('user-management.edit', $user) }}" class="inline-flex items-center px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors duration-200">
-                        <i class="fas fa-edit mr-2"></i>
-                        Edit User
-                    </a>
-                    <a href="{{ route('user-management.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-500 text-white text-sm font-medium rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
+                    <a href="{{ route('user-management.index') }}" 
+                       class="inline-flex items-center px-4 py-2 text-white text-sm font-medium rounded-lg transition-colors duration-200" 
+                       style="background-color: #dc2626;"
+                       onmouseover="this.style.backgroundColor='#b91c1c';"
+                       onmouseout="this.style.backgroundColor='#dc2626';">
                         <i class="fas fa-arrow-left mr-2"></i>
                         Back to Users
                     </a>
@@ -123,7 +123,7 @@
                     <ul class="-mb-8">
                         <li>
                             <div class="relative pb-8">
-                                <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                                <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-white" aria-hidden="true"></span>
                                 <div class="relative flex space-x-3">
                                     <div>
                                         <span class="h-8 w-8 rounded-full bg-green-100 flex items-center justify-center ring-8 ring-white">
@@ -145,7 +145,7 @@
                         @if($user->updated_at && $user->updated_at != $user->created_at)
                         <li>
                             <div class="relative pb-8">
-                                <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                                <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-white" aria-hidden="true"></span>
                                 <div class="relative flex space-x-3">
                                     <div>
                                         <span class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center ring-8 ring-white">
@@ -168,7 +168,7 @@
                         @if($user->last_login_at)
                         <li>
                             <div class="relative pb-8">
-                                <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                                <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-white" aria-hidden="true"></span>
                                 <div class="relative flex space-x-3">
                                     <div>
                                         <span class="h-8 w-8 rounded-full bg-orange-100 flex items-center justify-center ring-8 ring-white">
@@ -235,7 +235,7 @@
                     </a>
                     
                     @if($user->deleted_at)
-                        <form action="{{ route('user-management.restore', $user->id) }}" method="POST" class="flex items-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors duration-200 cursor-pointer" onclick="this.submit()">
+                        <form action="{{ route('user-management.restore', $user->id) }}" method="POST" class="flex items-center p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors duration-200 cursor-pointer" onclick="confirmRestore(event, this)">
                             @csrf
                             <div class="flex-shrink-0">
                                 <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -248,7 +248,7 @@
                             </div>
                         </form>
                     @else
-                        <form action="{{ route('user-management.destroy', $user) }}" method="POST" class="flex items-center p-4 bg-red-50 rounded-lg hover:bg-red-100 transition-colors duration-200 cursor-pointer" onclick="if(confirm('Are you sure you want to deactivate this user?')) this.submit()">
+                        <form action="{{ route('user-management.destroy', $user) }}" method="POST" class="flex items-center p-4 bg-red-50 rounded-lg hover:bg-red-100 transition-colors duration-200 cursor-pointer" onclick="confirmDeactivation(event, this)">
                             @csrf
                             @method('DELETE')
                             <div class="flex-shrink-0">
@@ -263,22 +263,49 @@
                         </form>
                     @endif
                     
-                    <form action="{{ route('user-management.force-delete', $user->id) }}" method="POST" class="flex items-center p-4 bg-red-100 rounded-lg hover:bg-red-200 transition-colors duration-200 cursor-pointer" onclick="if(confirm('Are you sure you want to permanently delete this user? This action cannot be undone.')) this.submit()">
-                        @csrf
-                        @method('DELETE')
-                        <div class="flex-shrink-0">
-                            <div class="w-10 h-10 bg-red-200 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-trash text-red-700"></i>
-                            </div>
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="text-sm font-medium text-gray-900">Delete Permanently</h4>
-                            <p class="text-xs text-gray-500">Remove user completely</p>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    </div>
+
+    <script>
+        function confirmDeactivation(event, form) {
+            event.preventDefault();
+            
+            Swal.fire({
+                title: 'Deactivate User',
+                text: 'Are you sure you want to deactivate this user? This action can be undone.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc2626',
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: 'Yes, deactivate',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        }
+
+        function confirmRestore(event, form) {
+            event.preventDefault();
+            
+            Swal.fire({
+                title: 'Restore User',
+                text: 'Are you sure you want to restore this user? The user will be able to access the system again.',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3b82f6',
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: 'Yes, restore',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        }
+    </script>
 @endsection

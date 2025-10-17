@@ -3,7 +3,7 @@
 @section('title', 'Non-Individual Annulment Records')
 
 @section('content')
-<div class="min-h-screen bg-neutral-50">
+<div class="min-h-screen bg-white">
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
@@ -17,30 +17,20 @@
                             Add New Record
                         </a>
                         
-                        <a href="{{ route('annulment-non-indv.bulk-upload') }}" class="inline-flex items-center px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
+                        <a href="{{ route('annulment-non-indv.bulk-upload') }}" class="inline-flex items-center px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
                             <i class="fas fa-upload mr-2"></i>
                             Bulk Upload
                         </a>
                         
                         @if($annulmentNonIndv->total() > 0)
-                            <a href="{{ route('annulment-non-indv.download') }}" class="inline-flex items-center px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
+                            <a href="{{ route('annulment-non-indv.download') }}" class="inline-flex items-center px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
                                 <i class="fas fa-download mr-2"></i>
                                 Download Excel
                             </a>
                         @endif
                     </div>
                     <div class="flex gap-3 items-center">
-                        <div class="flex items-center gap-2">
-                            <label for="per_page" class="text-sm font-medium text-neutral-700">Records per page:</label>
-                            <select id="per_page" name="per_page" class="professional-input py-1 px-2 text-sm" onchange="changePerPage(this.value)">
-                                <option value="5" {{ $perPage == 5 ? 'selected' : '' }}>5</option>
-                                <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>10</option>
-                                <option value="25" {{ $perPage == 25 ? 'selected' : '' }}>25</option>
-                                <option value="50" {{ $perPage == 50 ? 'selected' : '' }}>50</option>
-                                <option value="100" {{ $perPage == 100 ? 'selected' : '' }}>100</option>
-                            </select>
-                        </div>
-                        <a href="{{ route('dashboard') }}" class="professional-button">
+                        <a href="{{ auth()->user()->isIdManagement() ? route('id-management.dashboard') : (auth()->user()->isSuperUser() ? route('dashboard') : (auth()->user()->isAdmin() ? route('admin.dashboard') : route('dashboard'))) }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200">
                             <i class="fas fa-arrow-left mr-2"></i>
                             Back to Dashboard
                         </a>
@@ -97,19 +87,19 @@
                         
                         <!-- Search Tags -->
                         <div class="mt-3 flex flex-wrap gap-2">
-                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-white text-gray-700">
                                 <i class="fas fa-building mr-1"></i>
                                 Company Names
                             </span>
-                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-white text-gray-700">
                                 <i class="fas fa-certificate mr-1"></i>
                                 Registration Numbers
                             </span>
-                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-white text-gray-700">
                                 <i class="fas fa-gavel mr-1"></i>
                                 Court Cases
                             </span>
-                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-white text-gray-700">
                                 <i class="fas fa-tag mr-1"></i>
                                 References
                             </span>
@@ -134,7 +124,7 @@
                 </div>
                 <h3 class="text-lg font-bold text-neutral-900 mb-2">Searching Records</h3>
                 <p class="text-sm text-neutral-800 mb-4">Please wait while we search for matching non-individual annulment records...</p>
-                <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="w-full bg-white rounded-full h-2">
                     <div class="bg-gradient-to-r from-neutral-500 to-neutral-500 h-2 rounded-full animate-pulse" style="width: 60%"></div>
                 </div>
             </div>
@@ -161,7 +151,7 @@
             </div>
             <div class="overflow-x-auto bg-white-50 px-8 py-6">
                 <table class="w-full divide-y divide-gray-200" style="min-width: 1000px;">
-                    <thead class="bg-gray-100">
+                    <thead class="bg-white">
                         <tr>
                             <th class="px-6 py-4 text-left text-xs font-bold text-neutral-800 uppercase tracking-wider w-48">Company Name</th>
                             <th class="px-6 py-4 text-left text-xs font-bold text-neutral-800 uppercase tracking-wider w-32">Registration No</th>
@@ -183,7 +173,7 @@
         <!-- No Results Section -->
         <div id="annulmentNonIndvNoResults" class="hidden bg-white p-8 mb-6 border-l-4 border-gray-400">
             <div class="text-center">
-                <div class="inline-flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full mb-4">
+                <div class="inline-flex items-center justify-center w-12 h-12 bg-white rounded-full mb-4">
                     <i class="fas fa-search text-gray-800 text-lg"></i>
                 </div>
                 <h3 class="text-lg font-bold text-neutral-900 mb-2">No Results Found</h3>
@@ -201,7 +191,20 @@
         <!-- Main Content Card -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 mb-8 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-200">
-                <h3 class="text-lg font-semibold text-gray-900">Records</h3>
+                <div class="flex items-center justify-between">
+                    <h3 class="text-lg font-semibold text-gray-900">Records</h3>
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm font-medium text-gray-700">Records</span>
+                        <label for="per_page" class="text-sm font-medium text-gray-700">per page:</label>
+                        <select id="per_page" name="per_page" class="text-sm border border-gray-300 rounded px-2 py-1" onchange="changePerPage(this.value)">
+                            <option value="5" {{ $perPage == 5 ? 'selected' : '' }}>5</option>
+                            <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>10</option>
+                            <option value="25" {{ $perPage == 25 ? 'selected' : '' }}>25</option>
+                            <option value="50" {{ $perPage == 50 ? 'selected' : '' }}>50</option>
+                            <option value="100" {{ $perPage == 100 ? 'selected' : '' }}>100</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="p-6">
 
@@ -209,7 +212,7 @@
                 <div id="mainAnnulmentNonIndvRecordsTable">
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200" style="min-width: 1200px;">
-                        <thead class="bg-gray-50">
+                        <thead class="bg-white">
                             <tr>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-48">Company Name</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40">Registration No</th>
@@ -224,12 +227,12 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @forelse($annulmentNonIndv as $annulment)
-                                <tr class="hover:bg-gray-50 transition-colors duration-200">
+                                <tr class="hover:bg-white transition-colors duration-200">
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="text-sm text-gray-900">{{ $annulment->company_name ?? 'N/A' }}</span>
+                                        <span class="pill-badge pill-badge-company">{{ $annulment->company_name ?? 'N/A' }}</span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="text-sm text-gray-500">{{ $annulment->company_registration_no ?? 'N/A' }}</span>
+                                        <span class="pill-badge pill-badge-registration">{{ $annulment->company_registration_no ?? 'N/A' }}</span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <span class="text-sm text-gray-500">{{ $annulment->others ?? 'N/A' }}</span>
@@ -261,13 +264,8 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                         <div class="flex space-x-2">
-                                            <a href="{{ route('annulment-non-indv.show', $annulment) }}" class="text-orange-600 hover:text-orange-900 transition-colors duration-200">View</a>
-                                            <a href="{{ route('annulment-non-indv.edit', $annulment) }}" class="text-green-600 hover:text-green-900 transition-colors duration-200">Edit</a>
-                                            <form method="POST" action="{{ route('annulment-non-indv.destroy', $annulment) }}" class="inline" onsubmit="return confirmDeleteAnnulmentNonIndv(event)">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:text-red-900 transition-colors duration-200">Delete</button>
-                                            </form>
+                                            <button onclick="showAnnulmentNonIndvDetails({{ $annulment->id }})" class="text-orange-600 hover:text-orange-900 transition-colors duration-200 px-2 py-1 rounded text-sm font-medium">View</button>
+                                            <a href="{{ route('annulment-non-indv.edit', $annulment) }}" class="text-green-600 hover:text-green-900 transition-colors duration-200 px-2 py-1 rounded text-sm font-medium">Edit</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -279,7 +277,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                                             </svg>
                                             <p class="text-sm font-medium">No non-individual annulment records found</p>
-                                            <p class="text-xs text-primary-400 mt-1">
+                                            <p class="text-xs text-gray-400 mt-1">
                                                 <a href="{{ route('annulment-non-indv.create') }}" class="text-neutral-800 hover:text-neutral-700">Add the first record</a>
                                             </p>
                                         </div>
@@ -452,13 +450,13 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         </div>
                         <div class="ml-3">
-                            <div class="text-sm font-bold text-neutral-900">${result.company_name || 'N/A'}</div>
-                            <div class="text-xs text-neutral-700">Non-Individual Annulment</div>
+                            <span class="pill-badge pill-badge-company">${result.company_name || 'N/A'}</span>
+                            <div class="text-xs text-neutral-700 mt-1">Non-Individual Annulment</div>
                         </div>
                     </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-neutral-900 bg-blue-50 px-2 py-1 rounded inline-block">${result.company_registration_no || 'N/A'}</div>
+                    <span class="pill-badge pill-badge-registration">${result.company_registration_no || 'N/A'}</span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     <div class="text-sm text-neutral-900">${result.others || 'N/A'}</div>
@@ -488,11 +486,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <div class="flex flex-col space-y-1">
                         <a href="/annulment-non-indv/${result.id}" class="inline-flex items-center px-2 py-1 text-xs font-bold text-white bg-blue-600 rounded hover:bg-blue-700 transition-colors duration-200 w-fit">
-                            <i class="fas fa-eye mr-1"></i>
                             View
                         </a>
                         <a href="/annulment-non-indv/${result.id}/edit" class="inline-flex items-center px-2 py-1 text-xs font-bold text-white bg-green-600 rounded hover:bg-green-700 transition-colors duration-200 w-fit">
-                            <i class="fas fa-edit mr-1"></i>
                             Edit
                         </a>
                     </div>
@@ -534,6 +530,65 @@ function changePerPage(value) {
     url.searchParams.set('per_page', value);
     url.searchParams.delete('page'); // Reset to first page when changing per_page
     window.location.href = url.toString();
+}
+
+// Annulment Non-Individual Details Modal
+function showAnnulmentNonIndvDetails(id) {
+    fetch(`/annulment-non-indv/${id}`)
+        .then(response => response.text())
+        .then(html => {
+            // Create a temporary div to parse the HTML
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            
+            // Extract the record details from the show page
+            const recordDetails = tempDiv.querySelector('.pdf-content');
+            if (recordDetails) {
+                // Create modal content
+                const modalContent = `
+                    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+                            <div class="p-6">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h3 class="text-xl font-semibold text-gray-900">Annulment Non-Individual Record Details</h3>
+                                    <button onclick="closeAnnulmentNonIndvModal()" class="text-gray-400 hover:text-gray-600">
+                                        <i class="bx bx-x text-2xl"></i>
+                                    </button>
+                                </div>
+                                <div class="record-details">
+                                    ${recordDetails.innerHTML}
+                                </div>
+                                <div class="flex justify-end mt-6 pt-4 border-t border-gray-200">
+                                    <button onclick="closeAnnulmentNonIndvModal()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-200">
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add modal to body
+                document.body.insertAdjacentHTML('beforeend', modalContent);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                title: 'Error!',
+                text: 'An error occurred while fetching record details.',
+                icon: 'error',
+                confirmButtonColor: '#ef4444',
+                confirmButtonText: 'OK'
+            });
+        });
+}
+
+function closeAnnulmentNonIndvModal() {
+    const modal = document.querySelector('.fixed.inset-0.bg-black.bg-opacity-50');
+    if (modal) {
+        modal.remove();
+    }
 }
 </script>
 @endsection

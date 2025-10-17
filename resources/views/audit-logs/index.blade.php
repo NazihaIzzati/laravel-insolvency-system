@@ -3,7 +3,7 @@
 @section('title', 'Audit Logs')
 
 @section('content')
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen bg-white">
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
@@ -11,11 +11,21 @@
         <div class="mb-8">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Audit Logs</h1>
-                    <p class="text-gray-600 mt-1">Track all actions performed by superusers, admins, and ID management</p>
+                    <div class="flex items-center space-x-3">
+                        <h1 class="text-3xl font-bold text-gray-900">Audit Logs</h1>
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                            <i class="fas fa-shield-alt mr-1"></i>
+                            Superuser Only
+                        </span>
+                    </div>
+                    <p class="text-gray-600 mt-1">Track all actions performed by system users - Superuser access only</p>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="{{ route('user-management.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-500 text-white text-sm font-medium rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
+                    <a href="{{ route('user-management.index') }}" 
+                       class="inline-flex items-center px-4 py-2 text-white text-sm font-medium rounded-lg transition-colors duration-200"
+                       style="background-color: #dc2626;"
+                       onmouseover="this.style.backgroundColor='#b91c1c';"
+                       onmouseout="this.style.backgroundColor='#dc2626';">
                         <i class="fas fa-arrow-left mr-2"></i>
                         Back to Users
                     </a>
@@ -87,7 +97,7 @@
                             <i class="fas fa-search mr-2"></i>
                             Apply Filters
                         </button>
-                        <a href="{{ route('audit-logs.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-500 text-white text-sm font-medium rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
+                        <a href="{{ route('audit-logs.index') }}" class="inline-flex items-center px-4 py-2 bg-orange-600 text-white text-sm font-medium rounded-lg hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors duration-200">
                             <i class="fas fa-times mr-2"></i>
                             Clear Filters
                         </a>
@@ -104,7 +114,7 @@
             </div>
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
+                    <thead class="bg-white">
                         <tr>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Action</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-48">User</th>
@@ -117,7 +127,7 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         @forelse($auditLogs as $log)
-                            <tr class="hover:bg-gray-50 transition-colors duration-200">
+                            <tr class="hover:bg-white transition-colors duration-200">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-{{ $log->action_color }}-100 text-{{ $log->action_color }}-800">
                                         <i class="{{ $log->action_icon }} mr-1"></i>
@@ -142,7 +152,7 @@
                                     @if($log->metadata)
                                         <div class="text-xs text-gray-500 mt-1">
                                             @foreach($log->metadata as $key => $value)
-                                                <span class="inline-block bg-gray-100 rounded px-2 py-1 mr-1 mb-1">
+                                                <span class="inline-block bg-white rounded px-2 py-1 mr-1 mb-1">
                                                     {{ $key }}: {{ is_array($value) ? json_encode($value) : $value }}
                                                 </span>
                                             @endforeach

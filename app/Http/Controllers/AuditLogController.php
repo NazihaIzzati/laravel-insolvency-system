@@ -9,6 +9,10 @@ class AuditLogController extends Controller
 {
     public function index(Request $request)
     {
+        // Additional authorization check to ensure only superusers can access
+        if (!auth()->user()->isSuperUser()) {
+            abort(403, 'Access denied. Superuser privileges required.');
+        }
         $query = AuditLog::with('user')->orderBy('created_at', 'desc');
 
         // Filter by user role
@@ -43,12 +47,22 @@ class AuditLogController extends Controller
 
     public function show(AuditLog $auditLog)
     {
+        // Additional authorization check to ensure only superusers can access
+        if (!auth()->user()->isSuperUser()) {
+            abort(403, 'Access denied. Superuser privileges required.');
+        }
+        
         $auditLog->load('user');
         return view('audit-logs.show', compact('auditLog'));
     }
 
     public function export(Request $request)
     {
+        // Additional authorization check to ensure only superusers can access
+        if (!auth()->user()->isSuperUser()) {
+            abort(403, 'Access denied. Superuser privileges required.');
+        }
+        
         $query = AuditLog::with('user')->orderBy('created_at', 'desc');
 
         // Apply same filters as index

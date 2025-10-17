@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminMiddleware
+class IdManagementMiddleware
 {
     /**
      * Handle an incoming request.
@@ -26,15 +26,16 @@ class AdminMiddleware
 
         $user = Auth::user();
 
-        if (!$user->hasAdminPrivileges()) {
+        // Allow id_management role and superusers
+        if (!$user->isIdManagement() && !$user->isSuperUser()) {
             if ($request->expectsJson()) {
-                return response()->json(['message' => 'Access denied. Admin privileges required.'], 403);
+                return response()->json(['message' => 'Access denied. ID Management or Superuser privileges required.'], 403);
             }
 
-            // Redirect ID management to their dashboard
-            if ($user->isIdManagement()) {
-                return redirect()->route('id-management.dashboard')
-                    ->with('error', 'Access denied. ID Management users must use the ID Management dashboard.');
+            // Redirect admin users to admin dashboard
+            if ($user->isAdmin()) {
+                return redirect()->route('admin.dashboard')
+                    ->with('error', 'Access denied. Admin users must use the admin dashboard.');
             }
 
             // Redirect staff to main dashboard

@@ -48,9 +48,8 @@ class UserManagementController extends Controller
         if ($request->filled('search')) {
             AuditService::logSearch(
                 auth()->user(), 
-                $searchTerm, 
                 'User Management', 
-                $users->total(),
+                $searchTerm, 
                 $request
             );
         }
@@ -144,7 +143,7 @@ class UserManagementController extends Controller
         ]);
 
         // Log the user update
-        AuditService::logUserUpdate(auth()->user(), $user, $oldValues, $request);
+        AuditService::logUserUpdate(auth()->user(), $user, $oldValues, $user->fresh()->getAttributes(), $request);
 
         return redirect()->route('user-management.index')
             ->with('success', 'User updated successfully.');
@@ -167,31 +166,6 @@ class UserManagementController extends Controller
 
         return redirect()->route('user-management.index')
             ->with('success', 'User deleted successfully.');
-    }
-
-    public function changePassword(Request $request, User $user)
-    {
-        $validator = Validator::make($request->all(), [
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator);
-        }
-
-        $user->update([
-            'password' => Hash::make($request->password),
-            'pwdchange_date' => now(),
-            'last_modified_date' => now(),
-            'last_modified_user' => auth()->user()->name,
-        ]);
-
-        // Log the password change
-        AuditService::logPasswordChange(auth()->user(), $user, $request);
-
-        return redirect()->route('user-management.index')
-            ->with('success', 'Password updated successfully.');
     }
 
     public function bulkUpload()
@@ -227,26 +201,16 @@ class UserManagementController extends Controller
             $file = $request->file('excel_file');
             
             // Import users from Excel
-            $import = new UserImport();
-            Excel::import($import, $file);
+            Excel::import(new UserImport, $file);
             
             // Count imported users (this is a simplified count)
             $importedCount = User::where('created_at', '>=', now()->subMinutes(5))->count();
             
-            // Get validation failures if any
-            $failures = $import->failures();
-            $failureCount = count($failures);
-            
             // Log the bulk upload
             AuditService::logBulkUpload(auth()->user(), 'User', $importedCount, $request);
             
-            $message = "Users uploaded successfully! {$importedCount} users processed.";
-            if ($failureCount > 0) {
-                $message .= " {$failureCount} rows had validation errors and were skipped.";
-            }
-            
             return redirect()->route('user-management.index')
-                ->with('success', $message);
+                ->with('success', 'Users uploaded successfully!');
                 
         } catch (\Exception $e) {
             return redirect()->back()
@@ -310,95 +274,23 @@ class UserTemplateExport implements \Maatwebsite\Excel\Concerns\FromCollection, 
 {
     public function collection()
     {
-        // Return comprehensive sample data for template
+        // Return sample data for template
         return collect([
             [
-                'name' => 'Ahmad Rahman',
+                'name' => 'John Doe',
                 'staff_id' => 'EMP001',
                 'password' => 'password123',
                 'role' => 'staff',
-                'branch_code' => 'KL001',
+                'branch_code' => 'BR001',
                 'status' => 'active',
                 'is_active' => 'true',
             ],
             [
-                'name' => 'Siti Nurhaliza',
+                'name' => 'Jane Smith',
                 'staff_id' => 'EMP002',
                 'password' => 'password123',
                 'role' => 'admin',
-                'branch_code' => 'KL002',
-                'status' => 'active',
-                'is_active' => 'true',
-            ],
-            [
-                'name' => 'Muhammad Ali',
-                'staff_id' => 'EMP003',
-                'password' => 'password123',
-                'role' => 'id_management',
-                'branch_code' => 'KL003',
-                'status' => 'active',
-                'is_active' => 'true',
-            ],
-            [
-                'name' => 'Fatimah Zahra',
-                'staff_id' => 'EMP004',
-                'password' => 'password123',
-                'role' => 'superuser',
-                'branch_code' => 'KL004',
-                'status' => 'active',
-                'is_active' => 'true',
-            ],
-            [
-                'name' => 'Hassan Abdullah',
-                'staff_id' => 'EMP005',
-                'password' => 'password123',
-                'role' => 'staff',
-                'branch_code' => 'KL005',
-                'status' => 'inactive',
-                'is_active' => 'false',
-            ],
-            [
-                'name' => 'Aminah Binti Omar',
-                'staff_id' => 'EMP006',
-                'password' => 'password123',
-                'role' => 'admin',
-                'branch_code' => 'KL006',
-                'status' => 'suspended',
-                'is_active' => 'false',
-            ],
-            [
-                'name' => 'Ibrahim Ismail',
-                'staff_id' => 'EMP007',
-                'password' => 'password123',
-                'role' => 'staff',
-                'branch_code' => 'KL007',
-                'status' => 'expired',
-                'is_active' => 'false',
-            ],
-            [
-                'name' => 'Nurul Aisyah',
-                'staff_id' => 'EMP008',
-                'password' => 'password123',
-                'role' => 'id_management',
-                'branch_code' => 'KL008',
-                'status' => 'active',
-                'is_active' => 'true',
-            ],
-            [
-                'name' => 'Omar Al-Rashid',
-                'staff_id' => 'EMP009',
-                'password' => 'password123',
-                'role' => 'staff',
-                'branch_code' => 'KL009',
-                'status' => 'active',
-                'is_active' => 'true',
-            ],
-            [
-                'name' => 'Zainab Binti Ahmad',
-                'staff_id' => 'EMP010',
-                'password' => 'password123',
-                'role' => 'admin',
-                'branch_code' => 'KL010',
+                'branch_code' => 'BR002',
                 'status' => 'active',
                 'is_active' => 'true',
             ],

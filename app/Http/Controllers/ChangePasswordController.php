@@ -36,6 +36,35 @@ class ChangePasswordController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return redirect()->route('dashboard')->with('success', 'Password changed successfully!');
+        // Redirect to appropriate dashboard based on user role
+        $redirectRoute = $this->getRedirectRouteForUser($user);
+        return redirect($redirectRoute)->with('success', 'Password changed successfully!');
+    }
+
+    /**
+     * Get the appropriate redirect route for a user based on their role.
+     *
+     * @param \App\Models\User $user
+     * @return string
+     */
+    private function getRedirectRouteForUser($user)
+    {
+        // ID Management users go to their dedicated dashboard
+        if ($user->isIdManagement()) {
+            return route('id-management.dashboard');
+        }
+        
+        // Admin users go to admin dashboard
+        if ($user->isAdmin()) {
+            return route('admin.dashboard');
+        }
+        
+        // Super users go to admin dashboard
+        if ($user->isSuperUser()) {
+            return route('admin.dashboard');
+        }
+        
+        // All other users go to main dashboard
+        return route('dashboard');
     }
 }

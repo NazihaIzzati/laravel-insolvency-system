@@ -65,13 +65,14 @@ class NonIndividualBankruptcyController extends Controller
     /**
      * Display a listing of non-individual bankruptcies
      */
-    public function index()
+    public function index(Request $request)
     {
+        $perPage = $request->get('per_page', 20);
         $nonIndividualBankruptcies = NonIndividualBankruptcy::where('is_active', true)
             ->orderBy('created_at', 'desc')
-            ->paginate(20);
+            ->paginate($perPage);
 
-        return view('non-individual-bankruptcy.index', compact('nonIndividualBankruptcies'));
+        return view('non-individual-bankruptcy.index', compact('nonIndividualBankruptcies', 'perPage'));
     }
 
     /**

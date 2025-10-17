@@ -3,7 +3,7 @@
 @section('title', 'Bulk Upload Annulment Records')
 
 @section('content')
-<div class="min-h-screen bg-neutral-50">
+<div class="min-h-screen bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="mb-8">
             <h1 class="text-3xl font-bold text-neutral-900">Bulk Upload Annulment Records</h1>

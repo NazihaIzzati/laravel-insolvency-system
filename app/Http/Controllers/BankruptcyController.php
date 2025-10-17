@@ -107,13 +107,14 @@ class BankruptcyController extends Controller
     /**
      * Display a listing of bankruptcies
      */
-    public function index()
+    public function index(Request $request)
     {
+        $perPage = $request->get('per_page', 20);
         $bankruptcies = Bankruptcy::where('is_active', true)
             ->orderBy('created_at', 'desc')
-            ->paginate(20);
+            ->paginate($perPage);
 
-        return view('bankruptcy.index', compact('bankruptcies'));
+        return view('bankruptcy.index', compact('bankruptcies', 'perPage'));
     }
 
     /**

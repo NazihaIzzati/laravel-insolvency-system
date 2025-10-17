@@ -3,7 +3,7 @@
 @section('title', 'Bulk Upload Users')
 
 @section('content')
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen bg-white">
     <!-- Main Content -->
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
@@ -14,7 +14,11 @@
                     <h1 class="text-3xl font-bold text-gray-900">Bulk Upload Users</h1>
                     <p class="text-gray-600 mt-1">Upload multiple users at once using Excel file</p>
                 </div>
-                <a href="{{ route('user-management.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-500 text-white text-sm font-medium rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
+                <a href="{{ route('user-management.index') }}" 
+                   class="inline-flex items-center px-4 py-2 text-white text-sm font-medium rounded-lg transition-colors duration-200"
+                   style="background-color: #dc2626;"
+                   onmouseover="this.style.backgroundColor='#b91c1c';"
+                   onmouseout="this.style.backgroundColor='#dc2626';">
                     <i class="fas fa-arrow-left mr-2"></i>
                     Back to Users
                 </a>
@@ -42,30 +46,6 @@
             </div>
         </div>
 
-        <!-- Template Download Card -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8">
-            <div class="px-6 py-4 border-b border-gray-200">
-                <h3 class="text-lg font-semibold text-gray-900">Download Template</h3>
-                <p class="text-sm text-gray-500 mt-1">Get the Excel template with sample data</p>
-            </div>
-            <div class="p-6">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
-                            <i class="fas fa-download text-green-600 text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-sm font-medium text-gray-900">User Template</h4>
-                            <p class="text-xs text-gray-500">Excel file with sample data and column headers</p>
-                        </div>
-                    </div>
-                    <a href="{{ route('user-management.template') }}" class="inline-flex items-center px-4 py-2 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-200">
-                        <i class="fas fa-download mr-2"></i>
-                        Download Template
-                    </a>
-                </div>
-            </div>
-        </div>
 
         <!-- Upload Form Card -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8">
@@ -102,7 +82,7 @@
 
                 <!-- File Preview -->
                 <div id="file-preview" class="hidden mb-6">
-                    <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="bg-white rounded-lg p-4">
                         <div class="flex items-center">
                             <i class="fas fa-file-excel text-green-600 text-xl mr-3"></i>
                             <div class="flex-1">
@@ -117,82 +97,47 @@
                 </div>
 
                 <!-- Form Actions -->
-                <div class="flex items-center justify-end space-x-4">
-                    <a href="{{ route('user-management.index') }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
-                        Cancel
+                <div class="flex items-center justify-between">
+                    <a href="{{ route('user-management.template') }}" class="inline-flex items-center px-4 py-2 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-200">
+                        <i class="fas fa-download mr-2"></i>
+                        Download Template
                     </a>
-                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors duration-200">
-                        <i class="fas fa-upload mr-2"></i>
-                        Upload Users
-                    </button>
+                    
+                    <div class="flex items-center space-x-4">
+                        <a href="{{ route('user-management.index') }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
+                            Cancel
+                        </a>
+                        <button type="submit" id="upload-btn" class="inline-flex items-center px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors duration-200">
+                            <i class="fas fa-upload mr-2"></i>
+                            <span id="upload-text">Upload Users</span>
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
 
-        <!-- Template Format Card -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <!-- Loading Progress Card -->
+        <div id="loading-progress" class="hidden bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8">
             <div class="px-6 py-4 border-b border-gray-200">
-                <h3 class="text-lg font-semibold text-gray-900">Template Format</h3>
-                <p class="text-sm text-gray-500 mt-1">Required columns and their descriptions</p>
+                <h3 class="text-lg font-semibold text-gray-900">Uploading Users</h3>
+                <p class="text-sm text-gray-500 mt-1">Please wait while we process your data...</p>
             </div>
-            
             <div class="p-6">
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Column</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Required</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Example</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Name</td>
-                                <td class="px-6 py-4 text-sm text-gray-500">Full name of the user</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Required</span>
-                                </td>
-                                <td class="px-6 py-4 text-sm text-gray-500">John Doe</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Email</td>
-                                <td class="px-6 py-4 text-sm text-gray-500">Email address (must be unique)</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Required</span>
-                                </td>
-                                <td class="px-6 py-4 text-sm text-gray-500">john.doe@example.com</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Password</td>
-                                <td class="px-6 py-4 text-sm text-gray-500">User password (min 8 characters)</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Optional</span>
-                                </td>
-                                <td class="px-6 py-4 text-sm text-gray-500">password123</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Role</td>
-                                <td class="px-6 py-4 text-sm text-gray-500">User role (superuser, admin, id_management, or staff)</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">Required</span>
-                                </td>
-                                <td class="px-6 py-4 text-sm text-gray-500">staff</td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Is Active</td>
-                                <td class="px-6 py-4 text-sm text-gray-500">Account status (true or false)</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Optional</span>
-                                </td>
-                                <td class="px-6 py-4 text-sm text-gray-500">true</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="flex items-center justify-center mb-4">
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-spinner fa-spin text-orange-600 text-xl"></i>
+                    </div>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2 mb-4">
+                    <div id="progress-bar" class="bg-orange-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+                <div class="text-center">
+                    <p id="progress-text" class="text-sm text-gray-600">Preparing upload...</p>
+                    <p id="progress-details" class="text-xs text-gray-500 mt-1">Please do not close this page</p>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 
@@ -203,6 +148,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const fileName = document.getElementById('file-name');
     const fileSize = document.getElementById('file-size');
     const removeFile = document.getElementById('remove-file');
+    const uploadBtn = document.getElementById('upload-btn');
+    const uploadText = document.getElementById('upload-text');
+    const loadingProgress = document.getElementById('loading-progress');
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+    const progressDetails = document.getElementById('progress-details');
+    const form = document.querySelector('form');
 
     fileInput.addEventListener('change', function(e) {
         const file = e.target.files[0];
@@ -217,6 +169,55 @@ document.addEventListener('DOMContentLoaded', function() {
         fileInput.value = '';
         filePreview.classList.add('hidden');
     });
+
+    // Handle form submission with loading progress
+    form.addEventListener('submit', function(e) {
+        if (fileInput.files.length === 0) {
+            e.preventDefault();
+            alert('Please select a file to upload.');
+            return;
+        }
+
+        // Show loading progress
+        showLoadingProgress();
+        
+        // Disable the upload button
+        uploadBtn.disabled = true;
+        uploadText.textContent = 'Uploading...';
+        
+        // Simulate progress (since we can't get real progress from server)
+        simulateProgress();
+    });
+
+    function showLoadingProgress() {
+        loadingProgress.classList.remove('hidden');
+        loadingProgress.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function simulateProgress() {
+        let progress = 0;
+        const progressSteps = [
+            { percent: 20, text: 'Validating file format...', details: 'Checking file structure and format' },
+            { percent: 40, text: 'Reading data...', details: 'Processing Excel file contents' },
+            { percent: 60, text: 'Validating user data...', details: 'Checking data integrity and requirements' },
+            { percent: 80, text: 'Creating user accounts...', details: 'Saving users to database' },
+            { percent: 100, text: 'Upload complete!', details: 'Redirecting to user management...' }
+        ];
+
+        let currentStep = 0;
+        const progressInterval = setInterval(() => {
+            if (currentStep < progressSteps.length) {
+                const step = progressSteps[currentStep];
+                progressBar.style.width = step.percent + '%';
+                progressText.textContent = step.text;
+                progressDetails.textContent = step.details;
+                currentStep++;
+            } else {
+                clearInterval(progressInterval);
+                // The form will submit and redirect, so we don't need to do anything else here
+            }
+        }, 1000); // Update every second
+    }
 
     function formatFileSize(bytes) {
         if (bytes === 0) return '0 Bytes';

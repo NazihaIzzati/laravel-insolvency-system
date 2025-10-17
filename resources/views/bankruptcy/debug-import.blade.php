@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="bg-white-50 border border-neutral-200 rounded-md p-4">
                     <h4 class="text-sm font-medium text-gray-800 mb-2">Sample Data (First Row)</h4>
                     <div class="text-sm text-neutral-700">
-                        <pre class="bg-gray-100 p-3 rounded overflow-x-auto">${JSON.stringify(data.first_row, null, 2)}</pre>
+                        <pre class="bg-white p-3 rounded overflow-x-auto">${JSON.stringify(data.first_row, null, 2)}</pre>
                     </div>
                 </div>
             </div>

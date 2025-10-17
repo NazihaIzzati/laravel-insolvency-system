@@ -73,19 +73,19 @@
                     <h4 class="text-sm font-medium text-neutral-900 mb-2">Password Requirements:</h4>
                     <ul class="text-xs text-neutral-800 space-y-1">
                         <li class="flex items-center">
-                            <i class="fas fa-check mr-2 text-primary-400"></i>
+                            <i class="fas fa-check mr-2 text-gray-400"></i>
                             At least 8 characters long
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-check mr-2 text-primary-400"></i>
+                            <i class="fas fa-check mr-2 text-gray-400"></i>
                             Contains uppercase and lowercase letters
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-check mr-2 text-primary-400"></i>
+                            <i class="fas fa-check mr-2 text-gray-400"></i>
                             Contains at least one number
                         </li>
                         <li class="flex items-center">
-                            <i class="fas fa-check mr-2 text-primary-400"></i>
+                            <i class="fas fa-check mr-2 text-gray-400"></i>
                             Contains at least one special character
                         </li>
                     </ul>
@@ -93,9 +93,9 @@
 
                 <!-- Action Buttons -->
                 <div class="flex items-center justify-between pt-4">
-                    <a href="{{ route('dashboard') }}" class="professional-button">
+                    <a href="{{ auth()->user()->isIdManagement() ? route('id-management.dashboard') : (auth()->user()->isSuperUser() ? route('dashboard') : (auth()->user()->isAdmin() ? route('admin.dashboard') : route('dashboard'))) }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200">
                         <i class="fas fa-arrow-left mr-2"></i>
-                        Cancel
+                        Back to Dashboard
                     </a>
                     
                     <button type="submit" class="professional-button-primary">

@@ -59,14 +59,17 @@ class AuditService
         return self::log(
             $user,
             'CREATE',
-            "Created user: {$createdUser->name} ({$createdUser->email})",
+            "Created user: {$createdUser->name} (Staff ID: {$createdUser->login_id})",
             $createdUser,
             null,
             [
                 'name' => $createdUser->name,
-                'email' => $createdUser->email,
+                'login_id' => $createdUser->login_id,
                 'role' => $createdUser->role,
+                'branch_code' => $createdUser->branch_code,
+                'status' => $createdUser->status,
                 'is_active' => $createdUser->is_active,
+                'expiry_date' => $createdUser->expiry_date,
             ],
             $request
         );
@@ -90,7 +93,7 @@ class AuditService
         return self::log(
             $user,
             'UPDATE',
-            "Updated user: {$updatedUser->name} ({$updatedUser->email})",
+            "Updated user: {$updatedUser->name} (Staff ID: {$updatedUser->login_id})",
             $updatedUser,
             $oldValues,
             $updatedUser->getAttributes(),
@@ -155,7 +158,7 @@ class AuditService
         return self::log(
             $user,
             'PASSWORD_CHANGE',
-            "Changed password for user: {$targetUser->name} ({$targetUser->email})",
+            "Changed password for user: {$targetUser->name} (Staff ID: {$targetUser->login_id})",
             $targetUser,
             null,
             null,
@@ -194,6 +197,23 @@ class AuditService
             null,
             $request,
             ['model_type' => $modelType, 'count' => $count]
+        );
+    }
+
+    /**
+     * Log file download.
+     */
+    public static function logDownload(User $user, string $fileType, string $fileName, ?Request $request = null): AuditLog
+    {
+        return self::log(
+            $user,
+            'DOWNLOAD',
+            "Downloaded {$fileType}: {$fileName}",
+            null,
+            null,
+            null,
+            $request,
+            ['file_type' => $fileType, 'file_name' => $fileName]
         );
     }
 

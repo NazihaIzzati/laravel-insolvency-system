@@ -3,7 +3,7 @@
 @section('title', 'Audit Log Details')
 
 @section('content')
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen bg-white">
     <!-- Main Content -->
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
@@ -11,10 +11,16 @@
         <div class="mb-8">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Audit Log Details</h1>
-                    <p class="text-gray-600 mt-1">Detailed information about this action</p>
+                    <div class="flex items-center space-x-3">
+                        <h1 class="text-3xl font-bold text-gray-900">Audit Log Details</h1>
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                            <i class="fas fa-shield-alt mr-1"></i>
+                            Superuser Only
+                        </span>
+                    </div>
+                    <p class="text-gray-600 mt-1">Detailed information about this action - Superuser access only</p>
                 </div>
-                <a href="{{ route('audit-logs.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-500 text-white text-sm font-medium rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
+                <a href="{{ route('audit-logs.index') }}" class="inline-flex items-center px-4 py-2 bg-orange-600 text-white text-sm font-medium rounded-lg hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors duration-200">
                     <i class="fas fa-arrow-left mr-2"></i>
                     Back to Audit Logs
                 </a>
@@ -171,7 +177,7 @@
                     @if($auditLog->old_values)
                     <div>
                         <h4 class="text-sm font-medium text-gray-700 mb-3">Previous Values</h4>
-                        <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="bg-white rounded-lg p-4">
                             <pre class="text-xs text-gray-600 whitespace-pre-wrap">{{ json_encode($auditLog->old_values, JSON_PRETTY_PRINT) }}</pre>
                         </div>
                     </div>
@@ -180,7 +186,7 @@
                     @if($auditLog->new_values)
                     <div>
                         <h4 class="text-sm font-medium text-gray-700 mb-3">New Values</h4>
-                        <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="bg-white rounded-lg p-4">
                             <pre class="text-xs text-gray-600 whitespace-pre-wrap">{{ json_encode($auditLog->new_values, JSON_PRETTY_PRINT) }}</pre>
                         </div>
                     </div>
@@ -197,7 +203,7 @@
                 <h3 class="text-lg font-semibold text-gray-900">Additional Information</h3>
             </div>
             <div class="p-6">
-                <div class="bg-gray-50 rounded-lg p-4">
+                <div class="bg-white rounded-lg p-4">
                     <pre class="text-xs text-gray-600 whitespace-pre-wrap">{{ json_encode($auditLog->metadata, JSON_PRETTY_PRINT) }}</pre>
                 </div>
             </div>

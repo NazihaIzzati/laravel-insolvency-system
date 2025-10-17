@@ -20,9 +20,28 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'avatar',
+        'login_id',
+        'login_name',
         'password',
         'role',
+        'officer_level',
+        'branch_code',
         'is_active',
+        'status',
+        'expiry_date',
+        'pwdchange_date',
+        'last_modified_date',
+        'last_modified_user',
+    ];
+
+    /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $guarded = [
+        'id',
     ];
 
     /**
@@ -46,6 +65,9 @@ class User extends Authenticatable
         'is_active' => 'boolean',
         'deleted_at' => 'datetime',
         'last_login_at' => 'datetime',
+        'expiry_date' => 'date',
+        'pwdchange_date' => 'datetime',
+        'last_modified_date' => 'datetime',
     ];
 
     /**
@@ -56,7 +78,12 @@ class User extends Authenticatable
      */
     public function setPasswordAttribute($value)
     {
-        $this->attributes['password'] = Hash::make($value);
+        // Only hash if the value is not already hashed
+        if (!empty($value) && !password_get_info($value)['algo']) {
+            $this->attributes['password'] = Hash::make($value);
+        } else {
+            $this->attributes['password'] = $value;
+        }
     }
 
     /**
@@ -153,5 +180,95 @@ class User extends Authenticatable
     public function getStatusColorAttribute()
     {
         return $this->is_active ? 'green' : 'red';
+    }
+
+    /**
+     * Get the user's status display name.
+     *
+     * @return string
+     */
+    public function getStatusDisplayAttribute()
+    {
+        return match($this->status) {
+            'active' => 'Active',
+            'inactive' => 'Inactive',
+            'suspended' => 'Suspended',
+            'expired' => 'Expired',
+            default => ucfirst($this->status)
+        };
+    }
+
+    /**
+     * Check if user account is expired.
+     *
+     * @return bool
+     */
+    public function isExpired()
+    {
+        return $this->expiry_date && $this->expiry_date->isPast();
+    }
+
+    /**
+     * Check if user needs password change.
+     *
+     * @return bool
+     */
+    public function needsPasswordChange()
+    {
+        if (!$this->pwdchange_date) {
+            return true;
+        }
+        
+        // Consider password change needed if older than 90 days
+        return $this->pwdchange_date->diffInDays(now()) > 90;
+    }
+
+    /**
+     * Get the user's avatar URL.
+     *
+     * @return string
+     */
+    public function getAvatarUrlAttribute()
+    {
+        if ($this->avatar) {
+            return asset('storage/avatars/' . $this->avatar);
+        }
+        
+        // Generate a default avatar with initials
+        $initials = strtoupper(substr($this->name, 0, 1));
+        $color = $this->getAvatarColor();
+        
+        return "data:image/svg+xml;base64," . base64_encode("
+            <svg width='40' height='40' xmlns='http://www.w3.org/2000/svg'>
+                <rect width='40' height='40' fill='#{$color}' rx='20'/>
+                <text x='20' y='26' font-family='Arial, sans-serif' font-size='16' font-weight='bold' text-anchor='middle' fill='white'>$initials</text>
+            </svg>
+        ");
+    }
+    
+    /**
+     * Get avatar color based on user name.
+     *
+     * @return string
+     */
+    private function getAvatarColor()
+    {
+        $colors = ['ef4444', '3b82f6', '10b981', 'f59e0b', '8b5cf6', 'ec4899', '6366f1', 'f97316'];
+        $colorIndex = crc32($this->name) % count($colors);
+        return $colors[$colorIndex];
+    }
+
+    /**
+     * Update last modified information.
+     *
+     * @param string $modifiedBy
+     * @return void
+     */
+    public function updateLastModified($modifiedBy)
+    {
+        $this->update([
+            'last_modified_date' => now(),
+            'last_modified_user' => $modifiedBy,
+        ]);
     }
 }

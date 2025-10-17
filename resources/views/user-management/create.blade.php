@@ -3,7 +3,7 @@
 @section('title', 'Create New User')
 
 @section('content')
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen bg-white">
     <!-- Main Content -->
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
@@ -14,7 +14,11 @@
                     <h1 class="text-3xl font-bold text-gray-900">Create New User</h1>
                     <p class="text-gray-600 mt-1">Add a new user to the system</p>
                 </div>
-                <a href="{{ route('user-management.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-500 text-white text-sm font-medium rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
+                <a href="{{ route('user-management.index') }}" 
+                   class="inline-flex items-center px-4 py-2 text-white text-sm font-medium rounded-lg transition-colors duration-200" 
+                   style="background-color: #dc2626;"
+                   onmouseover="this.style.backgroundColor='#b91c1c';"
+                   onmouseout="this.style.backgroundColor='#dc2626';">
                     <i class="fas fa-arrow-left mr-2"></i>
                     Back to Users
                 </a>
@@ -49,22 +53,23 @@
                         @enderror
                     </div>
 
-                    <!-- Email -->
+
+                    <!-- Staff ID -->
                     <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-                            Email Address <span class="text-red-500">*</span>
+                        <label for="login_id" class="block text-sm font-medium text-gray-700 mb-2">
+                            Staff ID
                         </label>
-                        <input type="email" 
-                               id="email" 
-                               name="email" 
-                               value="{{ old('email') }}"
-                               class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200 @error('email') border-red-300 @enderror" 
-                               placeholder="Enter email address"
-                               required>
-                        @error('email')
+                        <input type="text" 
+                               id="login_id" 
+                               name="login_id" 
+                               value="{{ old('login_id') }}"
+                               class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200 @error('login_id') border-red-300 @enderror" 
+                               placeholder="Enter staff ID">
+                        @error('login_id')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
+
 
                     <!-- Password -->
                     <div>
@@ -96,7 +101,7 @@
                     </div>
 
                     <!-- Role -->
-                    <div class="md:col-span-2">
+                    <div>
                         <label for="role" class="block text-sm font-medium text-gray-700 mb-2">
                             User Role <span class="text-red-500">*</span>
                         </label>
@@ -113,18 +118,74 @@
                         @error('role')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
-                        <p class="mt-1 text-sm text-gray-500">
-                            <strong>Super User:</strong> Full system access with all privileges<br>
-                            <strong>Administrator:</strong> System administration and user management<br>
-                            <strong>ID Management:</strong> Manage identity and user records<br>
-                            <strong>Staff:</strong> Basic system access for daily operations
-                        </p>
                     </div>
+
+
+                    <!-- Branch Code -->
+                    <div>
+                        <label for="branch_code" class="block text-sm font-medium text-gray-700 mb-2">
+                            Branch Code
+                        </label>
+                        <input type="text" 
+                               id="branch_code" 
+                               name="branch_code" 
+                               value="{{ old('branch_code') }}"
+                               class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200 @error('branch_code') border-red-300 @enderror" 
+                               placeholder="Enter branch code">
+                        @error('branch_code')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Status -->
+                    <div>
+                        <label for="status" class="block text-sm font-medium text-gray-700 mb-2">
+                            Status
+                        </label>
+                        <select id="status" 
+                                name="status" 
+                                class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200 @error('status') border-red-300 @enderror">
+                            <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
+                            <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                            <option value="suspended" {{ old('status') == 'suspended' ? 'selected' : '' }}>Suspended</option>
+                            <option value="expired" {{ old('status') == 'expired' ? 'selected' : '' }}>Expired</option>
+                        </select>
+                        @error('status')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Expiry Date -->
+                    <div>
+                        <label for="expiry_date" class="block text-sm font-medium text-gray-700 mb-2">
+                            Expiry Date
+                        </label>
+                        <input type="date" 
+                               id="expiry_date" 
+                               name="expiry_date" 
+                               value="{{ old('expiry_date') }}"
+                               class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200 @error('expiry_date') border-red-300 @enderror">
+                        @error('expiry_date')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <!-- Role Description -->
+                <div class="mt-4 p-4 bg-white rounded-lg">
+                    <h4 class="text-sm font-medium text-gray-900 mb-2">Role Descriptions:</h4>
+                    <div class="text-sm text-gray-600 space-y-1">
+                        <p><strong>Super User:</strong> Full system access with all privileges</p>
+                        <p><strong>Administrator:</strong> System administration and user management</p>
+                        <p><strong>ID Management:</strong> Manage identity and user records</p>
+                        <p><strong>Staff:</strong> Basic system access for daily operations</p>
+                    </div>
+                </div>
                 </div>
 
                 <!-- Form Actions -->
                 <div class="flex items-center justify-end space-x-4 mt-8 pt-6 border-t border-gray-200">
-                    <a href="{{ route('user-management.index') }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
+                    <a href="{{ route('user-management.index') }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
                         Cancel
                     </a>
                     <button type="submit" class="inline-flex items-center px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors duration-200">

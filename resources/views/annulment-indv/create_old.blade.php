@@ -72,7 +72,7 @@
                                     </svg>
                                     Print Form
                                 </button>
-                                <a href="{{ route('annulment-indv.index') }}" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
+                                <a href="{{ route('annulment-indv.index') }}" class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
                                     Back to Annulment Individual List
                                 </a>
                             </div>
@@ -250,7 +250,7 @@
 
                         <!-- Submit Button -->
                         <div class="flex justify-end space-x-4 no-print">
-                            <a href="{{ route('annulment-indv.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg transition duration-200">
+                            <a href="{{ route('annulment-indv.index') }}" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-lg transition duration-200">
                                 Cancel
                             </a>
                             <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">

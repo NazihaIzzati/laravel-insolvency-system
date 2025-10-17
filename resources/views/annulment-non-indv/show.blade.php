@@ -40,7 +40,7 @@
                             </div>
                             <h4 class="text-lg font-semibold text-neutral-900">Company Name</h4>
                         </div>
-                        <p class="text-neutral-700 font-medium">{{ $annulmentNonIndv->company_name ?? 'N/A' }}</p>
+                        <span class="pill-badge pill-badge-company">{{ $annulmentNonIndv->company_name ?? 'N/A' }}</span>
                     </div>
 
                     <!-- Insolvency Number -->
@@ -62,7 +62,7 @@
                             </div>
                             <h4 class="text-lg font-semibold text-neutral-900">Registration Number</h4>
                         </div>
-                        <p class="text-neutral-700 font-medium">{{ $annulmentNonIndv->company_registration_no ?? 'N/A' }}</p>
+                        <span class="pill-badge pill-badge-registration">{{ $annulmentNonIndv->company_registration_no ?? 'N/A' }}</span>
                     </div>
 
                     <!-- Others -->
@@ -122,7 +122,7 @@
                     <!-- Branch -->
                     <div class="bg-gradient-to-r from-gray-50 to-slate-50 rounded-xl p-6 border border-neutral-200">
                         <div class="flex items-center mb-3">
-                            <div class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full mr-3">
+                            <div class="flex items-center justify-center w-10 h-10 bg-white rounded-full mr-3">
                                 <i class="fas fa-map-marker-alt text-neutral-800"></i>
                             </div>
                             <h4 class="text-lg font-semibold text-neutral-900">Branch</h4>

@@ -29,7 +29,9 @@ class AuthController extends Controller
     public function showLoginForm()
     {
         if (Auth::check()) {
-            return redirect()->route('dashboard');
+            $user = Auth::user();
+            $redirectRoute = $this->getRedirectRouteForUser($user);
+            return redirect($redirectRoute);
         }
         
         return view('auth.login');
@@ -44,7 +46,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
+            'staff_id' => 'required|string',
             'password' => 'required|string|min:6',
         ]);
 
@@ -54,7 +56,7 @@ class AuthController extends Controller
                 ->withInput($request->except('password'));
         }
 
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('staff_id', 'password');
         $remember = $request->boolean('remember');
 
         try {
@@ -66,12 +68,15 @@ class AuthController extends Controller
                 // Log the login
                 AuditService::logLogin($user, $request);
                 
-                return redirect()->intended(route('dashboard'))
+                // Redirect based on user role
+                $redirectRoute = $this->getRedirectRouteForUser($user);
+                
+                return redirect()->intended($redirectRoute)
                     ->with('success', 'Welcome back, ' . $user->name . '!');
             }
             
             throw ValidationException::withMessages([
-                'email' => ['The provided credentials do not match our records.'],
+                'staff_id' => ['The provided credentials do not match our records.'],
             ]);
             
         } catch (ValidationException $e) {
@@ -89,7 +94,9 @@ class AuthController extends Controller
     public function showRegisterForm()
     {
         if (Auth::check()) {
-            return redirect()->route('dashboard');
+            $user = Auth::user();
+            $redirectRoute = $this->getRedirectRouteForUser($user);
+            return redirect($redirectRoute);
         }
         
         return view('auth.register');
@@ -157,6 +164,33 @@ class AuthController extends Controller
     }
 
     /**
+     * Get the appropriate redirect route for a user based on their role.
+     *
+     * @param \App\Models\User $user
+     * @return string
+     */
+    private function getRedirectRouteForUser($user)
+    {
+        // ID Management users go to their dedicated dashboard
+        if ($user->isIdManagement()) {
+            return route('id-management.dashboard');
+        }
+        
+        // Admin users go to admin dashboard
+        if ($user->isAdmin()) {
+            return route('admin.dashboard');
+        }
+        
+        // Super users go to main dashboard (can access all functions)
+        if ($user->isSuperUser()) {
+            return route('dashboard');
+        }
+        
+        // All other users go to main dashboard
+        return route('dashboard');
+    }
+
+    /**
      * Show the user dashboard.
      *
      * @return \Illuminate\View\View
@@ -164,6 +198,19 @@ class AuthController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
+        
+        // Only allow superusers and admins to access the main dashboard
+        if (!$user->hasAdminPrivileges()) {
+            // Redirect ID management users to their dashboard
+            if ($user->isIdManagement()) {
+                return redirect()->route('id-management.dashboard')
+                    ->with('info', 'You have been redirected to your dedicated dashboard.');
+            }
+            
+            // Redirect other users to appropriate dashboard
+            return redirect()->route('id-management.dashboard')
+                ->with('info', 'You have been redirected to your dashboard.');
+        }
         
         return view('dashboard', compact('user'));
     }

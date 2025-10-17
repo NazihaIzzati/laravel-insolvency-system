@@ -3,7 +3,7 @@
 @section('title', 'Add New Annulment Record')
 
 @section('content')
-<div class="min-h-screen bg-neutral-50">
+<div class="min-h-screen bg-white">
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Header -->

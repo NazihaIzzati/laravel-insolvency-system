@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminMiddleware
+class StaffOnlyMiddleware
 {
     /**
      * Handle an incoming request.
@@ -26,9 +26,16 @@ class AdminMiddleware
 
         $user = Auth::user();
 
-        if (!$user->hasAdminPrivileges()) {
+        // Allow staff users and superusers to access main dashboard
+        if (!$user->isStaff() && !$user->isSuperUser()) {
             if ($request->expectsJson()) {
-                return response()->json(['message' => 'Access denied. Admin privileges required.'], 403);
+                return response()->json(['message' => 'Access denied. Staff or Superuser privileges required.'], 403);
+            }
+
+            // Redirect admin users to admin dashboard
+            if ($user->isAdmin()) {
+                return redirect()->route('admin.dashboard')
+                    ->with('error', 'Access denied. Admin users must use the admin dashboard.');
             }
 
             // Redirect ID management to their dashboard
@@ -37,12 +44,7 @@ class AdminMiddleware
                     ->with('error', 'Access denied. ID Management users must use the ID Management dashboard.');
             }
 
-            // Redirect staff to main dashboard
-            if ($user->isStaff()) {
-                return redirect()->route('dashboard')
-                    ->with('error', 'Access denied. Staff users must use the main dashboard.');
-            }
-
+            // For any other role, redirect to login
             return redirect()->route('login')
                 ->with('error', 'Access denied. Invalid user role.');
         }

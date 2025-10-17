@@ -3,7 +3,7 @@
 @section('title', 'Annulment Records')
 
 @section('content')
-<div class="min-h-screen bg-neutral-50">
+<div class="min-h-screen bg-white">
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
@@ -17,30 +17,26 @@
                             Add New Record
                         </a>
                         
-                        <a href="{{ route('annulment-indv.bulk-upload') }}" class="inline-flex items-center px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
+                        <a href="{{ route('annulment-indv.bulk-upload') }}" class="inline-flex items-center px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
                             <i class="fas fa-upload mr-2"></i>
                             Bulk Upload
                         </a>
                         
                         @if($annulmentIndv->total() > 0)
-                            <a href="{{ route('annulment-indv.download') }}" class="inline-flex items-center px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
-                                <i class="fas fa-download mr-2"></i>
-                                Download Excel
-                            </a>
+                            <div class="flex gap-2">
+                                <a href="{{ route('annulment-indv.download') }}" class="inline-flex items-center px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Download All Data
+                                </a>
+                                <button id="downloadFilteredBtn" class="inline-flex items-center px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors duration-200" disabled>
+                                    <i class="fas fa-filter mr-2"></i>
+                                    Download Filtered
+                                </button>
+                            </div>
                         @endif
                     </div>
                     <div class="flex gap-3 items-center">
-                        <div class="flex items-center gap-2">
-                            <label for="per_page" class="text-sm font-medium text-neutral-700">Records per page:</label>
-                            <select id="per_page" name="per_page" class="professional-input py-1 px-2 text-sm" onchange="changePerPage(this.value)">
-                                <option value="5" {{ $perPage == 5 ? 'selected' : '' }}>5</option>
-                                <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>10</option>
-                                <option value="25" {{ $perPage == 25 ? 'selected' : '' }}>25</option>
-                                <option value="50" {{ $perPage == 50 ? 'selected' : '' }}>50</option>
-                                <option value="100" {{ $perPage == 100 ? 'selected' : '' }}>100</option>
-                            </select>
-                        </div>
-                        <a href="{{ route('dashboard') }}" class="professional-button">
+                        <a href="{{ auth()->user()->isIdManagement() ? route('id-management.dashboard') : (auth()->user()->isSuperUser() ? route('dashboard') : (auth()->user()->isAdmin() ? route('admin.dashboard') : route('dashboard'))) }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200">
                             <i class="fas fa-arrow-left mr-2"></i>
                             Back to Dashboard
                         </a>
@@ -97,19 +93,19 @@
                         
                         <!-- Search Tags -->
                         <div class="mt-3 flex flex-wrap gap-2">
-                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
+                            <span class="pill-badge pill-badge-ic">
                                 <i class="fas fa-id-card mr-1"></i>
                                 IC Numbers
                             </span>
-                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
+                            <span class="pill-badge pill-badge-name">
                                 <i class="fas fa-user mr-1"></i>
                                 Names
                             </span>
-                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
+                            <span class="pill-badge pill-badge-court">
                                 <i class="fas fa-gavel mr-1"></i>
                                 Court Cases
                             </span>
-                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700">
+                            <span class="pill-badge pill-badge-reference">
                                 <i class="fas fa-tag mr-1"></i>
                                 References
                             </span>
@@ -127,14 +123,14 @@
         </div>
 
         <!-- Enhanced Loading Spinner -->
-        <div id="annulmentLoadingSpinner" class="hidden bg-gray-50 p-12 mb-6">
+        <div id="annulmentLoadingSpinner" class="hidden bg-white p-12 mb-6">
             <div class="text-center">
                 <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-neutral-100 to-neutral-200 rounded-full mb-6">
                     <i class="fas fa-spinner fa-spin text-neutral-600 text-2xl"></i>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-3">Searching Records</h3>
                 <p class="text-gray-600 mb-4">Please wait while we search for matching annulment records...</p>
-                <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="w-full bg-white rounded-full h-2">
                     <div class="bg-gradient-to-r from-neutral-500 to-neutral-600 h-2 rounded-full animate-pulse" style="width: 60%"></div>
                 </div>
             </div>
@@ -153,7 +149,7 @@
                             <p class="text-sm text-gray-500">Matching annulment records found</p>
                         </div>
                     </div>
-                    <button type="button" id="clearAnnulmentSearchResultsBtn" class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors duration-200">
+                    <button type="button" id="clearAnnulmentSearchResultsBtn" class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-600 bg-white rounded-lg hover:bg-white transition-colors duration-200">
                         <i class="fas fa-times mr-2"></i>
                         Clear Results
                     </button>
@@ -161,7 +157,7 @@
             </div>
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200" style="min-width: 1200px;">
-                    <thead class="bg-gray-50">
+                    <thead class="bg-white">
                         <tr>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-48">Name</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">IC No</th>
@@ -182,7 +178,7 @@
         </div>
         
         <!-- Enhanced No Results -->
-        <div id="annulmentNoResults" class="hidden bg-gray-50 p-16 mb-6">
+        <div id="annulmentNoResults" class="hidden bg-white p-16 mb-6">
             <div class="text-center max-w-2xl mx-auto">
                 <!-- Animated Icon -->
                 <div class="relative mb-8">
@@ -208,14 +204,34 @@
         <!-- Records Table -->
         <div id="mainAnnulmentRecordsTable" class="bg-white rounded-xl shadow-sm border border-gray-200 mb-8 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-200">
-                <h3 class="text-lg font-semibold text-gray-900">Records</h3>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">Individual Annulment Records</h3>
+                        @if($annulmentIndv->count() > 0)
+                            <p class="text-sm text-gray-500 mt-1">
+                                Showing {{ $annulmentIndv->firstItem() }} to {{ $annulmentIndv->lastItem() }} of {{ $annulmentIndv->total() }} results
+                            </p>
+                        @endif
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm font-medium text-gray-700">Records</span>
+                        <label for="per_page" class="text-sm font-medium text-gray-700">per page:</label>
+                        <select id="per_page" name="per_page" class="text-sm border border-gray-300 rounded px-2 py-1" onchange="changePerPage(this.value)">
+                            <option value="5" {{ $perPage == 5 ? 'selected' : '' }}>5</option>
+                            <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>10</option>
+                            <option value="25" {{ $perPage == 25 ? 'selected' : '' }}>25</option>
+                            <option value="50" {{ $perPage == 50 ? 'selected' : '' }}>50</option>
+                            <option value="100" {{ $perPage == 100 ? 'selected' : '' }}>100</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="p-6">
                 <!-- Main Records Table -->
                 <div>
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200" style="min-width: 1200px;">
-                        <thead class="bg-gray-50">
+                        <thead class="bg-white">
                             <tr>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-48">Name</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">IC No</th>
@@ -230,21 +246,21 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @forelse($annulmentIndv as $annulment)
-                                <tr class="hover:bg-gray-50 transition-colors duration-200">
+                                <tr class="hover:bg-white transition-colors duration-200">
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="text-sm text-gray-900">{{ $annulment->name ?? 'N/A' }}</span>
+                                        <div class="text-sm font-medium text-neutral-900">{{ $annulment->name ?? 'N/A' }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="text-sm text-gray-500">{{ $annulment->ic_no ?? 'N/A' }}</span>
+                                        <div class="text-sm text-neutral-800 font-mono">{{ $annulment->ic_no ?? 'N/A' }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="text-sm text-gray-500">{{ $annulment->others ?? 'N/A' }}</span>
+                                        <div class="text-sm text-neutral-800">{{ $annulment->others ?? 'N/A' }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="text-sm text-gray-500">{{ $annulment->court_case_no ?? 'N/A' }}</span>
+                                        <div class="text-sm text-neutral-800">{{ $annulment->court_case_no ?? 'N/A' }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="text-sm text-gray-500">
+                                        <div class="text-sm text-neutral-800">
                                             @if($annulment->release_date)
                                                 @if(is_string($annulment->release_date))
                                                     {{ \Carbon\Carbon::parse($annulment->release_date)->format('d/m/Y') }}
@@ -254,32 +270,38 @@
                                             @else
                                                 N/A
                                             @endif
-                                        </span>
+                                        </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="text-sm text-gray-500">{{ $annulment->formatted_updated_date }}</span>
+                                        <div class="text-sm text-neutral-800">{{ $annulment->formatted_updated_date }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="text-sm text-gray-500">{{ $annulment->release_type ?? 'N/A' }}</span>
+                                        <div class="text-sm text-neutral-800">{{ $annulment->release_type ?? 'N/A' }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="text-sm text-gray-500">{{ $annulment->branch ?? 'N/A' }}</span>
+                                        <div class="text-sm text-neutral-800">{{ $annulment->branch ?? 'N/A' }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                         <div class="flex space-x-2">
-                                            <a href="{{ route('annulment-indv.show', $annulment) }}" class="text-orange-600 hover:text-orange-900 transition-colors duration-200">View</a>
-                                            <a href="{{ route('annulment-indv.edit', $annulment) }}" class="text-green-600 hover:text-green-900 transition-colors duration-200">Edit</a>
-                                            <form method="POST" action="{{ route('annulment-indv.destroy', $annulment) }}" class="inline" onsubmit="return confirmDeleteAnnulment(event)">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:text-red-900 transition-colors duration-200">Delete</button>
-                                            </form>
+                                            <button onclick="showAnnulmentDetails({{ $annulment->id }})" class="inline-flex items-center px-3 py-2 bg-purple-100 text-purple-700 text-sm font-medium rounded-lg hover:bg-purple-200 transition-colors duration-200">
+                                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                </svg>
+                                                View
+                                            </button>
+                                            <a href="{{ route('annulment-indv.edit', $annulment) }}" class="inline-flex items-center px-3 py-2 bg-green-100 text-green-700 text-sm font-medium rounded-lg hover:bg-green-200 transition-colors duration-200">
+                                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                                Edit
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="px-4 py-8 text-center text-neutral-500">
+                                    <td colspan="9" class="px-4 py-8 text-center text-neutral-500">
                                         <div class="flex flex-col items-center">
                                             <svg class="mx-auto h-12 w-12 text-neutral-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -443,53 +465,59 @@ document.addEventListener('DOMContentLoaded', function() {
         
         results.forEach((result, index) => {
             const row = document.createElement('tr');
-            row.className = 'hover:bg-gray-50 transition-colors duration-200';
+            row.className = 'hover:bg-white transition-colors duration-200';
             
             row.innerHTML = `
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="text-sm text-gray-900">${result.name || 'N/A'}</span>
+                    <div class="text-sm font-medium text-neutral-900">${result.name || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="text-sm text-gray-500">${result.ic_no || 'N/A'}</span>
+                    <div class="text-sm text-neutral-800 font-mono">${result.ic_no || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="text-sm text-gray-500">${result.others || 'N/A'}</span>
+                    <div class="text-sm text-neutral-800">${result.others || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="text-sm text-gray-500">${result.court_case_no || 'N/A'}</span>
+                    <div class="text-sm text-neutral-800">${result.court_case_no || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="text-sm text-gray-500">
+                    <div class="text-sm text-neutral-800">
                         ${result.release_date ? 
                             new Date(result.release_date).toLocaleDateString() : 
                             'N/A'
                         }
-                    </span>
+                    </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="text-sm text-gray-500">
+                    <div class="text-sm text-neutral-800">
                         ${result.updated_at ? 
                             new Date(result.updated_at).toLocaleDateString() : 
                             'N/A'
                         }
-                    </span>
+                    </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="text-sm text-gray-500">${result.release_type || 'N/A'}</span>
+                    <div class="text-sm text-neutral-800">${result.release_type || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <span class="text-sm text-gray-500">${result.branch || 'N/A'}</span>
+                    <div class="text-sm text-neutral-800">${result.branch || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <a href="/annulment-indv/${result.id}" class="text-orange-600 hover:text-orange-900 mr-3">
-                        <i class="fas fa-eye"></i>
-                    </a>
-                    <a href="/annulment-indv/${result.id}/edit" class="text-green-600 hover:text-green-900 mr-3">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <button onclick="deleteAnnulmentRecord(${result.id})" class="text-red-600 hover:text-red-900">
-                        <i class="fas fa-trash"></i>
-                    </button>
+                    <div class="flex space-x-2">
+                        <a href="/annulment-indv/${result.id}" class="inline-flex items-center px-3 py-2 bg-purple-100 text-purple-700 text-sm font-medium rounded-lg hover:bg-purple-200 transition-colors duration-200">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                            View
+                        </a>
+                        <a href="/annulment-indv/${result.id}/edit" class="inline-flex items-center px-3 py-2 bg-green-100 text-green-700 text-sm font-medium rounded-lg hover:bg-green-200 transition-colors duration-200">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                            Edit
+                        </a>
+                    </div>
                 </td>
             `;
             
@@ -531,5 +559,143 @@ function changePerPage(value) {
     url.searchParams.delete('page'); // Reset to first page when changing per_page
     window.location.href = url.toString();
 }
+
+// Annulment Details Modal
+function showAnnulmentDetails(id) {
+    fetch(`/annulment-indv/${id}`)
+        .then(response => response.text())
+        .then(html => {
+            // Create a temporary div to parse the HTML
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            
+            // Extract the record details from the show page
+            const recordDetails = tempDiv.querySelector('.pdf-content');
+            if (recordDetails) {
+                // Create modal content
+                const modalContent = `
+                    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+                            <div class="p-6">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h3 class="text-xl font-semibold text-gray-900">Annulment Record Details</h3>
+                                    <button onclick="closeAnnulmentModal()" class="text-gray-400 hover:text-gray-600">
+                                        <i class="bx bx-x text-2xl"></i>
+                                    </button>
+                                </div>
+                                <div class="record-details">
+                                    ${recordDetails.innerHTML}
+                                </div>
+                                <div class="flex justify-end mt-6 pt-4 border-t border-gray-200">
+                                    <button onclick="closeAnnulmentModal()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-200">
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add modal to body
+                document.body.insertAdjacentHTML('beforeend', modalContent);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                title: 'Error!',
+                text: 'An error occurred while fetching record details.',
+                icon: 'error',
+                confirmButtonColor: '#ef4444',
+                confirmButtonText: 'OK'
+            });
+        });
+}
+
+function closeAnnulmentModal() {
+    const modal = document.querySelector('.fixed.inset-0.bg-black.bg-opacity-50');
+    if (modal) {
+        modal.remove();
+    }
+}
+
+// Download Filtered Data functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const downloadFilteredBtn = document.getElementById('downloadFilteredBtn');
+    const searchInput = document.getElementById('annulment_search_input');
+    const searchForm = document.getElementById('annulmentSearchForm');
+    
+    // Enable/disable download filtered button based on search input
+    if (searchInput && downloadFilteredBtn) {
+        searchInput.addEventListener('input', function() {
+            if (this.value.trim().length > 0) {
+                downloadFilteredBtn.disabled = false;
+                downloadFilteredBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                downloadFilteredBtn.classList.add('hover:bg-orange-600');
+            } else {
+                downloadFilteredBtn.disabled = true;
+                downloadFilteredBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                downloadFilteredBtn.classList.remove('hover:bg-orange-600');
+            }
+        });
+        
+        // Handle download filtered button click
+        downloadFilteredBtn.addEventListener('click', function() {
+            const searchValue = searchInput.value.trim();
+            
+            if (searchValue.length === 0) {
+                Swal.fire({
+                    title: 'No Search Term',
+                    text: 'Please enter a search term to download filtered records.',
+                    icon: 'warning',
+                    confirmButtonColor: '#f97316',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+            
+            // Show confirmation dialog
+            Swal.fire({
+                title: 'Download Filtered Data',
+                text: `Download records matching "${searchValue}"?`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#f97316',
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: 'Yes, Download',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Create form and submit
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = '{{ route("annulment-indv.download-filtered") }}';
+                    
+                    // Add CSRF token
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]');
+                    if (csrfToken) {
+                        const csrfInput = document.createElement('input');
+                        csrfInput.type = 'hidden';
+                        csrfInput.name = '_token';
+                        csrfInput.value = csrfToken.getAttribute('content');
+                        form.appendChild(csrfInput);
+                    }
+                    
+                    // Add search input
+                    const searchInputField = document.createElement('input');
+                    searchInputField.type = 'hidden';
+                    searchInputField.name = 'search_input';
+                    searchInputField.value = searchValue;
+                    form.appendChild(searchInputField);
+                    
+                    // Submit form
+                    document.body.appendChild(form);
+                    form.submit();
+                    document.body.removeChild(form);
+                }
+            });
+        });
+    }
+});
 </script>
 @endsection
