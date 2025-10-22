@@ -128,7 +128,7 @@ class UserImport implements ToModel, WithHeadingRow, WithValidation, WithBatchIn
         return [
             'name' => 'required|string|max:255',
             'staff_id' => 'nullable|string|max:255',
-            'password' => 'nullable|string|min:8',
+            'password' => 'nullable|string|min:12',
             'role' => 'required|string|in:superuser,admin,id_management,staff',
             'branch_code' => 'nullable|string|max:255',
             'status' => 'nullable|string|in:active,inactive,suspended,expired',
@@ -143,7 +143,7 @@ class UserImport implements ToModel, WithHeadingRow, WithValidation, WithBatchIn
             'role.required' => 'The role field is required. Valid values: superuser, admin, id_management, staff',
             'role.in' => 'The role must be one of: superuser, admin, id_management, staff',
             'status.in' => 'The status must be one of: active, inactive, suspended, expired',
-            'password.min' => 'The password must be at least 8 characters.',
+            'password.min' => 'The password must be at least 12 characters.',
         ];
     }
 

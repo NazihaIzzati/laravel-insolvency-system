@@ -43,8 +43,9 @@
                         id="password" 
                         name="password" 
                         class="professional-input @error('password') border-red-300 focus:border-red-500 focus:ring-red-500 @enderror"
-                        placeholder="Enter your new password"
+                        placeholder="Enter your new password (minimum 12 characters)"
                         required 
+                        minlength="12"
                         autocomplete="new-password"
                     >
                     @error('password')
@@ -62,8 +63,9 @@
                         id="password_confirmation" 
                         name="password_confirmation" 
                         class="professional-input"
-                        placeholder="Confirm your new password"
+                        placeholder="Confirm your new password (minimum 12 characters)"
                         required 
+                        minlength="12"
                         autocomplete="new-password"
                     >
                 </div>
@@ -74,7 +76,7 @@
                     <ul class="text-xs text-neutral-800 space-y-1">
                         <li class="flex items-center">
                             <i class="fas fa-check mr-2 text-gray-400"></i>
-                            At least 8 characters long
+                            At least 12 characters long
                         </li>
                         <li class="flex items-center">
                             <i class="fas fa-check mr-2 text-gray-400"></i>

@@ -47,7 +47,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'staff_id' => 'required|string',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:12',
         ]);
 
         if ($validator->fails()) {
@@ -113,7 +113,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:12|confirmed',
             'role' => 'nullable|string|in:user,admin',
         ]);
 
@@ -181,6 +181,11 @@ class AuthController extends Controller
             return route('admin.dashboard');
         }
         
+        // Staff users go to staff dashboard
+        if ($user->isStaff()) {
+            return route('staff.dashboard');
+        }
+        
         // Super users go to main dashboard (can access all functions)
         if ($user->isSuperUser()) {
             return route('dashboard');
@@ -207,11 +212,90 @@ class AuthController extends Controller
                     ->with('info', 'You have been redirected to your dedicated dashboard.');
             }
             
+            // Redirect staff users to staff dashboard
+            if ($user->isStaff()) {
+                return redirect()->route('staff.dashboard')
+                    ->with('info', 'You have been redirected to your staff dashboard.');
+            }
+            
             // Redirect other users to appropriate dashboard
             return redirect()->route('id-management.dashboard')
                 ->with('info', 'You have been redirected to your dashboard.');
         }
         
         return view('dashboard', compact('user'));
+    }
+
+    /**
+     * Update user email address.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function updateEmail(Request $request)
+    {
+        $user = Auth::user();
+        
+        // Only allow staff and admin users to update their email
+        if (!$user->isStaff() && !$user->isAdmin()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Access denied. Only staff and admin users can update their email address.'
+            ], 403);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'email_confirmation' => 'required|email|same:email',
+        ], [
+            'email.required' => 'Email address is required.',
+            'email.email' => 'Please enter a valid email address.',
+            'email.unique' => 'This email address is already in use.',
+            'email_confirmation.required' => 'Email confirmation is required.',
+            'email_confirmation.same' => 'Email confirmation does not match.',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed.',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            // Update the user's email
+            $user->update([
+                'email' => $request->email,
+                'email_updated' => true,
+                'last_modified_date' => now(),
+                'last_modified_user' => $user->login_id,
+            ]);
+
+            // Log the email update
+            AuditService::log(
+                $user,
+                'EMAIL_UPDATE',
+                "Updated email address from {$user->getOriginal('email')} to {$request->email}",
+                $user,
+                ['email' => $user->getOriginal('email')],
+                ['email' => $request->email],
+                $request
+            );
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Your email address has been updated successfully. You will not be prompted to update it again.',
+                'data' => [
+                    'email' => $user->email
+                ]
+            ]);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update email address. Please try again.'
+            ], 500);
+        }
     }
 }

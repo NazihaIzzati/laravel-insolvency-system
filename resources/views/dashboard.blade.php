@@ -12,7 +12,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <h1 class="text-3xl font-bold text-gray-900">Welcome back, {{ $user->name }}</h1>
-                    <p class="text-gray-600 mt-1">Here's what's happening with your insolvency data system today.</p>
+                    <p class="text-gray-600 mt-1">Here's what's happening with your insolvency information system today.</p>
                 </div>
                 <div class="flex items-center space-x-4">
                     <div class="hidden lg:flex items-center space-x-2 text-sm text-gray-500">

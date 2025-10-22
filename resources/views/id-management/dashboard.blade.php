@@ -12,7 +12,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <h1 class="text-3xl font-bold text-gray-900">ID Management Dashboard</h1>
-                    <p class="text-gray-600 mt-1">Manage user accounts and access permissions for the insolvency data system.</p>
+                    <p class="text-gray-600 mt-1">Manage user accounts and access permissions for the insolvency information system.</p>
                 </div>
                 <div class="flex items-center space-x-4">
                     <div class="hidden lg:flex items-center space-x-2 text-sm text-gray-500">
@@ -200,8 +200,37 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <div class="flex space-x-2">
-                                    <a href="{{ route('user-management.show', $user) }}" class="text-blue-600 hover:text-blue-900">View</a>
-                                    <a href="{{ route('user-management.edit', $user) }}" class="text-green-600 hover:text-green-900">Edit</a>
+                                    <a href="{{ route('user-management.show', $user) }}" 
+                                       class="inline-flex items-center px-3 py-2 bg-blue-100 text-blue-700 text-sm font-medium rounded-lg hover:bg-blue-200 transition-colors duration-200"
+                                       title="View user details">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                        </svg>
+                                        View
+                                    </a>
+                                    <a href="{{ route('user-management.edit', $user) }}" 
+                                       class="inline-flex items-center px-3 py-2 bg-green-100 text-green-700 text-sm font-medium rounded-lg hover:bg-green-200 transition-colors duration-200"
+                                       title="Edit user">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                        </svg>
+                                        Edit
+                                    </a>
+                                    @if($user->email)
+                                    <form action="{{ route('user-management.send-password-reset', $user) }}" method="POST" class="inline" id="password-reset-form-id-{{ $user->id }}">
+                                        @csrf
+                                        <button type="button" 
+                                                class="inline-flex items-center px-3 py-2 bg-purple-100 text-purple-700 text-sm font-medium rounded-lg hover:bg-purple-200 transition-colors duration-200"
+                                                title="Send password reset email"
+                                                onclick="confirmPasswordResetId('{{ $user->email }}', '{{ $user->id }}')">
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                            </svg>
+                                            Reset
+                                        </button>
+                                    </form>
+                                    @endif
                                 </div>
                             </td>
                         </tr>
@@ -276,4 +305,39 @@
 
     </div>
 </div>
+
+<script>
+function confirmPasswordResetId(email, userId) {
+    Swal.fire({
+        title: 'Send Password Reset Email?',
+        html: `Are you sure you want to send a password reset email to <strong>${email}</strong>?<br><br>This will send a secure link for the user to reset their password.`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#7c3aed',
+        cancelButtonColor: '#6b7280',
+        confirmButtonText: 'Yes, Send Email',
+        cancelButtonText: 'Cancel',
+        reverseButtons: true,
+        focusCancel: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Show loading state
+            Swal.fire({
+                title: 'Sending Email...',
+                text: 'Please wait while we send the password reset email.',
+                icon: 'info',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showConfirmButton: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            
+            // Submit the form
+            document.getElementById(`password-reset-form-id-${userId}`).submit();
+        }
+    });
+}
+</script>
 @endsection

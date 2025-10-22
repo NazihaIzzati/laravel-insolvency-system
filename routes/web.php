@@ -10,6 +10,7 @@ use App\Http\Controllers\NonIndividualBankruptcyController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\AuditLogController;
+use App\Http\Controllers\PasswordResetController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +42,10 @@ Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
     Route::post('/register', [AuthController::class, 'register']);
 });
+
+// Password reset routes (accessible to both guests and authenticated users)
+Route::get('/password/reset', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
+Route::post('/password/reset', [PasswordResetController::class, 'resetPassword'])->name('password.reset.submit');
 
 // Protected routes
 Route::middleware('auth')->group(function () {
@@ -94,11 +99,30 @@ Route::middleware('auth')->group(function () {
     Route::get('/search/details/{id}', [SearchController::class, 'getDetails'])->name('search.details');
 });
 
+// Staff routes
+Route::middleware(['auth', 'staff_only'])->prefix('staff')->group(function () {
+    Route::get('/', function () {
+        return view('staff.dashboard');
+    })->name('staff.dashboard');
+    
+    Route::get('/bulk-status', [SearchController::class, 'bulkStatusCheck'])->name('staff.bulk-status');
+    Route::post('/bulk-status-file', [SearchController::class, 'bulkStatusCheckFromFile'])->name('staff.bulk-status-file');
+    
+    // Email update route for staff users
+    Route::post('/update-email', [AuthController::class, 'updateEmail'])->name('staff.update-email');
+});
+
 // Admin routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
+    
+    Route::get('/bulk-status', [SearchController::class, 'bulkStatusCheck'])->name('admin.bulk-status');
+    Route::post('/bulk-status-file', [SearchController::class, 'bulkStatusCheckFromFile'])->name('admin.bulk-status-file');
+    
+    // Email update route for admin users
+    Route::post('/update-email', [AuthController::class, 'updateEmail'])->name('admin.update-email');
 });
 
 // ID Management routes
@@ -126,6 +150,7 @@ Route::middleware(['auth', 'id_management'])->group(function () {
     Route::put('/user-management/{user}', [UserManagementController::class, 'update'])->name('user-management.update');
     Route::delete('/user-management/{user}', [UserManagementController::class, 'destroy'])->name('user-management.destroy');
     Route::post('/user-management/{user}/change-password', [UserManagementController::class, 'changePassword'])->name('user-management.change-password');
+    Route::post('/user-management/{user}/send-password-reset', [UserManagementController::class, 'sendPasswordResetEmail'])->name('user-management.send-password-reset');
     
 });
 

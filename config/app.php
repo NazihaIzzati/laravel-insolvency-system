@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Insolvency Data System'),
+    'name' => env('APP_NAME', 'Insolvency Information System'),
 
     /*
     |--------------------------------------------------------------------------

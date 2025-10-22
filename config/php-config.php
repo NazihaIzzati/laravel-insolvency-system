@@ -1,5 +1,5 @@
 <?php
-// PHP Configuration for Insolvency Data System
+// PHP Configuration for Insolvency Information System
 // This file ensures proper memory and execution limits for large file processing
 
 // Memory and execution limits

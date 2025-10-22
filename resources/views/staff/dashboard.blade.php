@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Admin Dashboard')
+@section('title', 'Staff Dashboard')
 
 @section('content')
 <div class="min-h-screen bg-white">
@@ -11,8 +11,8 @@
         <div class="mb-8">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-                    <p class="text-gray-600 mt-1">System administration panel for managing users and system settings.</p>
+                    <h1 class="text-3xl font-bold text-gray-900">Staff Dashboard</h1>
+                    <p class="text-gray-600 mt-1">Staff panel for managing bankruptcy and annulment records.</p>
                 </div>
                 <div class="flex items-center space-x-4">
                     <div class="hidden lg:flex items-center space-x-2 text-sm text-gray-500">
@@ -91,94 +91,16 @@
             </div>
         </div>
 
-        <!-- Admin Actions -->
+        <!-- Search Records Section -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8">
             <div class="px-6 py-4 border-b border-gray-200">
-                <h2 class="text-xl font-semibold text-gray-900">Admin Actions</h2>
-                <p class="text-sm text-gray-600 mt-1">Manage bankruptcy and annulment records</p>
+                <h2 class="text-xl font-semibold text-gray-900">Search Records</h2>
+                <p class="text-sm text-gray-600 mt-1">Search for bankruptcy and annulment records across all categories</p>
             </div>
             <div class="p-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <!-- Individual Bankruptcy -->
-                    <a href="{{ route('bankruptcy.index') }}" class="group flex items-center p-4 rounded-lg border border-gray-200 hover:border-red-200 hover:shadow-md transition-all duration-200">
-                        <div class="w-12 h-12 bg-red-50 rounded-lg flex items-center justify-center mr-4 group-hover:bg-red-100 transition-colors duration-200">
-                            <i class="bx bx-user-x text-red-600 text-lg"></i>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="text-sm font-semibold text-gray-900 group-hover:text-red-600 transition-colors duration-200">Individual Bankruptcy</h3>
-                            <p class="text-xs text-gray-500 mt-1">Manage individual bankruptcy records</p>
-                            <div class="mt-2 text-xs text-gray-400">{{ \App\Models\Bankruptcy::where('is_active', true)->count() }} active records</div>
-                        </div>
-                        <i class="bx bx-right-arrow-alt text-gray-400 group-hover:text-red-600 transition-colors duration-200"></i>
-                    </a>
-
-                    <!-- Non-Individual Bankruptcy -->
-                    <a href="{{ route('non-individual-bankruptcy.index') }}" class="group flex items-center p-4 rounded-lg border border-gray-200 hover:border-red-200 hover:shadow-md transition-all duration-200">
-                        <div class="w-12 h-12 bg-red-50 rounded-lg flex items-center justify-center mr-4 group-hover:bg-red-100 transition-colors duration-200">
-                            <i class="bx bx-buildings text-red-600 text-lg"></i>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="text-sm font-semibold text-gray-900 group-hover:text-red-600 transition-colors duration-200">Non-Individual Bankruptcy</h3>
-                            <p class="text-xs text-gray-500 mt-1">Manage company bankruptcy records</p>
-                            <div class="mt-2 text-xs text-gray-400">{{ \App\Models\NonIndividualBankruptcy::where('is_active', true)->count() }} active records</div>
-                        </div>
-                        <i class="bx bx-right-arrow-alt text-gray-400 group-hover:text-red-600 transition-colors duration-200"></i>
-                    </a>
-
-                    <!-- Individual Release -->
-                    <a href="{{ route('annulment-indv.index') }}" class="group flex items-center p-4 rounded-lg border border-gray-200 hover:border-green-200 hover:shadow-md transition-all duration-200">
-                        <div class="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center mr-4 group-hover:bg-green-100 transition-colors duration-200">
-                            <i class="bx bx-user-check text-green-600 text-lg"></i>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="text-sm font-semibold text-gray-900 group-hover:text-green-600 transition-colors duration-200">Individual Release</h3>
-                            <p class="text-xs text-gray-500 mt-1">Manage individual annulment records</p>
-                            <div class="mt-2 text-xs text-gray-400">{{ \App\Models\AnnulmentIndv::where('is_active', true)->count() }} active records</div>
-                        </div>
-                        <i class="bx bx-right-arrow-alt text-gray-400 group-hover:text-green-600 transition-colors duration-200"></i>
-                    </a>
-
-                    <!-- Non-Individual Release -->
-                    <a href="{{ route('annulment-non-indv.index') }}" class="group flex items-center p-4 rounded-lg border border-gray-200 hover:border-green-200 hover:shadow-md transition-all duration-200">
-                        <div class="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center mr-4 group-hover:bg-green-100 transition-colors duration-200">
-                            <i class="bx bx-building text-green-600 text-lg"></i>
-                        </div>
-                        <div class="flex-1">
-                            <h3 class="text-sm font-semibold text-gray-900 group-hover:text-green-600 transition-colors duration-200">Non-Individual Release</h3>
-                            <p class="text-xs text-gray-500 mt-1">Manage company annulment records</p>
-                            <div class="mt-2 text-xs text-gray-400">{{ \App\Models\AnnulmentNonIndv::where('is_active', true)->count() }} active records</div>
-                        </div>
-                        <i class="bx bx-right-arrow-alt text-gray-400 group-hover:text-green-600 transition-colors duration-200"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Universal Search -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8">
-            <div class="px-6 py-4 border-b border-gray-200">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
-                            <i class="bx bx-search text-orange-600"></i>
-                        </div>
-                        <div>
-                            <h2 class="text-xl font-semibold text-gray-900">Search Records</h2>
-                            <p class="text-sm text-gray-500">Find bankruptcy and annulment records</p>
-                        </div>
-                    </div>
-                    <div class="hidden lg:flex items-center space-x-2 text-sm text-gray-500">
-                        <i class="bx bx-info-circle"></i>
-                        <span>Search by IC number, company registration, insolvency number or court case number</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="p-6">
-                <form id="adminSearchForm" class="space-y-4">
+                <form id="adminSearchForm" method="POST" action="{{ route('search') }}">
                     @csrf
-                    <div>
+                    <div class="mb-6">
                         <label for="admin_search_input" class="block text-sm font-medium text-gray-700 mb-2">
                             Search Records
                         </label>
@@ -189,37 +111,31 @@
                             <input type="text" 
                                    id="admin_search_input" 
                                    name="search_input" 
-                                    class="block w-full pl-10 pr-12 py-3 border border-gray-200 rounded-lg text-sm placeholder-gray-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200"
+                                   class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200" 
                                    placeholder="Enter IC number, company registration number, insolvency number or court case number..."
-                                   required>
-                            <button type="button" 
-                                    id="admin_clearSearchBtn" 
-                                    class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200" 
-                                    style="display: none;" 
-                                    title="Clear search">
-                                <i class="bx bx-x"></i>
-                            </button>
+                                   value="{{ old('search_input') }}">
                         </div>
-                        
-                        <!-- Search Tags -->
-                        <div class="mt-3 flex flex-wrap gap-2">
-                             <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200">
+                        <p class="mt-2 text-sm text-gray-500">
+                            Search by IC number, company registration, insolvency number or court case number
+                        </p>
+                    </div>
+                    
+                    <!-- Search Type Pills -->
+                    <div class="mb-6">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200">
                                 <i class="bx bx-id-card mr-1"></i>
                                 IC Numbers
                             </span>
-                             <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">
-                                <i class="bx bx-user mr-1"></i>
-                                Names
-                            </span>
-                             <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800 border border-purple-200">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800 border border-purple-200">
                                 <i class="bx bx-buildings mr-1"></i>
                                 Company Registration Number
                             </span>
-                             <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800 border border-red-200">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">
                                 <i class="bx bx-file-blank mr-1"></i>
                                 Insolvency Numbers
                             </span>
-                             <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 border border-indigo-200">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 border border-indigo-200">
                                 <i class="bx bx-file mr-1"></i>
                                 Court Case Numbers
                             </span>
@@ -506,158 +422,71 @@
         </div>
 
         <!-- No Results -->
-        <div id="adminNoResults" class="hidden bg-white rounded-xl shadow-sm border border-gray-200 p-12 mb-8">
-            <div class="text-center max-w-2xl mx-auto">
-                <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="bx bx-search text-gray-400 text-3xl"></i>
+        <div id="adminNoResults" class="hidden bg-white rounded-xl shadow-sm border border-gray-200 mb-8 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center mr-3">
+                            <i class="bx bx-search text-gray-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">No Results Found</h3>
+                            <p class="text-sm text-gray-500">No matching records found for your search</p>
+                        </div>
+                    </div>
+                    <button type="button" id="admin_clearSearchFromNoResults" class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-600 bg-white rounded-lg hover:bg-white transition-colors duration-200">
+                        <i class="bx bx-x mr-2"></i>
+                        Clear Search
+                    </button>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-2">No Records Found</h3>
-                <p class="text-gray-500 mb-6">We couldn't find any records matching your search criteria.</p>
-                
-                <button type="button" id="admin_clearSearchFromNoResults" class="mt-6 inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 bg-white rounded-lg hover:bg-white transition-colors duration-200">
-                    <i class="bx bx-refresh mr-2"></i>
-                    Try Different Search
-                </button>
+            </div>
+            <div class="p-6 text-center">
+                <div class="text-gray-400 mb-4">
+                    <i class="bx bx-search text-6xl"></i>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">No records found</h3>
+                <p class="text-gray-500 mb-4">Try adjusting your search criteria or check the spelling of your search terms.</p>
+                <div class="text-sm text-gray-400">
+                    <p>Search tips:</p>
+                    <ul class="list-disc list-inside mt-2 space-y-1">
+                        <li>Make sure all words are spelled correctly</li>
+                        <li>Try different keywords</li>
+                        <li>Try more general keywords</li>
+                        <li>Try fewer keywords</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
         <!-- Loading Spinner -->
-        <div id="adminLoadingSpinner" class="hidden bg-white rounded-xl shadow-sm border border-gray-200 p-12 mb-8">
-            <div class="text-center">
-                <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class="bx bx-loader-alt bx-spin text-orange-500 text-xl"></i>
+        <div id="adminLoadingSpinner" class="hidden bg-white rounded-xl shadow-sm border border-gray-200 mb-8 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
+                        <i class="bx bx-loader-alt bx-spin text-orange-600"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">Searching...</h3>
+                        <p class="text-sm text-gray-500">Please wait while we search for records</p>
+                    </div>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Searching Records</h3>
-                <p class="text-gray-500">Please wait while we search for matching records...</p>
+            </div>
+            <div class="p-6">
+                <div class="flex items-center justify-center">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div>
+                </div>
             </div>
         </div>
-
 
     </div>
 </div>
 
-<!-- Email Update Modal -->
-<div id="emailUpdateModal" class="hidden fixed inset-0 bg-black bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center p-4">
-    <div class="relative bg-white rounded-xl shadow-2xl w-full max-w-md mx-auto transform transition-all">
-        <!-- Modal Header -->
-        <div class="px-6 py-4 border-b border-gray-200">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h3 class="text-lg font-semibold text-gray-900">Update Email Address</h3>
-                    <p class="text-sm text-gray-500 mt-1">Please update your email address. This is a one-time requirement.</p>
-                </div>
-                <button type="button" id="closeEmailUpdateModal" class="text-gray-400 hover:text-gray-600 transition-colors duration-200 p-1 rounded-lg hover:bg-gray-100">
-                    <i class="bx bx-x text-xl"></i>
-                </button>
-            </div>
-        </div>
-        
-        <!-- Modal Content -->
-        <div class="p-6">
-            <form id="emailUpdateForm">
-                @csrf
-                <div class="mb-6">
-                    <label for="currentEmail" class="block text-sm font-medium text-gray-700 mb-2">
-                        Current Email Address
-                    </label>
-                    <input type="email" 
-                           id="currentEmail" 
-                           class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200" 
-                           value="{{ auth()->user()->email }}" 
-                           readonly>
-                </div>
-                
-                <div class="mb-6">
-                    <label for="newEmail" class="block text-sm font-medium text-gray-700 mb-2">
-                        New Email Address <span class="text-red-500">*</span>
-                    </label>
-                    <input type="email" 
-                           id="newEmail" 
-                           name="email" 
-                           class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200" 
-                           placeholder="Enter your new email address"
-                           required>
-                    <p class="mt-2 text-sm text-gray-500">
-                        Please enter a valid email address
-                    </p>
-                </div>
-                
-                <div class="mb-6">
-                    <label for="confirmEmail" class="block text-sm font-medium text-gray-700 mb-2">
-                        Confirm New Email Address <span class="text-red-500">*</span>
-                    </label>
-                    <input type="email" 
-                           id="confirmEmail" 
-                           name="email_confirmation" 
-                           class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200" 
-                           placeholder="Confirm your new email address"
-                           required>
-                </div>
-                
-                <!-- Form Actions -->
-                <div class="flex items-center justify-end space-x-4">
-                    <button type="button" id="skipEmailUpdate" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
-                        Skip for Now
-                    </button>
-                    <button type="submit" id="updateEmailBtn" class="inline-flex items-center px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors duration-200">
-                        <i class="bx bx-check mr-2"></i>
-                        Update Email
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Details Modal -->
-<div id="detailsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center p-4" onclick="closeRecordDetails()">
-    <div class="relative bg-white rounded-xl shadow-2xl w-full max-w-4xl mx-auto transform transition-all" onclick="event.stopPropagation()">
-        <!-- Modal Header -->
-        <div class="px-6 py-4 border-b border-gray-200">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h3 class="text-lg font-semibold text-gray-900">Record Details</h3>
-                    <p class="text-sm text-gray-500 mt-1">View detailed information about this record</p>
-                </div>
-                <button type="button" onclick="closeRecordDetails()" class="text-gray-400 hover:text-gray-600 transition-colors duration-200 p-1 rounded-lg hover:bg-gray-100">
-                    <i class="bx bx-x text-xl"></i>
-                </button>
-            </div>
-        </div>
-        
-        <!-- Modal Content -->
-        <div id="modalContent" class="p-6">
-            <!-- Content will be loaded here -->
-        </div>
-    </div>
-</div>
-
-<!-- Print Styles -->
-<style>
-@media print {
-    body * {
-        visibility: hidden;
-    }
-    #printableContent, #printableContent * {
-        visibility: visible;
-    }
-    #printableContent {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-    }
-    .no-print {
-        display: none !important;
-    }
-}
-</style>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Get form and elements
     const searchForm = document.getElementById('adminSearchForm');
     const searchResults = document.getElementById('adminSearchResults');
-    const searchResultsBody = document.getElementById('adminSearchResultsBody');
     const noResults = document.getElementById('adminNoResults');
     const loadingSpinner = document.getElementById('adminLoadingSpinner');
     const clearSearchBtn = document.getElementById('admin_clearSearchBtn');
@@ -688,9 +517,9 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('bulkStatusResults element:', bulkStatusResults);
     console.log('bulkStatusTableBody element:', bulkStatusTableBody);
 
-    // Show email update modal for admin users after login
-    // Check if this is an admin user and needs email update
-    @if(auth()->user()->isAdmin() && auth()->user()->needsEmailUpdate())
+    // Show email update modal for staff users after login
+    // Check if this is a staff user and needs email update
+    @if(auth()->user()->isStaff() && auth()->user()->needsEmailUpdate())
         // Show email update modal after a short delay to ensure page is loaded
         setTimeout(function() {
             emailUpdateModal.classList.remove('hidden');
@@ -779,7 +608,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const formData = new FormData(emailUpdateForm);
             formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
             
-            fetch('{{ route("admin.update-email") }}', {
+            fetch('{{ route("staff.update-email") }}', {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -837,6 +666,7 @@ document.addEventListener('DOMContentLoaded', function() {
             fileUploadModal.classList.remove('hidden');
         });
     }
+
 
     // Clear bulk status results
     if (clearBulkStatusResultsBtn) {
@@ -984,7 +814,7 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
 
         // Upload file and check status
-        fetch('{{ route("admin.bulk-status-file") }}', {
+        fetch('{{ route("staff.bulk-status-file") }}', {
             method: 'POST',
             body: formData,
             headers: {
@@ -1173,86 +1003,59 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(this);
         const searchInputValue = formData.get('search_input');
         
+        console.log('Form submitted with search input:', searchInputValue); // Debug log
+        
         if (!searchInputValue) {
             Swal.fire({
                 title: 'Search Required',
                 text: 'Please enter a search value.',
                 icon: 'warning',
-                confirmButtonColor: '#ea580c',
+                confirmButtonColor: '#dc2626',
                 confirmButtonText: 'OK'
             });
             return;
         }
         
+        // Show loading spinner
         loadingSpinner.classList.remove('hidden');
         searchResults.classList.add('hidden');
         noResults.classList.add('hidden');
         
-        // Search both bankruptcy and annulment records
-        Promise.all([
-            fetch('{{ route("search") }}', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            }),
-            fetch('{{ route("search.annulment") }}', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-        ])
-        .then(responses => Promise.all(responses.map(response => response.json())))
-        .then(([bankruptcyData, annulmentData]) => {
+        console.log('Making search request to:', '{{ route("search") }}'); // Debug log
+        
+        // Make AJAX request
+        fetch('{{ route("search") }}', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        })
+        .then(response => {
+            console.log('Response status:', response.status); // Debug log
+            return response.json();
+        })
+        .then(data => {
+            console.log('Search response data:', data); // Debug log
             loadingSpinner.classList.add('hidden');
             
-            console.log('Bankruptcy search results:', bankruptcyData);
-            console.log('Annulment search results:', annulmentData);
-            
-            // Combine results from both searches
-            let allResults = [];
-            
-            if (bankruptcyData.success && bankruptcyData.results) {
-                allResults = allResults.concat(bankruptcyData.results);
-            }
-            
-            if (annulmentData.success && annulmentData.results) {
-                allResults = allResults.concat(annulmentData.results);
-            }
-            
-            console.log('Combined results before deduplication:', allResults);
-            
-            // Remove duplicates based on IC number, company registration number, or insolvency number
-            const uniqueResults = [];
-            const seenIdentifiers = new Set();
-            
-            allResults.forEach(result => {
-                const identifier = result.ic_no || result.company_registration_no || result.insolvency_no;
-                if (identifier && !seenIdentifiers.has(identifier)) {
-                    seenIdentifiers.add(identifier);
-                    uniqueResults.push(result);
-                }
-            });
-            
-            console.log('Unique results after deduplication:', uniqueResults);
-            
-            if (uniqueResults.length > 0) {
-                displayResults(uniqueResults);
+            if (data.success && data.results && data.results.length > 0) {
+                console.log('Results to display:', data.results); // Debug log
+                displaySearchResults(data.results);
+                searchResults.classList.remove('hidden');
             } else {
+                console.log('No results found or error:', data); // Debug log
                 showNoResults(data.message || 'No records found for your search criteria.');
             }
         })
         .catch(error => {
+            console.error('Search error:', error);
             loadingSpinner.classList.add('hidden');
-            console.error('Error:', error);
             Swal.fire({
-                title: 'Search Error',
-                text: 'An error occurred while searching. Please try again.',
+                title: 'Error',
+                text: 'An error occurred while searching: ' + error.message,
                 icon: 'error',
                 confirmButtonColor: '#dc2626',
                 confirmButtonText: 'OK'
@@ -1260,75 +1063,61 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Clear search results button functionality
-    if (clearSearchResultsBtn) {
-        clearSearchResultsBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            clearSearch();
-        });
-    }
-
-    // Clear search from no results button functionality
-    if (clearSearchFromNoResults) {
-        clearSearchFromNoResults.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            clearSearch();
-        });
-    }
-
-    // Clear search input button functionality
-    if (clearSearchBtn && searchInput) {
-        clearSearchBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            clearSearch();
-        });
-
-        // Show/hide clear button based on input content
-        searchInput.addEventListener('input', function() {
-            if (this.value.trim() !== '') {
-                clearSearchBtn.style.display = 'block';
-            } else {
-                clearSearchBtn.style.display = 'none';
-            }
-        });
-    }
-
-    function clearSearch() {
-        try {
-            if (searchInput) {
-                searchInput.value = '';
-                clearSearchBtn.style.display = 'none';
-            }
-            searchResults.classList.add('hidden');
-            noResults.classList.add('hidden');
-            loadingSpinner.classList.add('hidden');
-        } catch (error) {
-            console.error('Error in clearSearch:', error);
+    function showNoResults(message = 'No records found for your search criteria.') {
+        // Update the no results message
+        const noResultsText = noResults.querySelector('p');
+        if (noResultsText) {
+            noResultsText.textContent = message;
         }
+        
+        noResults.classList.remove('hidden');
+        searchResults.classList.add('hidden');
     }
 
-    function displayResults(results) {
-        searchResultsBody.innerHTML = '';
+    function displaySearchResults(results) {
+        console.log('displaySearchResults called with:', results); // Debug log
         
-        // Update results count in header
-        const resultsCount = results.length;
-        const resultsHeader = searchResults.querySelector('h3');
-        const resultsSubtext = searchResults.querySelector('p');
-        
-        if (resultsCount === 1) {
-            resultsHeader.textContent = 'Search Results';
-            resultsSubtext.textContent = '1 matching record found';
-        } else {
-            resultsHeader.textContent = 'Search Results';
-            resultsSubtext.textContent = `${resultsCount} matching records found`;
+        const tbody = document.getElementById('adminSearchResultsBody');
+        if (!tbody) {
+            console.error('adminSearchResultsBody element not found');
+            return;
         }
+        
+        tbody.innerHTML = '';
+        
+        // Check if results is an array
+        if (!Array.isArray(results)) {
+            console.error('Results is not an array:', results);
+            return;
+        }
+        
+        // Remove duplicates based on unique identifiers
+        const uniqueResults = [];
+        const seen = new Set();
         
         results.forEach((result, index) => {
+            console.log(`Processing result ${index}:`, result); // Debug log
+            
+            const identifier = result.ic_no || result.company_registration_no || result.insolvency_no;
+            if (!seen.has(identifier)) {
+                seen.add(identifier);
+                uniqueResults.push(result);
+            }
+        });
+        
+        console.log('Unique results after deduplication:', uniqueResults); // Debug log
+        
+        uniqueResults.forEach((result, index) => {
+            console.log(`Processing unique result ${index}:`, result); // Debug log
+            
+            // Check if result is a valid object
+            if (!result || typeof result !== 'object') {
+                console.error('Invalid result object:', result);
+                return;
+            }
+            
             const row = document.createElement('tr');
-            row.className = 'hover:bg-white transition-colors duration-200';
+            row.className = 'hover:bg-gray-50 transition-colors duration-200';
             
             let identifier, name, type, releaseType, typeColor, typeBg;
             
@@ -1367,6 +1156,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 typeBg = 'bg-gray-100';
             }
             
+            // Check if id and table_name exist with more robust checking
+            const recordId = (result && result.id) ? result.id : (result && result.ID) ? result.ID : 'unknown';
+            const tableName = (result && result.table_name) ? result.table_name : (result && result.tableName) ? result.tableName : '';
+            
+            console.log(`Record ${index} - ID:`, recordId, 'Table Name:', tableName, 'Full result:', result); // Debug log
+            
             row.innerHTML = `
                 <td class="px-4 py-4">
                     <div class="flex items-center">
@@ -1396,71 +1191,30 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </td>
                 <td class="px-4 py-4">
-                    <button onclick="showDetails(${result.id}, '${result.table_name || ''}')" class="inline-flex items-center px-3 py-1 text-xs font-medium text-orange-600 bg-orange-50 rounded-md hover:bg-orange-100 transition-colors duration-200">
+                    <button onclick="showDetails('${recordId}', '${tableName}')" class="inline-flex items-center px-3 py-1 text-xs font-medium text-orange-600 bg-orange-50 rounded-md hover:bg-orange-100 transition-colors duration-200">
                         <i class="bx bx-show mr-1"></i>
                         View
                     </button>
                 </td>
             `;
-            searchResultsBody.appendChild(row);
+            
+            tbody.appendChild(row);
         });
-        
-        searchResults.classList.remove('hidden');
     }
 
-    function showNoResults(message = 'No records found for your search criteria.') {
-        // Update the no results message
-        const noResultsText = noResults.querySelector('p');
-        if (noResultsText) {
-            noResultsText.textContent = message;
-        }
-        
-        noResults.classList.remove('hidden');
-        searchResults.classList.add('hidden');
+    // Clear search results
+    if (clearSearchResultsBtn) {
+        clearSearchResultsBtn.addEventListener('click', function() {
+            searchResults.classList.add('hidden');
+            searchInput.value = '';
+        });
     }
 
-    // Function to update modal header with record information
-    function updateModalHeader(record) {
-        const modalHeader = document.querySelector('#detailsModal .px-6.py-4.border-b.border-gray-200 h3');
-        const modalSubtext = document.querySelector('#detailsModal .px-6.py-4.border-b.border-gray-200 p');
-        
-        if (modalHeader && modalSubtext) {
-            const recordType = record.record_type || 'Unknown';
-            const recordId = record.id || 'N/A';
-            
-            // Format record type for display
-            let displayType = recordType;
-            switch (recordType) {
-                case 'bankruptcy':
-                    displayType = 'Bankruptcy Record Details';
-                    break;
-                case 'non-individual-bankruptcy':
-                    displayType = 'Non-Individual Bankruptcy Record Details';
-                    break;
-                case 'annulment':
-                    displayType = 'Individual Annulment Record Details';
-                    break;
-                case 'non-individual-annulment':
-                    displayType = 'Non-Individual Annulment Record Details';
-                    break;
-                default:
-                    displayType = `${recordType.charAt(0).toUpperCase() + recordType.slice(1)} Record Details`;
-            }
-            
-            modalHeader.textContent = displayType;
-            modalSubtext.textContent = 'View detailed information about this record';
-        }
-    }
-
-    // Function to reset modal header to default
-    function resetModalHeader() {
-        const modalHeader = document.querySelector('#detailsModal .px-6.py-4.border-b.border-gray-200 h3');
-        const modalSubtext = document.querySelector('#detailsModal .px-6.py-4.border-b.border-gray-200 p');
-        
-        if (modalHeader && modalSubtext) {
-            modalHeader.textContent = 'Record Details';
-            modalSubtext.textContent = 'View detailed information about this record';
-        }
+    if (clearSearchFromNoResults) {
+        clearSearchFromNoResults.addEventListener('click', function() {
+            noResults.classList.add('hidden');
+            searchInput.value = '';
+        });
     }
 
     // Function to generate HTML for record details
@@ -1631,6 +1385,50 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
     }
 
+    // Function to update modal header with record information
+    function updateModalHeader(record) {
+        const modalHeader = document.querySelector('#detailsModal .px-6.py-4.border-b.border-gray-200 h3');
+        const modalSubtext = document.querySelector('#detailsModal .px-6.py-4.border-b.border-gray-200 p');
+        
+        if (modalHeader && modalSubtext) {
+            const recordType = record.record_type || 'Unknown';
+            const recordId = record.id || 'N/A';
+            
+            // Format record type for display
+            let displayType = recordType;
+            switch (recordType) {
+                case 'bankruptcy':
+                    displayType = 'Bankruptcy Record Details';
+                    break;
+                case 'non-individual-bankruptcy':
+                    displayType = 'Non-Individual Bankruptcy Record Details';
+                    break;
+                case 'annulment':
+                    displayType = 'Individual Annulment Record Details';
+                    break;
+                case 'non-individual-annulment':
+                    displayType = 'Non-Individual Annulment Record Details';
+                    break;
+                default:
+                    displayType = `${recordType.charAt(0).toUpperCase() + recordType.slice(1)} Record Details`;
+            }
+            
+            modalHeader.textContent = displayType;
+            modalSubtext.textContent = 'View detailed information about this record';
+        }
+    }
+
+    // Function to reset modal header to default
+    function resetModalHeader() {
+        const modalHeader = document.querySelector('#detailsModal .px-6.py-4.border-b.border-gray-200 h3');
+        const modalSubtext = document.querySelector('#detailsModal .px-6.py-4.border-b.border-gray-200 p');
+        
+        if (modalHeader && modalSubtext) {
+            modalHeader.textContent = 'Record Details';
+            modalSubtext.textContent = 'View detailed information about this record';
+        }
+    }
+
     // Global function for showing details
     window.showDetails = function(id, tableName = '') {
         console.log('showDetails called with ID:', id, 'Table:', tableName); // Debug log
@@ -1708,67 +1506,36 @@ document.addEventListener('DOMContentLoaded', function() {
             // Create a new window for printing
             const printWindow = window.open('', '_blank');
             printWindow.document.write(`
-                <!DOCTYPE html>
                 <html>
-                <head>
-                    <title>Record Details - Print Version</title>
-                    <style>
-                        body { font-family: Arial, sans-serif; margin: 20px; }
-                        .print-header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #333; padding-bottom: 10px; }
-                        .print-header h2 { margin: 0; color: #333; }
-                        .print-header p { margin: 5px 0 0 0; color: #666; font-size: 14px; }
-                        .space-y-6 > * + * { margin-top: 1.5rem; }
-                        .grid { display: grid; }
-                        .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-                        .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-                        .grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-                        .gap-4 { gap: 1rem; }
-                        .gap-6 { gap: 1.5rem; }
-                        .space-y-2 > * + * { margin-top: 0.5rem; }
-                        .space-y-6 > * + * { margin-top: 1.5rem; }
-                        .text-sm { font-size: 0.875rem; }
-                        .text-xs { font-size: 0.75rem; }
-                        .font-medium { font-weight: 500; }
-                        .text-gray-700 { color: #374151; }
-                        .text-gray-500 { color: #6b7280; }
-                        .text-gray-900 { color: #111827; }
-                        .font-mono { font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace; }
-                        .border-t { border-top-width: 1px; }
-                        .border-gray-200 { border-color: #e5e7eb; }
-                        .pt-6 { padding-top: 1.5rem; }
-                        .mb-3 { margin-bottom: 0.75rem; }
-                        .mb-4 { margin-bottom: 1rem; }
-                        .flex { display: flex; }
-                        .items-center { align-items: center; }
-                        .justify-center { justify-content: center; }
-                        .gap-3 { gap: 0.75rem; }
-                        .flex-wrap { flex-wrap: wrap; }
-                        .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
-                        .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
-                        .rounded-full { border-radius: 9999px; }
-                        .text-xs { font-size: 0.75rem; }
-                        .font-medium { font-weight: 500; }
-                        .bg-green-100 { background-color: #dcfce7; }
-                        .text-green-800 { color: #166534; }
-                        .bg-red-100 { background-color: #fee2e2; }
-                        .text-red-800 { color: #991b1b; }
-                        .inline-flex { display: inline-flex; }
-                        @media print {
-                            body { margin: 0; }
-                            .print-header { page-break-after: avoid; }
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="print-header">
-                        <h2>Record Details - Print Version</h2>
-                        <p>Generated on: ${new Date().toLocaleString()}</p>
-                    </div>
-                    ${modalContent.innerHTML}
-                </body>
-            </html>
+                    <head>
+                        <title>Record Details - Print</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; margin: 20px; }
+                            .print-header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #333; padding-bottom: 10px; }
+                            .print-section { margin-bottom: 20px; }
+                            .print-section h4 { color: #333; margin-bottom: 10px; }
+                            .print-field { margin-bottom: 8px; }
+                            .print-label { font-weight: bold; color: #666; }
+                            .print-value { margin-left: 10px; }
+                            .print-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+                            .print-dates { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+                            .print-status { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+                            .status-active { background-color: #d4edda; color: #155724; }
+                            .status-inactive { background-color: #f8d7da; color: #721c24; }
+                            @media print { body { margin: 0; } }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="print-header">
+                            <h2>Record Details - Print Version</h2>
+                            <p>Generated on: ${new Date().toLocaleString()}</p>
+                        </div>
+                        ${modalContent.innerHTML}
+                    </body>
+                </html>
             `);
             printWindow.document.close();
+            printWindow.focus();
             printWindow.print();
             printWindow.close();
         }
@@ -1780,69 +1547,37 @@ document.addEventListener('DOMContentLoaded', function() {
             // For now, we'll use a simple approach - in a real app, you'd want to use a PDF library
             const printWindow = window.open('', '_blank');
             printWindow.document.write(`
-                <!DOCTYPE html>
                 <html>
-                <head>
-                    <title>Record Details - PDF Export</title>
-                    <style>
-                        body { font-family: Arial, sans-serif; margin: 20px; }
-                        .print-header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #333; padding-bottom: 10px; }
-                        .print-header h2 { margin: 0; color: #333; }
-                        .print-header p { margin: 5px 0 0 0; color: #666; font-size: 14px; }
-                        .space-y-6 > * + * { margin-top: 1.5rem; }
-                        .grid { display: grid; }
-                        .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-                        .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-                        .grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-                        .gap-4 { gap: 1rem; }
-                        .gap-6 { gap: 1.5rem; }
-                        .space-y-2 > * + * { margin-top: 0.5rem; }
-                        .space-y-6 > * + * { margin-top: 1.5rem; }
-                        .text-sm { font-size: 0.875rem; }
-                        .text-xs { font-size: 0.75rem; }
-                        .font-medium { font-weight: 500; }
-                        .text-gray-700 { color: #374151; }
-                        .text-gray-500 { color: #6b7280; }
-                        .text-gray-900 { color: #111827; }
-                        .font-mono { font-family: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace; }
-                        .border-t { border-top-width: 1px; }
-                        .border-gray-200 { border-color: #e5e7eb; }
-                        .pt-6 { padding-top: 1.5rem; }
-                        .mb-3 { margin-bottom: 0.75rem; }
-                        .mb-4 { margin-bottom: 1rem; }
-                        .flex { display: flex; }
-                        .items-center { align-items: center; }
-                        .justify-center { justify-content: center; }
-                        .gap-3 { gap: 0.75rem; }
-                        .flex-wrap { flex-wrap: wrap; }
-                        .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
-                        .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
-                        .rounded-full { border-radius: 9999px; }
-                        .text-xs { font-size: 0.75rem; }
-                        .font-medium { font-weight: 500; }
-                        .bg-green-100 { background-color: #dcfce7; }
-                        .text-green-800 { color: #166534; }
-                        .bg-red-100 { background-color: #fee2e2; }
-                        .text-red-800 { color: #991b1b; }
-                        .inline-flex { display: inline-flex; }
-                        @media print {
-                            body { margin: 0; }
-                            .print-header { page-break-after: avoid; }
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="print-header">
-                        <h2>Record Details - PDF Export</h2>
-                        <p>Generated on: ${new Date().toLocaleString()}</p>
-                    </div>
-                    ${modalContent.innerHTML}
-                </body>
-            </html>
+                    <head>
+                        <title>Record Details - PDF</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; margin: 20px; }
+                            .print-header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #333; padding-bottom: 10px; }
+                            .print-section { margin-bottom: 20px; }
+                            .print-section h4 { color: #333; margin-bottom: 10px; }
+                            .print-field { margin-bottom: 8px; }
+                            .print-label { font-weight: bold; color: #666; }
+                            .print-value { margin-left: 10px; }
+                            .print-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+                            .print-dates { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+                            .print-status { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+                            .status-active { background-color: #d4edda; color: #155724; }
+                            .status-inactive { background-color: #f8d7da; color: #721c24; }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="print-header">
+                            <h2>Record Details - PDF Export</h2>
+                            <p>Generated on: ${new Date().toLocaleString()}</p>
+                        </div>
+                        ${modalContent.innerHTML}
+                    </body>
+                </html>
             `);
             printWindow.document.close();
-            printWindow.print();
-            printWindow.close();
+            printWindow.focus();
+            // Note: In a real application, you would use a PDF generation library like jsPDF or Puppeteer
+            alert('PDF download functionality would be implemented with a proper PDF library. For now, you can use the browser\'s print to PDF feature.');
         }
     };
 
@@ -1852,18 +1587,103 @@ document.addEventListener('DOMContentLoaded', function() {
             detailsModal.classList.add('hidden');
         }
     };
-
-
-    // Modal functionality - now handled by global functions
-    const detailsModal = document.getElementById('detailsModal');
-
-    // Initialize modal as hidden
-    if (detailsModal) {
-        detailsModal.classList.add('hidden');
-    }
 });
 </script>
 
+<!-- Email Update Modal -->
+<div id="emailUpdateModal" class="hidden fixed inset-0 bg-black bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center p-4">
+    <div class="relative bg-white rounded-xl shadow-2xl w-full max-w-md mx-auto transform transition-all">
+        <!-- Modal Header -->
+        <div class="px-6 py-4 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900">Update Email Address</h3>
+                    <p class="text-sm text-gray-500 mt-1">Please update your email address. This is a one-time requirement.</p>
+                </div>
+                <button type="button" id="closeEmailUpdateModal" class="text-gray-400 hover:text-gray-600 transition-colors duration-200 p-1 rounded-lg hover:bg-gray-100">
+                    <i class="bx bx-x text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Modal Content -->
+        <div class="p-6">
+            <form id="emailUpdateForm">
+                @csrf
+                <div class="mb-6">
+                    <label for="currentEmail" class="block text-sm font-medium text-gray-700 mb-2">
+                        Current Email Address
+                    </label>
+                    <input type="email" 
+                           id="currentEmail" 
+                           class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200" 
+                           value="{{ auth()->user()->email }}" 
+                           readonly>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="newEmail" class="block text-sm font-medium text-gray-700 mb-2">
+                        New Email Address <span class="text-red-500">*</span>
+                    </label>
+                    <input type="email" 
+                           id="newEmail" 
+                           name="email" 
+                           class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200" 
+                           placeholder="Enter your new email address"
+                           required>
+                    <p class="mt-2 text-sm text-gray-500">
+                        Please enter a valid email address
+                    </p>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="confirmEmail" class="block text-sm font-medium text-gray-700 mb-2">
+                        Confirm New Email Address <span class="text-red-500">*</span>
+                    </label>
+                    <input type="email" 
+                           id="confirmEmail" 
+                           name="email_confirmation" 
+                           class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200" 
+                           placeholder="Confirm your new email address"
+                           required>
+                </div>
+                
+                <!-- Form Actions -->
+                <div class="flex items-center justify-end space-x-4">
+                    <button type="button" id="skipEmailUpdate" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
+                        Skip for Now
+                    </button>
+                    <button type="submit" id="updateEmailBtn" class="inline-flex items-center px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors duration-200">
+                        <i class="bx bx-check mr-2"></i>
+                        Update Email
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Details Modal -->
+<div id="detailsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 overflow-y-auto h-full w-full z-50 flex items-center justify-center p-4" onclick="closeRecordDetails()">
+    <div class="relative bg-white rounded-xl shadow-2xl w-full max-w-4xl mx-auto transform transition-all" onclick="event.stopPropagation()">
+        <!-- Modal Header -->
+        <div class="px-6 py-4 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900">Record Details</h3>
+                    <p class="text-sm text-gray-500 mt-1">View detailed information about this record</p>
+                </div>
+                <button type="button" onclick="closeRecordDetails()" class="text-gray-400 hover:text-gray-600 transition-colors duration-200 p-1 rounded-lg hover:bg-gray-100">
+                    <i class="bx bx-x text-xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Modal Content -->
+        <div id="modalContent" class="p-6">
+            <!-- Content will be loaded here -->
+        </div>
+    </div>
+</div>
+
 @endsection
-
-

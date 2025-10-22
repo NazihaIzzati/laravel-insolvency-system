@@ -8,7 +8,7 @@
             <div class="pdf-header">
                 <div class="pdf-logo-section">
                     <div class="pdf-logo">
-                        <h1 class="pdf-company-name">BMMB Insolvency Data System</h1>
+                        <h1 class="pdf-company-name">BMMB Insolvency Information System</h1>
                         <p class="pdf-company-subtitle">Non-Individual Bankruptcy Record Report</p>
                     </div>
                 </div>

@@ -24,7 +24,7 @@
                             <img src="{{ asset('images/logo_bmmb_white.png') }}" alt="BMMB Logo" class="h-12 w-auto">
                             <div class="w-px h-12 bg-white/30"></div>
                             <div>
-                                <h1 class="text-2xl font-bold text-white">Insolvency Data System</h1>
+                                <h1 class="text-2xl font-bold text-white">Insolvency Information System</h1>
                                 <p class="text-primary-100 text-sm">Secure Data Management</p>
                             </div>
                         </div>

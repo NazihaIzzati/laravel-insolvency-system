@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Insolvency Data System') }} - @yield('title', 'Dashboard')</title>
+    <title>{{ config('app.name', 'Insolvency Information System') }} - @yield('title', 'Dashboard')</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -166,7 +166,7 @@
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center space-x-4 mb-4 md:mb-0">
                     <div class="text-sm text-gray-700">
-                        © {{ date('Y') }} {{ config('app.name', 'Insolvency Data System') }}. All rights reserved.
+                        © {{ date('Y') }} {{ config('app.name', 'Insolvency Information System') }}. All rights reserved.
                     </div>
                 </div>
                 

@@ -54,7 +54,7 @@
                     <!-- Print Header -->
                     <div class="print-header">
                         <h1 class="text-3xl font-bold text-neutral-900">NEW ANNULMENT INDIVIDUAL FORM</h1>
-                        <p class="text-lg text-neutral-800 mt-2">Insolvency Data System</p>
+                        <p class="text-lg text-neutral-800 mt-2">Insolvency Information System</p>
                         <p class="text-sm text-neutral-700 mt-1">Generated on: {{ now()->format('d/m/Y H:i:s') }}</p>
                     </div>
 

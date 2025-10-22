@@ -70,6 +70,24 @@
                         @enderror
                     </div>
 
+                    <!-- Email Address -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                            Email Address <span class="text-red-500">*</span>
+                        </label>
+                        <input type="email" 
+                               id="email" 
+                               name="email" 
+                               value="{{ old('email') }}"
+                               class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200 @error('email') border-red-300 @enderror" 
+                               placeholder="Enter email address"
+                               required>
+                        @error('email')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                        <p class="mt-1 text-xs text-gray-500">Required for password reset emails and notifications</p>
+                    </div>
+
 
                     <!-- Password -->
                     <div>
@@ -79,8 +97,9 @@
                         <input type="password" 
                                id="password" 
                                name="password" 
+                               minlength="12"
                                class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200 @error('password') border-red-300 @enderror" 
-                               placeholder="Enter password"
+                               placeholder="Enter password (minimum 12 characters)"
                                required>
                         @error('password')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -95,8 +114,9 @@
                         <input type="password" 
                                id="password_confirmation" 
                                name="password_confirmation" 
+                               minlength="12"
                                class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200" 
-                               placeholder="Confirm password"
+                               placeholder="Confirm password (minimum 12 characters)"
                                required>
                     </div>
 

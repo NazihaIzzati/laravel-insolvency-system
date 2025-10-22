@@ -6,7 +6,7 @@
  * systems have complete column coverage with no missing fields.
  */
 
-echo "🔒 INSOLVENCY DATA SYSTEM - TABLE STRUCTURE VERIFICATION\n";
+echo "🔒 INSOLVENCY INFORMATION SYSTEM - TABLE STRUCTURE VERIFICATION\n";
 echo "========================================================\n\n";
 
 // Individual Bankruptcy Verification

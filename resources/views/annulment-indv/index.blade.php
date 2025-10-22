@@ -23,16 +23,10 @@
                         </a>
                         
                         @if($annulmentIndv->total() > 0)
-                            <div class="flex gap-2">
-                                <a href="{{ route('annulment-indv.download') }}" class="inline-flex items-center px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
-                                    <i class="fas fa-download mr-2"></i>
-                                    Download All Data
-                                </a>
-                                <button id="downloadFilteredBtn" class="inline-flex items-center px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors duration-200" disabled>
-                                    <i class="fas fa-filter mr-2"></i>
-                                    Download Filtered
-                                </button>
-                            </div>
+                            <a href="{{ route('annulment-indv.download') }}" class="inline-flex items-center px-4 py-2 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-200">
+                                <i class="fas fa-download mr-2"></i>
+                                Download Excel
+                            </a>
                         @endif
                     </div>
                     <div class="flex gap-3 items-center">
@@ -207,11 +201,6 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <h3 class="text-lg font-semibold text-gray-900">Individual Annulment Records</h3>
-                        @if($annulmentIndv->count() > 0)
-                            <p class="text-sm text-gray-500 mt-1">
-                                Showing {{ $annulmentIndv->firstItem() }} to {{ $annulmentIndv->lastItem() }} of {{ $annulmentIndv->total() }} results
-                            </p>
-                        @endif
                     </div>
                     <div class="flex items-center gap-2">
                         <span class="text-sm font-medium text-gray-700">Records</span>
@@ -246,21 +235,21 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @forelse($annulmentIndv as $annulment)
-                                <tr class="hover:bg-white transition-colors duration-200">
+                                <tr class="hover:bg-gray-50 transition-colors duration-200">
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm font-medium text-neutral-900">{{ $annulment->name ?? 'N/A' }}</div>
+                                        <div class="text-sm font-medium text-gray-900">{{ $annulment->name ?? 'N/A' }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-neutral-800 font-mono">{{ $annulment->ic_no ?? 'N/A' }}</div>
+                                        <div class="text-sm text-gray-500 font-mono">{{ $annulment->ic_no ?? 'N/A' }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-neutral-800">{{ $annulment->others ?? 'N/A' }}</div>
+                                        <div class="text-sm text-gray-500">{{ $annulment->others ?? 'N/A' }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-neutral-800">{{ $annulment->court_case_no ?? 'N/A' }}</div>
+                                        <div class="text-sm text-gray-500">{{ $annulment->court_case_no ?? 'N/A' }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-neutral-800">
+                                        <div class="text-sm text-gray-500">
                                             @if($annulment->release_date)
                                                 @if(is_string($annulment->release_date))
                                                     {{ \Carbon\Carbon::parse($annulment->release_date)->format('d/m/Y') }}
@@ -273,13 +262,13 @@
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-neutral-800">{{ $annulment->formatted_updated_date }}</div>
+                                        <div class="text-sm text-gray-500">{{ $annulment->formatted_updated_date }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-neutral-800">{{ $annulment->release_type ?? 'N/A' }}</div>
+                                        <div class="text-sm text-gray-500">{{ $annulment->release_type ?? 'N/A' }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-neutral-800">{{ $annulment->branch ?? 'N/A' }}</div>
+                                        <div class="text-sm text-gray-500">{{ $annulment->branch ?? 'N/A' }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                         <div class="flex space-x-2">
@@ -321,7 +310,7 @@
                 <!-- Pagination -->
                 @if($annulmentIndv->hasPages())
                     <div class="mt-6 flex items-center justify-between">
-                        <div class="text-sm text-neutral-600">
+                        <div class="text-sm text-gray-700">
                             Showing {{ $annulmentIndv->firstItem() }} to {{ $annulmentIndv->lastItem() }} of {{ $annulmentIndv->total() }} results
                         </div>
                         <div class="flex items-center space-x-2">
@@ -465,23 +454,23 @@ document.addEventListener('DOMContentLoaded', function() {
         
         results.forEach((result, index) => {
             const row = document.createElement('tr');
-            row.className = 'hover:bg-white transition-colors duration-200';
+            row.className = 'hover:bg-gray-50 transition-colors duration-200';
             
             row.innerHTML = `
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm font-medium text-neutral-900">${result.name || 'N/A'}</div>
+                    <div class="text-sm font-medium text-gray-900">${result.name || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-neutral-800 font-mono">${result.ic_no || 'N/A'}</div>
+                    <div class="text-sm text-gray-500 font-mono">${result.ic_no || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-neutral-800">${result.others || 'N/A'}</div>
+                    <div class="text-sm text-gray-500">${result.others || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-neutral-800">${result.court_case_no || 'N/A'}</div>
+                    <div class="text-sm text-gray-500">${result.court_case_no || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-neutral-800">
+                    <div class="text-sm text-gray-500">
                         ${result.release_date ? 
                             new Date(result.release_date).toLocaleDateString() : 
                             'N/A'
@@ -489,7 +478,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-neutral-800">
+                    <div class="text-sm text-gray-500">
                         ${result.updated_at ? 
                             new Date(result.updated_at).toLocaleDateString() : 
                             'N/A'
@@ -497,10 +486,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-neutral-800">${result.release_type || 'N/A'}</div>
+                    <div class="text-sm text-gray-500">${result.release_type || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-neutral-800">${result.branch || 'N/A'}</div>
+                    <div class="text-sm text-gray-500">${result.branch || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <div class="flex space-x-2">

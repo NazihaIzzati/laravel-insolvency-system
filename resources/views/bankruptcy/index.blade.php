@@ -22,7 +22,7 @@
                         </a>
                         
                         @if($bankruptcies->count() > 0)
-                            <a href="{{ route('bankruptcy.download') }}" class="inline-flex items-center px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
+                            <a href="{{ route('bankruptcy.download') }}" class="inline-flex items-center px-4 py-2 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-200">
                                 <i class="fas fa-download mr-2"></i>
                                 Download Excel
                             </a>
@@ -98,7 +98,7 @@
                                 <i class="fas fa-file-invoice mr-1"></i>
                                 Insolvency Numbers
                             </span>
-                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-white text-gray-700">
+                            <span class="pill-badge pill-badge-court">
                                 <i class="fas fa-gavel mr-1"></i>
                                 Court Cases
                             </span>
@@ -121,11 +121,6 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <h3 class="text-lg font-semibold text-gray-900">Bankruptcy Records</h3>
-                        @if($bankruptcies->count() > 0)
-                            <p class="text-sm text-gray-500 mt-1">
-                                Showing {{ $bankruptcies->firstItem() }} to {{ $bankruptcies->lastItem() }} of {{ $bankruptcies->total() }} results
-                            </p>
-                        @endif
                     </div>
                     <div class="flex items-center gap-2">
                         <span class="text-sm font-medium text-gray-700">Records</span>
@@ -233,7 +228,7 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                             @foreach($bankruptcies as $bankruptcy)
-                                    <tr class="hover:bg-white transition-colors duration-200">
+                                    <tr class="hover:bg-gray-50 transition-colors duration-200">
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <span class="text-sm text-gray-900">{{ $bankruptcy->insolvency_no }}</span>
                                         </td>
@@ -305,9 +300,16 @@
                 </div>
 
                 <!-- Pagination -->
-                <div class="mt-6">
-                    {{ $bankruptcies->links() }}
-                </div>
+                @if($bankruptcies->hasPages())
+                    <div class="mt-6 flex items-center justify-between">
+                        <div class="text-sm text-gray-700">
+                            Showing {{ $bankruptcies->firstItem() }} to {{ $bankruptcies->lastItem() }} of {{ $bankruptcies->total() }} results
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            {{ $bankruptcies->links() }}
+                        </div>
+                    </div>
+                @endif
                 @else
                     <div class="text-center py-12">
                         <svg class="mx-auto h-12 w-12 text-primary-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -449,26 +451,26 @@ document.addEventListener('DOMContentLoaded', function() {
         
         results.forEach(result => {
             const row = document.createElement('tr');
-            row.className = 'hover:bg-white-50 transition-colors duration-200';
+            row.className = 'hover:bg-gray-50 transition-colors duration-200';
             
             row.innerHTML = `
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm font-medium text-neutral-800 font-mono">${result.insolvency_no || 'N/A'}</div>
+                    <div class="text-sm font-medium text-gray-900 font-mono">${result.insolvency_no || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm font-medium text-neutral-900">${result.name || 'N/A'}</div>
+                    <div class="text-sm font-medium text-gray-900">${result.name || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-neutral-800 font-mono">${result.ic_no || 'N/A'}</div>
+                    <div class="text-sm text-gray-500 font-mono">${result.ic_no || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-neutral-800">${result.court_case_no || 'N/A'}</div>
+                    <div class="text-sm text-gray-500">${result.court_case_no || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-neutral-800">${result.ro_date ? new Date(result.ro_date).toLocaleDateString() : 'N/A'}</div>
+                    <div class="text-sm text-gray-500">${result.ro_date ? new Date(result.ro_date).toLocaleDateString() : 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-neutral-800">${result.ao_date ? new Date(result.ao_date).toLocaleDateString() : 'N/A'}</div>
+                    <div class="text-sm text-gray-500">${result.ao_date ? new Date(result.ao_date).toLocaleDateString() : 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <div class="flex space-x-2">

@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Insolvency Data System') }} - @yield('title', 'Secure Data Management')</title>
-    <meta name="description" content="Professional insolvency data management system for secure and efficient handling of bankruptcy and annulment records.">
+    <title>{{ config('app.name', 'Insolvency Information System') }} - @yield('title', 'Secure Data Management')</title>
+    <meta name="description" content="Professional insolvency information management system for secure and efficient handling of bankruptcy and annulment records.">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -260,7 +260,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <p class="text-gray-600 text-sm">
-                    © {{ date('Y') }} Insolvency Data System. All rights reserved.
+                    © {{ date('Y') }} Insolvency Information System. All rights reserved.
                 </p>
                 <p class="text-gray-600 text-sm mt-2 md:mt-0">
                     Version 1.0.0 | Last updated: {{ date('M d, Y') }}

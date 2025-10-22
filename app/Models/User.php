@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'email_updated',
         'avatar',
         'login_id',
         'login_name',
@@ -33,6 +34,8 @@ class User extends Authenticatable
         'pwdchange_date',
         'last_modified_date',
         'last_modified_user',
+        'password_reset_token',
+        'password_reset_expires_at',
     ];
 
     /**
@@ -63,11 +66,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'is_active' => 'boolean',
+        'email_updated' => 'boolean',
         'deleted_at' => 'datetime',
         'last_login_at' => 'datetime',
         'expiry_date' => 'date',
         'pwdchange_date' => 'datetime',
         'last_modified_date' => 'datetime',
+        'password_reset_expires_at' => 'datetime',
     ];
 
     /**
@@ -224,6 +229,22 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if user needs email update.
+     * Only applies to staff and admin users.
+     *
+     * @return bool
+     */
+    public function needsEmailUpdate()
+    {
+        // Only staff and admin users need email updates
+        if (!$this->isStaff() && !$this->isAdmin()) {
+            return false;
+        }
+        
+        return !$this->email_updated;
+    }
+
+    /**
      * Get the user's avatar URL.
      *
      * @return string
@@ -269,6 +290,47 @@ class User extends Authenticatable
         $this->update([
             'last_modified_date' => now(),
             'last_modified_user' => $modifiedBy,
+        ]);
+    }
+
+    /**
+     * Generate a password reset token.
+     *
+     * @return string
+     */
+    public function generatePasswordResetToken()
+    {
+        $token = bin2hex(random_bytes(32));
+        $this->update([
+            'password_reset_token' => $token,
+            'password_reset_expires_at' => now()->addHours(1), // Token expires in 1 hour
+        ]);
+        return $token;
+    }
+
+    /**
+     * Check if password reset token is valid.
+     *
+     * @param string $token
+     * @return bool
+     */
+    public function isValidPasswordResetToken($token)
+    {
+        return $this->password_reset_token === $token 
+            && $this->password_reset_expires_at 
+            && $this->password_reset_expires_at->isFuture();
+    }
+
+    /**
+     * Clear password reset token.
+     *
+     * @return void
+     */
+    public function clearPasswordResetToken()
+    {
+        $this->update([
+            'password_reset_token' => null,
+            'password_reset_expires_at' => null,
         ]);
     }
 }

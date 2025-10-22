@@ -1,6 +1,6 @@
 @extends('layouts.landing')
 
-@section('title', 'Insolvency Data System - Secure Data Management')
+@section('title', 'Insolvency Information System - Secure Data Management')
 
 @section('content')
 <!-- Hero Section -->

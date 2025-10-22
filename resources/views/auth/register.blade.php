@@ -62,9 +62,9 @@
                 
                 <div>
                     <label for="password" class="form-label">Password</label>
-                    <input id="password" name="password" type="password" autocomplete="new-password" required 
+                    <input id="password" name="password" type="password" autocomplete="new-password" required minlength="12"
                            class="form-input @error('password') border-red-300 @enderror" 
-                           placeholder="Enter your password">
+                           placeholder="Enter your password (minimum 12 characters)">
                     @error('password')
                         <p class="form-error">{{ $message }}</p>
                     @enderror
@@ -72,9 +72,9 @@
                 
                 <div>
                     <label for="password_confirmation" class="form-label">Confirm Password</label>
-                    <input id="password_confirmation" name="password_confirmation" type="password" autocomplete="new-password" required 
+                    <input id="password_confirmation" name="password_confirmation" type="password" autocomplete="new-password" required minlength="12"
                            class="form-input @error('password_confirmation') border-red-300 @enderror" 
-                           placeholder="Confirm your password">
+                           placeholder="Confirm your password (minimum 12 characters)">
                     @error('password_confirmation')
                         <p class="form-error">{{ $message }}</p>
                     @enderror

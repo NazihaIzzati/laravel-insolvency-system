@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Services\AuditService;
 use App\Imports\UserImport;
+use App\Notifications\PasswordResetNotification;
+use App\Notifications\PasswordChangeConfirmationNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -23,6 +25,7 @@ class UserManagementController extends Controller
             $query->where(function($q) use ($searchTerm) {
                 $q->where('name', 'like', "%{$searchTerm}%")
                   ->orWhere('login_id', 'like', "%{$searchTerm}%")
+                  ->orWhere('email', 'like', "%{$searchTerm}%")
                   ->orWhere('branch_code', 'like', "%{$searchTerm}%")
                   ->orWhere('role', 'like', "%{$searchTerm}%")
                   ->orWhere('status', 'like', "%{$searchTerm}%");
@@ -68,7 +71,8 @@ class UserManagementController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'login_id' => 'required|string|max:255|unique:users,login_id',
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'email' => 'required|email|max:255|unique:users,email',
+            'password' => ['required', 'confirmed', 'string', 'min:12'],
             'role' => 'required|in:superuser,admin,id_management,staff',
             'branch_code' => 'nullable|string|max:255',
             'is_active' => 'boolean',
@@ -84,6 +88,7 @@ class UserManagementController extends Controller
         $user = User::create([
             'name' => $request->name,
             'login_id' => $request->login_id,
+            'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
             'branch_code' => $request->branch_code,
@@ -118,6 +123,7 @@ class UserManagementController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'login_id' => 'required|string|max:255|unique:users,login_id,' . $user->id,
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
             'role' => 'required|in:superuser,admin,id_management,staff',
             'branch_code' => 'nullable|string|max:255',
             'is_active' => 'boolean',
@@ -135,6 +141,7 @@ class UserManagementController extends Controller
         $user->update([
             'name' => $request->name,
             'login_id' => $request->login_id,
+            'email' => $request->email,
             'role' => $request->role,
             'branch_code' => $request->branch_code,
             'is_active' => $request->boolean('is_active', true),
@@ -172,7 +179,7 @@ class UserManagementController extends Controller
     public function changePassword(Request $request, User $user)
     {
         $validator = Validator::make($request->all(), [
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', 'confirmed', 'string', 'min:12'],
         ]);
 
         if ($validator->fails()) {
@@ -190,8 +197,16 @@ class UserManagementController extends Controller
         // Log the password change
         AuditService::logPasswordChange(auth()->user(), $user, $request);
 
+        // Send password change confirmation email
+        try {
+            $user->notify(new PasswordChangeConfirmationNotification(auth()->user()->name, 'admin_change'));
+        } catch (\Exception $e) {
+            // Log the error but don't fail the password change
+            \Log::error('Failed to send password change confirmation email: ' . $e->getMessage());
+        }
+
         return redirect()->route('user-management.index')
-            ->with('success', 'Password updated successfully.');
+            ->with('success', 'Password updated successfully. A confirmation email has been sent to ' . $user->email . '.');
     }
 
     public function bulkUpload()
@@ -276,6 +291,90 @@ class UserManagementController extends Controller
         AuditService::logBulkDownload(auth()->user(), 'User', $userCount, request());
         
         return Excel::download(new UserExport, 'users_' . date('Y-m-d_H-i-s') . '.xlsx');
+    }
+
+    /**
+     * Send password reset email to user
+     *
+     * @param Request $request
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function sendPasswordResetEmail(Request $request, User $user)
+    {
+        // Check if user has email address
+        if (empty($user->email)) {
+            return redirect()->back()
+                ->with('error', 'Cannot send password reset email. User does not have an email address.');
+        }
+
+        // Generate password reset token
+        $resetToken = $user->generatePasswordResetToken();
+
+        try {
+            // Send password reset notification
+            $user->notify(new PasswordResetNotification($resetToken, auth()->user()->name ?? 'System Administrator'));
+
+            // Log the password reset email action (only if user is authenticated)
+            if (auth()->check()) {
+                AuditService::log(
+                    auth()->user(),
+                    'PASSWORD_RESET_EMAIL',
+                    'Sent password reset email to user',
+                    $user,
+                    null,
+                    null,
+                    $request,
+                    [
+                        'user_email' => $user->email,
+                        'reset_by' => auth()->user()->name ?? 'System Administrator'
+                    ]
+                );
+            }
+
+            return redirect()->back()
+                ->with('success', 'Password reset email sent successfully to ' . $user->email . '. The user can now reset their password using the link in the email.');
+
+        } catch (\Exception $e) {
+            // Log the error (only if user is authenticated)
+            if (auth()->check()) {
+                AuditService::log(
+                    auth()->user(),
+                    'PASSWORD_RESET_EMAIL_ERROR',
+                    'Failed to send password reset email',
+                    $user,
+                    null,
+                    null,
+                    $request,
+                    [
+                        'error' => $e->getMessage(),
+                        'user_email' => $user->email
+                    ]
+                );
+            }
+
+            return redirect()->back()
+                ->with('error', 'Failed to send password reset email. Please check your email configuration and try again.');
+        }
+    }
+
+    /**
+     * Generate a temporary password
+     *
+     * @return string
+     */
+    private function generateTemporaryPassword()
+    {
+        // Generate a secure temporary password
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+        $password = '';
+        $length = 12;
+        
+        for ($i = 0; $i < $length; $i++) {
+            $password .= $characters[random_int(0, strlen($characters) - 1)];
+        }
+        
+        return $password;
     }
 }
 

@@ -33,11 +33,15 @@
 
         <!-- Search Section -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 mb-8 p-6">
-            <form method="GET" action="{{ route('user-management.index') }}" class="space-y-4">
+            <form method="GET" action="{{ route('user-management.index') }}">
                 <div class="flex items-center space-x-4">
+                    <!-- Search Label -->
+                    <div class="flex-shrink-0">
+                        <label for="search" class="text-sm font-medium text-gray-700">Search Users</label>
+                    </div>
+                    
                     <!-- Search Input -->
                     <div class="flex-1">
-                        <label for="search" class="block text-sm font-medium text-gray-700 mb-2">Search Users</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <i class="fas fa-search text-gray-400"></i>
@@ -92,6 +96,7 @@
                             <tr>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Staff ID</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
@@ -114,6 +119,13 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                     {{ $user->login_id }}
                                 </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    @if($user->email)
+                                        <span class="text-blue-600">{{ $user->email }}</span>
+                                    @else
+                                        <span class="text-red-500 italic">No email</span>
+                                    @endif
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $user->isAdmin() ? 'bg-purple-100 text-purple-800' : ($user->isIdManagement() ? 'bg-blue-100 text-blue-800' : ($user->isSuperUser() ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800')) }}">
                                         {{ $user->role_display }}
@@ -130,19 +142,43 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <div class="flex space-x-2">
                                         <a href="{{ route('user-management.show', $user) }}" 
-                                           class="text-blue-600 hover:text-blue-900 transition-colors duration-200 px-2 py-1 rounded text-sm font-medium"
+                                           class="inline-flex items-center px-3 py-2 bg-blue-100 text-blue-700 text-sm font-medium rounded-lg hover:bg-blue-200 transition-colors duration-200"
                                            title="View user details">
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
                                             View
                                         </a>
                                         <a href="{{ route('user-management.edit', $user) }}" 
-                                           class="text-green-600 hover:text-green-900 transition-colors duration-200 px-2 py-1 rounded text-sm font-medium"
+                                           class="inline-flex items-center px-3 py-2 bg-green-100 text-green-700 text-sm font-medium rounded-lg hover:bg-green-200 transition-colors duration-200"
                                            title="Edit user">
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
                                             Edit
                                         </a>
+                                        @if($user->email)
+                                        <form action="{{ route('user-management.send-password-reset', $user) }}" method="POST" class="inline" id="password-reset-form-{{ $user->id }}">
+                                            @csrf
+                                            <button type="button" 
+                                                    class="inline-flex items-center px-3 py-2 bg-purple-100 text-purple-700 text-sm font-medium rounded-lg hover:bg-purple-200 transition-colors duration-200"
+                                                    title="Send password reset email"
+                                                    onclick="confirmPasswordReset('{{ $user->email }}', '{{ $user->id }}')">
+                                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                                </svg>
+                                                Reset
+                                            </button>
+                                        </form>
+                                        @endif
                                         @if(auth()->user()->isSuperUser())
                                         <a href="{{ route('audit-logs.index') }}" 
-                                           class="text-purple-600 hover:text-purple-900 transition-colors duration-200 px-2 py-1 rounded text-sm font-medium"
+                                           class="inline-flex items-center px-3 py-2 bg-purple-100 text-purple-700 text-sm font-medium rounded-lg hover:bg-purple-200 transition-colors duration-200"
                                            title="View audit logs">
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                            </svg>
                                             Audit
                                         </a>
                                         @endif
@@ -193,4 +229,39 @@
         </div>
     </div>
 </div>
+
+<script>
+function confirmPasswordReset(email, userId) {
+    Swal.fire({
+        title: 'Send Password Reset Email?',
+        html: `Are you sure you want to send a password reset email to <strong>${email}</strong>?<br><br>This will send a secure link for the user to reset their password.`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#7c3aed',
+        cancelButtonColor: '#6b7280',
+        confirmButtonText: 'Yes, Send Email',
+        cancelButtonText: 'Cancel',
+        reverseButtons: true,
+        focusCancel: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Show loading state
+            Swal.fire({
+                title: 'Sending Email...',
+                text: 'Please wait while we send the password reset email.',
+                icon: 'info',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showConfirmButton: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            
+            // Submit the form
+            document.getElementById(`password-reset-form-${userId}`).submit();
+        }
+    });
+}
+</script>
 @endsection

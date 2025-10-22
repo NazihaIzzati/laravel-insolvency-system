@@ -74,6 +74,25 @@
                         @enderror
                     </div>
 
+                    <!-- Email Address -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2" title="User's email address for notifications and password resets">
+                            Email Address <span class="text-red-500">*</span>
+                        </label>
+                        <input type="email" 
+                               id="email" 
+                               name="email" 
+                               value="{{ old('email', $user->email) }}"
+                               class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200 @error('email') border-red-300 @enderror" 
+                               placeholder="Enter email address"
+                               title="Enter the user's email address for notifications"
+                               required>
+                        @error('email')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                        <p class="mt-1 text-xs text-gray-500">Required for password reset emails and notifications</p>
+                    </div>
+
 
                     <!-- Role -->
                     <div>
@@ -175,11 +194,55 @@
             </form>
         </div>
 
-        <!-- Change Password Section -->
+        <!-- Password Management Section -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mt-6">
             <div class="px-6 py-4 border-b border-gray-200">
-                <h3 class="text-lg font-semibold text-gray-900">Change Password</h3>
-                <p class="text-sm text-gray-500 mt-1">Update the user's password</p>
+                <h3 class="text-lg font-semibold text-gray-900">Password Management</h3>
+                <p class="text-sm text-gray-500 mt-1">Manage user password and send reset emails</p>
+            </div>
+            
+            <!-- Send Password Reset Email Section -->
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                    <div class="flex-1">
+                        <h4 class="text-md font-medium text-gray-900">Send Password Reset Email</h4>
+                        <p class="text-sm text-gray-500 mt-1">
+                            @if($user->email)
+                                Generate a secure password reset link for {{ $user->email }}
+                            @else
+                                <span class="text-red-600 font-medium">User does not have an email address configured</span>
+                            @endif
+                        </p>
+                    </div>
+                    <div class="flex-shrink-0">
+                        @if($user->email)
+                            <form action="{{ route('user-management.send-password-reset', $user) }}" method="POST" class="inline" id="password-reset-form-edit">
+                                @csrf
+                                <button type="button" 
+                                        class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 shadow-sm"
+                                        title="Send password reset email to user"
+                                        onclick="confirmPasswordResetEdit('{{ $user->email }}')">
+                                    <i class="fas fa-envelope mr-2"></i>
+                                    Send Reset Email
+                                </button>
+                            </form>
+                        @else
+                            <button type="button" 
+                                    class="inline-flex items-center px-4 py-2 bg-gray-400 text-white text-sm font-medium rounded-lg cursor-not-allowed"
+                                    disabled
+                                    title="User does not have an email address">
+                                <i class="fas fa-envelope mr-2"></i>
+                                No Email Address
+                            </button>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Change Password Section -->
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h4 class="text-md font-medium text-gray-900">Manual Password Change</h4>
+                <p class="text-sm text-gray-500 mt-1">Manually update the user's password</p>
             </div>
             
             <form action="{{ route('user-management.change-password', $user) }}" method="POST" class="p-6">
@@ -194,8 +257,9 @@
                         <input type="password" 
                                id="password" 
                                name="password" 
+                               minlength="12"
                                class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200 @error('password') border-red-300 @enderror" 
-                               placeholder="Enter new password"
+                               placeholder="Enter new password (minimum 12 characters)"
                                required>
                         @error('password')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -210,8 +274,9 @@
                         <input type="password" 
                                id="password_confirmation" 
                                name="password_confirmation" 
+                               minlength="12"
                                class="block w-full px-3 py-2 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200" 
-                               placeholder="Confirm new password"
+                               placeholder="Confirm new password (minimum 12 characters)"
                                required>
                     </div>
                 </div>
@@ -229,4 +294,42 @@
         </div>
     </div>
 </div>
+
+<script>
+function confirmPasswordResetEdit(email) {
+    Swal.fire({
+        title: 'Send Password Reset Email?',
+        html: `Are you sure you want to send a password reset email to <strong>${email}</strong>?<br><br>This will send a secure link for the user to reset their password.`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#7c3aed',
+        cancelButtonColor: '#6b7280',
+        confirmButtonText: 'Yes, Send Email',
+        cancelButtonText: 'Cancel',
+        reverseButtons: true,
+        focusCancel: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Show loading state
+            Swal.fire({
+                title: 'Sending Email...',
+                text: 'Please wait while we send the password reset email.',
+                icon: 'info',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showConfirmButton: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            
+            // Submit the form (try both possible form IDs)
+            const form = document.getElementById('password-reset-form-edit') || document.getElementById('password-reset-form-description');
+            if (form) {
+                form.submit();
+            }
+        }
+    });
+}
+</script>
 @endsection

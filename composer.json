@@ -1,7 +1,7 @@
 {
     "name": "laravel/insolvency-system",
     "type": "project",
-    "description": "Laravel Insolvency Data System with Custom Authentication",
+    "description": "Laravel Insolvency Information System with Custom Authentication",
     "keywords": ["laravel", "framework", "authentication"],
     "license": "MIT",
     "require": {
