@@ -19,7 +19,7 @@ class AuthService
      */
     public function attemptLogin(array $credentials, bool $remember = false): ?User
     {
-        $user = User::where('email', $credentials['email'])->first();
+        $user = User::where('login_id', $credentials['staff_id'])->first();
 
         if (!$user) {
             return null;
@@ -28,7 +28,7 @@ class AuthService
         // Check if user is active
         if (!$user->is_active) {
             throw ValidationException::withMessages([
-                'email' => ['Your account has been deactivated. Please contact administrator.'],
+                'staff_id' => ['Your account has been deactivated. Please contact administrator.'],
             ]);
         }
 

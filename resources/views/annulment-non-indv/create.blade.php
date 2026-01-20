@@ -3,10 +3,10 @@
 @section('title', 'Add Non-Individual Annulment Record')
 
 @section('content')
-<div class="min-h-screen bg-primary-50">
+<div class="min-h-screen bg-neutral-50">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Header -->
-        <div class="bg-gradient-to-r from-primary-900 to-accent-600 rounded-xl shadow-lg mb-8">
+        <div class="bg-gradient-to-r from-neutral-900 to-accent-600 rounded-xl shadow-lg mb-8">
             <div class="px-8 py-12">
                 <div class="text-white">
                     <h1 class="text-4xl font-light mb-3">Add Non-Individual Annulment Record</h1>
@@ -19,8 +19,8 @@
         <!-- Form -->
         <div class="professional-section">
             <div class="professional-section-header">
-                <h3 class="text-lg font-medium text-primary-900">Company Information</h3>
-                <p class="text-sm text-primary-500 mt-1">Enter the company and annulment details</p>
+                <h3 class="text-lg font-medium text-neutral-900">Company Information</h3>
+                <p class="text-sm text-neutral-700 mt-1">Enter the company and annulment details</p>
             </div>
             <div class="professional-section-content">
                 <form method="POST" action="{{ route('annulment-non-indv.store') }}" class="space-y-6">
@@ -29,7 +29,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Insolvency Number -->
                         <div>
-                            <label for="insolvency_no" class="block text-sm font-medium text-primary-700 mb-2">
+                            <label for="insolvency_no" class="block text-sm font-medium text-neutral-700 mb-2">
                                 Insolvency Number <span class="text-red-500">*</span>
                             </label>
                             <input type="text" 
@@ -46,7 +46,7 @@
 
                         <!-- Company Name -->
                         <div>
-                            <label for="company_name" class="block text-sm font-medium text-primary-700 mb-2">
+                            <label for="company_name" class="block text-sm font-medium text-neutral-700 mb-2">
                                 Company Name <span class="text-red-500">*</span>
                             </label>
                             <input type="text" 
@@ -63,7 +63,7 @@
 
                         <!-- Company Registration Number -->
                         <div>
-                            <label for="company_registration_no" class="block text-sm font-medium text-primary-700 mb-2">
+                            <label for="company_registration_no" class="block text-sm font-medium text-neutral-700 mb-2">
                                 Company Registration Number <span class="text-red-500">*</span>
                             </label>
                             <input type="text" 
@@ -80,7 +80,7 @@
 
                         <!-- Others -->
                         <div>
-                            <label for="others" class="block text-sm font-medium text-primary-700 mb-2">
+                            <label for="others" class="block text-sm font-medium text-neutral-700 mb-2">
                                 Others
                             </label>
                             <input type="text" 
@@ -96,7 +96,7 @@
 
                         <!-- Court Case Number -->
                         <div>
-                            <label for="court_case_no" class="block text-sm font-medium text-primary-700 mb-2">
+                            <label for="court_case_no" class="block text-sm font-medium text-neutral-700 mb-2">
                                 Court Case Number
                             </label>
                             <input type="text" 
@@ -112,7 +112,7 @@
 
                         <!-- Release Date -->
                         <div>
-                            <label for="release_date" class="block text-sm font-medium text-primary-700 mb-2">
+                            <label for="release_date" class="block text-sm font-medium text-neutral-700 mb-2">
                                 Release Date
                             </label>
                             <input type="date" 
@@ -127,7 +127,7 @@
 
                         <!-- Release Type -->
                         <div>
-                            <label for="release_type" class="block text-sm font-medium text-primary-700 mb-2">
+                            <label for="release_type" class="block text-sm font-medium text-neutral-700 mb-2">
                                 Release Type
                             </label>
                             <input type="text" 
@@ -143,7 +143,7 @@
 
                         <!-- Branch -->
                         <div>
-                            <label for="branch" class="block text-sm font-medium text-primary-700 mb-2">
+                            <label for="branch" class="block text-sm font-medium text-neutral-700 mb-2">
                                 Branch
                             </label>
                             <input type="text" 
@@ -159,7 +159,7 @@
                     </div>
 
                     <!-- Action Buttons -->
-                    <div class="flex justify-end space-x-4 pt-6 border-t border-primary-200">
+                    <div class="flex justify-end space-x-4 pt-6 border-t border-neutral-200">
                         <a href="{{ route('annulment-non-indv.index') }}" class="professional-button">
                             <i class="fas fa-arrow-left mr-2"></i>
                             Cancel

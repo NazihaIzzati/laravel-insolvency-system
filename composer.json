@@ -1,11 +1,12 @@
 {
     "name": "laravel/insolvency-system",
     "type": "project",
-    "description": "Laravel Insolvency Data System with Custom Authentication",
+    "description": "Laravel Insolvency Information System with Custom Authentication",
     "keywords": ["laravel", "framework", "authentication"],
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "doctrine/dbal": "^3.10",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",

@@ -3,50 +3,33 @@
 @section('title', 'Individual Bankruptcy')
 
 @section('content')
-<div class="min-h-screen bg-primary-50">
+<div class="min-h-screen bg-white">
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Welcome Section -->
-        <div class="bg-gradient-to-r from-primary-900 to-accent-600 rounded-xl shadow-lg mb-8">
-            <div class="px-8 py-12">
-                <div class="flex items-center justify-between">
-                    <div class="text-white">
-                        <h1 class="text-4xl font-light mb-3">Individual Bankruptcy</h1>
-                        <p class="text-xl text-primary-100 mb-2">Manage individual bankruptcy records</p>
-                        <p class="text-primary-200">Track and manage all individual bankruptcy cases</p>
-                    </div>
-                    <div class="text-right text-white">
-                        <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg px-6 py-4">
-                            <p class="text-sm text-primary-100 mb-1">Total Records</p>
-                            <p class="text-lg font-medium">{{ $bankruptcies->count() }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Actions Section -->
         <div class="professional-section mb-6">
             <div class="professional-section-content">
                 <div class="flex flex-wrap justify-between items-center gap-3">
                     <div class="flex flex-wrap gap-3">
-                        <a href="{{ route('bankruptcy.create') }}" class="professional-button-primary">
+                        <a href="{{ route('bankruptcy.create') }}" class="inline-flex items-center px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors duration-200">
                             <i class="fas fa-plus mr-2"></i>
                             Add New Record
                         </a>
-                        <a href="{{ route('bankruptcy.bulk-upload') }}" class="professional-button-accent">
+                        
+                        <a href="{{ route('bankruptcy.bulk-upload') }}" class="inline-flex items-center px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
                             <i class="fas fa-upload mr-2"></i>
                             Bulk Upload
                         </a>
+                        
                         @if($bankruptcies->count() > 0)
-                            <a href="{{ route('bankruptcy.download') }}" class="professional-button-success">
+                            <a href="{{ route('bankruptcy.download') }}" class="inline-flex items-center px-4 py-2 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-200">
                                 <i class="fas fa-download mr-2"></i>
                                 Download Excel
                             </a>
                         @endif
                     </div>
-                    <div class="flex gap-3">
-                        <a href="{{ route('dashboard') }}" class="professional-button">
+                    <div class="flex gap-3 items-center">
+                        <a href="{{ auth()->user()->isIdManagement() ? route('id-management.dashboard') : (auth()->user()->isSuperUser() ? route('dashboard') : (auth()->user()->isAdmin() ? route('admin.dashboard') : route('dashboard'))) }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200">
                             <i class="fas fa-arrow-left mr-2"></i>
                             Back to Dashboard
                         </a>
@@ -55,74 +38,130 @@
             </div>
         </div>
 
-        <!-- Records Table -->
-        <div class="professional-section">
-            <div class="professional-section-header">
-                <h3 class="text-lg font-medium text-primary-900">Bankruptcy Records</h3>
-                <p class="text-sm text-primary-500 mt-1">All individual bankruptcy records</p>
-            </div>
-            <div class="professional-section-content">
-                <!-- Search Form -->
-                <div class="bg-white rounded-lg border border-gray-200 p-6 mb-6 shadow-sm">
-                    <div class="flex items-center mb-4">
-                        <i class="fas fa-search text-accent-600 mr-2"></i>
-                        <h4 class="text-lg font-semibold text-gray-900">Quick Search</h4>
-                    </div>
-                    
-                    <form id="bankruptcySearchForm" class="space-y-4">
-                        @csrf
-                        <div>
-                            <label for="bankruptcy_search_input" class="block text-sm font-medium text-gray-700 mb-2">
-                                Search Records
-                            </label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i class="fas fa-search text-gray-400"></i>
-                                </div>
-                                <input type="text" 
-                                       id="bankruptcy_search_input" 
-                                       name="search_input" 
-                                       class="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-500 focus:border-accent-500 focus:ring-2 focus:ring-accent-200 focus:outline-none transition-colors duration-200 bg-white" 
-                                       placeholder="IC number, insolvency number, or individual name"
-                                       required>
-                                <button type="button" id="clearSearchBtn" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200 p-1 rounded-full hover:bg-gray-100 cursor-pointer z-10" style="display: none;" title="Clear search">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                            <p class="mt-2 text-xs text-gray-500">
-                                Search across individual names, IC numbers, and insolvency numbers
-                            </p>
+        <!-- Quick Search Section -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-search text-orange-600"></i>
                         </div>
-                        
-                        <div class="flex justify-end">
-                            <button type="submit" class="inline-flex items-center px-6 py-3 border border-transparent text-sm font-medium rounded-lg text-white bg-accent-600 hover:bg-accent-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-500 transition-colors duration-200 shadow-sm">
-                                <i class="fas fa-search mr-2"></i>
-                                Search Records
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-900">Quick Search</h2>
+                            <p class="text-sm text-gray-500">Find bankruptcy records instantly</p>
+                        </div>
+                    </div>
+                    <div class="hidden lg:flex items-center space-x-2 text-sm text-gray-500">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Search by IC number, insolvency number, or name</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-6">
+                <form id="bankruptcySearchForm" class="space-y-4">
+                    @csrf
+                    <div>
+                        <label for="bankruptcy_search_input" class="block text-sm font-medium text-gray-700 mb-2">
+                            Search Records
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-search text-gray-400"></i>
+                            </div>
+                            <input type="text" 
+                                   id="bankruptcy_search_input" 
+                                   name="search_input" 
+                                   class="block w-full pl-10 pr-12 py-3 border border-gray-200 rounded-lg text-sm placeholder-gray-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200" 
+                                   placeholder="Enter IC number, insolvency number, or individual name..."
+                                   required>
+                            <button type="button" 
+                                    id="clearSearchBtn" 
+                                    class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200" 
+                                    style="display: none;" 
+                                    title="Clear search">
+                                <i class="fas fa-times"></i>
                             </button>
                         </div>
-                    </form>
+                        
+                        <!-- Search Tags -->
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <span class="pill-badge pill-badge-ic">
+                                <i class="fas fa-id-card mr-1"></i>
+                                IC Numbers
+                            </span>
+                            <span class="pill-badge pill-badge-name">
+                                <i class="fas fa-user mr-1"></i>
+                                Names
+                            </span>
+                            <span class="pill-badge pill-badge-insolvency">
+                                <i class="fas fa-file-invoice mr-1"></i>
+                                Insolvency Numbers
+                            </span>
+                            <span class="pill-badge pill-badge-court">
+                                <i class="fas fa-gavel mr-1"></i>
+                                Court Cases
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-end">
+                        <button type="submit" class="inline-flex items-center px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors duration-200">
+                            <i class="fas fa-search mr-2"></i>
+                            Search Records
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Records Table -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 mb-8 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">Bankruptcy Records</h3>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm font-medium text-gray-700">Records</span>
+                        <label for="per_page" class="text-sm font-medium text-gray-700">per page:</label>
+                        <select id="per_page" name="per_page" class="text-sm border border-gray-300 rounded px-2 py-1" onchange="changePerPage(this.value)">
+                            <option value="5" {{ $perPage == 5 ? 'selected' : '' }}>5</option>
+                            <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>10</option>
+                            <option value="25" {{ $perPage == 25 ? 'selected' : '' }}>25</option>
+                            <option value="50" {{ $perPage == 50 ? 'selected' : '' }}>50</option>
+                            <option value="100" {{ $perPage == 100 ? 'selected' : '' }}>100</option>
+                        </select>
+                    </div>
                 </div>
+            </div>
+            <div class="p-6">
 
                 <!-- Loading Spinner -->
-                <div id="bankruptcyLoadingSpinner" class="hidden bg-white rounded-lg border border-gray-200 p-8 mb-6 shadow-sm">
+                <div id="bankruptcyLoadingSpinner" class="hidden bg-white rounded-xl shadow-sm border border-gray-200 p-12 mb-6">
                     <div class="text-center">
-                        <div class="inline-flex items-center justify-center w-12 h-12 bg-accent-100 rounded-full mb-4">
-                            <i class="fas fa-spinner fa-spin text-accent-600 text-lg"></i>
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-orange-100 rounded-full mb-4">
+                            <i class="fas fa-spinner fa-spin text-orange-600 text-xl"></i>
                         </div>
-                        <h3 class="text-lg font-medium text-gray-900 mb-2">Searching Records</h3>
-                        <p class="text-sm text-gray-500">Please wait while we search for matching records...</p>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Searching Records</h3>
+                        <p class="text-gray-500">Please wait while we search for matching records...</p>
                     </div>
                 </div>
                 
                 <!-- Search Results -->
-                <div id="bankruptcySearchResults" class="hidden bg-white rounded-lg border border-gray-200 mb-6 shadow-sm">
+                <div id="bankruptcySearchResults" class="hidden bg-white rounded-xl shadow-sm border border-gray-200 mb-6 overflow-hidden">
                     <div class="px-6 py-4 border-b border-gray-200">
                         <div class="flex items-center justify-between">
-                            <div>
-                                <h3 class="text-lg font-semibold text-gray-900">Search Results</h3>
-                                <p class="text-sm text-gray-500 mt-1">Matching records found</p>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-check-circle text-orange-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-900">Search Results</h3>
+                                    <p class="text-sm text-gray-500">Matching records found</p>
+                                </div>
                             </div>
-                            <button type="button" id="clearBankruptcySearchResultsBtn" class="text-sm text-gray-500 hover:text-gray-700 flex items-center">
+                            <button type="button" id="clearBankruptcySearchResultsBtn" class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-600 bg-white rounded-lg hover:bg-white transition-colors duration-200">
                                 <i class="fas fa-times mr-2"></i>
                                 Clear Results
                             </button>
@@ -130,7 +169,7 @@
                     </div>
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
+                            <thead class="bg-white">
                                 <tr>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Insolvency No</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
@@ -149,19 +188,22 @@
                 </div>
                 
                 <!-- No Results -->
-                <div id="bankruptcyNoResults" class="hidden bg-white rounded-lg border border-gray-200 p-8 mb-6 shadow-sm">
-                    <div class="text-center">
-                        <div class="inline-flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full mb-4">
-                            <svg class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
+                <div id="bankruptcyNoResults" class="hidden bg-white rounded-xl shadow-sm border border-gray-200 p-12 mb-6">
+                    <div class="text-center max-w-2xl mx-auto">
+                        <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-search text-gray-400 text-2xl"></i>
                         </div>
-                        <h3 class="text-lg font-medium text-gray-900 mb-2">No Records Found</h3>
-                        <p class="text-sm text-gray-500 mb-4">We couldn't find any records matching your search criteria.</p>
-                        <div class="space-y-2 text-xs text-gray-400">
-                            <p>• Try searching with different keywords</p>
-                            <p>• Check for typos in names or IC numbers</p>
-                            <p>• Use partial matches (e.g., "John" instead of "John Smith")</p>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">No Records Found</h3>
+                        <p class="text-gray-500 mb-6">We couldn't find any records matching your search criteria.</p>
+                        
+                        <div class="bg-white rounded-lg p-6">
+                            <h4 class="text-sm font-medium text-gray-900 mb-4">Try searching with:</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-600">
+                                <div>• Different keywords</div>
+                                <div>• Partial matches</div>
+                                <div>• Check for typos</div>
+                                <div>• Broader search terms</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -169,41 +211,41 @@
                 <div id="mainRecordsTable">
                     @if($bankruptcies->count() > 0)
                         <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-primary-200" style="min-width: 1200px;">
-                            <thead class="bg-primary-50">
+                        <table class="min-w-full divide-y divide-gray-200" style="min-width: 1200px;">
+                            <thead class="bg-white">
                                 <tr>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-32">Insolvency No</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-48">Name</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-32">IC No</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-40">Others</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-40">Court Case</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-24">RO Date</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-24">AO Date</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-32">Updated Date</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-40">Branch</th>
-                                    <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-24">Actions</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Insolvency No</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-48">Name</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">IC No</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40">Others</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40">Court Case</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-24">RO Date</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-24">AO Date</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Updated Date</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40">Branch</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-24">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-primary-200">
+                            <tbody class="bg-white divide-y divide-gray-200">
                             @foreach($bankruptcies as $bankruptcy)
-                                    <tr class="hover:bg-primary-50 transition-colors duration-200">
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <span class="text-sm font-medium text-accent-600">{{ $bankruptcy->insolvency_no }}</span>
+                                    <tr class="hover:bg-gray-50 transition-colors duration-200">
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="text-sm text-gray-900">{{ $bankruptcy->insolvency_no }}</span>
                                         </td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <span class="text-sm text-primary-900">{{ $bankruptcy->name }}</span>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="text-sm text-gray-900">{{ $bankruptcy->name }}</span>
                                         </td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <span class="text-sm text-primary-600">{{ $bankruptcy->ic_no }}</span>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="text-sm text-gray-500">{{ $bankruptcy->ic_no }}</span>
                                         </td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <span class="text-sm text-primary-900">{{ $bankruptcy->others ?? 'N/A' }}</span>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="text-sm text-gray-500">{{ $bankruptcy->others ?? 'N/A' }}</span>
                                         </td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <span class="text-sm text-primary-900">{{ $bankruptcy->court_case_no ?? 'N/A' }}</span>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="text-sm text-gray-500">{{ $bankruptcy->court_case_no ?? 'N/A' }}</span>
                                         </td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <span class="text-sm text-primary-900">
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="text-sm text-gray-500">
                                                 @if($bankruptcy->ro_date)
                                                     @if(is_string($bankruptcy->ro_date))
                                                         {{ \Carbon\Carbon::parse($bankruptcy->ro_date)->format('d/m/Y') }}
@@ -215,8 +257,8 @@
                                                 @endif
                                             </span>
                                         </td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <span class="text-sm text-primary-900">
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="text-sm text-gray-500">
                                                 @if($bankruptcy->ao_date)
                                                     @if(is_string($bankruptcy->ao_date))
                                                         {{ \Carbon\Carbon::parse($bankruptcy->ao_date)->format('d/m/Y') }}
@@ -228,21 +270,27 @@
                                                 @endif
                                             </span>
                                         </td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <span class="text-sm text-primary-900">{{ $bankruptcy->formatted_updated_date }}</span>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="text-sm text-gray-500">{{ $bankruptcy->formatted_updated_date }}</span>
                                         </td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
-                                            <span class="text-sm text-primary-900">{{ $bankruptcy->branch ?? 'N/A' }}</span>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="text-sm text-gray-500">{{ $bankruptcy->branch ?? 'N/A' }}</span>
                                         </td>
-                                        <td class="px-4 py-3 whitespace-nowrap text-sm font-medium">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <div class="flex space-x-2">
-                                                <a href="{{ route('bankruptcy.show', $bankruptcy) }}" class="text-accent-600 hover:text-accent-700 transition-colors duration-200">View</a>
-                                                <a href="{{ route('bankruptcy.edit', $bankruptcy) }}" class="text-green-600 hover:text-green-700 transition-colors duration-200">Edit</a>
-                                                <form method="POST" action="{{ route('bankruptcy.destroy', $bankruptcy) }}" class="inline" onsubmit="return confirmDelete(event)">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="text-red-600 hover:text-red-700 transition-colors duration-200">Delete</button>
-                                                </form>
+                                                <button onclick="showBankruptcyDetails({{ $bankruptcy->id }})" class="inline-flex items-center px-3 py-2 bg-purple-100 text-purple-700 text-sm font-medium rounded-lg hover:bg-purple-200 transition-colors duration-200">
+                                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                    </svg>
+                                                    View
+                                                </button>
+                                                <a href="{{ route('bankruptcy.edit', $bankruptcy) }}" class="inline-flex items-center px-3 py-2 bg-green-100 text-green-700 text-sm font-medium rounded-lg hover:bg-green-200 transition-colors duration-200">
+                                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                    </svg>
+                                                    Edit
+                                                </a>
                                             </div>
                                         </td>
                                 </tr>
@@ -252,16 +300,23 @@
                 </div>
 
                 <!-- Pagination -->
-                <div class="mt-6">
-                    {{ $bankruptcies->links() }}
-                </div>
+                @if($bankruptcies->hasPages())
+                    <div class="mt-6 flex items-center justify-between">
+                        <div class="text-sm text-gray-700">
+                            Showing {{ $bankruptcies->firstItem() }} to {{ $bankruptcies->lastItem() }} of {{ $bankruptcies->total() }} results
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            {{ $bankruptcies->links() }}
+                        </div>
+                    </div>
+                @endif
                 @else
                     <div class="text-center py-12">
                         <svg class="mx-auto h-12 w-12 text-primary-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
-                        <h3 class="mt-2 text-sm font-medium text-primary-900">No bankruptcy records</h3>
-                        <p class="mt-1 text-sm text-primary-500">Get started by uploading new bankruptcy data.</p>
+                        <h3 class="mt-2 text-sm font-medium text-neutral-900">No bankruptcy records</h3>
+                        <p class="mt-1 text-sm text-neutral-700">Get started by uploading new bankruptcy data.</p>
                         <div class="mt-6">
                             <a href="{{ route('bankruptcy.create') }}" class="professional-button-primary">
                                 <i class="fas fa-plus mr-2"></i>
@@ -317,7 +372,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const searchValue = formData.get('search_input');
         
         if (!searchValue) {
-            alert('Please enter a search value.');
+            Swal.fire({
+                title: 'Search Required',
+                text: 'Please enter a search value.',
+                icon: 'warning',
+                confirmButtonColor: '#ea580c',
+                confirmButtonText: 'OK'
+            });
             return;
         }
         
@@ -346,7 +407,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     showBankruptcyNoResults();
                 }
             } else {
-                alert('Search failed: ' + (data.message || 'Unknown error'));
+                Swal.fire({
+                    title: 'Search Failed',
+                    text: data.message || 'Unknown error occurred',
+                    icon: 'error',
+                    confirmButtonColor: '#dc2626',
+                    confirmButtonText: 'OK'
+                });
                 showMainTable();
             }
         })
@@ -354,7 +421,13 @@ document.addEventListener('DOMContentLoaded', function() {
             bankruptcyLoadingSpinner.classList.add('hidden');
             showMainTable();
             console.error('Error:', error);
-            alert('An error occurred while searching. Please try again.');
+            Swal.fire({
+                title: 'Search Error',
+                text: 'An error occurred while searching. Please try again.',
+                icon: 'error',
+                confirmButtonColor: '#dc2626',
+                confirmButtonText: 'OK'
+            });
         });
     });
 
@@ -382,27 +455,38 @@ document.addEventListener('DOMContentLoaded', function() {
             
             row.innerHTML = `
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm font-medium text-accent-600 font-mono">${result.insolvency_no || 'N/A'}</div>
+                    <div class="text-sm font-medium text-gray-900 font-mono">${result.insolvency_no || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     <div class="text-sm font-medium text-gray-900">${result.name || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-600 font-mono">${result.ic_no || 'N/A'}</div>
+                    <div class="text-sm text-gray-500 font-mono">${result.ic_no || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-600">${result.court_case_no || 'N/A'}</div>
+                    <div class="text-sm text-gray-500">${result.court_case_no || 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-600">${result.ro_date ? new Date(result.ro_date).toLocaleDateString() : 'N/A'}</div>
+                    <div class="text-sm text-gray-500">${result.ro_date ? new Date(result.ro_date).toLocaleDateString() : 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-600">${result.ao_date ? new Date(result.ao_date).toLocaleDateString() : 'N/A'}</div>
+                    <div class="text-sm text-gray-500">${result.ao_date ? new Date(result.ao_date).toLocaleDateString() : 'N/A'}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <div class="flex space-x-3">
-                        <a href="/bankruptcy/${result.id}" class="text-accent-600 hover:text-accent-700 transition-colors duration-200 font-medium">View</a>
-                        <a href="/bankruptcy/${result.id}/edit" class="text-green-600 hover:text-green-700 transition-colors duration-200 font-medium">Edit</a>
+                    <div class="flex space-x-2">
+                        <a href="/bankruptcy/${result.id}" class="inline-flex items-center px-3 py-2 bg-purple-100 text-purple-700 text-sm font-medium rounded-lg hover:bg-purple-200 transition-colors duration-200">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                            View
+                        </a>
+                        <a href="/bankruptcy/${result.id}/edit" class="inline-flex items-center px-3 py-2 bg-green-100 text-green-700 text-sm font-medium rounded-lg hover:bg-green-200 transition-colors duration-200">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                            Edit
+                        </a>
                     </div>
                 </td>
             `;
@@ -479,6 +563,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+function changePerPage(value) {
+    const url = new URL(window.location);
+    url.searchParams.set('per_page', value);
+    url.searchParams.delete('page'); // Reset to first page when changing per_page
+    window.location.href = url.toString();
+}
+
 function confirmDelete(event) {
     event.preventDefault();
     
@@ -497,5 +588,57 @@ function confirmDelete(event) {
         }
     });
 }
+
+// Bankruptcy Details Modal
+function showBankruptcyDetails(id) {
+    fetch(`/bankruptcy/${id}`)
+        .then(response => response.text())
+        .then(html => {
+            // Create a temporary div to parse the HTML
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            
+            // Extract the record details from the show page
+            const recordDetails = tempDiv.querySelector('.pdf-content');
+            if (recordDetails) {
+                // Create modal content
+                const modalContent = `
+                    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" id="bankruptcyModal">
+                        <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+                            <div class="p-6">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h3 class="text-xl font-semibold text-gray-900">Bankruptcy Record Details</h3>
+                                </div>
+                                <div class="record-details">
+                                    ${recordDetails.innerHTML.replace(/onclick="history\.back\(\)"/g, 'onclick="closeBankruptcyModal()"')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add modal to body
+                document.body.insertAdjacentHTML('beforeend', modalContent);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                title: 'Error!',
+                text: 'An error occurred while fetching record details.',
+                icon: 'error',
+                confirmButtonColor: '#ef4444',
+                confirmButtonText: 'OK'
+            });
+        });
+}
+
+function closeBankruptcyModal() {
+    const modal = document.getElementById('bankruptcyModal');
+    if (modal) {
+        modal.remove();
+    }
+}
+
 </script>
 @endsection

@@ -3,176 +3,220 @@
 @section('title', 'Edit Non-Individual Annulment Record')
 
 @section('content')
-<div class="min-h-screen bg-primary-50">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="min-h-screen bg-white">
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Header -->
-        <div class="bg-gradient-to-r from-primary-900 to-accent-600 rounded-xl shadow-lg mb-8">
-            <div class="px-8 py-12">
-                <div class="text-white">
-                    <h1 class="text-4xl font-light mb-3">Edit Non-Individual Annulment Record</h1>
-                    <p class="text-xl text-primary-100 mb-2">Update company annulment information</p>
-                    <p class="text-primary-200">Modify company details and annulment data</p>
+        <div class="mb-8 no-print">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                <div>
+                    <h1 class="text-3xl font-bold text-neutral-900">Edit Non-Individual Annulment Record</h1>
+                    <p class="mt-2 text-neutral-800">Update the company annulment record information</p>
                 </div>
             </div>
         </div>
 
-        <!-- Form -->
-        <div class="professional-section">
-            <div class="professional-section-header">
-                <h3 class="text-lg font-medium text-primary-900">Company Information</h3>
-                <p class="text-sm text-primary-500 mt-1">Update the company and annulment details</p>
-            </div>
-            <div class="professional-section-content">
-                <form method="POST" action="{{ route('annulment-non-indv.update', $annulmentNonIndv) }}" class="space-y-6">
+        <!-- Form Card -->
+        <div class="bg-white shadow-lg rounded-xl border border-gray-100">
+            <div class="px-8 py-8">
+                <form method="POST" action="{{ route('annulment-non-indv.update', $annulmentNonIndv) }}" class="space-y-8">
                     @csrf
                     @method('PUT')
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Insolvency Number -->
-                        <div>
-                            <label for="insolvency_no" class="block text-sm font-medium text-primary-700 mb-2">
-                                Insolvency Number <span class="text-red-500">*</span>
-                            </label>
-                            <input type="text" 
-                                   id="insolvency_no" 
-                                   name="insolvency_no" 
-                                   value="{{ old('insolvency_no', $annulmentNonIndv->insolvency_no) }}"
-                                   class="professional-input @error('insolvency_no') border-red-500 @enderror"
-                                   placeholder="Enter insolvency number"
-                                   required>
-                            @error('insolvency_no')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
+                    <!-- Form Header -->
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-2">Non-Individual Annulment Information</h2>
+                        <p class="text-gray-600">Update the details for {{ $annulmentNonIndv->company_name ?? 'this annulment record' }}</p>
+                    </div>
+                    
+                    <!-- Basic Information -->
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-6">Company Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <label for="insolvency_no" class="block text-sm font-semibold text-gray-700 mb-3">
+                                    Insolvency Number <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" 
+                                       id="insolvency_no" 
+                                       name="insolvency_no" 
+                                       value="{{ old('insolvency_no', $annulmentNonIndv->insolvency_no) }}"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors duration-200 @error('insolvency_no') border-red-500 focus:ring-red-500 @enderror"
+                                       placeholder="e.g., INS2024001"
+                                       required>
+                                @error('insolvency_no')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-                        <!-- Company Name -->
-                        <div>
-                            <label for="company_name" class="block text-sm font-medium text-primary-700 mb-2">
-                                Company Name <span class="text-red-500">*</span>
-                            </label>
-                            <input type="text" 
-                                   id="company_name" 
-                                   name="company_name" 
-                                   value="{{ old('company_name', $annulmentNonIndv->company_name) }}"
-                                   class="professional-input @error('company_name') border-red-500 @enderror"
-                                   placeholder="Enter company name"
-                                   required>
-                            @error('company_name')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
+                            <div>
+                                <label for="company_name" class="block text-sm font-semibold text-gray-700 mb-3">
+                                    Company Name <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" 
+                                       id="company_name" 
+                                       name="company_name" 
+                                       value="{{ old('company_name', $annulmentNonIndv->company_name) }}"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors duration-200 @error('company_name') border-red-500 focus:ring-red-500 @enderror"
+                                       placeholder="e.g., ABC Company Sdn Bhd"
+                                       required>
+                                @error('company_name')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-                        <!-- Company Registration Number -->
-                        <div>
-                            <label for="company_registration_no" class="block text-sm font-medium text-primary-700 mb-2">
-                                Company Registration Number <span class="text-red-500">*</span>
-                            </label>
-                            <input type="text" 
-                                   id="company_registration_no" 
-                                   name="company_registration_no" 
-                                   value="{{ old('company_registration_no', $annulmentNonIndv->company_registration_no) }}"
-                                   class="professional-input @error('company_registration_no') border-red-500 @enderror"
-                                   placeholder="Enter company registration number"
-                                   required>
-                            @error('company_registration_no')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
+                            <div>
+                                <label for="company_registration_no" class="block text-sm font-semibold text-gray-700 mb-3">
+                                    Company Registration Number <span class="text-red-500">*</span>
+                                </label>
+                                <input type="text" 
+                                       id="company_registration_no" 
+                                       name="company_registration_no" 
+                                       value="{{ old('company_registration_no', $annulmentNonIndv->company_registration_no) }}"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors duration-200 @error('company_registration_no') border-red-500 focus:ring-red-500 @enderror"
+                                       placeholder="e.g., 123456-A"
+                                       required>
+                                @error('company_registration_no')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-                        <!-- Others -->
-                        <div>
-                            <label for="others" class="block text-sm font-medium text-primary-700 mb-2">
-                                Others
-                            </label>
-                            <input type="text" 
-                                   id="others" 
-                                   name="others" 
-                                   value="{{ old('others', $annulmentNonIndv->others) }}"
-                                   class="professional-input @error('others') border-red-500 @enderror"
-                                   placeholder="Enter other reference numbers">
-                            @error('others')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
+                            <div>
+                                <label for="others" class="block text-sm font-semibold text-gray-700 mb-3">
+                                    Others
+                                </label>
+                                <input type="text" 
+                                       id="others" 
+                                       name="others" 
+                                       value="{{ old('others', $annulmentNonIndv->others) }}"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors duration-200 @error('others') border-red-500 focus:ring-red-500 @enderror"
+                                       placeholder="Additional information">
+                                @error('others')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-                        <!-- Court Case Number -->
-                        <div>
-                            <label for="court_case_no" class="block text-sm font-medium text-primary-700 mb-2">
-                                Court Case Number
-                            </label>
-                            <input type="text" 
-                                   id="court_case_no" 
-                                   name="court_case_no" 
-                                   value="{{ old('court_case_no', $annulmentNonIndv->court_case_no) }}"
-                                   class="professional-input @error('court_case_no') border-red-500 @enderror"
-                                   placeholder="Enter court case number">
-                            @error('court_case_no')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
+                            <div>
+                                <label for="court_case_no" class="block text-sm font-semibold text-gray-700 mb-3">
+                                    Court Case No
+                                </label>
+                                <input type="text" 
+                                       id="court_case_no" 
+                                       name="court_case_no" 
+                                       value="{{ old('court_case_no', $annulmentNonIndv->court_case_no) }}"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors duration-200 @error('court_case_no') border-red-500 focus:ring-red-500 @enderror"
+                                       placeholder="e.g., CC2024001">
+                                @error('court_case_no')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+                    </div>
 
-                        <!-- Release Date -->
-                        <div>
-                            <label for="release_date" class="block text-sm font-medium text-primary-700 mb-2">
-                                Release Date
-                            </label>
-                            <input type="date" 
-                                   id="release_date" 
-                                   name="release_date" 
-                                   value="{{ old('release_date', $annulmentNonIndv->release_date ? $annulmentNonIndv->release_date->format('Y-m-d') : '') }}"
-                                   class="professional-input @error('release_date') border-red-500 @enderror">
-                            @error('release_date')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
+                    <!-- Dates and Additional Information -->
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-6">Dates and Additional Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <label for="release_date" class="block text-sm font-semibold text-gray-700 mb-3">
+                                    Release Date
+                                </label>
+                                <input type="text" 
+                                       id="release_date" 
+                                       name="release_date" 
+                                       value="{{ old('release_date', $annulmentNonIndv->release_date ? $annulmentNonIndv->release_date->format('d/m/Y') : '') }}"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors duration-200 @error('release_date') border-red-500 focus:ring-red-500 @enderror"
+                                       placeholder="Select Release Date">
+                                @error('release_date')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-                        <!-- Release Type -->
-                        <div>
-                            <label for="release_type" class="block text-sm font-medium text-primary-700 mb-2">
-                                Release Type
-                            </label>
-                            <input type="text" 
-                                   id="release_type" 
-                                   name="release_type" 
-                                   value="{{ old('release_type', $annulmentNonIndv->release_type) }}"
-                                   class="professional-input @error('release_type') border-red-500 @enderror"
-                                   placeholder="Enter release type">
-                            @error('release_type')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
+                            <div>
+                                <label for="updated_date" class="block text-sm font-semibold text-gray-700 mb-3">
+                                    Updated Date
+                                </label>
+                                <input type="text" 
+                                       id="updated_date" 
+                                       name="updated_date" 
+                                       value="{{ old('updated_date', $annulmentNonIndv->formatted_updated_date) }}"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors duration-200 @error('updated_date') border-red-500 focus:ring-red-500 @enderror"
+                                       placeholder="Select Date & Time">
+                                @error('updated_date')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
 
-                        <!-- Branch -->
-                        <div>
-                            <label for="branch" class="block text-sm font-medium text-primary-700 mb-2">
-                                Branch
-                            </label>
-                            <input type="text" 
-                                   id="branch" 
-                                   name="branch" 
-                                   value="{{ old('branch', $annulmentNonIndv->branch) }}"
-                                   class="professional-input @error('branch') border-red-500 @enderror"
-                                   placeholder="Enter branch name">
-                            @error('branch')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
+                            <div>
+                                <label for="release_type" class="block text-sm font-semibold text-gray-700 mb-3">
+                                    Release Type
+                                </label>
+                                <input type="text" 
+                                       id="release_type" 
+                                       name="release_type" 
+                                       value="{{ old('release_type', $annulmentNonIndv->release_type) }}"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors duration-200 @error('release_type') border-red-500 focus:ring-red-500 @enderror"
+                                       placeholder="e.g., Pelepasan Sijil KPI">
+                                @error('release_type')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <label for="branch" class="block text-sm font-semibold text-gray-700 mb-3">
+                                    Branch
+                                </label>
+                                <input type="text" 
+                                       id="branch" 
+                                       name="branch" 
+                                       value="{{ old('branch', $annulmentNonIndv->branch) }}"
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors duration-200 @error('branch') border-red-500 focus:ring-red-500 @enderror"
+                                       placeholder="e.g., Pejabat Negeri Johor">
+                                @error('branch')
+                                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
                     </div>
 
                     <!-- Action Buttons -->
-                    <div class="flex justify-end space-x-4 pt-6 border-t border-primary-200">
-                        <a href="{{ route('annulment-non-indv.index') }}" class="professional-button">
-                            <i class="fas fa-arrow-left mr-2"></i>
-                            Cancel
-                        </a>
-                        <button type="submit" class="professional-button-primary">
-                            <i class="fas fa-save mr-2"></i>
-                            Update Record
-                        </button>
+                    <div class="mt-12 pt-8 border-t border-gray-200 no-print">
+                        <div class="flex justify-end space-x-4">
+                            <!-- Cancel Button -->
+                            <a href="{{ route('annulment-non-indv.index') }}" 
+                               class="px-6 py-3 bg-red-500 text-white text-sm font-semibold rounded-lg hover:bg-red-600 transition-colors duration-200">
+                                Cancel
+                            </a>
+                            
+                            <!-- Update Record Button -->
+                            <button type="submit" class="inline-flex items-center px-6 py-3 bg-orange-500 text-white text-sm font-semibold rounded-lg hover:bg-orange-600 transition-colors duration-200">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                                Update Record
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Flatpickr for date fields
+    flatpickr("#release_date", {
+        dateFormat: "d/m/Y",
+        allowInput: true,
+        placeholder: "Select Release Date"
+    });
+    
+    flatpickr("#updated_date", {
+        enableTime: true,
+        dateFormat: "d/m/Y h:i A",
+        allowInput: true,
+        placeholder: "Select Date & Time"
+    });
+});
+</script>
 @endsection

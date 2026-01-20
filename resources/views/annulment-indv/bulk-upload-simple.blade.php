@@ -3,22 +3,22 @@
 @section('title', 'Bulk Upload Annulment Records')
 
 @section('content')
-<div class="min-h-screen bg-primary-50">
+<div class="min-h-screen bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="mb-8">
-            <h1 class="text-3xl font-bold text-primary-900">Bulk Upload Annulment Records</h1>
-            <p class="text-primary-600 mt-2">Upload multiple annulment records from Excel file</p>
+            <h1 class="text-3xl font-bold text-neutral-900">Bulk Upload Annulment Records</h1>
+            <p class="text-neutral-800 mt-2">Upload multiple annulment records from Excel file</p>
         </div>
 
         <div class="bg-white shadow rounded-lg">
             <div class="px-4 py-5 sm:p-6">
-                <h3 class="text-lg font-medium text-primary-900 mb-4">Upload Excel File</h3>
+                <h3 class="text-lg font-medium text-neutral-900 mb-4">Upload Excel File</h3>
                 
                 <form method="POST" action="{{ route('annulment-indv.bulk-upload.process') }}" enctype="multipart/form-data">
                     @csrf
                     
                     <div class="mb-4">
-                        <label for="file" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="file" class="block text-sm font-medium text-neutral-700 mb-2">
                             Excel File <span class="text-red-500">*</span>
                         </label>
                         <input type="file" 
@@ -26,7 +26,7 @@
                                name="file" 
                                accept=".xlsx,.xls,.csv" 
                                required
-                               class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100">
+                               class="block w-full text-sm text-neutral-700 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-neutral-50 file:text-neutral-700 hover:file:bg-neutral-100">
                         @error('file')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror

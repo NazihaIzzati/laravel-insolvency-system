@@ -26,13 +26,25 @@ class AdminMiddleware
 
         $user = Auth::user();
 
-        if (!$user->isAdmin()) {
+        if (!$user->hasAdminPrivileges()) {
             if ($request->expectsJson()) {
                 return response()->json(['message' => 'Access denied. Admin privileges required.'], 403);
             }
 
-            return redirect()->route('dashboard')
-                ->with('error', 'Access denied. Admin privileges required.');
+            // Redirect ID management to their dashboard
+            if ($user->isIdManagement()) {
+                return redirect()->route('id-management.dashboard')
+                    ->with('error', 'Access denied. ID Management users must use the ID Management dashboard.');
+            }
+
+            // Redirect staff to main dashboard
+            if ($user->isStaff()) {
+                return redirect()->route('dashboard')
+                    ->with('error', 'Access denied. Staff users must use the main dashboard.');
+            }
+
+            return redirect()->route('login')
+                ->with('error', 'Access denied. Invalid user role.');
         }
 
         if (!$user->is_active) {

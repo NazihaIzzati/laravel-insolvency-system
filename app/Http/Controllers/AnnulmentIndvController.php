@@ -96,13 +96,25 @@ class AnnulmentIndvController extends Controller
             'ic_no' => 'required|string|max:20|unique:annulment_indv,ic_no',
             'others' => 'nullable|string|max:255',
             'court_case_no' => 'nullable|string|max:255',
-            'release_date' => 'nullable|date',
+            'release_date' => 'nullable|date_format:d/m/Y',
             'updated_date' => 'nullable|string',
             'release_type' => 'nullable|string|max:255',
             'branch' => 'nullable|string|max:255',
         ]);
 
-        AnnulmentIndv::create($request->all());
+        // Convert release_date from d/m/Y to Y-m-d format for database storage
+        $data = $request->all();
+        if (!empty($data['release_date'])) {
+            try {
+                $data['release_date'] = \Carbon\Carbon::createFromFormat('d/m/Y', $data['release_date'])->format('Y-m-d');
+            } catch (\Exception $e) {
+                return redirect()->back()
+                    ->withErrors(['release_date' => 'The release date must be a valid date in dd/mm/yyyy format.'])
+                    ->withInput();
+            }
+        }
+
+        AnnulmentIndv::create($data);
 
         return redirect()->route('annulment-indv.index')
             ->with('success', 'Annulment record created successfully.');
@@ -134,13 +146,25 @@ class AnnulmentIndvController extends Controller
             'ic_no' => 'required|string|max:20|unique:annulment_indv,ic_no,' . $annulmentIndv->id,
             'others' => 'nullable|string|max:255',
             'court_case_no' => 'nullable|string|max:255',
-            'release_date' => 'nullable|date',
+            'release_date' => 'nullable|date_format:d/m/Y',
             'updated_date' => 'nullable|string',
             'release_type' => 'nullable|string|max:255',
             'branch' => 'nullable|string|max:255',
         ]);
 
-        $annulmentIndv->update($request->all());
+        // Convert release_date from d/m/Y to Y-m-d format for database storage
+        $data = $request->all();
+        if (!empty($data['release_date'])) {
+            try {
+                $data['release_date'] = \Carbon\Carbon::createFromFormat('d/m/Y', $data['release_date'])->format('Y-m-d');
+            } catch (\Exception $e) {
+                return redirect()->back()
+                    ->withErrors(['release_date' => 'The release date must be a valid date in dd/mm/yyyy format.'])
+                    ->withInput();
+            }
+        }
+
+        $annulmentIndv->update($data);
 
         return redirect()->route('annulment-indv.index')
             ->with('success', 'Annulment record updated successfully.');
@@ -163,7 +187,7 @@ class AnnulmentIndvController extends Controller
     public function bulkUpload()
     {
         try {
-            return view('annulment-indv.bulk-upload-simple');
+            return view('annulment-indv.bulk-upload');
         } catch (\Exception $e) {
             Log::error('Bulk upload view error: ' . $e->getMessage());
             return redirect()->route('annulment-indv.index')
@@ -320,7 +344,55 @@ class AnnulmentIndvController extends Controller
     {
         $annulmentIndv = AnnulmentIndv::active()->orderBy('name')->get();
         
-        $filename = 'annulment_indv_records_' . date('Y-m-d') . '.xlsx';
+        $filename = 'annulment_indv_all_records_' . date('Y-m-d') . '.xlsx';
+        
+        return Excel::download(new class($annulmentIndv) implements \Maatwebsite\Excel\Concerns\FromCollection {
+            private $records;
+            
+            public function __construct($records) {
+                $this->records = $records;
+            }
+            
+            public function collection() {
+                return $this->records->map(function ($record) {
+                    return [
+                        'Nama' => $record->name,
+                        'No. K/P Baru' => $record->ic_no,
+                        'No. Lain' => $record->others,
+                        'No. Kes Mahkamah' => $record->court_case_no,
+                        'Tarikh Pelepasan' => $record->release_date ? $record->release_date->format('d/m/Y') : '',
+                        'Tarikh Kemaskini' => $record->formatted_updated_date,
+                        'Jenis Pelepasan' => $record->release_type,
+                        'Nama Cawangan' => $record->branch,
+                    ];
+                });
+            }
+        }, $filename);
+    }
+
+    /**
+     * Download filtered records as Excel
+     */
+    public function downloadFiltered(Request $request)
+    {
+        $searchValue = $request->input('search_input', '');
+        
+        if (empty($searchValue)) {
+            return redirect()->back()
+                ->with('error', 'Please enter a search term to download filtered records.');
+        }
+
+        $annulmentIndv = AnnulmentIndv::where('is_active', true)
+            ->where(function($query) use ($searchValue) {
+                $query->where('ic_no', 'LIKE', "%{$searchValue}%")
+                      ->orWhere('name', 'LIKE', "%{$searchValue}%")
+                      ->orWhere('court_case_no', 'LIKE', "%{$searchValue}%")
+                      ->orWhere('others', 'LIKE', "%{$searchValue}%");
+            })
+            ->orderBy('name')
+            ->get();
+        
+        $filename = 'annulment_indv_filtered_' . date('Y-m-d') . '_' . time() . '.xlsx';
         
         return Excel::download(new class($annulmentIndv) implements \Maatwebsite\Excel\Concerns\FromCollection {
             private $records;

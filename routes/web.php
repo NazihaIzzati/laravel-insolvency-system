@@ -8,6 +8,9 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\BankruptcyController;
 use App\Http\Controllers\NonIndividualBankruptcyController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\AuditLogController;
+use App\Http\Controllers\PasswordResetController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,9 +43,14 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
 });
 
+// Password reset routes (accessible to both guests and authenticated users)
+Route::get('/password/reset', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
+Route::post('/password/reset', [PasswordResetController::class, 'resetPassword'])->name('password.reset.submit');
+
 // Protected routes
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+    // Main dashboard - only for staff users
+    Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard')->middleware('staff_only');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     
     // Change password routes
@@ -54,6 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/annulment-indv/bulk-upload', [AnnulmentIndvController::class, 'processBulkUpload'])->name('annulment-indv.bulk-upload.process');
     Route::get('/annulment-indv/template', [AnnulmentIndvController::class, 'downloadTemplate'])->name('annulment-indv.template');
     Route::get('/annulment-indv/download', [AnnulmentIndvController::class, 'downloadRecords'])->name('annulment-indv.download');
+    Route::get('/annulment-indv/download-filtered', [AnnulmentIndvController::class, 'downloadFiltered'])->name('annulment-indv.download-filtered');
     Route::post('/annulment-indv/search', [AnnulmentIndvController::class, 'search'])->name('annulment-indv.search');
     Route::resource('annulment-indv', AnnulmentIndvController::class);
     
@@ -90,9 +99,64 @@ Route::middleware('auth')->group(function () {
     Route::get('/search/details/{id}', [SearchController::class, 'getDetails'])->name('search.details');
 });
 
+// Staff routes
+Route::middleware(['auth', 'staff_only'])->prefix('staff')->group(function () {
+    Route::get('/', function () {
+        return view('staff.dashboard');
+    })->name('staff.dashboard');
+    
+    Route::get('/bulk-status', [SearchController::class, 'bulkStatusCheck'])->name('staff.bulk-status');
+    Route::post('/bulk-status-file', [SearchController::class, 'bulkStatusCheckFromFile'])->name('staff.bulk-status-file');
+    
+    // Email update route for staff users
+    Route::post('/update-email', [AuthController::class, 'updateEmail'])->name('staff.update-email');
+});
+
 // Admin routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/', function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
+    
+    Route::get('/bulk-status', [SearchController::class, 'bulkStatusCheck'])->name('admin.bulk-status');
+    Route::post('/bulk-status-file', [SearchController::class, 'bulkStatusCheckFromFile'])->name('admin.bulk-status-file');
+    
+    // Email update route for admin users
+    Route::post('/update-email', [AuthController::class, 'updateEmail'])->name('admin.update-email');
+});
+
+// ID Management routes
+Route::middleware(['auth', 'id_management'])->prefix('id-management')->group(function () {
+    Route::get('/', function () {
+        return view('id-management.dashboard');
+    })->name('id-management.dashboard');
+});
+
+// User Management routes (Admin and ID Management)
+Route::middleware(['auth', 'id_management'])->group(function () {
+    Route::get('/user-management', [UserManagementController::class, 'index'])->name('user-management.index');
+    Route::get('/user-management/create', [UserManagementController::class, 'create'])->name('user-management.create');
+    Route::post('/user-management', [UserManagementController::class, 'store'])->name('user-management.store');
+    
+    // Bulk operations - must be before parameterized routes
+    Route::get('/user-management/bulk-upload', [UserManagementController::class, 'bulkUpload'])->name('user-management.bulk-upload');
+    Route::post('/user-management/bulk-upload', [UserManagementController::class, 'processBulkUpload'])->name('user-management.bulk-upload.process');
+    Route::get('/user-management/template', [UserManagementController::class, 'downloadTemplate'])->name('user-management.template');
+    Route::get('/user-management/download', [UserManagementController::class, 'downloadUsers'])->name('user-management.download');
+    
+    // Parameterized routes - must be after specific routes
+    Route::get('/user-management/{user}', [UserManagementController::class, 'show'])->name('user-management.show');
+    Route::get('/user-management/{user}/edit', [UserManagementController::class, 'edit'])->name('user-management.edit');
+    Route::put('/user-management/{user}', [UserManagementController::class, 'update'])->name('user-management.update');
+    Route::delete('/user-management/{user}', [UserManagementController::class, 'destroy'])->name('user-management.destroy');
+    Route::post('/user-management/{user}/change-password', [UserManagementController::class, 'changePassword'])->name('user-management.change-password');
+    Route::post('/user-management/{user}/send-password-reset', [UserManagementController::class, 'sendPasswordResetEmail'])->name('user-management.send-password-reset');
+    
+});
+
+// Audit Logs routes (Superuser only)
+Route::middleware(['auth', 'superuser'])->group(function () {
+    Route::get('/audit-logs', [AuditLogController::class, 'index'])->name('audit-logs.index');
+    Route::get('/audit-logs/{auditLog}', [AuditLogController::class, 'show'])->name('audit-logs.show');
+    Route::get('/audit-logs/export', [AuditLogController::class, 'export'])->name('audit-logs.export');
 });

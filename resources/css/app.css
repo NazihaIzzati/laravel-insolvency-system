@@ -1,660 +1,434 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @layer base {
     html {
         font-family: 'Figtree', system-ui, sans-serif;
     }
-}
-
-@layer components {
-    .btn {
-        @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200;
-    }
     
-    .btn-primary {
-        @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500 hover:shadow-lg transform hover:-translate-y-0.5;
-    }
-    
-    .btn-secondary {
-        @apply btn bg-secondary-600 text-white hover:bg-secondary-700 focus:ring-secondary-500 hover:shadow-lg transform hover:-translate-y-0.5;
-    }
-    
-    .btn-outline {
-        @apply btn border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:ring-primary-500 hover:shadow-md transform hover:-translate-y-0.5;
-    }
-    
-    .btn-danger {
-        @apply btn bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 hover:shadow-lg transform hover:-translate-y-0.5;
-    }
-    
-    .btn-success {
-        @apply btn bg-green-600 text-white hover:bg-green-700 focus:ring-green-500 hover:shadow-lg transform hover:-translate-y-0.5;
-    }
-    
-    .btn-warning {
-        @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500;
-    }
-    
-    .btn-minimal {
-        @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500;
-    }
-    
-    .btn-minimal-outline {
-        @apply btn border-primary-300 text-primary-700 bg-white hover:bg-primary-50 focus:ring-primary-500;
-    }
-    
-    .form-input {
-        @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm;
-    }
-    
-    .form-label {
-        @apply block text-sm font-medium text-gray-700 mb-1;
-    }
-    
-    .form-error {
-        @apply text-red-600 text-sm mt-1;
-    }
-    
-    .card {
-        @apply bg-white overflow-hidden shadow rounded-lg;
-    }
-    
-    .card-header {
-        @apply px-4 py-5 sm:px-6 border-b border-gray-200;
-    }
-    
-    .card-body {
-        @apply px-4 py-5 sm:p-6;
-    }
-    
-    .alert {
-        @apply rounded-md p-4 mb-4;
-    }
-    
-    .alert-success {
-        @apply alert bg-green-50 border border-green-200 text-green-800;
-    }
-    
-    .alert-error {
-        @apply alert bg-red-50 border border-red-200 text-red-800;
-    }
-    
-    .alert-info {
-        @apply alert bg-blue-50 border border-blue-200 text-blue-800;
-    }
-    
-    /* Landing Page Specific Styles - Banking Theme */
-    .hero-gradient {
-        background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1e293b 100%);
-    }
-    
-    .banking-gradient {
-        background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1e293b 100%);
-    }
-    
-    .feature-card {
-        @apply bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 p-8 border border-slate-200;
-    }
-    
-    .banking-card {
-        @apply bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20 p-8 shadow-2xl;
-    }
-    
-    .security-badge {
-        @apply bg-slate-800 px-3 py-2 rounded-lg text-sm text-emerald-400 border border-slate-700;
-    }
-    
-    .stat-number {
-        @apply text-4xl font-bold text-emerald-600 mb-2;
-    }
-    
-    .banking-stat-card {
-        @apply text-center bg-slate-50 rounded-xl p-8 border border-slate-200;
-    }
-    
-    .section-padding {
-        @apply py-20;
-    }
-    
-    .container-max {
-        @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-    }
-    
-    /* Smooth scrolling */
-    html {
+    body {
         scroll-behavior: smooth;
     }
-    
-    /* Custom animations */
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+}
+
+@layer utilities {
+    .animate-fade-in {
+        animation: fadeIn 0.6s ease-in-out;
     }
     
-    .animate-fade-in-up {
-        animation: fadeInUp 0.6s ease-out;
+    .animate-slide-up {
+        animation: slideUp 0.8s ease-out;
     }
     
-    /* Hover effects for feature icons */
-    .feature-icon {
-        @apply transition-all duration-300 group-hover:scale-110;
-    }
-    
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-        width: 8px;
-    }
-    
-    ::-webkit-scrollbar-track {
-        background: #f1f5f9;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-        background: #cbd5e1;
-        border-radius: 4px;
-    }
-    
-    ::-webkit-scrollbar-thumb:hover {
-        background: #94a3b8;
-    }
-    
-    /* Abstract Background Animations */
-    @keyframes float {
-        0%, 100% {
-            transform: translateY(0px) rotate(0deg);
-        }
-        50% {
-            transform: translateY(-20px) rotate(180deg);
-        }
-    }
-    
-    @keyframes pulse {
-        0%, 100% {
-            opacity: 0.2;
-            transform: scale(1);
-        }
-        50% {
-            opacity: 0.4;
-            transform: scale(1.1);
-        }
-    }
-    
-    @keyframes drift {
-        0% {
-            transform: translateX(0px) translateY(0px);
-        }
-        25% {
-            transform: translateX(10px) translateY(-10px);
-        }
-        50% {
-            transform: translateX(-5px) translateY(5px);
-        }
-        75% {
-            transform: translateX(5px) translateY(-5px);
-        }
-        100% {
-            transform: translateX(0px) translateY(0px);
-        }
-    }
-    
-    .floating-element {
+    .animate-float {
         animation: float 6s ease-in-out infinite;
     }
     
-    .pulsing-element {
-        animation: pulse 4s ease-in-out infinite;
+    .animate-pulse-slow {
+        animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@layer components {
+    /* Quick Actions Hover Animations */
+    .quick-action-card {
+        transition: all 0.3s ease-out;
+        transform: translateY(0) scale(1);
     }
     
-    .drifting-element {
-        animation: drift 8s ease-in-out infinite;
+    .quick-action-card:hover {
+        transform: translateY(-0.25rem) scale(1.05);
     }
     
-    /* Solar Gate Inspired Design System */
-    .solar-card {
-        @apply bg-white border border-primary-200 p-6;
+    .quick-action-icon {
+        transition: all 0.3s ease-out;
+        transform: scale(1) rotate(0deg);
     }
     
-    .solar-stat-card {
-        @apply bg-white border border-primary-200 p-4;
+    .quick-action-card:hover .quick-action-icon {
+        transform: scale(1.05) rotate(2deg);
     }
     
-    .solar-stat-icon {
-        @apply w-8 h-8 flex items-center justify-center text-primary-500;
+    .quick-action-card:nth-child(even):hover .quick-action-icon {
+        transform: scale(1.05) rotate(-2deg);
     }
     
-    .solar-welcome {
-        @apply bg-white border-b border-primary-200 pb-8 mb-8;
+    .quick-action-shadow {
+        transition: all 0.3s ease-out;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
     }
     
-    .solar-section {
-        @apply bg-white border border-primary-200 mb-6;
+    .quick-action-card:hover .quick-action-shadow {
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
     }
     
-    .solar-section-header {
-        @apply px-6 py-4 border-b border-primary-200;
+    .quick-action-bg {
+        transition: all 0.3s ease-out;
+        background-color: rgb(243 244 246);
     }
     
-    .solar-section-content {
-        @apply px-6 py-4;
+    .quick-action-card:hover .quick-action-bg {
+        background-color: rgb(249 250 251);
     }
     
-    .solar-badge {
-        @apply inline-flex items-center px-2 py-1 text-xs font-medium bg-primary-100 text-primary-700;
+    .quick-action-text {
+        transition: all 0.3s ease-out;
+        color: rgb(55 65 81);
+        font-weight: 500;
     }
     
-    .solar-badge-primary {
-        @apply bg-primary-100 text-primary-700;
+    .quick-action-card:hover .quick-action-text {
+        color: rgb(17 24 39);
+        font-weight: 600;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        border: 1px solid transparent;
+        font-size: 0.875rem;
+        font-weight: 500;
+        border-radius: 0.375rem;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        transition: all 0.2s;
     }
     
-    .solar-badge-success {
-        @apply bg-green-100 text-green-700;
+    .btn:focus {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
     }
     
-    .solar-badge-warning {
-        @apply bg-primary-100 text-primary-700;
+    .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        border: 1px solid transparent;
+        font-size: 0.875rem;
+        font-weight: 500;
+        border-radius: 0.375rem;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        transition: all 0.2s;
+        background-color: #FE8000;
+        color: white;
+        text-decoration: none;
+        cursor: pointer;
     }
     
-    .solar-badge-info {
-        @apply bg-blue-100 text-blue-700;
+    .btn-primary:hover {
+        background-color: #e66a00;
+        text-decoration: none;
+        color: white;
     }
     
-    .solar-badge-danger {
-        @apply bg-red-100 text-red-700;
+    .btn-primary:focus {
+        box-shadow: 0 0 0 3px rgba(254, 128, 0, 0.3);
     }
     
-    .solar-input {
-        @apply block w-full border-0 border-b border-primary-300 focus:border-primary-900 focus:ring-0 text-sm bg-transparent;
+    .btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        border: 1px solid #dee2e6;
+        font-size: 0.875rem;
+        font-weight: 500;
+        border-radius: 0.375rem;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        transition: all 0.2s;
+        background-color: #f8f9fa;
+        color: #212529;
+        text-decoration: none;
+        cursor: pointer;
     }
     
-    .solar-button {
-        @apply inline-flex items-center px-4 py-2 border border-primary-300 text-sm font-medium text-primary-700 bg-white hover:bg-primary-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500;
+    .btn-secondary:hover {
+        background-color: #e9ecef;
+        border-color: #adb5bd;
+        text-decoration: none;
+        color: #212529;
     }
     
-    .solar-button-primary {
-        @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium text-white bg-primary-900 hover:bg-primary-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500;
+    .btn-outline {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        border: 1px solid #6c757d;
+        font-size: 0.875rem;
+        font-weight: 500;
+        border-radius: 0.375rem;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        transition: all 0.2s;
+        background-color: white;
+        color: #212529;
+        text-decoration: none;
+        cursor: pointer;
     }
     
-    .solar-button-accent {
-        @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium text-white bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500;
+    .btn-outline:hover {
+        background-color: #f8f9fa;
+        border-color: #495057;
+        text-decoration: none;
+        color: #212529;
     }
     
-    .solar-sidebar {
-        @apply bg-white border-r border-primary-200 w-64 p-6;
+    .btn-danger {
+        background-color: #dc2626;
+        color: white;
     }
     
-    .solar-nav-item {
-        @apply flex items-center px-3 py-2 text-sm font-medium text-primary-600 hover:text-primary-900 hover:bg-primary-50 rounded-md mb-1;
+    .btn-danger:hover {
+        background-color: #b91c1c;
     }
     
-    .solar-nav-item-active {
-        @apply flex items-center px-3 py-2 text-sm font-medium text-primary-600 bg-primary-50 rounded-md mb-1;
+    .btn-success {
+        background-color: #16a34a;
+        color: white;
     }
     
-    .solar-logo {
-        @apply text-xl font-light text-primary-900 mb-8;
+    .btn-success:hover {
+        background-color: #15803d;
     }
     
-    .solar-logo-accent {
-        @apply text-primary-500 font-medium;
-    }
-    
-    /* Enhanced Professional Dashboard Styles */
-    .professional-card {
-        @apply bg-white border border-primary-200 rounded-lg shadow-sm hover:shadow-md transition-all duration-200;
-    }
-    
-    .professional-stat-card {
-        @apply bg-white border border-primary-200 rounded-lg p-6 hover:shadow-md transition-all duration-200;
-    }
-    
-    .professional-stat-icon {
-        @apply w-10 h-10 flex items-center justify-center rounded-lg;
-    }
-    
-    .professional-stat-icon-primary {
-        @apply bg-primary-50 text-primary-600;
-    }
-    
-    .professional-stat-icon-success {
-        @apply bg-green-50 text-green-600;
-    }
-    
-    .professional-stat-icon-warning {
-        @apply bg-yellow-50 text-yellow-600;
-    }
-    
-    .professional-stat-icon-info {
-        @apply bg-blue-50 text-blue-600;
-    }
-    
-    .professional-section {
-        @apply bg-white border border-primary-200 rounded-lg shadow-sm mb-6;
-    }
-    
-    .professional-section-header {
-        @apply px-6 py-4 border-b border-primary-200 bg-primary-50 rounded-t-lg;
-    }
-    
-    .professional-section-content {
-        @apply px-6 py-6;
-    }
-    
-    .professional-badge {
-        @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
-    }
-    
-    .professional-badge-primary {
-        @apply bg-primary-100 text-primary-800;
-    }
-    
-    .professional-badge-success {
-        @apply bg-green-100 text-green-800;
-    }
-    
-    .professional-badge-warning {
-        @apply bg-primary-100 text-primary-800;
-    }
-    
-    .professional-badge-info {
-        @apply bg-blue-100 text-blue-800;
-    }
-    
-    .professional-badge-danger {
-        @apply bg-red-100 text-red-800;
-    }
-    
-    .professional-input {
-        @apply block w-full border border-primary-300 rounded-md px-3 py-2 text-sm placeholder-primary-400 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 bg-white;
-    }
-    
+    /* Professional Button Styles */
     .professional-button {
-        @apply inline-flex items-center px-6 py-3 border border-primary-200 text-sm font-semibold text-primary-700 bg-white hover:bg-primary-50 hover:border-primary-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md transform hover:-translate-y-0.5;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        line-height: 1.25rem;
+        border-radius: 0.375rem;
+        border: 1px solid #6c757d;
+        background-color: white;
+        color: #212529;
+        text-decoration: none;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+    }
+    
+    .professional-button:hover {
+        background-color: #f8f9fa;
+        border-color: #495057;
+        color: #000000;
+    }
+    
+    .professional-button:focus {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 3px rgba(108, 117, 125, 0.3);
     }
     
     .professional-button-primary {
-        @apply inline-flex items-center px-6 py-3 border border-transparent text-sm font-semibold text-white bg-gradient-to-r from-primary-900 to-primary-800 hover:from-primary-800 hover:to-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        line-height: 1.25rem;
+        border-radius: 0.375rem;
+        border: 1px solid transparent;
+        background-color: #FE8000;
+        color: white;
+        text-decoration: none;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
     }
     
-    .professional-button-accent {
-        @apply inline-flex items-center px-6 py-3 border border-transparent text-sm font-semibold text-white bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+    .professional-button-primary:hover {
+        background-color: #e66a00;
+        color: white;
     }
     
-    .professional-button-success {
-        @apply inline-flex items-center px-6 py-3 border border-transparent text-sm font-semibold text-white bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5;
+    .professional-button-primary:focus {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 3px rgba(254, 128, 0, 0.3);
     }
     
-    .professional-sidebar {
-        @apply bg-white border-r border-primary-200 w-64 p-6 shadow-sm;
+    .form-input {
+        display: block;
+        width: 100%;
+        border-radius: 0.375rem;
+        border-color: #d4d4d4;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        background-color: white;
     }
     
-    .professional-nav-item {
-        @apply flex items-center px-3 py-2 text-sm font-medium text-primary-600 hover:text-primary-900 hover:bg-primary-50 rounded-md mb-1 transition-colors duration-200;
+    .form-input:focus {
+        border-color: #737373;
+        box-shadow: 0 0 0 3px rgba(115, 115, 115, 0.1);
     }
     
-    .professional-nav-item-active {
-        @apply flex items-center px-3 py-2 text-sm font-medium text-primary-600 bg-primary-50 rounded-md mb-1;
+    .form-label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #404040;
+        margin-bottom: 0.25rem;
     }
     
-    .professional-logo {
-        @apply text-xl font-light text-primary-900 mb-8;
+    .card {
+        background-color: white;
+        overflow: hidden;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        border-radius: 0.5rem;
+        border: 1px solid #e5e5e5;
     }
     
-    .professional-logo-accent {
-        @apply text-primary-500 font-medium;
+    .card-header {
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid #e5e5e5;
+        background-color: #fafafa;
     }
     
-    .professional-welcome {
-        @apply bg-gradient-to-r from-primary-50 to-primary-50 border-b border-primary-200 pb-8 mb-8;
+    .card-body {
+        padding: 1.25rem 1.5rem;
+        background-color: white;
     }
     
-    .professional-search-results {
-        @apply bg-primary-50 rounded-lg p-4 mt-4;
+    .alert {
+        border-radius: 0.375rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
     }
     
-    .professional-result-item {
-        @apply flex items-center justify-between py-3 px-4 bg-white rounded-md border border-primary-200 hover:border-primary-300 hover:shadow-sm transition-all duration-200 mb-2;
+    .alert-success {
+        background-color: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        color: #166534;
     }
     
-    .professional-modal {
-        @apply fixed inset-0 bg-black bg-opacity-50 overflow-y-auto h-full w-full z-50;
+    .alert-error {
+        background-color: #fef2f2;
+        border: 1px solid #fecaca;
+        color: #991b1b;
     }
     
-    .professional-modal-content {
-        @apply relative top-20 mx-auto p-6 border w-11/12 md:w-2/3 lg:w-1/2 bg-white rounded-lg shadow-xl;
+    .alert-info {
+        background-color: #fafafa;
+        border: 1px solid #e5e5e5;
+        color: #262626;
     }
     
-    .professional-progress-bar {
-        @apply w-full bg-primary-200 rounded-full h-2;
+    /* Pill Badge Styles */
+    .pill-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.25rem 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        border-radius: 9999px;
+        text-decoration: none;
+        transition: all 0.2s;
+        white-space: nowrap;
     }
     
-    .professional-progress-fill {
-        @apply bg-primary-500 h-2 rounded-full transition-all duration-300;
+    .pill-badge-insolvency {
+        background-color: #dbeafe;
+        color: #1e40af;
+        border: 1px solid #bfdbfe;
     }
     
-    .professional-tooltip {
-        @apply absolute z-10 px-3 py-2 text-sm text-white bg-primary-900 rounded-md shadow-lg opacity-0 pointer-events-none transition-opacity duration-200;
+    .pill-badge-insolvency:hover {
+        background-color: #bfdbfe;
+        color: #1e3a8a;
     }
     
-    .professional-loading {
-        @apply inline-flex items-center px-4 py-2 bg-white border border-primary-200 rounded-md shadow-sm;
+    .pill-badge-name {
+        background-color: #f0fdf4;
+        color: #166534;
+        border: 1px solid #bbf7d0;
     }
     
-    /* PDF Print Styles */
-    @media print {
-        .no-print {
-            display: none !important;
-        }
-        
-        .print-only {
-            display: block !important;
-        }
-        
-        /* Hide header and footer */
-        nav, header, footer {
-            display: none !important;
-        }
-        
-        body {
-            background: white !important;
-            color: #000 !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            font-family: 'Arial', sans-serif !important;
-            font-size: 10px !important;
-            line-height: 1.2 !important;
-        }
-        
-        /* PDF Header Styling */
-        .pdf-header {
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: flex-start !important;
-            margin-bottom: 10px !important;
-            padding-bottom: 8px !important;
-            border-bottom: 1px solid #000 !important;
-        }
-        
-        .pdf-logo-section {
-            flex: 1 !important;
-        }
-        
-        .pdf-company-name {
-            font-size: 14px !important;
-            font-weight: bold !important;
-            color: #000 !important;
-            margin: 0 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.5px !important;
-        }
-        
-        .pdf-company-subtitle {
-            font-size: 8px !important;
-            color: #666 !important;
-            margin: 1px 0 0 0 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.3px !important;
-        }
-        
-        .pdf-document-info {
-            text-align: right !important;
-            flex: 1 !important;
-        }
-        
-        .pdf-document-title {
-            font-size: 12px !important;
-            font-weight: bold !important;
-            color: #000 !important;
-            margin: 0 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.5px !important;
-        }
-        
-        /* PDF Content Styling */
-        .pdf-content {
-            background: white !important;
-            box-shadow: none !important;
-            border: 1px solid #ddd !important;
-            margin: 0 !important;
-        }
-        
-        .pdf-record-grid {
-            display: grid !important;
-            grid-template-columns: 1fr 1fr !important;
-            gap: 15px !important;
-            margin: 0 !important;
-        }
-        
-        .pdf-record-grid > div {
-            page-break-inside: avoid !important;
-            margin-bottom: 0 !important;
-        }
-        
-        .pdf-record-grid > div:not(:first-child) {
-            margin-top: 15px !important;
-        }
-        
-        /* Section Headers */
-        h3 {
-            font-size: 11px !important;
-            font-weight: bold !important;
-            color: #000 !important;
-            margin: 0 0 8px 0 !important;
-            padding: 4px 8px !important;
-            background: #f5f5f5 !important;
-            border-left: 3px solid #000 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.3px !important;
-        }
-        
-        /* Data Lists */
-        dl {
-            margin: 0 !important;
-        }
-        
-        dt {
-            font-size: 8px !important;
-            font-weight: bold !important;
-            color: #666 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.3px !important;
-            margin: 0 0 2px 0 !important;
-        }
-        
-        dd {
-            font-size: 9px !important;
-            color: #000 !important;
-            margin: 0 0 6px 0 !important;
-            padding: 2px 0 !important;
-            border-bottom: 1px dotted #ccc !important;
-        }
-        
-        /* Status Badge */
-        .inline-flex {
-            display: inline-block !important;
-        }
-        
-        .px-2\.5, .py-0\.5 {
-            padding: 2px 6px !important;
-        }
-        
-        .rounded-full {
-            border-radius: 3px !important;
-        }
-        
-        .text-xs {
-            font-size: 9px !important;
-        }
-        
-        .font-medium {
-            font-weight: bold !important;
-        }
-        
-        /* Remove all shadows and unnecessary styling */
-        .shadow, .rounded-lg {
-            box-shadow: none !important;
-            border-radius: 0 !important;
-        }
-        
-        .bg-gray-50 {
-            background: white !important;
-        }
-        
-        .text-gray-600 {
-            color: #000 !important;
-        }
-        
-        .text-gray-900 {
-            color: #000 !important;
-        }
-        
-        /* Layout adjustments */
-        .py-6 {
-            padding: 0 !important;
-        }
-        
-        .px-4, .py-5, .sm\:px-6, .sm\:p-6 {
-            padding: 8px !important;
-        }
-        
-        .max-w-7xl {
-            max-width: none !important;
-            margin: 0 !important;
-        }
-        
-        main {
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-        
-        /* Page breaks */
-        h1, h2, h3, h4, h5, h6 {
-            page-break-after: avoid !important;
-        }
-        
-        .pdf-record-grid > div {
-            page-break-inside: avoid !important;
-        }
-        
-        /* Set page margins and size */
-        @page {
-            margin: 0.5in;
-            size: A4;
-        }
-        
-        /* Ensure single column on very small screens */
-        @media print and (max-width: 600px) {
-            .pdf-record-grid {
-                grid-template-columns: 1fr !important;
-                gap: 20px !important;
-            }
-        }
+    .pill-badge-name:hover {
+        background-color: #dcfce7;
+        color: #14532d;
+    }
+    
+    .pill-badge-ic {
+        background-color: #fef3c7;
+        color: #92400e;
+        border: 1px solid #fde68a;
+    }
+    
+    .pill-badge-ic:hover {
+        background-color: #fde68a;
+        color: #78350f;
+    }
+    
+    .pill-badge-company {
+        background-color: #e0e7ff;
+        color: #3730a3;
+        border: 1px solid #c7d2fe;
+    }
+    
+    .pill-badge-company:hover {
+        background-color: #c7d2fe;
+        color: #312e81;
+    }
+    
+    .pill-badge-registration {
+        background-color: #fef3c7;
+        color: #92400e;
+        border: 1px solid #fde68a;
+    }
+    
+    .pill-badge-registration:hover {
+        background-color: #fde68a;
+        color: #78350f;
+    }
+    
+    .pill-badge-court {
+        background-color: #f3e8ff;
+        color: #7c3aed;
+        border: 1px solid #e9d5ff;
+    }
+    
+    .pill-badge-court:hover {
+        background-color: #e9d5ff;
+        color: #6d28d9;
+    }
+    
+    .pill-badge-reference {
+        background-color: #f0f9ff;
+        color: #0369a1;
+        border: 1px solid #bae6fd;
+    }
+    
+    .pill-badge-reference:hover {
+        background-color: #bae6fd;
+        color: #0c4a6e;
     }
 }

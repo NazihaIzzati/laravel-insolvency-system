@@ -48,22 +48,22 @@
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-            <div class="p-6 text-gray-900">
+            <div class="p-6 text-neutral-900">
                 <!-- Printable Area -->
                 <div class="printable-area">
                     <!-- Print Header -->
                     <div class="print-header">
-                        <h1 class="text-3xl font-bold text-gray-900">NEW ANNULMENT INDIVIDUAL FORM</h1>
-                        <p class="text-lg text-gray-600 mt-2">Insolvency Data System</p>
-                        <p class="text-sm text-gray-500 mt-1">Generated on: {{ now()->format('d/m/Y H:i:s') }}</p>
+                        <h1 class="text-3xl font-bold text-neutral-900">NEW ANNULMENT INDIVIDUAL FORM</h1>
+                        <p class="text-lg text-neutral-800 mt-2">Insolvency Information System</p>
+                        <p class="text-sm text-neutral-700 mt-1">Generated on: {{ now()->format('d/m/Y H:i:s') }}</p>
                     </div>
 
                     <!-- Screen Header -->
                     <div class="no-print">
                         <div class="flex justify-between items-center mb-6">
                             <div>
-                                <h2 class="text-2xl font-bold text-gray-900">Add New Annulment Individual</h2>
-                                <p class="text-gray-600 mt-1">Create a new annulment individual profile</p>
+                                <h2 class="text-2xl font-bold text-neutral-900">Add New Annulment Individual</h2>
+                                <p class="text-neutral-800 mt-1">Create a new annulment individual profile</p>
                             </div>
                             <div class="flex space-x-3">
                                 <button onclick="window.print()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
@@ -72,7 +72,7 @@
                                     </svg>
                                     Print Form
                                 </button>
-                                <a href="{{ route('annulment-indv.index') }}" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
+                                <a href="{{ route('annulment-indv.index') }}" class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
                                     Back to Annulment Individual List
                                 </a>
                             </div>
@@ -86,14 +86,14 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Annulment Individual ID -->
                             <div class="print-field">
-                                <label for="annulment_indv_id" class="block text-sm font-medium text-gray-700 mb-2 print-label">
+                                <label for="annulment_indv_id" class="block text-sm font-medium text-neutral-700 mb-2 print-label">
                                     Annulment Individual ID <span class="text-red-500 no-print">*</span>
                                 </label>
                                 <input type="text" 
                                        id="annulment_indv_id" 
                                        name="annulment_indv_id" 
                                        value="{{ old('annulment_indv_id') }}"
-                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('annulment_indv_id') border-red-500 @enderror print-value"
+                                       class="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('annulment_indv_id') border-red-500 @enderror print-value"
                                        placeholder="e.g., 104081"
                                        required>
                                 @error('annulment_indv_id')
@@ -103,14 +103,14 @@
 
                         <!-- No Involvency -->
                         <div>
-                            <label for="no_involvency" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="no_involvency" class="block text-sm font-medium text-neutral-700 mb-2">
                                 No Involvency
                             </label>
                             <input type="text" 
                                    id="no_involvency" 
                                    name="no_involvency" 
                                    value="{{ old('no_involvency') }}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('no_involvency') border-red-500 @enderror"
+                                   class="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('no_involvency') border-red-500 @enderror"
                                    placeholder="e.g., INV001">
                             @error('no_involvency')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -119,14 +119,14 @@
 
                         <!-- Name -->
                         <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="name" class="block text-sm font-medium text-neutral-700 mb-2">
                                 Name <span class="text-red-500">*</span>
                             </label>
                             <input type="text" 
                                    id="name" 
                                    name="name" 
                                    value="{{ old('name') }}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('name') border-red-500 @enderror"
+                                   class="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('name') border-red-500 @enderror"
                                    placeholder="e.g., Ahmad Rahman"
                                    required>
                             @error('name')
@@ -136,14 +136,14 @@
 
                         <!-- IC No -->
                         <div>
-                            <label for="ic_no" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="ic_no" class="block text-sm font-medium text-neutral-700 mb-2">
                                 IC No
                             </label>
                             <input type="text" 
                                    id="ic_no" 
                                    name="ic_no" 
                                    value="{{ old('ic_no') }}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('ic_no') border-red-500 @enderror"
+                                   class="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('ic_no') border-red-500 @enderror"
                                    placeholder="e.g., 123456789012">
                             @error('ic_no')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -152,14 +152,14 @@
 
                         <!-- IC No 2 -->
                         <div>
-                            <label for="ic_no_2" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="ic_no_2" class="block text-sm font-medium text-neutral-700 mb-2">
                                 IC No 2
                             </label>
                             <input type="text" 
                                    id="ic_no_2" 
                                    name="ic_no_2" 
                                    value="{{ old('ic_no_2') }}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('ic_no_2') border-red-500 @enderror"
+                                   class="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('ic_no_2') border-red-500 @enderror"
                                    placeholder="e.g., 987654321098">
                             @error('ic_no_2')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -168,14 +168,14 @@
 
                         <!-- Court Case Number -->
                         <div>
-                            <label for="court_case_number" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="court_case_number" class="block text-sm font-medium text-neutral-700 mb-2">
                                 Court Case Number
                             </label>
                             <input type="text" 
                                    id="court_case_number" 
                                    name="court_case_number" 
                                    value="{{ old('court_case_number') }}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('court_case_number') border-red-500 @enderror"
+                                   class="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('court_case_number') border-red-500 @enderror"
                                    placeholder="e.g., CC2024001">
                             @error('court_case_number')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -184,7 +184,7 @@
 
                         <!-- RO Date -->
                         <div>
-                            <label for="ro_date" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="ro_date" class="block text-sm font-medium text-neutral-700 mb-2">
                                 RO Date
                             </label>
                             <input type="text" 
@@ -192,7 +192,7 @@
                                    name="ro_date" 
                                    value="{{ old('ro_date') }}"
                                    placeholder="Select RO Date"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('ro_date') border-red-500 @enderror">
+                                   class="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('ro_date') border-red-500 @enderror">
                             @error('ro_date')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -200,7 +200,7 @@
 
                         <!-- AO Date -->
                         <div>
-                            <label for="ao_date" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="ao_date" class="block text-sm font-medium text-neutral-700 mb-2">
                                 AO Date
                             </label>
                             <input type="text" 
@@ -208,7 +208,7 @@
                                    name="ao_date" 
                                    value="{{ old('ao_date') }}"
                                    placeholder="Select AO Date"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('ao_date') border-red-500 @enderror">
+                                   class="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('ao_date') border-red-500 @enderror">
                             @error('ao_date')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -216,7 +216,7 @@
 
                         <!-- Updated Date -->
                         <div>
-                            <label for="updated_date" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="updated_date" class="block text-sm font-medium text-neutral-700 mb-2">
                                 Updated Date
                             </label>
                             <input type="text" 
@@ -224,7 +224,7 @@
                                    name="updated_date" 
                                    value="{{ old('updated_date') }}"
                                    placeholder="Select Date & Time"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('updated_date') border-red-500 @enderror">
+                                   class="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('updated_date') border-red-500 @enderror">
                             @error('updated_date')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -232,14 +232,14 @@
 
                         <!-- Branch Name -->
                         <div>
-                            <label for="branch_name" class="block text-sm font-medium text-gray-700 mb-2">
+                            <label for="branch_name" class="block text-sm font-medium text-neutral-700 mb-2">
                                 Branch Name
                             </label>
                             <input type="text" 
                                    id="branch_name" 
                                    name="branch_name" 
                                    value="{{ old('branch_name') }}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('branch_name') border-red-500 @enderror"
+                                   class="w-full px-3 py-2 border border-neutral-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('branch_name') border-red-500 @enderror"
                                    placeholder="e.g., Kuala Lumpur Branch">
                             @error('branch_name')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -250,7 +250,7 @@
 
                         <!-- Submit Button -->
                         <div class="flex justify-end space-x-4 no-print">
-                            <a href="{{ route('annulment-indv.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg transition duration-200">
+                            <a href="{{ route('annulment-indv.index') }}" class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-lg transition duration-200">
                                 Cancel
                             </a>
                             <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">

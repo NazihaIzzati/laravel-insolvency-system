@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Insolvency Data System') }} - @yield('title', 'Dashboard')</title>
+    <title>{{ config('app.name', 'Insolvency Information System') }} - @yield('title', 'Dashboard')</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -13,6 +13,9 @@
 
     <!-- FontAwesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Boxicons CDN -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <!-- SweetAlert2 CSS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -22,21 +25,24 @@
     
     <!-- Flatpickr JS -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans antialiased bg-gray-50 flex flex-col min-h-screen">
+    <body class="font-sans antialiased bg-white flex flex-col min-h-screen">
     <div class="flex-1">
         <!-- Navigation -->
         @auth
-            <nav class="bg-white border-b border-primary-200 shadow-sm">
+            <nav class="bg-white border-b border-gray-200 shadow-sm">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between items-center h-16">
                         <!-- Logo -->
                         <div class="flex items-center">
-                            <a href="{{ route('dashboard') }}" class="text-xl font-semibold text-primary-900 hover:text-primary-700 transition-colors duration-200">
-                                Insolvency <span class="text-accent-500">Data System</span>
+                            <a href="{{ auth()->user()->isIdManagement() ? route('id-management.dashboard') : (auth()->user()->hasAdminPrivileges() ? route('admin.dashboard') : route('dashboard')) }}" class="flex items-center space-x-3 text-xl font-semibold text-gray-900 hover:text-gray-700 transition-colors duration-200">
+                                <img src="{{ asset('images/logo_bmmb.png') }}" alt="BMMB Logo" class="h-10 w-auto">
+                                <div class="w-px h-8 bg-gray-300"></div>
+                                <span><span class="text-orange-500">Insolvency</span> <span class="text-gray-800">Data System</span></span>
                             </a>
                         </div>
 
@@ -44,60 +50,60 @@
                         <div class="flex items-center">
                             <!-- User Profile Dropdown -->
                             <div class="relative group">
-                                <button class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-primary-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-500">
-                                    <div class="w-8 h-8 bg-gradient-to-br from-accent-500 to-accent-600 rounded-full flex items-center justify-center shadow-sm">
-                                        <span class="text-sm font-semibold text-white">{{ substr(auth()->user()->name, 0, 1) }}</span>
+                                <button class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500">
+                                    <div class="w-8 h-8 rounded-full overflow-hidden shadow-sm">
+                                        <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="w-full h-full object-cover">
                                     </div>
                                     <div class="hidden sm:block text-left">
-                                        <p class="text-sm font-medium text-primary-900">{{ auth()->user()->name }}</p>
-                                        <p class="text-xs text-primary-500">{{ auth()->user()->role_display }}</p>
+                                        <p class="text-sm font-medium text-gray-900">{{ auth()->user()->name }}</p>
+                                        <p class="text-xs text-gray-700">{{ auth()->user()->role_display }}</p>
                                     </div>
-                                    <i class="fas fa-chevron-down text-primary-400 group-hover:text-primary-600 transition-colors duration-200"></i>
+                                    <i class="bx bx-chevron-down text-gray-800 group-hover:text-gray-800 transition-colors duration-200"></i>
                                 </button>
                                 
                                 <!-- Dropdown Menu -->
-                                <div class="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg border border-primary-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                <div class="absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                                     <div class="p-4">
                                         <!-- Profile Header -->
                                         <div class="flex items-center space-x-3 mb-4">
-                                            <div class="w-12 h-12 bg-gradient-to-br from-accent-500 to-accent-600 rounded-full flex items-center justify-center shadow-md">
-                                                <span class="text-lg font-bold text-white">{{ substr(auth()->user()->name, 0, 1) }}</span>
+                                            <div class="w-12 h-12 rounded-full overflow-hidden shadow-md">
+                                                <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="w-full h-full object-cover">
                                             </div>
                                             <div class="flex-1">
-                                                <p class="text-base font-semibold text-primary-900">{{ auth()->user()->name }}</p>
-                                                <p class="text-sm text-primary-500">{{ auth()->user()->email }}</p>
+                                                <p class="text-base font-semibold text-gray-900">{{ auth()->user()->name }}</p>
+                                                <p class="text-sm text-gray-700">{{ auth()->user()->email }}</p>
                                             </div>
                                         </div>
                                         
                                         <!-- Profile Information -->
-                                        <div class="bg-gray-50 rounded-lg p-3 mb-4">
+                                        <div class="bg-white rounded-lg p-3 mb-4">
                                             <div class="grid grid-cols-2 gap-3 text-xs">
                                                 <div class="flex items-center space-x-2">
-                                                    <i class="fas fa-user-tag text-primary-400"></i>
+                                                    <i class="bx bx-user text-gray-800"></i>
                                                     <div>
-                                                        <p class="text-gray-500">Role</p>
-                                                        <p class="font-medium text-primary-900">{{ auth()->user()->role_display }}</p>
+                                                        <p class="text-gray-700">Role</p>
+                                                        <p class="font-medium text-gray-900">{{ auth()->user()->role_display }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="flex items-center space-x-2">
-                                                    <i class="fas fa-circle text-{{ auth()->user()->is_active ? 'green' : 'red' }}-400"></i>
+                                                    <i class="bx bx-circle text-{{ auth()->user()->is_active ? 'green' : 'red' }}-400"></i>
                                                     <div>
-                                                        <p class="text-gray-500">Status</p>
-                                                        <p class="font-medium text-primary-900">{{ auth()->user()->is_active ? 'Active' : 'Inactive' }}</p>
+                                                        <p class="text-gray-700">Status</p>
+                                                        <p class="font-medium text-gray-900">{{ auth()->user()->is_active ? 'Active' : 'Inactive' }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="flex items-center space-x-2">
-                                                    <i class="fas fa-calendar text-primary-400"></i>
+                                                    <i class="bx bx-calendar text-gray-800"></i>
                                                     <div>
-                                                        <p class="text-gray-500">Member Since</p>
-                                                        <p class="font-medium text-primary-900">{{ auth()->user()->created_at->format('M Y') }}</p>
+                                                        <p class="text-gray-700">Member Since</p>
+                                                        <p class="font-medium text-gray-900">{{ auth()->user()->created_at->format('M Y') }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="flex items-center space-x-2">
-                                                    <i class="fas fa-clock text-primary-400"></i>
+                                                    <i class="bx bx-time text-gray-800"></i>
                                                     <div>
-                                                        <p class="text-gray-500">Last Login</p>
-                                                        <p class="font-medium text-primary-900">{{ auth()->user()->updated_at->diffForHumans() }}</p>
+                                                        <p class="text-gray-700">Last Login</p>
+                                                        <p class="font-medium text-gray-900">{{ auth()->user()->updated_at->diffForHumans() }}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -107,22 +113,29 @@
                                         
                                         <!-- Action Buttons -->
                                         <div class="space-y-1">
-                                            <a href="{{ route('password.change') }}" class="flex items-center px-3 py-2 text-sm text-primary-700 hover:bg-primary-50 rounded-lg transition-colors duration-200">
-                                                <i class="fas fa-key mr-3 text-primary-400"></i>
+                                            <a href="{{ route('password.change') }}" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-white rounded-lg transition-colors duration-200">
+                                                <i class="bx bx-key mr-3 text-gray-400"></i>
                                                 Change Password
                                             </a>
                                             
                                             @if(auth()->user()->isAdmin())
-                                                <a href="{{ route('admin.dashboard') }}" class="flex items-center px-3 py-2 text-sm text-primary-700 hover:bg-primary-50 rounded-lg transition-colors duration-200">
-                                                    <i class="fas fa-cog mr-3 text-primary-400"></i>
+                                                <a href="{{ route('admin.dashboard') }}" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-white rounded-lg transition-colors duration-200">
+                                                    <i class="bx bx-cog mr-3 text-gray-400"></i>
                                                     Admin Panel
+                                                </a>
+                                            @endif
+                                            
+                                            @if(auth()->user()->isIdManagement())
+                                                <a href="{{ route('id-management.dashboard') }}" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-white rounded-lg transition-colors duration-200">
+                                                    <i class="bx bx-user-check mr-3 text-gray-400"></i>
+                                                    ID Management
                                                 </a>
                                             @endif
                                             
                                             <form method="POST" action="{{ route('logout') }}" class="block">
                                                 @csrf
                                                 <button type="submit" class="flex items-center w-full px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200">
-                                                    <i class="fas fa-sign-out-alt mr-3 text-red-400"></i>
+                                                    <i class="bx bx-log-out mr-3 text-red-400"></i>
                                                     Logout
                                                 </button>
                                             </form>
@@ -152,16 +165,16 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center space-x-4 mb-4 md:mb-0">
-                    <div class="text-sm text-gray-500">
-                        © {{ date('Y') }} {{ config('app.name', 'Insolvency Data System') }}. All rights reserved.
+                    <div class="text-sm text-gray-700">
+                        © {{ date('Y') }} {{ config('app.name', 'Insolvency Information System') }}. All rights reserved.
                     </div>
                 </div>
                 
                 <div class="flex items-center space-x-6">
-                    <div class="text-sm text-gray-500">
+                    <div class="text-sm text-gray-700">
                         Version 1.0.0
                     </div>
-                    <div class="text-sm text-gray-500">
+                    <div class="text-sm text-gray-700">
                         Last updated: {{ date('M d, Y') }}
                     </div>
                 </div>

@@ -3,223 +3,256 @@
 @section('title', 'Bulk Upload Annulment Records')
 
 @section('content')
-<div class="min-h-screen bg-primary-50">
+<div class="min-h-screen bg-white">
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Header -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Header Section -->
         <div class="mb-8">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold text-primary-900">Bulk Upload Annulment Records</h1>
-                    <p class="text-primary-600 mt-2">Upload multiple annulment records from Excel file</p>
+                    <h1 class="text-3xl font-bold text-gray-900">Bulk Upload Annulment Records</h1>
+                    <p class="text-gray-600 mt-1">Upload multiple annulment records at once using Excel file</p>
                 </div>
-                <a href="{{ route('annulment-indv.index') }}" class="professional-button">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                    </svg>
-                    Back to Records
+                <a href="{{ route('annulment-indv.index') }}" 
+                   class="inline-flex items-center px-4 py-2 text-white text-sm font-medium rounded-lg transition-colors duration-200"
+                   style="background-color: #dc2626;"
+                   onmouseover="this.style.backgroundColor='#b91c1c';"
+                   onmouseout="this.style.backgroundColor='#dc2626';">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Back to Annulment Records
                 </a>
             </div>
         </div>
 
-        <!-- Upload Form -->
-        <div class="professional-section">
-            <div class="professional-section-header">
-                <h3 class="text-lg font-medium text-primary-900">Upload Excel File</h3>
-                <p class="text-sm text-primary-500 mt-1">Select an Excel file containing annulment records</p>
-            </div>
-            <div class="professional-section-content">
-                <form method="POST" action="{{ route('annulment-indv.bulk-upload') }}" enctype="multipart/form-data" class="space-y-6">
-                    @csrf
-                    
-                    <!-- File Upload -->
-                    <div>
-                        <label for="file" class="form-label">Excel File <span class="text-red-500">*</span></label>
-                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md hover:border-primary-400 transition-colors duration-200">
-                            <div class="space-y-1 text-center">
-                                <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-                                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                                <div class="flex text-sm text-gray-600">
-                                    <label for="file" class="relative cursor-pointer bg-white rounded-md font-medium text-primary-600 hover:text-primary-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary-500">
-                                        <span>Upload a file</span>
-                                        <input id="file" name="file" type="file" class="sr-only" accept=".xlsx,.xls,.csv" required onchange="handleFileSelect(event)">
-                                    </label>
-                                    <p class="pl-1">or drag and drop</p>
-                                </div>
-                                <p class="text-xs text-gray-500">Excel files up to 50MB</p>
-                            </div>
-                        </div>
-                        @error('file')
-                            <p class="form-error">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <!-- File Info Display -->
-                    <div id="file-info" class="hidden">
-                        <div class="bg-green-50 border border-green-200 rounded-md p-4">
-                            <div class="flex">
-                                <div class="flex-shrink-0">
-                                    <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                                <div class="ml-3">
-                                    <h3 class="text-sm font-medium text-green-800">File Selected</h3>
-                                    <div class="mt-2 text-sm text-green-700">
-                                        <p id="file-name"></p>
-                                        <p id="file-size"></p>
-                                    </div>
-                                </div>
-                            </div>
+        <!-- Instructions Card -->
+        <div class="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-8">
+            <div class="flex items-start">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-info-circle text-blue-600 text-xl"></i>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-lg font-semibold text-blue-900">Upload Instructions</h3>
+                    <div class="mt-2 text-sm text-blue-800">
+                        <p class="mb-2">Follow these steps to upload annulment records in bulk:</p>
+                        <ol class="list-decimal list-inside space-y-1">
+                            <li>Download the Excel template using the button below</li>
+                            <li>Fill in the annulment information following the template format</li>
+                            <li>Ensure all required fields are filled correctly</li>
+                            <li>Upload the completed Excel file</li>
+                        </ol>
+                        <div class="mt-3 text-xs text-blue-700">
+                            <p><strong>Required fields:</strong> name, ic_no</p>
+                            <p><strong>Optional fields:</strong> others, court_case_no, release_date, updated_date, release_type, branch</p>
+                            <p><strong>Date format:</strong> YYYY-MM-DD | <strong>Max file size:</strong> 10MB | <strong>Supported formats:</strong> .xlsx, .xls, .csv</p>
                         </div>
                     </div>
-
-                    <!-- Instructions -->
-                    <div class="bg-blue-50 border border-blue-200 rounded-md p-4">
-                        <div class="flex">
-                            <div class="flex-shrink-0">
-                                <svg class="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                            <div class="ml-3">
-                                <h3 class="text-sm font-medium text-blue-800">Excel File Format Requirements</h3>
-                                <div class="mt-2 text-sm text-blue-700">
-                                    <ul class="list-disc pl-5 space-y-1">
-                                        <li>Download the Excel template to see the required format</li>
-                                        <li>Fill in your annulment data following the template structure</li>
-                                        <li>Required fields: name, ic_no</li>
-                                        <li>Optional fields: others, court_case_no, release_date, updated_date, release_type, branch</li>
-                                        <li>Dates should be in YYYY-MM-DD format</li>
-                                        <li>Maximum file size: 50MB (large files will be processed with optimized memory management)</li>
-                                        <li>Supported formats: .xlsx, .xls, .csv</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Expected Columns -->
-                    <div class="bg-gray-50 border border-gray-200 rounded-md p-4">
-                        <h4 class="text-sm font-medium text-gray-800 mb-3">Expected Excel Columns:</h4>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-600">
-                            <div>
-                                <p class="font-medium text-gray-700">Column A:</p>
-                                <p>• name (Nama)</p>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-700">Column B:</p>
-                                <p>• ic_no (No. K/P Baru)</p>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-700">Column C:</p>
-                                <p>• others (No. Lain)</p>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-700">Column D:</p>
-                                <p>• court_case_no (No. Kes Mahkamah)</p>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-700">Column E:</p>
-                                <p>• release_date (Tarikh Pelepasan)</p>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-700">Column F:</p>
-                                <p>• updated_date (Tarikh Kemaskini)</p>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-700">Column G:</p>
-                                <p>• release_type (Jenis Pelepasan)</p>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-700">Column H:</p>
-                                <p>• branch (Nama Cawangan)</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Submit Buttons -->
-                    <div class="flex justify-end space-x-3">
-                        <a href="{{ route('annulment-indv.index') }}" class="btn-outline">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                            Cancel
-                        </a>
-                        <button type="submit" class="btn-primary" id="upload-btn" disabled>
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                            </svg>
-                            Upload Records
-                        </button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
+
+        <!-- Upload Form Card -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">Upload Annulment Records</h3>
+                <p class="text-sm text-gray-500 mt-1">Select your Excel file to upload annulment records</p>
+            </div>
+            
+            <form action="{{ route('annulment-indv.bulk-upload.process') }}" method="POST" enctype="multipart/form-data" class="p-6">
+                @csrf
+                
+                <!-- File Upload -->
+                <div class="mb-6">
+                    <label for="excel_file" class="block text-sm font-medium text-gray-700 mb-2">
+                        Excel File <span class="text-red-500">*</span>
+                    </label>
+                    <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-orange-300 transition-colors duration-200">
+                        <div class="space-y-1 text-center">
+                            <i class="fas fa-cloud-upload-alt text-gray-400 text-4xl mb-4"></i>
+                            <div class="flex text-sm text-gray-600">
+                                <label for="excel_file" class="relative cursor-pointer bg-white rounded-md font-medium text-orange-600 hover:text-orange-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-orange-500">
+                                    <span>Upload a file</span>
+                                    <input id="excel_file" name="excel_file" type="file" class="sr-only" accept=".xlsx,.xls,.csv" required>
+                                </label>
+                                <p class="pl-1">or drag and drop</p>
+                            </div>
+                            <p class="text-xs text-gray-500">Excel files only (XLSX, XLS, CSV) up to 10MB</p>
+                        </div>
+                    </div>
+                    @error('excel_file')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- File Preview -->
+                <div id="file-preview" class="hidden mb-6">
+                    <div class="bg-white rounded-lg p-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-file-excel text-green-600 text-xl mr-3"></i>
+                            <div class="flex-1">
+                                <p class="text-sm font-medium text-gray-900" id="file-name"></p>
+                                <p class="text-xs text-gray-500" id="file-size"></p>
+                            </div>
+                            <button type="button" id="remove-file" class="text-red-600 hover:text-red-800">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="flex items-center justify-between">
+                    <a href="{{ route('annulment-indv.template') }}" class="inline-flex items-center px-4 py-2 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-200">
+                        <i class="fas fa-download mr-2"></i>
+                        Download Template
+                    </a>
+                    
+                    <div class="flex items-center space-x-4">
+                        <a href="{{ route('annulment-indv.index') }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
+                            Cancel
+                        </a>
+                        <button type="submit" id="upload-btn" class="inline-flex items-center px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors duration-200">
+                            <i class="fas fa-upload mr-2"></i>
+                            <span id="upload-text">Upload Records</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Loading Progress Card -->
+        <div id="loading-progress" class="hidden bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">Uploading Annulment Records</h3>
+                <p class="text-sm text-gray-500 mt-1">Please wait while we process your data...</p>
+            </div>
+            <div class="p-6">
+                <div class="flex items-center justify-center mb-4">
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-spinner fa-spin text-orange-600 text-xl"></i>
+                    </div>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2 mb-4">
+                    <div id="progress-bar" class="bg-orange-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+                <div class="text-center">
+                    <p id="progress-text" class="text-sm text-gray-600">Preparing upload...</p>
+                    <p id="progress-details" class="text-xs text-gray-500 mt-1">Please do not close this page</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
 <script>
-function handleFileSelect(event) {
-    const file = event.target.files[0];
-    const fileInfo = document.getElementById('file-info');
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('excel_file');
+    const filePreview = document.getElementById('file-preview');
     const fileName = document.getElementById('file-name');
     const fileSize = document.getElementById('file-size');
+    const removeFileBtn = document.getElementById('remove-file');
     const uploadBtn = document.getElementById('upload-btn');
+    const uploadText = document.getElementById('upload-text');
+    const loadingProgress = document.getElementById('loading-progress');
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+    const progressDetails = document.getElementById('progress-details');
+    const dropZone = fileInput.closest('.border-dashed');
     
-    if (file) {
-        // Validate file type
-        const allowedTypes = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 
-                             'application/vnd.ms-excel', 
-                             'text/csv'];
+    // Handle file selection
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            showFilePreview(file);
+        }
+    });
+    
+    // Handle remove file
+    removeFileBtn.addEventListener('click', function() {
+        fileInput.value = '';
+        hideFilePreview();
+    });
+    
+    // Handle drag and drop
+    dropZone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        dropZone.classList.add('border-orange-400', 'bg-orange-50');
+    });
+    
+    dropZone.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        dropZone.classList.remove('border-orange-400', 'bg-orange-50');
+    });
+    
+    dropZone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        dropZone.classList.remove('border-orange-400', 'bg-orange-50');
         
-        if (!allowedTypes.includes(file.type)) {
-            Swal.fire({
-                title: 'Invalid File Type',
-                text: 'Please select an Excel file (.xlsx, .xls) or CSV file.',
-                icon: 'error',
-                confirmButtonColor: '#d33',
-                confirmButtonText: 'OK'
-            });
-            event.target.value = '';
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            fileInput.files = files;
+            fileInput.dispatchEvent(new Event('change'));
+        }
+    });
+    
+    // Handle form submission
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+        if (fileInput.files.length === 0) {
+            e.preventDefault();
+            alert('Please select a file to upload.');
             return;
         }
         
-        // Validate file size (50MB)
-        const maxSize = 50 * 1024 * 1024; // 50MB in bytes
-        if (file.size > maxSize) {
-            Swal.fire({
-                title: 'File Too Large',
-                text: 'File size must be less than 50MB.',
-                icon: 'error',
-                confirmButtonColor: '#d33',
-                confirmButtonText: 'OK'
-            });
-            event.target.value = '';
-            return;
-        }
+        showLoadingProgress();
+    });
+    
+    function showFilePreview(file) {
+        const fileNameText = file.name;
+        const fileSizeText = formatFileSize(file.size);
         
-        // Show file info
-        fileName.textContent = `File: ${file.name}`;
-        fileSize.textContent = `Size: ${(file.size / 1024 / 1024).toFixed(2)} MB`;
-        fileInfo.classList.remove('hidden');
-        uploadBtn.disabled = false;
+        fileName.textContent = fileNameText;
+        fileSize.textContent = fileSizeText;
         
-        // Show success message
-        Swal.fire({
-            title: 'File Selected',
-            text: 'File is ready for upload.',
-            icon: 'success',
-            confirmButtonColor: '#22c55e',
-            confirmButtonText: 'OK',
-            timer: 3000,
-            timerProgressBar: true
-        });
-    } else {
-        fileInfo.classList.add('hidden');
-        uploadBtn.disabled = true;
+        filePreview.classList.remove('hidden');
+        dropZone.classList.add('hidden');
     }
-}
+    
+    function hideFilePreview() {
+        filePreview.classList.add('hidden');
+        dropZone.classList.remove('hidden');
+    }
+    
+    function formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+    
+    function showLoadingProgress() {
+        loadingProgress.classList.remove('hidden');
+        uploadBtn.disabled = true;
+        uploadText.textContent = 'Uploading...';
+        
+        // Simulate progress
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += Math.random() * 15;
+            if (progress > 90) progress = 90;
+            
+            progressBar.style.width = progress + '%';
+            progressText.textContent = `Uploading... ${Math.round(progress)}%`;
+            
+            if (progress >= 90) {
+                clearInterval(interval);
+                progressText.textContent = 'Finalizing upload...';
+                progressDetails.textContent = 'Almost done, please wait...';
+            }
+        }, 500);
+    }
+});
 </script>
 @endsection

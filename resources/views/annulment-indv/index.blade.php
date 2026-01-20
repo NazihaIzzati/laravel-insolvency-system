@@ -3,60 +3,34 @@
 @section('title', 'Annulment Records')
 
 @section('content')
-<div class="min-h-screen bg-primary-50">
+<div class="min-h-screen bg-white">
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Welcome Section -->
-        <div class="bg-gradient-to-r from-primary-900 to-accent-600 rounded-xl shadow-lg mb-8">
-            <div class="px-8 py-12">
-                <div class="flex items-center justify-between">
-                    <div class="text-white">
-                        <h1 class="text-4xl font-light mb-3">Annulment Records</h1>
-                        <p class="text-xl text-primary-100 mb-2">Manage annulment individual profiles</p>
-                        <p class="text-primary-200">Track and manage all annulment cases</p>
-                    </div>
-                    <div class="text-right text-white">
-                        <div class="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg px-6 py-4">
-                            <p class="text-sm text-primary-100 mb-1">Total Records</p>
-                            <p class="text-lg font-medium">{{ $annulmentIndv->total() }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Actions Section -->
         <div class="professional-section mb-6">
             <div class="professional-section-content">
                 <div class="flex flex-wrap justify-between items-center gap-3">
                     <div class="flex flex-wrap gap-3">
-                        <a href="{{ route('annulment-indv.create') }}" class="professional-button-primary">
+                        <a href="{{ route('annulment-indv.create') }}" class="inline-flex items-center px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors duration-200">
                             <i class="fas fa-plus mr-2"></i>
                             Add New Record
                         </a>
-                        <a href="{{ route('annulment-indv.bulk-upload') }}" class="professional-button-accent">
+                        
+                        <a href="{{ route('annulment-indv.bulk-upload') }}" class="inline-flex items-center px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-300 hover:bg-white focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200">
                             <i class="fas fa-upload mr-2"></i>
                             Bulk Upload
                         </a>
+                        
                         @if($annulmentIndv->total() > 0)
-                            <a href="{{ route('annulment-indv.download') }}" class="professional-button-success">
+                            <a href="{{ route('annulment-indv.download') }}" class="inline-flex items-center px-4 py-2 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-200">
                                 <i class="fas fa-download mr-2"></i>
                                 Download Excel
                             </a>
                         @endif
                     </div>
                     <div class="flex gap-3 items-center">
-                        <div class="flex items-center gap-2">
-                            <label for="per_page" class="text-sm font-medium text-primary-700">Records per page:</label>
-                            <select id="per_page" name="per_page" class="professional-input py-1 px-2 text-sm" onchange="changePerPage(this.value)">
-                                <option value="5" {{ $perPage == 5 ? 'selected' : '' }}>5</option>
-                                <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>10</option>
-                                <option value="25" {{ $perPage == 25 ? 'selected' : '' }}>25</option>
-                                <option value="50" {{ $perPage == 50 ? 'selected' : '' }}>50</option>
-                                <option value="100" {{ $perPage == 100 ? 'selected' : '' }}>100</option>
-                            </select>
-                        </div>
-                        <a href="{{ route('dashboard') }}" class="professional-button">
+                        <a href="{{ auth()->user()->isIdManagement() ? route('id-management.dashboard') : (auth()->user()->isSuperUser() ? route('dashboard') : (auth()->user()->isAdmin() ? route('admin.dashboard') : route('dashboard'))) }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200">
                             <i class="fas fa-arrow-left mr-2"></i>
                             Back to Dashboard
                         </a>
@@ -65,113 +39,129 @@
             </div>
         </div>
 
-        <!-- Quick Search Section - Completely separate from cards -->
-        <div class="bg-gradient-to-r from-accent-50 to-primary-50 p-8 mb-6 border-l-4 border-accent-500">
-            <div class="flex items-center mb-6">
-                <div class="flex items-center justify-center w-12 h-12 bg-accent-100 rounded-full mr-4">
-                    <i class="fas fa-search text-accent-600 text-xl"></i>
-                </div>
-                <div>
-                    <h4 class="text-xl font-bold text-gray-900">Quick Search</h4>
-                    <p class="text-sm text-gray-600 mt-1">Find annulment records instantly</p>
+        <!-- Quick Search Section -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-search text-orange-600"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-900">Quick Search</h2>
+                            <p class="text-sm text-gray-500">Find annulment records instantly</p>
+                        </div>
+                    </div>
+                    <div class="hidden lg:flex items-center space-x-2 text-sm text-gray-500">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Search by IC number, name, or court case number</span>
+                    </div>
                 </div>
             </div>
             
-            <form id="annulmentSearchForm" class="space-y-6">
-                @csrf
-                <div>
-                    <label for="annulment_search_input" class="block text-sm font-semibold text-gray-700 mb-3">
-                        <i class="fas fa-info-circle mr-2"></i>
-                        Search Records
-                    </label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                            <i class="fas fa-search text-gray-400 text-lg"></i>
+            <div class="p-6">
+                <form id="annulmentSearchForm" class="space-y-4">
+                    @csrf
+                    <div>
+                        <label for="annulment_search_input" class="block text-sm font-medium text-gray-700 mb-2">
+                            Search Records
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-search text-gray-400"></i>
+                            </div>
+                            <input type="text" 
+                                   id="annulment_search_input" 
+                                   name="search_input" 
+                                   class="block w-full pl-10 pr-12 py-3 border border-gray-200 rounded-lg text-sm placeholder-gray-400 focus:border-orange-300 focus:ring-2 focus:ring-orange-100 focus:outline-none transition-all duration-200" 
+                                   placeholder="Enter IC number, name, court case number, or other reference..."
+                                   required>
+                            <button type="button" 
+                                    id="clearAnnulmentSearchBtn" 
+                                    class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200" 
+                                    style="display: none;" 
+                                    title="Clear search">
+                                <i class="fas fa-times"></i>
+                            </button>
                         </div>
-                        <input type="text" 
-                               id="annulment_search_input" 
-                               name="search_input" 
-                               class="block w-full pl-12 pr-16 py-4 border-2 border-gray-200 rounded-xl text-base placeholder-gray-400 focus:border-accent-500 focus:ring-4 focus:ring-accent-100 focus:outline-none transition-all duration-300 bg-white shadow-sm hover:shadow-md" 
-                               placeholder="Enter IC number, name, court case number, or other reference..."
-                               required>
-                        <button type="button" id="clearAnnulmentSearchBtn" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-all duration-200 p-2 rounded-full hover:bg-gray-100 cursor-pointer z-10" style="display: none;" title="Clear search">
-                            <i class="fas fa-times"></i>
+                        
+                        <!-- Search Tags -->
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <span class="pill-badge pill-badge-ic">
+                                <i class="fas fa-id-card mr-1"></i>
+                                IC Numbers
+                            </span>
+                            <span class="pill-badge pill-badge-name">
+                                <i class="fas fa-user mr-1"></i>
+                                Names
+                            </span>
+                            <span class="pill-badge pill-badge-court">
+                                <i class="fas fa-gavel mr-1"></i>
+                                Court Cases
+                            </span>
+                            <span class="pill-badge pill-badge-reference">
+                                <i class="fas fa-tag mr-1"></i>
+                                References
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-end">
+                        <button type="submit" class="inline-flex items-center px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-colors duration-200">
+                            <i class="fas fa-search mr-2"></i>
+                            Search Records
                         </button>
                     </div>
-                    <div class="mt-3 flex flex-wrap gap-2">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                            <i class="fas fa-check-circle mr-2"></i>
-                            IC Numbers
-                        </span>
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                            <i class="fas fa-user mr-2"></i>
-                            Names
-                        </span>
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                            <i class="fas fa-gavel mr-2"></i>
-                            Court Cases
-                        </span>
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
-                            <i class="fas fa-tag mr-2"></i>
-                            References
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="flex justify-end mt-6">
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-blue-200">
-                        <i class="fas fa-search mr-2"></i>
-                        Search Records
-                    </button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
 
         <!-- Enhanced Loading Spinner -->
-        <div id="annulmentLoadingSpinner" class="hidden bg-gray-50 p-12 mb-6">
+        <div id="annulmentLoadingSpinner" class="hidden bg-white p-12 mb-6">
             <div class="text-center">
-                <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-accent-100 to-primary-100 rounded-full mb-6">
-                    <i class="fas fa-spinner fa-spin text-accent-600 text-2xl"></i>
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-neutral-100 to-neutral-200 rounded-full mb-6">
+                    <i class="fas fa-spinner fa-spin text-neutral-600 text-2xl"></i>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-3">Searching Records</h3>
                 <p class="text-gray-600 mb-4">Please wait while we search for matching annulment records...</p>
-                <div class="w-full bg-gray-200 rounded-full h-2">
-                    <div class="bg-gradient-to-r from-accent-500 to-primary-500 h-2 rounded-full animate-pulse" style="width: 60%"></div>
+                <div class="w-full bg-white rounded-full h-2">
+                    <div class="bg-gradient-to-r from-neutral-500 to-neutral-600 h-2 rounded-full animate-pulse" style="width: 60%"></div>
                 </div>
             </div>
         </div>
         
         <!-- Enhanced Search Results -->
-        <div id="annulmentSearchResults" class="hidden bg-white mb-6">
-            <div class="bg-gradient-to-r from-green-50 to-emerald-50 px-8 py-6 border-l-4 border-green-500">
+        <div id="annulmentSearchResults" class="hidden bg-white rounded-xl shadow-sm border border-gray-200 mb-6 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
-                        <div class="flex items-center justify-center w-12 h-12 bg-green-100 rounded-full mr-4">
-                            <i class="fas fa-check-circle text-green-600 text-lg"></i>
+                        <div class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-check-circle text-orange-600"></i>
                         </div>
                         <div>
-                            <h3 class="text-xl font-bold text-gray-900">Search Results</h3>
-                            <p class="text-sm text-gray-600 mt-1">Matching annulment records found</p>
+                            <h3 class="text-lg font-semibold text-gray-900">Search Results</h3>
+                            <p class="text-sm text-gray-500">Matching annulment records found</p>
                         </div>
                     </div>
-                    <button type="button" id="clearAnnulmentSearchResultsBtn" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-800 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-all duration-200">
+                    <button type="button" id="clearAnnulmentSearchResultsBtn" class="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-600 bg-white rounded-lg hover:bg-white transition-colors duration-200">
                         <i class="fas fa-times mr-2"></i>
                         Clear Results
                     </button>
                 </div>
             </div>
-            <div class="overflow-x-auto bg-gray-50 px-8 py-6">
-                <table class="w-full divide-y divide-gray-200" style="min-width: 1000px;">
-                    <thead class="bg-gray-100">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200" style="min-width: 1200px;">
+                    <thead class="bg-white">
                         <tr>
-                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-48">Name</th>
-                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-32">IC No</th>
-                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-32">Others</th>
-                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-32">Court Case</th>
-                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-24">Release Date</th>
-                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-32">Release Type</th>
-                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-32">Branch</th>
-                            <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-24">Actions</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-48">Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">IC No</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40">Others</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40">Court Case</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-24">Release Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Updated Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40">Release Type</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40">Branch</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-24">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="annulmentSearchResultsBody" class="bg-white divide-y divide-gray-200">
@@ -182,7 +172,7 @@
         </div>
         
         <!-- Enhanced No Results -->
-        <div id="annulmentNoResults" class="hidden bg-gray-50 p-16 mb-6">
+        <div id="annulmentNoResults" class="hidden bg-white p-16 mb-6">
             <div class="text-center max-w-2xl mx-auto">
                 <!-- Animated Icon -->
                 <div class="relative mb-8">
@@ -206,105 +196,60 @@
         </div>
 
         <!-- Records Table -->
-        <div class="professional-section">
-            <div class="professional-section-header">
-                <h3 class="text-lg font-medium text-primary-900">Annulment Records</h3>
-                <p class="text-sm text-primary-500 mt-1">All annulment individual profiles</p>
-            </div>
-            <div class="professional-section-content">
-                <!-- Main Records Table -->
-                <div id="mainAnnulmentRecordsTable">
-                <div class="overflow-x-auto">
-                                <div class="flex items-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-blue-100">
-                                    <div class="flex items-center justify-center w-10 h-10 bg-purple-100 rounded-full mr-4">
-                                        <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <div class="text-sm font-bold text-gray-900">Partial Name Match</div>
-                                        <div class="text-xs text-gray-500">Use first or last name only</div>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-blue-100">
-                                    <div class="flex items-center justify-center w-10 h-10 bg-orange-100 rounded-full mr-4">
-                                        <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <div class="text-sm font-bold text-gray-900">Court Case Number</div>
-                                        <div class="text-xs text-gray-500">Search by case reference</div>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-blue-100">
-                                    <div class="flex items-center justify-center w-10 h-10 bg-pink-100 rounded-full mr-4">
-                                        <svg class="w-5 h-5 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <div class="text-sm font-bold text-gray-900">Reference Numbers</div>
-                                        <div class="text-xs text-gray-500">Other identification codes</div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Additional Help -->
-                            <div class="mt-6 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-xl">
-                                <div class="flex items-center">
-                                    <i class="fas fa-exclamation-triangle text-yellow-600 mr-2"></i>
-                                    <span class="text-sm font-medium text-yellow-800">Tip: Try searching with fewer characters or different keywords</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Action Button -->
-                        <div class="mt-8">
-                            <button type="button" id="clearAnnulmentSearchFromNoResults" class="inline-flex items-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-4 focus:ring-blue-200 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                                <i class="fas fa-redo mr-3"></i>
-                                Try Different Search
-                            </button>
-                        </div>
+        <div id="mainAnnulmentRecordsTable" class="bg-white rounded-xl shadow-sm border border-gray-200 mb-8 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900">Individual Annulment Records</h3>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm font-medium text-gray-700">Records</span>
+                        <label for="per_page" class="text-sm font-medium text-gray-700">per page:</label>
+                        <select id="per_page" name="per_page" class="text-sm border border-gray-300 rounded px-2 py-1" onchange="changePerPage(this.value)">
+                            <option value="5" {{ $perPage == 5 ? 'selected' : '' }}>5</option>
+                            <option value="10" {{ $perPage == 10 ? 'selected' : '' }}>10</option>
+                            <option value="25" {{ $perPage == 25 ? 'selected' : '' }}>25</option>
+                            <option value="50" {{ $perPage == 50 ? 'selected' : '' }}>50</option>
+                            <option value="100" {{ $perPage == 100 ? 'selected' : '' }}>100</option>
+                        </select>
                     </div>
                 </div>
-
+            </div>
+            <div class="p-6">
                 <!-- Main Records Table -->
-                <div id="mainAnnulmentRecordsTable">
+                <div>
                 <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-primary-200" style="min-width: 1200px;">
-                        <thead class="bg-primary-50">
+                    <table class="min-w-full divide-y divide-gray-200" style="min-width: 1200px;">
+                        <thead class="bg-white">
                             <tr>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-48">Name</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-32">IC No</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-40">Others</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-40">Court Case</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-24">Release Date</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-32">Updated Date</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-40">Release Type</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-40">Branch</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-primary-500 uppercase tracking-wider w-24">Actions</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-48">Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">IC No</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40">Others</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40">Court Case</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-24">Release Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">Updated Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40">Release Type</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-40">Branch</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-24">Actions</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white divide-y divide-primary-200">
+                        <tbody class="bg-white divide-y divide-gray-200">
                             @forelse($annulmentIndv as $annulment)
-                                <tr class="hover:bg-primary-50 transition-colors duration-200">
-                                    <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm text-primary-900">{{ $annulment->name ?? 'N/A' }}</span>
+                                <tr class="hover:bg-gray-50 transition-colors duration-200">
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900">{{ $annulment->name ?? 'N/A' }}</div>
                                     </td>
-                                    <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm text-primary-600">{{ $annulment->ic_no ?? 'N/A' }}</span>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-500 font-mono">{{ $annulment->ic_no ?? 'N/A' }}</div>
                                     </td>
-                                    <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm text-primary-900">{{ $annulment->others ?? 'N/A' }}</span>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-500">{{ $annulment->others ?? 'N/A' }}</div>
                                     </td>
-                                    <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm text-primary-900">{{ $annulment->court_case_no ?? 'N/A' }}</span>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-500">{{ $annulment->court_case_no ?? 'N/A' }}</div>
                                     </td>
-                                    <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm text-primary-900">
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-500">
                                             @if($annulment->release_date)
                                                 @if(is_string($annulment->release_date))
                                                     {{ \Carbon\Carbon::parse($annulment->release_date)->format('d/m/Y') }}
@@ -314,39 +259,45 @@
                                             @else
                                                 N/A
                                             @endif
-                                        </span>
+                                        </div>
                                     </td>
-                                    <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm text-primary-900">{{ $annulment->formatted_updated_date }}</span>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-500">{{ $annulment->formatted_updated_date }}</div>
                                     </td>
-                                    <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm text-primary-900">{{ $annulment->release_type ?? 'N/A' }}</span>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-500">{{ $annulment->release_type ?? 'N/A' }}</div>
                                     </td>
-                                    <td class="px-4 py-3 whitespace-nowrap">
-                                        <span class="text-sm text-primary-900">{{ $annulment->branch ?? 'N/A' }}</span>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-500">{{ $annulment->branch ?? 'N/A' }}</div>
                                     </td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm font-medium">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                         <div class="flex space-x-2">
-                                            <a href="{{ route('annulment-indv.show', $annulment) }}" class="text-accent-600 hover:text-accent-700 transition-colors duration-200">View</a>
-                                            <a href="{{ route('annulment-indv.edit', $annulment) }}" class="text-green-600 hover:text-green-700 transition-colors duration-200">Edit</a>
-                                            <form method="POST" action="{{ route('annulment-indv.destroy', $annulment) }}" class="inline" onsubmit="return confirmDeleteAnnulment(event)">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:text-red-700 transition-colors duration-200">Delete</button>
-                                            </form>
+                                            <button onclick="showAnnulmentDetails({{ $annulment->id }})" class="inline-flex items-center px-3 py-2 bg-purple-100 text-purple-700 text-sm font-medium rounded-lg hover:bg-purple-200 transition-colors duration-200">
+                                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                </svg>
+                                                View
+                                            </button>
+                                            <a href="{{ route('annulment-indv.edit', $annulment) }}" class="inline-flex items-center px-3 py-2 bg-green-100 text-green-700 text-sm font-medium rounded-lg hover:bg-green-200 transition-colors duration-200">
+                                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                                Edit
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="px-4 py-8 text-center text-primary-500">
+                                    <td colspan="9" class="px-4 py-8 text-center text-neutral-500">
                                         <div class="flex flex-col items-center">
-                                            <svg class="mx-auto h-12 w-12 text-primary-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg class="mx-auto h-12 w-12 text-neutral-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                                             </svg>
                                             <p class="text-sm font-medium">No annulment records found</p>
-                                            <p class="text-xs text-primary-400 mt-1">
-                                                <a href="{{ route('annulment-indv.create') }}" class="text-accent-600 hover:text-accent-700">Add the first record</a>
+                                            <p class="text-xs text-neutral-400 mt-1">
+                                                <a href="{{ route('annulment-indv.create') }}" class="text-neutral-600 hover:text-neutral-700">Add the first record</a>
                                             </p>
                                         </div>
                                     </td>
@@ -359,7 +310,7 @@
                 <!-- Pagination -->
                 @if($annulmentIndv->hasPages())
                     <div class="mt-6 flex items-center justify-between">
-                        <div class="text-sm text-primary-600">
+                        <div class="text-sm text-gray-700">
                             Showing {{ $annulmentIndv->firstItem() }} to {{ $annulmentIndv->lastItem() }} of {{ $annulmentIndv->total() }} results
                         </div>
                         <div class="flex items-center space-x-2">
@@ -367,7 +318,7 @@
                         </div>
                     </div>
                 @endif
-                </div> <!-- End mainAnnulmentRecordsTable -->
+                </div>
             </div>
         </div>
     </div>
@@ -432,6 +383,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => {
             console.error('Error:', error);
             annulmentLoadingSpinner.classList.add('hidden');
+            mainAnnulmentRecordsTable.classList.remove('hidden');
             Swal.fire({
                 title: 'Error!',
                 text: 'An error occurred while searching. Please try again.',
@@ -484,6 +436,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function displayAnnulmentSearchResults(results) {
         annulmentSearchResultsBody.innerHTML = '';
         
+        // Hide main records table
+        mainAnnulmentRecordsTable.classList.add('hidden');
+        
         // Update results count in header
         const resultsCount = results.length;
         const resultsHeader = annulmentSearchResults.querySelector('h3');
@@ -499,65 +454,56 @@ document.addEventListener('DOMContentLoaded', function() {
         
         results.forEach((result, index) => {
             const row = document.createElement('tr');
-            row.className = 'hover:bg-gradient-to-r hover:from-gray-50 hover:to-blue-50 transition-all duration-300 border-b border-gray-100';
-            
-            // Add alternating row colors
-            if (index % 2 === 0) {
-                row.classList.add('bg-white');
-            } else {
-                row.classList.add('bg-gray-50');
-            }
+            row.className = 'hover:bg-gray-50 transition-colors duration-200';
             
             row.innerHTML = `
-                <td class="px-8 py-6 whitespace-nowrap">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0 h-10 w-10">
-                            <div class="h-10 w-10 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 flex items-center justify-center">
-                                <span class="text-sm font-bold text-white">${(result.name || 'N/A').charAt(0).toUpperCase()}</span>
-                            </div>
-                        </div>
-                        <div class="ml-4">
-                            <div class="text-sm font-bold text-gray-900">${result.name || 'N/A'}</div>
-                            <div class="text-xs text-gray-500">Annulment Record</div>
-                        </div>
-                    </div>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm font-medium text-gray-900">${result.name || 'N/A'}</div>
                 </td>
-                <td class="px-8 py-6 whitespace-nowrap">
-                    <div class="text-sm font-medium text-gray-900 bg-blue-50 px-3 py-1 rounded-lg inline-block">${result.ic_no || 'N/A'}</div>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-500 font-mono">${result.ic_no || 'N/A'}</div>
                 </td>
-                <td class="px-8 py-6 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">${result.others || 'N/A'}</div>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-500">${result.others || 'N/A'}</div>
                 </td>
-                <td class="px-8 py-6 whitespace-nowrap">
-                    <div class="text-sm font-medium text-gray-900 bg-purple-50 px-3 py-1 rounded-lg inline-block">${result.court_case_no || 'N/A'}</div>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-500">${result.court_case_no || 'N/A'}</div>
                 </td>
-                <td class="px-8 py-6 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-500">
                         ${result.release_date ? 
-                            `<span class="bg-green-50 text-green-800 px-3 py-1 rounded-lg text-xs font-medium">${new Date(result.release_date).toLocaleDateString()}</span>` : 
-                            '<span class="text-gray-400">N/A</span>'
+                            new Date(result.release_date).toLocaleDateString() : 
+                            'N/A'
                         }
                     </div>
                 </td>
-                <td class="px-8 py-6 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">
-                        ${result.release_type ? 
-                            `<span class="bg-orange-50 text-orange-800 px-3 py-1 rounded-lg text-xs font-medium">${result.release_type}</span>` : 
-                            '<span class="text-gray-400">N/A</span>'
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-500">
+                        ${result.updated_at ? 
+                            new Date(result.updated_at).toLocaleDateString() : 
+                            'N/A'
                         }
                     </div>
                 </td>
-                <td class="px-8 py-6 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">${result.branch || 'N/A'}</div>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-500">${result.release_type || 'N/A'}</div>
                 </td>
-                <td class="px-8 py-6 whitespace-nowrap text-sm font-medium">
-                    <div class="flex space-x-3">
-                        <a href="/annulment-indv/${result.id}" class="inline-flex items-center px-3 py-2 text-xs font-medium text-white bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 shadow-sm hover:shadow-md">
-                            <i class="fas fa-eye mr-2"></i>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-500">${result.branch || 'N/A'}</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <div class="flex space-x-2">
+                        <a href="/annulment-indv/${result.id}" class="inline-flex items-center px-3 py-2 bg-purple-100 text-purple-700 text-sm font-medium rounded-lg hover:bg-purple-200 transition-colors duration-200">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
                             View
                         </a>
-                        <a href="/annulment-indv/${result.id}/edit" class="inline-flex items-center px-3 py-2 text-xs font-medium text-white bg-gradient-to-r from-green-500 to-green-600 rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200 shadow-sm hover:shadow-md">
-                            <i class="fas fa-edit mr-2"></i>
+                        <a href="/annulment-indv/${result.id}/edit" class="inline-flex items-center px-3 py-2 bg-green-100 text-green-700 text-sm font-medium rounded-lg hover:bg-green-200 transition-colors duration-200">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
                             Edit
                         </a>
                     </div>
@@ -572,6 +518,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function showAnnulmentNoResults() {
         annulmentNoResults.classList.remove('hidden');
+        annulmentSearchResults.classList.add('hidden');
+        mainAnnulmentRecordsTable.classList.add('hidden');
     }
 });
 
@@ -600,5 +548,143 @@ function changePerPage(value) {
     url.searchParams.delete('page'); // Reset to first page when changing per_page
     window.location.href = url.toString();
 }
+
+// Annulment Details Modal
+function showAnnulmentDetails(id) {
+    fetch(`/annulment-indv/${id}`)
+        .then(response => response.text())
+        .then(html => {
+            // Create a temporary div to parse the HTML
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            
+            // Extract the record details from the show page
+            const recordDetails = tempDiv.querySelector('.pdf-content');
+            if (recordDetails) {
+                // Create modal content
+                const modalContent = `
+                    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+                            <div class="p-6">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h3 class="text-xl font-semibold text-gray-900">Annulment Record Details</h3>
+                                    <button onclick="closeAnnulmentModal()" class="text-gray-400 hover:text-gray-600">
+                                        <i class="bx bx-x text-2xl"></i>
+                                    </button>
+                                </div>
+                                <div class="record-details">
+                                    ${recordDetails.innerHTML}
+                                </div>
+                                <div class="flex justify-end mt-6 pt-4 border-t border-gray-200">
+                                    <button onclick="closeAnnulmentModal()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-200">
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add modal to body
+                document.body.insertAdjacentHTML('beforeend', modalContent);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                title: 'Error!',
+                text: 'An error occurred while fetching record details.',
+                icon: 'error',
+                confirmButtonColor: '#ef4444',
+                confirmButtonText: 'OK'
+            });
+        });
+}
+
+function closeAnnulmentModal() {
+    const modal = document.querySelector('.fixed.inset-0.bg-black.bg-opacity-50');
+    if (modal) {
+        modal.remove();
+    }
+}
+
+// Download Filtered Data functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const downloadFilteredBtn = document.getElementById('downloadFilteredBtn');
+    const searchInput = document.getElementById('annulment_search_input');
+    const searchForm = document.getElementById('annulmentSearchForm');
+    
+    // Enable/disable download filtered button based on search input
+    if (searchInput && downloadFilteredBtn) {
+        searchInput.addEventListener('input', function() {
+            if (this.value.trim().length > 0) {
+                downloadFilteredBtn.disabled = false;
+                downloadFilteredBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                downloadFilteredBtn.classList.add('hover:bg-orange-600');
+            } else {
+                downloadFilteredBtn.disabled = true;
+                downloadFilteredBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                downloadFilteredBtn.classList.remove('hover:bg-orange-600');
+            }
+        });
+        
+        // Handle download filtered button click
+        downloadFilteredBtn.addEventListener('click', function() {
+            const searchValue = searchInput.value.trim();
+            
+            if (searchValue.length === 0) {
+                Swal.fire({
+                    title: 'No Search Term',
+                    text: 'Please enter a search term to download filtered records.',
+                    icon: 'warning',
+                    confirmButtonColor: '#f97316',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+            
+            // Show confirmation dialog
+            Swal.fire({
+                title: 'Download Filtered Data',
+                text: `Download records matching "${searchValue}"?`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#f97316',
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: 'Yes, Download',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Create form and submit
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = '{{ route("annulment-indv.download-filtered") }}';
+                    
+                    // Add CSRF token
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]');
+                    if (csrfToken) {
+                        const csrfInput = document.createElement('input');
+                        csrfInput.type = 'hidden';
+                        csrfInput.name = '_token';
+                        csrfInput.value = csrfToken.getAttribute('content');
+                        form.appendChild(csrfInput);
+                    }
+                    
+                    // Add search input
+                    const searchInputField = document.createElement('input');
+                    searchInputField.type = 'hidden';
+                    searchInputField.name = 'search_input';
+                    searchInputField.value = searchValue;
+                    form.appendChild(searchInputField);
+                    
+                    // Submit form
+                    document.body.appendChild(form);
+                    form.submit();
+                    document.body.removeChild(form);
+                }
+            });
+        });
+    }
+});
 </script>
 @endsection
